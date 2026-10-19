@@ -19,14 +19,19 @@ import zstandard as zstd
 from .corpus import iter_passages
 
 
-def crawler_running() -> bool:
-    return subprocess.run(["pgrep", "-f", "search.crawler"], capture_output=True).returncode == 0
+def crawler_running(shards_pattern: str = "") -> bool:
+    """Is a crawler writing to this shard directory? (match on its --out dir so other crawls don't count)"""
+    out = subprocess.run(["pgrep", "-fl", "search.crawler"], capture_output=True, text=True).stdout
+    if not out.strip():
+        return False
+    d = os.path.dirname(shards_pattern)
+    return any(d in line for line in out.splitlines()) if d else True
 
 
 def closed_shards(pattern: str) -> list[str]:
     """All shards except the newest one per worker while the crawler is alive (that one is still being written)."""
     shards = sorted(glob.glob(pattern))
-    if not crawler_running():
+    if not crawler_running(pattern):
         return shards
     newest = {}
     for s in shards:
@@ -99,15 +104,21 @@ def main():
             if os.path.exists(out_prefix + ".claim"):
                 try:
                     pid = int(open(out_prefix + ".claim").read().strip())
-                    os.kill(pid, 0)  # raises if the owner died -> stale claim
-                    continue
+                except FileNotFoundError:
+                    continue  # finished between our exists() and open(); will be seen as .npy next pass
                 except ValueError:
                     continue  # old-style tag claim; assume live
+                try:
+                    os.kill(pid, 0)  # raises if the owner died -> stale claim
+                    continue
                 except OSError:
-                    os.remove(out_prefix + ".claim")
+                    try:
+                        os.remove(out_prefix + ".claim")
+                    except FileNotFoundError:
+                        continue
             todo.append((s, out_prefix))
         if not todo:
-            if args.once or not crawler_running():
+            if args.once or not crawler_running(args.shards):
                 break
             time.sleep(15)
             continue

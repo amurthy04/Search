@@ -21,6 +21,8 @@ All numbers below are from `bench/results/*.json` produced by the scripts in `be
 | **cold-host rate limit** | scheduler split into warm hosts (have a keep-alive connection) and cold hosts (need DNS+TCP+TLS); cold hosts drained through a token bucket, warm hosts always first | **289** (vs 52 same minute, same seeds) | TTFB p50 1.8 s -> 0.6 s; timeouts 7189 -> 1685 per 75 s |
 | rate sweep | cold hosts/s per worker: 15 -> 274, 25 -> 282, 40 -> 289, **60 -> 321**, 90 -> 290 | 321 | knee at ~120 new connections/s machine-wide |
 | final | 2 workers x 256 conns, cold-host rate 60/s/worker, 8/3/5 s timeouts, 300 KB body cap, Tranco 600k+ seeds, depth 2, <=40 pages/host | ~300 | production config for the main crawl |
+| main crawl | 60k seeds, 49.5 min, stopped when the frontier drained to 42k URLs | 133 avg (300 peak -> 60 at the end) | **394,666 pages**, 159k hosts, 1.03M URLs seen, 58.9 GB HTML; 225k connect/read timeouts. Avg was pulled down by the frontier draining and by CPU contention from the embedding watchers running alongside (crawler parse time tripled while a CPU embedder ran; it was killed). |
+| quality crawl | 239 authoritative hosts, depth 4, <=4000 pages/host, cold-host rate 5/s, 1 worker x 128 conns, run concurrently | ~40-50 | reuses keep-alive connections, so it costs almost no new-connection budget |
 
 Where the ceiling is: the network path admits roughly 120 *new* TCP connections per second from this machine. A
 breadth-first crawler opens a new connection for almost every page (each page is on a new host), so it is capped at
