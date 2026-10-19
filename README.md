@@ -15,12 +15,22 @@ optimization step (what was tried, what moved, where returns diminished).
 ```bash
 uv sync                                                         # Python 3.12 env
 ulimit -n 65536
-uv run python -m search.crawler --workers 8 --n-seeds 40000 --time-limit 600 --out data/crawl/pages
-uv run python -m search.embed run --backend mlx --model BAAI/bge-small-en-v1.5 --out data/index/emb
-uv run python -m search.index build --emb data/index/emb --out data/index/idx --kinds flat hnsw
-uv run python -m search.query repl --index data/index/idx.hnsw
-uv run python bench/e2e.py --tag mine --print                   # 30 queries, per-stage latency
+# crawl: 8 workers, cold-host metering, 10 min
+uv run python -m search.crawler --workers 8 --n-seeds 40000 --new-host-rate 40 --time-limit 600 --out data/crawl/pages
+# embed closed shards as they appear (CoreML GPU, ~600 passages/s); run alongside the crawler
+uv run python -m search.embed_watch --backend coreml --shards "data/crawl/*.jsonl.zst" --parts data/index/parts
+# merge parts (drops exact-duplicate passages), build exact + HNSW indexes, bench recall
+uv run python -m search.merge_parts --parts data/index/parts --out data/index/emb --dedupe
+uv run python -m search.index build --emb data/index/emb --out data/index/idx --kinds flat hnsw --threads 12
+uv run python -m search.index bench --emb data/index/emb --index data/index/idx --kinds hnsw --params 16 32 64 128
+# query
+uv run python -m search.query repl --backend coreml --device gpu --emb data/index/emb --index data/index/idx.hnsw
+uv run python -m search.query serve --backend coreml --device gpu --emb data/index/emb --index data/index/idx.hnsw --port 8080
+uv run python bench/e2e.py --backend coreml --device gpu --emb data/index/emb --index data/index/idx.hnsw --tag mine --print
 ```
+
+Current state (RESULTS.md section 8): 689k pages crawled, 2.41M passages embedded and indexed, end-to-end query
+p50 **1.9 ms** (embed 1.7 / HNSW 0.19 / dedupe 0.03 / snippets 0.02), HNSW recall@10 0.991 vs exact search.
 
 ## Components
 

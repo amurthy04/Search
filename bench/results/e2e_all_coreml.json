@@ -1,0 +1,2489 @@
+{
+ "tag": "all_coreml",
+ "model": "BAAI/bge-small-en-v1.5",
+ "backend": "coreml",
+ "device": "gpu",
+ "index": "data/index/idx_all.hnsw",
+ "ef": 64,
+ "k": 10,
+ "n_passages": 2411705,
+ "cold_start_s": 5.118643375026295,
+ "load": {
+  "model_s": 3.3694757079938427,
+  "index_s": 0.5264884580101352,
+  "meta_s": 1.1129534170031548
+ },
+ "latency_ms": {
+  "embed": {
+   "p50": 1.67610400239937,
+   "p95": 3.06946264608996,
+   "p99": 11.351673492172232,
+   "mean": 2.625844900548044
+  },
+  "search": {
+   "p50": 0.1866664970293641,
+   "p95": 0.2639876576722599,
+   "p99": 0.3494826323003507,
+   "mean": 0.19644074264862058
+  },
+  "dedupe": {
+   "p50": 0.033416508813388646,
+   "p95": 0.1050562612363137,
+   "p99": 0.1389137568185106,
+   "mean": 0.04671434516138914
+  },
+  "snippets": {
+   "p50": 0.019000013708136976,
+   "p95": 1.1337019022903403,
+   "p99": 1.2000066219479777,
+   "mean": 0.36022173234313315
+  },
+  "total": {
+   "p50": 1.9390410016058013,
+   "p95": 4.529893743165302,
+   "p99": 12.84421800024571,
+   "mean": 3.229221720701187
+  }
+ },
+ "results": [
+  {
+   "query": "how do transformers work in machine learning",
+   "hits": [
+    {
+     "score": 0.8587115406990051,
+     "url": "https://www.geeksforgeeks.org/machine-learning/getting-started-with-transformers/",
+     "title": "Transformers in Machine Learning - GeeksforGeeks",
+     "pid": 1465675,
+     "snippet": "Transformers in Machine Learning - GeeksforGeeks\nCourses Tutorials Interview Prep Python for Machine Learning Machine Learning with R Machine Learning Algorithms EDA Math for Machine Learning Machine Learning Interview Questions ML Projects Deep Learning NLP Computer vision Data Science Artificial I"
+    },
+    {
+     "score": 0.8442569971084595,
+     "url": "https://www.geeksforgeeks.org/deep-learning/architecture-and-working-of-transformers-in-deep-learning/",
+     "title": "Architecture and Working of Transformers in Deep Learning - GeeksforGeeks",
+     "pid": 1489426,
+     "snippet": "Architecture and Working of Transformers in Deep Learning - GeeksforGeeks\nCourses Sale Tutorials Interview Prep DSA Practice Problems C C++ Java Python JavaScript Data Science Machine Learning Courses Linux DevOps Architecture and Working of Transformers in Deep Learning Last Updated : 18 Oct, 2025 "
+    },
+    {
+     "score": 0.8237842321395874,
+     "url": "https://github.com/huggingface/transformers",
+     "title": "GitHub - huggingface/transformers: \ud83e\udd17 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and tra",
+     "pid": 1790249,
+     "snippet": "GitHub - huggingface/transformers: \ud83e\udd17 Transformers: the model-definition framework for state-of-the-art machine learning models in text, vision, audio, and multimodal models, for both inference and tra\n| \u7b80\u4f53\u4e2d\u6587 | \u7e41\u9ad4\u4e2d\u6587 | \ud55c\uad6d\uc5b4 | Espa\u00f1ol | \u65e5\u672c\u8a9e | \u0939\u093f\u0928\u094d\u0926\u0940 | \u0420\u0443\u0441\u0441\u043a\u0438\u0439 | Portugu\u00eas | \u0c24\u0c46\u0c32\u0c41\u0c17\u0c41 | Fran\u00e7ais | Deutsch | "
+    },
+    {
+     "score": 0.8147306442260742,
+     "url": "https://www.geeksforgeeks.org/artificial-intelligence/roadmap-to-generative-ai-a-comprehensive-guide-for-beginners/",
+     "title": "Roadmap to Generative AI: A Comprehensive Guide for Beginners - GeeksforGeeks",
+     "pid": 1646659,
+     "snippet": "Roadmap to Generative AI: A Comprehensive Guide for Beginners - GeeksforGeeks\ninsights from structured and unstructured data. It includes statistics, data analysis and machine learning to help solve real-world problems. For more details you can refer to: Learn Data Science Tutorial With Python Machi"
+    },
+    {
+     "score": 0.8144843578338623,
+     "url": "https://transformer-circuits.pub/2021/framework/index.html",
+     "title": "A Mathematical Framework for Transformer Circuits",
+     "pid": 1716159,
+     "snippet": "A Mathematical Framework for Transformer Circuits\nlanguage models, we have found it most fruitful to start with the simplest possible models and work our way up from there. Our aim is to discover simple algorithmic patterns, motifs, or frameworks that can subsequently be applied to larger and more c"
+    },
+    {
+     "score": 0.8063467144966125,
+     "url": "https://huggingface.co/docs/transformers/en/index",
+     "title": "Transformers \u00b7 Hugging Face",
+     "pid": 1242261,
+     "snippet": "Transformers \u00b7 Hugging Face\nmodels. generate : Fast text generation with large language models (LLMs) and vision language models (VLMs), including support for streaming and multiple decoding strategies. Design Read our Philosophy to learn more about Transformers\u2019 design principles. Transformers is d"
+    },
+    {
+     "score": 0.7957099676132202,
+     "url": "https://transformer-circuits.pub/2022/in-context-learning-and-induction-heads/index.html",
+     "title": "In-context Learning and Induction Heads",
+     "pid": 1715557,
+     "snippet": "In-context Learning and Induction Heads\nunderstand the internal structures that cause Transformer models to produce the outputs they do, then we may be able to address current safety problems more systematically, as well as anticipating safety problems in future more powerful models. Note that mecha"
+    },
+    {
+     "score": 0.7946680188179016,
+     "url": "https://www.deeplearning.ai/courses/how-transformer-llms-work?utm_campaign=handsonllm-launch&utm_medium=partner",
+     "title": "How Transformer LLMs Work - DeepLearning.AI",
+     "pid": 1652067,
+     "snippet": "How Transformer LLMs Work - DeepLearning.AI\ncourse include: The evolution of how language has been represented numerically, from the Bag-of-Words model through Word2Vec embeddings to the transformer architecture that captures word meanings in full context. How LLM inputs are broken down into tokens,"
+    },
+    {
+     "score": 0.7872154712677002,
+     "url": "https://www.geeksforgeeks.org/artificial-intelligence/introduction-to-hugging-face-transformers/",
+     "title": "Introduction to Hugging Face Transformers - GeeksforGeeks",
+     "pid": 1456288,
+     "snippet": "Introduction to Hugging Face Transformers - GeeksforGeeks\ncompatibility with specific model architectures 2. Pipeline Pipeline provides a high level interface to run models quickly without managing internal complexities. Combines preprocessing, model inference and postprocessing Supports tasks like "
+    },
+    {
+     "score": 0.7870361804962158,
+     "url": "https://gwern.net/blog/2025/you-could-have-invented-transformers",
+     "title": "\u201cYou Could\u2019ve Invented Transformers\u201d, by Gwern \u00b7 Gwern.net",
+     "pid": 1521353,
+     "snippet": "\u201cYou Could\u2019ve Invented Transformers\u201d, by Gwern \u00b7 Gwern.net\npossible nor enlightening. However, at this point, I believe we now understand Transformers & variations well enough that we can invent an imaginary history of Transformers for pedagogical purposes, in the vein of the \u201cYou Could Have Invente"
+    }
+   ],
+   "t_ms": {
+    "embed": 4.646499990485609,
+    "search": 0.5195830017328262,
+    "dedupe": 0.10837501031346619,
+    "snippets": 0.9322499972768128,
+    "total": 6.206707999808714
+   }
+  },
+  {
+   "query": "best way to learn rust programming",
+   "hits": [
+    {
+     "score": 0.826137900352478,
+     "url": "https://users.rust-lang.org/t/should-i-read-a-book-like-rust-for-rustaceans-or-programming-rust-to-get-better-at-rust-after-finishing-the-book/143126",
+     "title": "Should I read a book like 'Rust for Rustaceans' or 'Programming Rust' to get better at Rust after finishing 'The Book'? - tutorials - The Rust Programming Language Forum",
+     "pid": 1541301,
+     "snippet": "Should I read a book like 'Rust for Rustaceans' or 'Programming Rust' to get better at Rust after finishing 'The Book'? - tutorials - The Rust Programming Language Forum\nmight seem fairly arbitrary and hard to memorize without that moment of \"oh that's so much nicer than what I've been doing!\" Guela"
+    },
+    {
+     "score": 0.8239070177078247,
+     "url": "https://rust-lang.org/learn/",
+     "title": "Learn Rust - Rust Programming Language",
+     "pid": 1700948,
+     "snippet": "Learn Rust - Rust Programming Language\nAffectionately nicknamed \u201cthe book,\u201d The Rust Programming Language will give you an overview of the language from first principles. You\u2019ll build a few projects along the way, and by the end, you\u2019ll have a solid grasp of the language. Read the Book! If reading m"
+    },
+    {
+     "score": 0.8165591359138489,
+     "url": "https://www.coursera.org/articles/rust-programming-language",
+     "title": "Rust Programming Language: What It Is, How It Works, and Why Learn It | Coursera",
+     "pid": 1662335,
+     "snippet": "Rust Programming Language: What It Is, How It Works, and Why Learn It | Coursera\na bug is present. Developer teams at all levels can also make use of a catalog of tools, including: Cargo: Rust's included dependency manager and build tool Rustup: Toolchain management and installation command Clippy: "
+    },
+    {
+     "score": 0.8028095960617065,
+     "url": "https://users.rust-lang.org/c/tutorial/7",
+     "title": "tutorials - The Rust Programming Language Forum",
+     "pid": 1541551,
+     "snippet": "tutorials - The Rust Programming Language Forum\nWhich is more performant in Rust? 15 800 August 17, 2026 Under What Circumstances Does Rust Promote a Value to a 'static Lifetime? 6 261 August 11, 2026 A hands-on tutorial for building a Lisp interpreter in Rust from scratch with zero dependencies 0 2"
+    },
+    {
+     "score": 0.8019342422485352,
+     "url": "https://stackoverflow.blog/2021/03/15/getting-started-with-rust/",
+     "title": "Getting started with ... Rust - Stack Overflow",
+     "pid": 1696366,
+     "snippet": "Getting started with ... Rust - Stack Overflow\nThis way, less experienced programmers don\u2019t need to rely on senior developers to catch their bugs and allowing more people to work together on the same codebase without having to worry about keeping track of all the moving parts, a huge help on larger "
+    },
+    {
+     "score": 0.8016568422317505,
+     "url": "https://mainmatter.com/training/rust/",
+     "title": "Rust training | Mainmatter",
+     "pid": 1229549,
+     "snippet": "Rust training | Mainmatter\nSkip to main content Training and workshops Rust training We teach teams and individuals how to adopt and succeed with Rust. Our hands-on workshops cover everything from language basics to async, proc macros, advanced testing, embedded Rust, and migrating C to Rust. Our wo"
+    },
+    {
+     "score": 0.7894065380096436,
+     "url": "https://mainmatter.com/rust-adoption-handbook/",
+     "title": "The Rust Adoption Handbook | Mainmatter",
+     "pid": 1232067,
+     "snippet": "The Rust Adoption Handbook | Mainmatter\nfor a practical guide to why, where, and how to successfully adopt Rust for cloud-native systems. Rust & Mainmatter: a unique skillset We support clients in rewriting existing codebases to Rust, using Rust to accelerate hot modules in Python, Ruby, Node.js, or"
+    },
+    {
+     "score": 0.7800654172897339,
+     "url": "https://nostarch.com/rust-programming-language-3e",
+     "title": "The Rust Programming Language, 3rd Edition | No Starch Press",
+     "pid": 569394,
+     "snippet": "The Rust Programming Language, 3rd Edition | No Starch Press\nSkip to main content WANT SWEET DEALS? JOIN OUR MAILING LIST The Rust Programming Language, 3rd Edition by Steve Klabnik, Carol Nichols, and Chris Krycho, with contributions from the Rust Community March 2026, 624 pp. ISBN-13: 978171850444"
+    },
+    {
+     "score": 0.7757877111434937,
+     "url": "https://www.outreachy.org/blog/2019-10-18/open-projects/",
+     "title": "Picking an Outreachy Project - December 2019 round",
+     "pid": 2161944,
+     "snippet": "Picking an Outreachy Project - December 2019 round\n\"Did you mean?\" hints , C (Preferred), Fractal: Implement video player in message list , Gstreamer or video library knowledge (Preferred), Rust kwowledge or interest in learn this new language. The project is written in Rust (Preferred), Create Netl"
+    },
+    {
+     "score": 0.7740986943244934,
+     "url": "https://doc.rust-lang.org/book/ch00-00-introduction.html",
+     "title": "Introduction - The Rust Programming Language",
+     "pid": 1697617,
+     "snippet": "Introduction - The Rust Programming Language\nKeyboard shortcuts Press \u2190 or \u2192 to navigate between chapters Press S or / to search in the book Press ? to show this help Press Esc to hide this help Auto Light Rust Coal Navy Ayu The Rust Programming Language Introduction Note: This edition of the book i"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.7319159999024123,
+    "search": 0.19604197586886585,
+    "dedupe": 0.09445802425034344,
+    "snippets": 1.0204999998677522,
+    "total": 4.042915999889374
+   }
+  },
+  {
+   "query": "symptoms of vitamin d deficiency",
+   "hits": [
+    {
+     "score": 0.8447874784469604,
+     "url": "https://www.nationalgeographic.com/health/article/vitamin-d-deficiency-women",
+     "title": "Why so many women are vitamin D deficient | National Geographic",
+     "pid": 1887160,
+     "snippet": "Why so many women are vitamin D deficient | National Geographic\nResearch is revealing benefits of vitamin D that men and women alike can reap. One study showed vitamin D supplementation could even reduce our biological aging\u2014the decline of our physical function. In the research, patients who took vi"
+    },
+    {
+     "score": 0.822959303855896,
+     "url": "https://medlineplus.gov/vitaminddeficiency.html",
+     "title": "Vitamin D Deficiency: MedlinePlus",
+     "pid": 1749026,
+     "snippet": "Vitamin D Deficiency: MedlinePlus\nyour body. What problems does vitamin D deficiency cause? Vitamin D deficiency can lead to a loss of bone density , which can contribute to osteoporosis and fractures (broken bones). Severe vitamin D deficiency can also lead to other diseases: In children, it can ca"
+    },
+    {
+     "score": 0.7809072732925415,
+     "url": "https://www.bbcgoodfood.com/health/supplements/am-i-getting-enough-vitamin-d-x",
+     "title": "Am I getting enough vitamin D? | Good Food",
+     "pid": 1617131,
+     "snippet": "Am I getting enough vitamin D? | Good Food\ndamage organs, including the kidneys and heart. If you choose to take vitamin D supplements, 10mcg a day is sufficient for most people, unless your doctor has told you otherwise. Many people choose not to supplement during the summer months when they know t"
+    },
+    {
+     "score": 0.7717950344085693,
+     "url": "https://www.nhs.uk/conditions/vitamin-b12-or-folate-deficiency-anaemia/symptoms/",
+     "title": "Vitamin B12 or folate deficiency anaemia - Symptoms\n - NHS",
+     "pid": 2150589,
+     "snippet": "Vitamin B12 or folate deficiency anaemia - Symptoms\n - NHS\nincluding: numbness muscle weakness psychological problems, which can range from mild depression or anxiety, to confusion and dementia problems with balance and coordination pins and needles incontinence When to see a GP See a GP if you're e"
+    },
+    {
+     "score": 0.7668192982673645,
+     "url": "https://www.babycenter.com/pregnancy/diet-and-fitness/vitamin-d-in-your-pregnancy-diet_661",
+     "title": "Vitamin D during pregnancy: The sunshine nutrient your body (and your baby) rely on | BabyCenter",
+     "pid": 2033452,
+     "snippet": "Vitamin D during pregnancy: The sunshine nutrient your body (and your baby) rely on | BabyCenter\npage continues below Here\u2019s what you need to know about getting enough vitamin D, including when to talk to your doctor about turning to a supplement for extra support. Key Takeaways Vitamin D helps your"
+    },
+    {
+     "score": 0.761389970779419,
+     "url": "https://kidshealth.org/en/parents/anemia.html",
+     "title": "Anemia | Nemours KidsHealth",
+     "pid": 1478972,
+     "snippet": "Anemia | Nemours KidsHealth\ninfection, illness, or other cause iron-deficiency anemia : when someone doesn't have enough iron in their diet deficiencies in vitamins including B12 or folate: when someone doesn't get enough B12 (pernicious anemia) or folic acid in the diet or the body can't absorb the"
+    },
+    {
+     "score": 0.7606433629989624,
+     "url": "https://www.bbcgoodfood.com/health/nutrition/what-vitamin-b12",
+     "title": "Vitamin B12: Benefits, Sources, Deficiencies | Good Food",
+     "pid": 1617425,
+     "snippet": "Vitamin B12: Benefits, Sources, Deficiencies | Good Food\nVitamins and Minerals Information Hub to learn more about key nutrients \u2013 from whether you\u2019re getting enough vitamin D to the top 10 healthiest sources of vitamin C , plus vital minerals you need in your diet. The benefits of vitamin B12 inclu"
+    },
+    {
+     "score": 0.7587077617645264,
+     "url": "https://medlineplus.gov/vitamind.html",
+     "title": "Vitamin D: MedlinePlus",
+     "pid": 1809728,
+     "snippet": "Vitamin D: MedlinePlus\nA lack of vitamin D can lead to bone diseases such as osteoporosis or rickets . It also has a role in your nerve, muscle, and immune systems: Your muscles need it to move Your nerves need it to carry messages between your brain and your body Your immune system needs vitamin D "
+    },
+    {
+     "score": 0.7568762302398682,
+     "url": "https://medlineplus.gov/rickets.html",
+     "title": "Rickets | MedlinePlus",
+     "pid": 1778203,
+     "snippet": "Rickets | MedlinePlus\ndiet Is breastfed without receiving vitamin D supplements Can't make or use vitamin D because of a medical disorder such as celiac disease In addition to dietary rickets, children can get an inherited form of the disease. Symptoms include bone pain or tenderness, impaired growt"
+    },
+    {
+     "score": 0.7565221190452576,
+     "url": "https://www.healthline.com/health/erectile-dysfunction/ed-and-vitamins",
+     "title": "Erectile Dysfunction and Vitamins: What\u2019s the Connection?",
+     "pid": 1697298,
+     "snippet": "Erectile Dysfunction and Vitamins: What\u2019s the Connection?\nlinked with sexual function and cardiovascular health. One 2020 analysis showed a significant association between low vitamin D levels and ED severity. This suggests that low levels may make symptoms worse compared with adequate vitamin D lev"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.718415984418243,
+    "search": 0.22283400176092982,
+    "dedupe": 0.1010000123642385,
+    "snippets": 1.07533298432827,
+    "total": 4.1175829828716815
+   }
+  },
+  {
+   "query": "how to make sourdough bread at home",
+   "hits": [
+    {
+     "score": 0.8798421025276184,
+     "url": "https://www.cookrepublic.com/how-to-make-a-sourdough-starter-at-home-tips-tricks-and-troubleshooting/",
+     "title": "How To Make A Sourdough Starter At Home - Tips, Tricks And Troubleshooting - Cook Republic",
+     "pid": 94998,
+     "snippet": "How To Make A Sourdough Starter At Home - Tips, Tricks And Troubleshooting - Cook Republic\nRecipes Subscribe Substack Cooking School About Contact \u00d7 Recipes Subscribe Substack Cooking School About Contact \u00d7 Home \u276d Fermenting How To Make A Sourdough Starter At Home - Tips, Tricks And Troubleshooting "
+    },
+    {
+     "score": 0.848440408706665,
+     "url": "https://breaddad.com/bread-machine-sourdough-recipe/",
+     "title": "Bread Machine Sourdough Bread (No Oven) - Bread Dad",
+     "pid": 208565,
+     "snippet": "Bread Machine Sourdough Bread (No Oven) - Bread Dad\nThis bread machine sourdough recipe produces a delicious sourdough bread. It is a fantastic sandwich bread to make at home because sourdough bread has an unique sour and tangy flavor. Sourdough bread tastes similar to the breads that were made hund"
+    },
+    {
+     "score": 0.8457639217376709,
+     "url": "https://www.bbcgoodfood.com/recipes/white-sourdough",
+     "title": "How to make sourdough | Good Food",
+     "pid": 1356466,
+     "snippet": "How to make sourdough | Good Food\nSkip to main content White sourdough Barney Desmazery Save recipe Makes 2 loaves (12-15 slices each) A challenge Prep: 1 hr Cook: 40 mins plus six days feeding the starter, chilling and cooling A star rating of 4.7 out of 5. 156 ratings Rate loading... Master the ar"
+    },
+    {
+     "score": 0.8330832719802856,
+     "url": "https://exactlyhowlong.com/homemade-bread/",
+     "title": "Homemade Bread",
+     "pid": 1038139,
+     "snippet": "Homemade Bread\nSkip to content Trending Post: 15 Cozy Fall Living Room Ideas Easy Recipes Homemade Bread By Samantha Posted on October 1, 2026 Updated on October 5, 2026 \u2193 Jump to Recipe Homemade bread is simply flour, water, yeast, salt, and a bit of time. This recipe takes about three hours from s"
+    },
+    {
+     "score": 0.7969778776168823,
+     "url": "https://www.wildfermentation.com/events/sourdough-bread-hands-on-workshop-with-fermenters-club/",
+     "title": "Sourdough Bread Hands-on Workshop with Fermenters Club | Wild Fermentation :: Wild Fermentation",
+     "pid": 754236,
+     "snippet": "Sourdough Bread Hands-on Workshop with Fermenters Club | Wild Fermentation :: Wild Fermentation\nmaking and eating fermenting foods DEMO: We\u2019ll show you how easy it is to start making naturally-leavened bread yourself at home! TASTE: We\u2019ll have a variety of sourdough bread flavors and will bake bread"
+    },
+    {
+     "score": 0.7962919473648071,
+     "url": "https://www.bbcgoodfood.com/recipes/collection/sourdough-recipes",
+     "title": "Sourdough Recipes | Good Food",
+     "pid": 2018705,
+     "snippet": "Sourdough Recipes | Good Food\nSkip to main content Sourdough recipes 30 Recipes Bake a fresh loaf of sourdough bread with our ultimate recipe collection, then turn it into tasty canap\u00e9s or a hearty traybake. Ad Showing 1 to 24 of 30 results White sourdough A star rating of 4.7 out of 5. 156 ratings "
+    },
+    {
+     "score": 0.7911301851272583,
+     "url": "https://www.bbcgoodfood.com/recipes/home-churned-butter",
+     "title": "How to make homemade butter | Good Food",
+     "pid": 1890323,
+     "snippet": "How to make homemade butter | Good Food\nSkip to main content How to make homemade butter Barney Desmazery Save recipe makes 200g block Easy Prep: 30 mins no cook A star rating of 4.7 out of 5. 14 ratings Rate loading... Try making your own homemade butter with just a one-litre jar and a marble. Kids"
+    },
+    {
+     "score": 0.7910382747650146,
+     "url": "https://www.bbcgoodfood.com/howto/guide/top-5-easy-bread-recipes",
+     "title": "Top 10 easy bread recipes | Good Food",
+     "pid": 1640437,
+     "snippet": "Top 10 easy bread recipes | Good Food\nPreheat the oven, then simply mix the dry ingredients together in a bowl. In a separate jug, combine your wet ingredients before gently incorporating them into the dry mixture with a knife. Transfer the dough onto a floured surface, shape it into a ball, and put"
+    },
+    {
+     "score": 0.783868670463562,
+     "url": "https://www.bbcgoodfood.com/recipes/easy-white-bread",
+     "title": "Easy white bread recipe | Good Food",
+     "pid": 1892029,
+     "snippet": "Easy white bread recipe | Good Food\nor place in the fridge overnight. step 5 Line a baking tray with baking parchment. Knock back the dough (punch the air out and pull the dough in on itself) then gently mould the dough into a ball. step 6 Place it on the baking parchment to prove for a further hour"
+    },
+    {
+     "score": 0.7813352346420288,
+     "url": "https://breaddad.com/list-of-bread-recipes/",
+     "title": "80+ Easy Bread Recipes - Bread Dad",
+     "pid": 206909,
+     "snippet": "80+ Easy Bread Recipes - Bread Dad\nThese easy bread recipes cover white bread, whole wheat bread, French bread, multigrain bread, bagels, hamburger buns & more. Homemade bread is so much better than semi-stale store bread! You also know what you are putting in your bread and can screen out weird pre"
+    }
+   ],
+   "t_ms": {
+    "embed": 3.0274169985204935,
+    "search": 0.1895420136861503,
+    "dedupe": 0.14124999870546162,
+    "snippets": 1.0704159794840962,
+    "total": 4.428624990396202
+   }
+  },
+  {
+   "query": "what causes inflation",
+   "hits": [
+    {
+     "score": 0.8472040891647339,
+     "url": "https://www.clevelandfed.org/center-for-inflation-research/inflation-explained-your-guide-to-inflation-basics",
+     "title": "Inflation Explained: Your Guide to Inflation Basics",
+     "pid": 658402,
+     "snippet": "Inflation Explained: Your Guide to Inflation Basics\ncauses inflation? Learn about this important economic indicator and the factors influencing its behavior. What are the causes of inflation? What is demand-pull inflation? What is cost-push inflation? What are inflation expectations, and how do they"
+    },
+    {
+     "score": 0.8118381500244141,
+     "url": "https://www.bbc.com/news/articles/cwy8lx3pg4k2o",
+     "title": "US inflation rises more than expected - here's what is happening with prices",
+     "pid": 1481995,
+     "snippet": "US inflation rises more than expected - here's what is happening with prices\ntime. For example, if a bottle of milk costs $1 but rises to $1.10 a year later, then annual inflation for bottled milk is 10%. Officials from the Bureau of Labor Statistics measure inflation through the consumer price inde"
+    },
+    {
+     "score": 0.8067991733551025,
+     "url": "https://www.xe.com/en-us/blog/money-transfer/why-do-currencies-fluctuate/",
+     "title": "Why Do Currencies Fluctuate | Xe Blog",
+     "pid": 2339444,
+     "snippet": "Why Do Currencies Fluctuate | Xe Blog\nis the inflation rate. The inflation rate is the rate at which the general price of goods and services are increasing. While a small amount of inflation indicates a healthy economy, too much of an increase can cause economic instability, which may ultimately lea"
+    },
+    {
+     "score": 0.7954328060150146,
+     "url": "https://profmattstrassler.com/articles-and-posts/relativity-space-astronomy-and-cosmology/history-of-the-universe/inflation/",
+     "title": "Inflation \u2013 Of Particular Significance",
+     "pid": 1185186,
+     "snippet": "Inflation \u2013 Of Particular Significance\nmake any sense if you go back too far, or for some other reason. But in many contexts it almost doesn\u2019t matter, as I\u2019ll now explain through a set of figures, answering some frequently asked questions along the way. What caused this insane rate of expansion? The"
+    },
+    {
+     "score": 0.7806884050369263,
+     "url": "https://www.vox.com/unexplainable/356769/inflation-pandemic-economy-federal-reserve-interest-rates",
+     "title": "We still don\u2019t really know how inflation works | Vox",
+     "pid": 1421840,
+     "snippet": "We still don\u2019t really know how inflation works | Vox\nthe answer is a lot more concrete: \u201cTo me, the very obvious explanation is we are healing the supply problems that the pandemic caused.\u201d Sahm says that after the pandemic essentially shut down the economy, it took years for the supply chain to ful"
+    },
+    {
+     "score": 0.7681623697280884,
+     "url": "https://www.aljazeera.com/video/counting-the-cost/2026/9/17/why-is-inflation-rising-again-around-the-world",
+     "title": "Why is inflation rising again around the world? | Inflation | Al Jazeera",
+     "pid": 1544212,
+     "snippet": "Why is inflation rising again around the world? | Inflation | Al Jazeera\nVideo Duration 28 minutes 00 seconds 28:00 Rising energy prices are pushing inflation higher again, forcing major central banks to raise interest rates. Read more For decades, central banks treated oil shocks as temporary, some"
+    },
+    {
+     "score": 0.7639169692993164,
+     "url": "https://www.economist.com/the-economist-explains/2018/02/11/the-roots-of-hyperinflation",
+     "title": "The roots of hyperinflation",
+     "pid": 1592671,
+     "snippet": "The roots of hyperinflation\nhidden for a while, only for it to show up suddenly. The problems begin with a \u201cshock\u201d to the economy. It might be a slump in oil prices, as in the case of Venezuela, or a slump in farming output, as in the case of Zimbabwe. The shock sets off a chain of events. Tax reven"
+    },
+    {
+     "score": 0.7577519416809082,
+     "url": "https://www.statista.com/topics/8378/inflation-worldwide/",
+     "title": "Inflation worldwide - statistics & facts | Statista",
+     "pid": 1370216,
+     "snippet": "Inflation worldwide - statistics & facts | Statista\nfrom the previous price shocks. What led to the high inflation rates in 2022 and 2023? And what are the projections for inflation following the outbreak of the war in Iran in 2026? How coronavirus and the war in Ukraine drove inflation Global infla"
+    },
+    {
+     "score": 0.7389728426933289,
+     "url": "https://www.npr.org/transcripts/nx-s1-6001702",
+     "title": "Inflation is ticking up. What does it mean for the economy? : Consider This from NPR : NPR",
+     "pid": 2117608,
+     "snippet": "Inflation is ticking up. What does it mean for the economy? : Consider This from NPR : NPR\nSo some things can lead to inflation that is inherently temporary, and those would be things - supposed to be like tariffs or oil shocks. DETROW: Yeah. Do you think... GOOLSBEE: The services inflation in this "
+    },
+    {
+     "score": 0.7334414124488831,
+     "url": "https://www.xe.com/en-us/blog/business/market-update-december-2022/",
+     "title": "Recession, inflation and currency exchange \u2013 what\u2019s next? | Xe Blog",
+     "pid": 1800190,
+     "snippet": "Recession, inflation and currency exchange \u2013 what\u2019s next? | Xe Blog\nCentral banks around the world have raised interest rates in the last few months as inflation reaches levels not seen in nearly 40 years. A global recession also looms large for many countries before the end of the year and is expec"
+    }
+   ],
+   "t_ms": {
+    "embed": 3.0919999990146607,
+    "search": 0.2295419981237501,
+    "dedupe": 0.13862500782124698,
+    "snippets": 1.1525829904712737,
+    "total": 4.6127499954309314
+   }
+  },
+  {
+   "query": "climate change effects on coral reefs",
+   "hits": [
+    {
+     "score": 0.8369618058204651,
+     "url": "https://www.nationalgeographic.com/environment/article/global-warming-effects",
+     "title": "What are the effects of global warming? | National Geographic",
+     "pid": 2077505,
+     "snippet": "What are the effects of global warming? | National Geographic\nrise in temperature can be: Coral reefs are now a highly endangered ecosystem. When corals face environmental stress, such as high heat, they expel their colorful algae and turn a ghostly white, an effect known as coral bleaching . In thi"
+    },
+    {
+     "score": 0.820082426071167,
+     "url": "https://coralrestoration.org/why-save-coral-reefs/",
+     "title": "Why Save Coral Reefs? - Coral Restoration Foundation",
+     "pid": 759084,
+     "snippet": "Why Save Coral Reefs? - Coral Restoration Foundation\ncoral reefs, disturbance events include heating events, hurricanes, cold water upwellings, ship groundings, disease outbreaks, overfishing, pollution, and more. LOCAL STRESSORS Overfishing harms coral reefs by disrupting the food chain, increasing"
+    },
+    {
+     "score": 0.8192018866539001,
+     "url": "https://www.nationalgeographic.com/environment/article/florida-coral-reef-functionally-extinct-storm-surge",
+     "title": "Why hurricane flooding is about to get more dangerous in Florida | National Geographic",
+     "pid": 1501738,
+     "snippet": "Why hurricane flooding is about to get more dangerous in Florida | National Geographic\nLesneski gathered that summer. It\u2019s the first time such a declaration has been made for these two species in Florida. (Another coral species, Dendrogyra cylindrus , was declared extinct in Florida in 2021.) The re"
+    },
+    {
+     "score": 0.8127152323722839,
+     "url": "https://www.nature.com/articles/s41586-026-11263-3",
+     "title": "Nearly half of reef-building corals face elevated relative risk of extinction | Nature",
+     "pid": 1726836,
+     "snippet": "Nearly half of reef-building corals face elevated relative risk of extinction | Nature\nSkip to main content Thank you for visiting nature.com. You are using a browser version with limited support for CSS. To obtain the best experience, we recommend you use a more up to date browser (or turn off comp"
+    },
+    {
+     "score": 0.8101835250854492,
+     "url": "https://www.nationalgeographic.com/environment/article/global-status-coral-reef-data-climate-change",
+     "title": "See How Much Corals Have Declined in Just 40 Years | National Geographic",
+     "pid": 1880841,
+     "snippet": "See How Much Corals Have Declined in Just 40 Years | National Geographic\nthe regions the report analyzed, heat waves were previously observed every decade, but since 2010 they now occur around every five years. If annual marine heatwaves become the new normal, \u201cit's quite troubling for coral reefs,\u201d"
+    },
+    {
+     "score": 0.8042151927947998,
+     "url": "https://www.npr.org/2024/09/09/g-s1-21624/florida-coral-reefs-bleaching",
+     "title": "Florida\u2019s coral reefs are still ailing but doing better : NPR",
+     "pid": 1214307,
+     "snippet": "Florida\u2019s coral reefs are still ailing but doing better : NPR\nsummer they didn\u2019t see significant bleaching. Climate Coral reefs can't keep up with climate change. So scientists are speeding up evolution Corals expel their algae when the water is too hot for too long of a period. Last summer, record "
+    },
+    {
+     "score": 0.8007542490959167,
+     "url": "https://www.npr.org/people/803934365/lauren-sommer",
+     "title": "Lauren Sommer : NPR",
+     "pid": 2364578,
+     "snippet": "Lauren Sommer : NPR\nhow it can apply to reef restoration worldwide. Claire Harbage/NPR hide caption toggle caption i Claire Harbage/NPR Climate There are still nearly pristine coral reefs. They're a blueprint for coral restoration September 23, 2026 \u2022 Coral reefs are under threat right now due to ab"
+    },
+    {
+     "score": 0.7989764213562012,
+     "url": "https://www.npr.org/tags/125938077/climate-change",
+     "title": "climate change : NPR",
+     "pid": 2368191,
+     "snippet": "climate change : NPR\nlost-and-found networks seek to reunite objects with disaster survivors. The work can take years. In some cases, it's impossible to pick up all the pieces. The coral reefs at Palmyra Atoll in the remote Pacific Ocean are some of the healthiest in the world, helping researchers u"
+    },
+    {
+     "score": 0.7988115549087524,
+     "url": "https://www.nature.com/articles/d41586-026-02965-9",
+     "title": "The super El Ni\u00f1o is cooking coral reefs \u2014 can lullabies and probiotics save them? | Nature",
+     "pid": 1630606,
+     "snippet": "The super El Ni\u00f1o is cooking coral reefs \u2014 can lullabies and probiotics save them? | Nature\nNational Oceanic and Atmospheric Administration found that, in large swathes of the oceans, the water had reached temperatures that placed corals at risk of bleaching and heat mortality . Temperatures are exp"
+    },
+    {
+     "score": 0.7987271547317505,
+     "url": "https://www.nationalgeographic.com/environment/article/el-nino-climate-change-coral-reefs-solutions",
+     "title": "As hot as a hot tub: how soaring ocean temperatures are affecting corals | National Geographic",
+     "pid": 1877845,
+     "snippet": "As hot as a hot tub: how soaring ocean temperatures are affecting corals | National Geographic\nin danger once again. This year is already \"especially bad\" says Doug Marcy, founder of the Caribbean Coral Restoration Center . Their reefs in Panama can tolerate waters in the high 70s\u00b0F but temperatures"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.864874986698851,
+    "search": 0.20924999262206256,
+    "dedupe": 0.10950001887977123,
+    "snippets": 1.1830829898826778,
+    "total": 4.366707988083363
+   }
+  },
+  {
+   "query": "python asyncio tutorial",
+   "hits": [
+    {
+     "score": 0.8657354116439819,
+     "url": "https://docs.python.org/3.16/library/asyncio.html",
+     "title": "asyncio \u2014 Asynchronous I/O \u2014 Python 3.16.0a1 documentation",
+     "pid": 1828114,
+     "snippet": "asyncio \u2014 Asynchronous I/O \u2014 Python 3.16.0a1 documentation\nNavigation index modules | next | previous | Python \u00bb 3.16.0a1 Documentation \u00bb The Python standard library \u00bb Networking and Interprocess Communication \u00bb asyncio \u2014 Asynchronous I/O | Theme Auto Light Dark | asyncio \u2014 Asynchronous I/O \u00b6 asynci"
+    },
+    {
+     "score": 0.865205705165863,
+     "url": "https://docs.python.org/3.14/library/asyncio.html",
+     "title": "asyncio \u2014 Asynchronous I/O \u2014 Python 3.14.8 documentation",
+     "pid": 2386145,
+     "snippet": "asyncio \u2014 Asynchronous I/O \u2014 Python 3.14.8 documentation\nNavigation index modules | next | previous | Python \u00bb 3.14.8 Documentation \u00bb The Python standard library \u00bb Networking and Interprocess Communication \u00bb asyncio \u2014 Asynchronous I/O | Theme Auto Light Dark | asyncio \u2014 Asynchronous I/O \u00b6 asyncio is"
+    },
+    {
+     "score": 0.864474892616272,
+     "url": "https://docs.python.org/3/library/asyncio.html",
+     "title": "asyncio \u2014 Asynchronous I/O \u2014 Python 3.15.0 documentation",
+     "pid": 1601923,
+     "snippet": "asyncio \u2014 Asynchronous I/O \u2014 Python 3.15.0 documentation\nNavigation index modules | next | previous | Python \u00bb 3.15.0 Documentation \u00bb The Python standard library \u00bb Networking and Interprocess Communication \u00bb asyncio \u2014 Asynchronous I/O | Theme Auto Light Dark | asyncio \u2014 Asynchronous I/O \u00b6 asyncio is"
+    },
+    {
+     "score": 0.8598450422286987,
+     "url": "https://docs.python.org/3.13/library/asyncio.html",
+     "title": "asyncio \u2014 Asynchronous I/O \u2014 Python 3.13.16 documentation",
+     "pid": 2168966,
+     "snippet": "asyncio \u2014 Asynchronous I/O \u2014 Python 3.13.16 documentation\nNavigation index modules | next | previous | Python \u00bb 3.13.16 Documentation \u00bb The Python standard library \u00bb Networking and Interprocess Communication \u00bb asyncio \u2014 Asynchronous I/O | Theme Auto Light Dark | asyncio \u2014 Asynchronous I/O \u00b6 asyncio "
+    },
+    {
+     "score": 0.8444191217422485,
+     "url": "https://docs.python.org/3/howto/a-conceptual-overview-of-asyncio.html",
+     "title": "A conceptual overview of asyncio \u2014 Python 3.15.0 documentation",
+     "pid": 1704963,
+     "snippet": "A conceptual overview of asyncio \u2014 Python 3.15.0 documentation\nNavigation index modules | next | previous | Python \u00bb 3.15.0 Documentation \u00bb Python HOWTOs \u00bb A conceptual overview of asyncio | Theme Auto Light Dark | A conceptual overview of asyncio \u00b6 This HOWTO article seeks to help you build a sturd"
+    },
+    {
+     "score": 0.8239748477935791,
+     "url": "https://lightning.ai/docs/litserve/features/async-concurrency/",
+     "title": "Async and concurrency - Docs",
+     "pid": 2249933,
+     "snippet": "Async and concurrency - Docs\n. What is asyncio asyncio is a Python library that provides support for writing asynchronous programs. It enables non-blocking I/O operations, allowing tasks like network requests, file reading, or database queries to run concurrently without blocking the entire program."
+    },
+    {
+     "score": 0.7891721725463867,
+     "url": "https://docs.python.org/3.5/whatsnew/3.5.html",
+     "title": "What\u2019s New In Python 3.5 \u2014 Python 3.5.10 documentation",
+     "pid": 1407421,
+     "snippet": "What\u2019s New In Python 3.5 \u2014 Python 3.5.10 documentation\nsyntax: >>> async def coro (): ... return 'spam' Inside a coroutine function, the new await expression can be used to suspend coroutine execution until the result is available. Any object can be awaited , as long as it implements the awaitable p"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.271167002618313,
+    "search": 0.20220800070092082,
+    "dedupe": 0.12599999899975955,
+    "snippets": 0.7239999831654131,
+    "total": 3.3233749854844064
+   }
+  },
+  {
+   "query": "history of the roman empire",
+   "hits": [
+    {
+     "score": 0.8034956455230713,
+     "url": "https://www.nationalgeographic.com/history/article/slaves-built-roman-empire-legacy",
+     "title": "Enslaved people built the Roman Empire. Here's how their legacy has survived. | National Geographic",
+     "pid": 1996086,
+     "snippet": "Enslaved people built the Roman Empire. Here's how their legacy has survived. | National Geographic\nHISTORY & CULTURE Enslaved people built the Roman Empire. Here's how their legacy has survived. Historians often downplay the significance of Roman slavery, but it was the engine of the empire's econo"
+    },
+    {
+     "score": 0.7929000854492188,
+     "url": "https://en.wikivoyage.org/wiki/Roman_Empire",
+     "title": "Roman Empire \u2013 Travel guide at Wikivoyage",
+     "pid": 1469609,
+     "snippet": "Roman Empire \u2013 Travel guide at Wikivoyage\nRoman Empire Contents 1 Understand 1.1 The Roman Republic 1.2 The Roman Empire 1.3 Religion and folklore 1.4 Roman heritage and revival 1.5 The influence of Latin 1.6 Roman town planning and architecture 2 Get around 3 Destinations 3.1 Italy 3.2 France 3.3 S"
+    },
+    {
+     "score": 0.7683106660842896,
+     "url": "https://www.history.com/topics/ancient-rome",
+     "title": "Ancient Rome - Facts, Location & Timeline | HISTORY",
+     "pid": 1423234,
+     "snippet": "Ancient Rome - Facts, Location & Timeline | HISTORY\nAncient Rome Ancient Rome\u2014first a republic and then an empire led by rulers such as Julius Caesar, Augustus Caesar, Caligula and Nero\u2014was a vast and powerful domain that gave rise to the culture, laws, technologies and institutions that continue to"
+    },
+    {
+     "score": 0.7341018319129944,
+     "url": "https://www.nationalgeographic.com/history/article/gladiators-truth-movie-myths",
+     "title": "What Hollywood gets wrong\u2014and right\u2014about Roman gladiators | National Geographic",
+     "pid": 2273239,
+     "snippet": "What Hollywood gets wrong\u2014and right\u2014about Roman gladiators | National Geographic\nScala, Florence The earliest mock naval battles were organized during the reign of Julius Caesar, well before the Colosseum was completed around 80 A.D. Historians are divided as to whether naumachia ever really happene"
+    },
+    {
+     "score": 0.7316257953643799,
+     "url": "https://en.wikibooks.org/wiki/European_History",
+     "title": "European History - Wikibooks, open books for an open world",
+     "pid": 1468046,
+     "snippet": "European History - Wikibooks, open books for an open world\navailable. ( edit it ) A PDF version of European History is available. File size: 1.8 MB ( info ) Chapter 1 - A Background of European History Fall of the Roman Empire, unification of Barbarians, Romanesque and Gothic architecture, Papal pow"
+    },
+    {
+     "score": 0.73084956407547,
+     "url": "https://www.economist.com/culture/2026/07/23/what-did-the-romans-ever-do-for-christianity",
+     "title": "What did the Romans ever do for Christianity?",
+     "pid": 2096384,
+     "snippet": "What did the Romans ever do for Christianity?\nCulture | Religion in the ancient world What did the Romans ever do for Christianity? The Roman empire shaped the religion in all sorts of crucial ways, a new book argues Share Photograph: Bridgeman Jul 23rd 2026 | 3 min read Listen to this story Your br"
+    },
+    {
+     "score": 0.7258563041687012,
+     "url": "https://gwern.net/doc/www/blog.world-mysteries.com/42a2d216b1d38cbe9b88d222fdbced8ae039da0a.html",
+     "title": "Mathematics of the Past",
+     "pid": 2083269,
+     "snippet": "Mathematics of the Past\ntoo many discrepancies and contradictions that could not be explained within the framework of traditional chronology. For example, let\u2019s examine what we know of ancient Rome. The monumental work The Decline and Fall of the Roman Empire , written by English historian and schol"
+    },
+    {
+     "score": 0.7221195101737976,
+     "url": "https://www.nationalgeographic.com/history/article/melsonby-hoard-iron-age-britain",
+     "title": "What was Britain like before the Roman conquest? A new hoard of treasures gives us clues. | National Geographic",
+     "pid": 1944803,
+     "snippet": "What was Britain like before the Roman conquest? A new hoard of treasures gives us clues. | National Geographic\nacross the Channel practically drips off his account: \u201cOf the\u200b\u200b\u200b\u200b inlanders most do not sow corn, but live on milk and flesh and clothe themselves in skins. All the Britons, indeed, dye th"
+    },
+    {
+     "score": 0.7219417095184326,
+     "url": "https://gwern.net/blog/2026/make-me-care",
+     "title": "\u201cFirst, Make Me Care\u201d, by Gwern \u00b7 Gwern.net",
+     "pid": 1519470,
+     "snippet": "\u201cFirst, Make Me Care\u201d, by Gwern \u00b7 Gwern.net\none write about one of the most interesting empires in history, the maritime empire of Venice ? We could ask an LLM like DeepSeek-v3 to write a boring essay introduction to the Venetian empire: A Concise Analytical Overview of Foundational Developments in "
+    },
+    {
+     "score": 0.7189921140670776,
+     "url": "https://militaryhistoryonline.com/ancient",
+     "title": "Military History Online - Ancient Articles",
+     "pid": 697347,
+     "snippet": "Military History Online - Ancient Articles\nFrom our contributors Ancient articles PUGNA AD TICINUM: The First Round in History\u2019s Greatest Rivalry By Fabio Lusiani Fabio Lusiani follows Hannibal\u2019s arrival in northern Italy through the first confrontation with a Roman army at the Ticinus River. The Al"
+    }
+   ],
+   "t_ms": {
+    "embed": 65.02379101584665,
+    "search": 0.2515419910196215,
+    "dedupe": 0.07908299448899925,
+    "snippets": 1.1932920024264604,
+    "total": 66.54770800378174
+   }
+  },
+  {
+   "query": "how to train for a marathon",
+   "hits": [
+    {
+     "score": 0.83500075340271,
+     "url": "https://www.runnersworld.com/training/a19492479/marathon-training-plans/",
+     "title": "Marathon Training Plans: The Best Plans for Every Type of Runner",
+     "pid": 1973539,
+     "snippet": "Marathon Training Plans: The Best Plans for Every Type of Runner\nyou do need three to six months to be ready to run this distance. The race is a marathon, and so is the training! All of our training plans include different types of runs such as intervals , hill workouts , easy recovery runs , and lo"
+    },
+    {
+     "score": 0.823483407497406,
+     "url": "https://www.runnersworld.com/training/a61475836/how-to-master-marathon-member/",
+     "title": "Marathon Training Guide: Fueling, Strength, and Recovery Tips",
+     "pid": 1978458,
+     "snippet": "Marathon Training Guide: Fueling, Strength, and Recovery Tips\nmarathon training. Recover Optimally: Understand the importance of rest days and how many you might need depending on your experience level (it may be more than just one!). Then, learn to maximize that recovery through mindfulness, medita"
+    },
+    {
+     "score": 0.795369029045105,
+     "url": "https://runforcharity.com/start-to-run/training-plans",
+     "title": "",
+     "pid": 858859,
+     "snippet": "Training Plans Marathon Training Plan Run for charity recommends that you allow yourself at least 24 Weeks to train for a marathon. Our training plans are design for beginners who have little to no running experience, we also recommend that you consult your doctor before you start any training plan."
+    },
+    {
+     "score": 0.794877290725708,
+     "url": "https://www.runnersworld.com/training/a46211157/how-to-master-half-marathon/",
+     "title": "How to Master the Half Marathon: RW+ Guide to Half Marathon Training",
+     "pid": 1985603,
+     "snippet": "How to Master the Half Marathon: RW+ Guide to Half Marathon Training\nyour training plans. Conquer Race-Day: Determine which mental approach and pacing strategy will get you to the finish line feeling strong. More on Half Marathon Training Whether you\u2019re looking to nail your speed workouts, dial in o"
+    },
+    {
+     "score": 0.7837247252464294,
+     "url": "https://www.runnersworld.com/training/a41854316/finding-your-next-race-distance/",
+     "title": "Find Your Next Race Distance With These Tips from a Coach",
+     "pid": 1995126,
+     "snippet": "Find Your Next Race Distance With These Tips from a Coach\nfun than you think and will get the itch to train for a faster time. It will make you an overall better runner . Remember: When I talk about pain in running, I\u2019m referring to levels of discomfort caused by high levels of exertion. Never run t"
+    },
+    {
+     "score": 0.782549262046814,
+     "url": "https://www.bbcgoodfood.com/health/fitness/8-things-i-wish-id-known-running-marathon",
+     "title": "8 things I wish I\u2019d known before running a marathon | Good Food",
+     "pid": 1582708,
+     "snippet": "8 things I wish I\u2019d known before running a marathon | Good Food\nand drink according to thirst. Marathon hydration: why it's important not too drink too much water on the run Take people\u2019s advice with a pinch of salt When you start training for the marathon you'll be bombarded with information. By al"
+    },
+    {
+     "score": 0.7752254009246826,
+     "url": "https://www.runnersworld.com/uk/training/",
+     "title": "Training",
+     "pid": 1941705,
+     "snippet": "Training\nSkip to Content Training Plans - Beginners - 5km - 10km - Half Marathon - Marathon - Ultra - Triathlon - Cross Training - Motivation Half marathon training plan for beginners Marathon plans whatever your time goal Runner's World's training pace calculator How slowing down can help you speed"
+    },
+    {
+     "score": 0.7742859721183777,
+     "url": "https://www.runnersworld.com/training/a20843627/half-marathon-training-for-beginners/",
+     "title": "Half Marathon Training Plans: Workouts, Nutrition, Gear, & More",
+     "pid": 1993625,
+     "snippet": "Half Marathon Training Plans: Workouts, Nutrition, Gear, & More\nthey don\u2019t commit enough, making race day feel super tough. If you find that sweet spot, the finish line will be in sight before you know it and you\u2019ll enjoy each mile. To do that, follow our advice and tips on how to train for a half m"
+    },
+    {
+     "score": 0.7717254757881165,
+     "url": "https://www.runnersworld.com/training/",
+     "title": "Training | Runner's World",
+     "pid": 1962622,
+     "snippet": "Training | Runner's World\nSkip to Content How to Run Faster How to Run Faster: The Runner\u2019s World Guide to Maximizing Your Speed 3 min Run Faster on Race Day 4 min How to Quickly Transform Your Stride 5 min How to Run Faster: Speed Workouts 7 min The Gear You Need to Run Faster 5 min Advertisement -"
+    },
+    {
+     "score": 0.7635297775268555,
+     "url": "https://www.runnersworld.com/training/a30911910/download-your-runners-world-training-plan/",
+     "title": "Download Your Runner\u2019s World+ Training Plans",
+     "pid": 1974679,
+     "snippet": "Download Your Runner\u2019s World+ Training Plans\n1 day cross-train (first half of plan), 2 days rest, and 2-3 days strength training Sample Workout: Warm up with 5 minutes brisk walking, do run/walk intervals for 10 minutes, and walk for 5 minutes to cool down. Recommended Experience: None! This plan is"
+    }
+   ],
+   "t_ms": {
+    "embed": 4.718040989246219,
+    "search": 0.15508400974795222,
+    "dedupe": 0.07304101018235087,
+    "snippets": 1.2543339980766177,
+    "total": 6.20050000725314
+   }
+  },
+  {
+   "query": "electric car battery lifespan",
+   "hits": [
+    {
+     "score": 0.8427538871765137,
+     "url": "https://www.etyres.co.uk/car-batteries",
+     "title": "Cheap Car Batteries | Lowest Fitted Price Guarantee | etyres",
+     "pid": 309805,
+     "snippet": "Cheap Car Batteries | Lowest Fitted Price Guarantee | etyres\nwork, or even roadside, our huge network of local mobile mechanics is at hand to remove your old battery and replace it with a brand new one. This service includes same-day and next-day options - simply browse the availability calendar and"
+    },
+    {
+     "score": 0.7871246337890625,
+     "url": "https://www.familyhandyman.com/article/buy-a-car-for-longevity/",
+     "title": "Car longevity are brands and engines that have proven durability",
+     "pid": 1464666,
+     "snippet": "Car longevity are brands and engines that have proven durability\nSkip to main content Here's How Long You Should Keep Your Car to Get the Most Out of It The Car Brands Most Likely to Hit 250,000 Miles \u2014 Does Yours Make the List? 10 Vehicles That Maintain Their Value Over Time When Is a Used Car Too "
+    },
+    {
+     "score": 0.7845161557197571,
+     "url": "https://yosepower.com/blogs/news/when-should-the-electric-bicycle-battery-be-replaced",
+     "title": "When Should the Electric Bicycle Battery Be Replaced\uff1f \u2013 YOSE POWER",
+     "pid": 754980,
+     "snippet": "When Should the Electric Bicycle Battery Be Replaced\uff1f \u2013 YOSE POWER\nE-Bike Batteries for more information. Manufacturer's R ecommended R eplacement C ycle Most batteries have an expected lifespan. Different battery manufacturers may have different standards for battery lifespan and replacement recomm"
+    },
+    {
+     "score": 0.7832615375518799,
+     "url": "https://www.scientificamerican.com/article/ev-batteries-are-dangerous-to-repair-heres-why-mechanics-are-doing-so-anyway/",
+     "title": "EV Batteries Are Dangerous to Repair. Here's Why Mechanics Are Doing So Anyway | Scientific American",
+     "pid": 2045313,
+     "snippet": "EV Batteries Are Dangerous to Repair. Here's Why Mechanics Are Doing So Anyway | Scientific American\nSave 50% on Unlimited Subscriptions December 25, 2023 7 min read Add Us On Google Add SciAm EV Batteries Are Dangerous to Repair. Here\u2019s Why Mechanics Are Doing So Anyway Fixing car and e-bike batter"
+    },
+    {
+     "score": 0.7773696184158325,
+     "url": "https://www.scientificamerican.com/article/electric-vehicles-beat-gas-cars-on-climate-emissions-over-time/",
+     "title": "Electric Vehicles Beat Gas Cars on Climate Emissions over Time | Scientific American",
+     "pid": 2043516,
+     "snippet": "Electric Vehicles Beat Gas Cars on Climate Emissions over Time | Scientific American\nNew Energy Finance. After that, electric vehicles emit significantly less CO2 than internal combustion vehicles, particularly when considering how long a typical car stays in service. And the advantage likely will i"
+    },
+    {
+     "score": 0.7719672918319702,
+     "url": "https://www.scientificamerican.com/article/reviving-dead-lithium-ion-batteries-with-an-ai-derived-electrolyte-solution/",
+     "title": "Reviving Dead Lithium-Ion Batteries with an AI-Derived Electrolyte Solution | Scientific American",
+     "pid": 1677439,
+     "snippet": "Reviving Dead Lithium-Ion Batteries with an AI-Derived Electrolyte Solution | Scientific American\nlithium-ion batteries that need disposal is expected to soar from an estimate of 900,000 metric tons this year to 20.5 million metric tons by 2040, according to a report released by the United Nations D"
+    },
+    {
+     "score": 0.7719342112541199,
+     "url": "https://www.scientificamerican.com/article/electric-vehicles-arent-ready-for-extreme-heat-and-cold-heres-how-to-fix-them/",
+     "title": "Electric Vehicles Aren't Ready for Extreme Heat and Cold. Here's How to Fix Them | Scientific American",
+     "pid": 2052122,
+     "snippet": "Electric Vehicles Aren't Ready for Extreme Heat and Cold. Here's How to Fix Them | Scientific American\nwhen a driver flips on the cabin\u2019s heat, the battery must power the HVAC system and other devices such as the defroster and seat warmers. Gas-powered cars with internal combustion engines also do s"
+    },
+    {
+     "score": 0.7676621675491333,
+     "url": "https://www.caranddriver.com/shopping-advice/a69980017/used-electric-car-ev-shoppers-buyers-guide-2026/",
+     "title": "Your 2026 Guide to Buying a Used Electric Vehicle",
+     "pid": 1864225,
+     "snippet": "Your 2026 Guide to Buying a Used Electric Vehicle\nas well as the speed and frequency at which they've been topped up. And it's not obvious just by looking at or driving a vehicle what condition its pack is in. But there are ways to determine how a battery has been treated and what kind of life is le"
+    },
+    {
+     "score": 0.7672178745269775,
+     "url": "https://www.caranddriver.com/features/a44281984/building-better-batteries-for-electric-vehicles/",
+     "title": "Building Better Batteries for Electric Vehicles",
+     "pid": 1914648,
+     "snippet": "Building Better Batteries for Electric Vehicles\nSkip to Content SHOP NEW CARS SHOP USED CARS Research Cars Expert Reviews WHAT\u2019S MY CAR WORTH? Expert-Tested Gear News + Stories GMC From the July/August 2023 issue of Car and Driver. In 2011, a Nissan Leaf carried a roughly 21.0-kWh battery that gave "
+    },
+    {
+     "score": 0.767033040523529,
+     "url": "https://ourworldindata.org/battery-price-decline",
+     "title": "Battery costs have declined by 99% in the last three decades, making electrified transport a reality | Our World in Data",
+     "pid": 1364840,
+     "snippet": "Battery costs have declined by 99% in the last three decades, making electrified transport a reality | Our World in Data\nHome Energy Over 20 million electric cars were sold globally in 2025. Most of these cars sold for around $40,000, but some are now as cheap as $10,000. 1 Even just two decades ago"
+    }
+   ],
+   "t_ms": {
+    "embed": 3.4399589931126684,
+    "search": 0.2721250057220459,
+    "dedupe": 0.06849999772384763,
+    "snippets": 1.161583000794053,
+    "total": 4.942166997352615
+   }
+  },
+  {
+   "query": "quantum computing explained simply",
+   "hits": [
+    {
+     "score": 0.8259685039520264,
+     "url": "https://www.coursera.org/articles/what-is-quantum-computing",
+     "title": "What Is Quantum Computing? | Coursera",
+     "pid": 1717121,
+     "snippet": "What Is Quantum Computing? | Coursera\nWhat Is Quantum Computing? Written by Coursera Staff \u2022 Updated on Aug 10, 2026 Learn about quantum computing and how this technology may impact the field of computer science. Key takeaways Quantum computing uses qubits, which can represent any combination of zer"
+    },
+    {
+     "score": 0.786334753036499,
+     "url": "https://stackoverflow.blog/quantum-computing/",
+     "title": "quantum computing - Stack Overflow",
+     "pid": 1355390,
+     "snippet": "quantum computing - Stack Overflow\nand love is but a mere shadow of the quantum fabric of reality. To get a feel for that fundamental difference we will walk through an example that helps to illustrate the power of quantum computation. Dylan Miracle , Dr. C\u00e9sar A. Rodr\u00edguez-Rosario 7 comment s Code "
+    },
+    {
+     "score": 0.7797098755836487,
+     "url": "https://stackoverflow.blog/2021/04/14/understanding-quantum-computing-through-drunken-walks/",
+     "title": "Understanding quantum computing through drunken walks - Stack Overflow",
+     "pid": 1561716,
+     "snippet": "Understanding quantum computing through drunken walks - Stack Overflow\nwould have to end this post here and that would be unsatisfying to us all. Let\u2019s explore the power of quantum computing then get you started writing some of your own quantum code. The jumping off point for exploring quantum compu"
+    },
+    {
+     "score": 0.7795258164405823,
+     "url": "https://www.energy.gov/science/doe-explainsquantum-computing",
+     "title": "DOE Explains...Quantum Computing | Department of Energy",
+     "pid": 2321654,
+     "snippet": "DOE Explains...Quantum Computing | Department of Energy\nReport: Quantum Computing: Progress and Prospects Advanced Quantum Testbed at Lawrence Berkeley National Laboratory Quantum Scientific Computing Open User Testbed at Sandia National Laboratories Science Highlight: Half-Quantum Step Toward Quant"
+    },
+    {
+     "score": 0.7776150703430176,
+     "url": "https://research.google/research-areas/quantum-computing/",
+     "title": "Quantum AI",
+     "pid": 2082170,
+     "snippet": "Quantum AI\nSkip to main content Quantum AI Quantum Computing merges two great scientific revolutions of the 20th century: computer science and quantum physics. Quantum physics is the theoretical basis of the transistor, the laser, and other technologies which enabled the computing revolution. But on"
+    },
+    {
+     "score": 0.7721928358078003,
+     "url": "https://www.economist.com/podcasts/2026/09/02/quantum-computers-are-almost-here",
+     "title": "Quantum computers are (almost) here",
+     "pid": 1741757,
+     "snippet": "Quantum computers are (almost) here\nmean, six months is the short end of it, the last decade as well. I recently went to see one of the world\u2019s most sophisticated quantum machines, so I want to compare notes here. But first, I\u2019m Alex Hern. Tim Cross [00:01:25] I\u2019m Tim Cross. Alex Hern [00:01:26] And"
+    },
+    {
+     "score": 0.7719804644584656,
+     "url": "https://www.scientificamerican.com/quantum-computing/",
+     "title": "Quantum Computing | Scientific American",
+     "pid": 1429159,
+     "snippet": "Quantum Computing | Scientific American\nits Majorana 2 chip continues a trend of bold claims followed by scant evidence Joseph Howlett Quantum Computing May 27, 2026 A quantum computing system\u2019s perfect randomness could keep your secrets safe Generating and confirming the randomness of qubits could "
+    },
+    {
+     "score": 0.7707264423370361,
+     "url": "https://www.quantamagazine.org/tag/computability/",
+     "title": "computability | Quanta Magazine",
+     "pid": 1524891,
+     "snippet": "computability | Quanta Magazine\nthe realm of mathematical unknowability. The Year in Computer Science 2024 in Review The Year in Computer Science By Bill Andrews December 19, 2024 Read Later Researchers got a better look at the thoughts of chatbots, amateurs learned exactly how complicated simple sy"
+    },
+    {
+     "score": 0.7705320119857788,
+     "url": "https://www.quantamagazine.org/what-is-the-true-promise-of-quantum-computing-20250403/",
+     "title": "What Is the True Promise of Quantum Computing? | Quanta Magazine",
+     "pid": 1625707,
+     "snippet": "What Is the True Promise of Quantum Computing? | Quanta Magazine\ncould match them . So began the approach of \u201cdequantizing,\u201d in which computer scientists look at quantum algorithms and try to achieve the same speeds with classical counterparts. To understand the ongoing contest between classical and"
+    },
+    {
+     "score": 0.768737256526947,
+     "url": "https://www.scientificamerican.com/article/a-quantum-computing-systems-perfect-randomness-could-keep-your-secrets-safe/",
+     "title": "A quantum computing system\u2019s perfect randomness could keep your secrets safe | Scientific American",
+     "pid": 2120391,
+     "snippet": "A quantum computing system\u2019s perfect randomness could keep your secrets safe | Scientific American\nuse traditional transistors to generate the binary code\u20141\u2019s and 0\u2019s\u2014that enables computers to store data and make calculations. On supporting science journalism If you're enjoying this article, conside"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.8927079983986914,
+    "search": 0.22304197773337364,
+    "dedupe": 0.08187501225620508,
+    "snippets": 1.0374579869676381,
+    "total": 4.235082975355908
+   }
+  },
+  {
+   "query": "how does the stock market work",
+   "hits": [
+    {
+     "score": 0.8116475343704224,
+     "url": "https://betterexplained.com/articles/what-you-should-know-about-the-stock-market/print/",
+     "title": "BetterExplained  \u00bb What You Should Know About The Stock Market \u00bb Print",
+     "pid": 1433517,
+     "snippet": "BetterExplained  \u00bb What You Should Know About The Stock Market \u00bb Print\nEveryone\u2019s heard of the stock market \u2014 but few know why it works. Were you aware that each stock has two prices? That you can\u2019t buy and sell for the same amount? That a \u201cstock market\u201d works better and is more open than a \u201cstock s"
+    },
+    {
+     "score": 0.804989218711853,
+     "url": "https://betterexplained.com/articles/what-you-should-know-about-the-stock-market/",
+     "title": "What You Should Know About The Stock Market \u2013 BetterExplained",
+     "pid": 1360649,
+     "snippet": "What You Should Know About The Stock Market \u2013 BetterExplained\nEveryone\u2019s heard of the stock market \u2014 but few know why it works. Were you aware that each stock has two prices? That you can\u2019t buy and sell for the same amount? That a \u201cstock market\u201d works better and is more open than a \u201cstock store\u201d? If"
+    },
+    {
+     "score": 0.7865792512893677,
+     "url": "https://otp-ir.com/pages/trading/stocks/",
+     "title": "Stock Trading App & Platform: Trade Shares with Olymptrade",
+     "pid": 48039,
+     "snippet": "Stock Trading App & Platform: Trade Shares with Olymptrade\ncouldn't find an answer to your question, our 24/7 support team will be happy to help you. Contact support What is stock market trading? Similar to trading on other asset types, trading on the stock market consists of opening and closing tra"
+    },
+    {
+     "score": 0.779678225517273,
+     "url": "https://www.ted.com/talks/oliver_elfenbaum_how_does_the_stock_market_work",
+     "title": "Oliver Elfenbaum: How does the stock market work? | TED Talk",
+     "pid": 1968126,
+     "snippet": "Oliver Elfenbaum: How does the stock market work? | TED Talk\nHow does the stock market work? 13,952,572 plays | Oliver Elfenbaum | TED-Ed \u2022 April 2019 Read transcript In the 1600s, the Dutch East India Company employed hundreds of ships to trade goods around the globe. In order to fund their voyages"
+    },
+    {
+     "score": 0.7497372031211853,
+     "url": "https://www.callmefred.com/can-ai-be-used-to-make-money-in-the-stock-market",
+     "title": "Can AI be used to make money in the stock market? - Call Me Fred",
+     "pid": 966969,
+     "snippet": "Can AI be used to make money in the stock market? - Call Me Fred\npotential losses. In conclusion, AI can be used to make money in the stock market by providing predictive analytics, algorithmic trading, sentiment analysis, portfolio management, and risk management capabilities. By leveraging the cap"
+    },
+    {
+     "score": 0.7488269805908203,
+     "url": "https://www.degiro.ie/knowledge/investors-academy/beginners-lessons/the-price-of-a-stock",
+     "title": "The price of a stock | DEGIRO | Worldwide online trading",
+     "pid": 1318498,
+     "snippet": "The price of a stock | DEGIRO | Worldwide online trading\nhow a stock can be valued, and what considerations will come into play when you make a trade. No matter the type of product, all listed financial instruments have a price. You may be wondering, what factors determine the price of a stock, such"
+    },
+    {
+     "score": 0.7478108406066895,
+     "url": "https://www.degiro.ie/knowledge/investing-in-shares",
+     "title": "What are stocks / shares | Products | DEGIRO online trading",
+     "pid": 1319370,
+     "snippet": "What are stocks / shares | Products | DEGIRO online trading\nFor a better user experience and secure browsing, please upgrade to the newest version of Internet Explorer or other alternative. What determines the price and value of a share? The price of a share is determined by the last transaction. A "
+    },
+    {
+     "score": 0.7441609501838684,
+     "url": "https://expertoption.finance/education/first_steps/ed104-technical-analysis-101/",
+     "title": "Technical Analysis 101",
+     "pid": 48232,
+     "snippet": "Technical Analysis 101\nEducation First Steps Technical Analysis 101 Ready to trade? Register now Technical Analysis 101 Have you ever wondered how traders predict market movements so accurately? The secret lies in the art of technical analysis. Let's break it down into simple terms, making it easy t"
+    },
+    {
+     "score": 0.7363501787185669,
+     "url": "https://app.zentrack.net/mastering-daily-results-a-comprehensive-guide-to-business-fi-25-2/",
+     "title": "Mastering Daily Results: A Comprehensive Guide to Business, Finance & Productivity - ZenTrack Bookmarks",
+     "pid": 628401,
+     "snippet": "Mastering Daily Results: A Comprehensive Guide to Business, Finance & Productivity - ZenTrack Bookmarks\nabout stock management, marketing strategies, and staffing needs. Similarly, in the finance sector, daily result charts can monitor stock prices, currency fluctuations, and economic indicators, ai"
+    },
+    {
+     "score": 0.7332404851913452,
+     "url": "https://statsa.ai/how-it-works",
+     "title": "How Statsa Works \u2014 Collect the People in the News",
+     "pid": 1156237,
+     "snippet": "How Statsa Works \u2014 Collect the People in the News\nThe game How Statsa works A stock-market style game where every card is a real person in the global news. Build a binder, watch their value rise with headlines, and out-collect your friends. Step 1 Start with 10,000 credits Sign up free. You get a fr"
+    }
+   ],
+   "t_ms": {
+    "embed": 3.0419169925153255,
+    "search": 0.24362499243579805,
+    "dedupe": 0.07254199590533972,
+    "snippets": 1.0174160124734044,
+    "total": 4.375499993329868
+   }
+  },
+  {
+   "query": "cheap flights to tokyo",
+   "hits": [
+    {
+     "score": 0.8854145407676697,
+     "url": "https://skysonar.com/en-us/destinations/city/tokyo-tyo",
+     "title": "Cheap Flights to Tokyo \u2013 Compare Airlines & Deals",
+     "pid": 454885,
+     "snippet": "Cheap Flights to Tokyo \u2013 Compare Airlines & Deals\navg from $46 June $883 avg from $52 July $975 avg from $69 Peak August $974 avg from $87 September $822 avg from $78 October $618 avg from $31 Cheapest November $666 avg from $24 December $691 avg from $32 Tracked fares Price Overview for Tokyo Lowes"
+    },
+    {
+     "score": 0.8773697018623352,
+     "url": "https://www.momondo.com/flights/tokyo",
+     "title": "$293 Cheap Flights to Tokyo in 2026/27 | momondo",
+     "pid": 1317090,
+     "snippet": "$293 Cheap Flights to Tokyo in 2026/27 | momondo\n$293 Cheap flights to Tokyo This is the cheapest one-way flight price found by a momondo user in the last 72 hours by searching for a flight to Tokyo departing on 2/7. Fares may change, and may not be available for all flights or travel dates. Click t"
+    },
+    {
+     "score": 0.8763686418533325,
+     "url": "https://www.netflights.com/flights/tokyo",
+     "title": "Cheap flights to Tokyo (TYO) | Netflights",
+     "pid": 139280,
+     "snippet": "Cheap flights to Tokyo (TYO) | Netflights\nCheap flights to Tokyo Part of Destinia Global Travel Over 25 Years in Business Rated 'Excellent' Popular routes to Tokyo from the UK choose your favourite departure airport in the UK Manchester to Tokyo search for prices Find flights Belfast to Tokyo search"
+    },
+    {
+     "score": 0.8632991313934326,
+     "url": "https://www.momondo.ca/flights/tokyo",
+     "title": "C$\u00a0454 Cheap Flights to Tokyo in 2026/27 | momondo",
+     "pid": 666535,
+     "snippet": "C$\u00a0454 Cheap Flights to Tokyo in 2026/27 | momondo\nC$ 454 Cheap flights to Tokyo This is the cheapest one-way flight price found by a momondo user in the last 72 hours by searching for a flight to Tokyo departing on 9/2. Fares may change, and may not be available for all flights or travel dates. Cli"
+    },
+    {
+     "score": 0.8614451885223389,
+     "url": "https://www.momondo.com.au/flights/tokyo",
+     "title": "$338 Cheap Flights to Tokyo in 2026/27 | momondo",
+     "pid": 1313598,
+     "snippet": "$338 Cheap Flights to Tokyo in 2026/27 | momondo\n$338 Cheap flights to Tokyo This is the cheapest one-way flight price found by a momondo user in the last 72 hours by searching for a flight to Tokyo departing on 5/11. Fares may change, and may not be available for all flights or travel dates. Click "
+    },
+    {
+     "score": 0.8603042960166931,
+     "url": "https://www.momondo.ie/flights/tokyo",
+     "title": "\u20ac324 Cheap Flights to Tokyo in 2026/27 | momondo",
+     "pid": 663849,
+     "snippet": "\u20ac324 Cheap Flights to Tokyo in 2026/27 | momondo\n\u20ac324 Cheap flights to Tokyo This is the cheapest one-way flight price found by a momondo user in the last 72 hours by searching for a flight to Tokyo departing on 25/11. Fares may change, and may not be available for all flights or travel dates. Click"
+    },
+    {
+     "score": 0.8445042371749878,
+     "url": "https://www.netflights.com/flights/japan",
+     "title": "Cheap flights to Japan () | Netflights",
+     "pid": 143029,
+     "snippet": "Cheap flights to Japan () | Netflights\nare hundreds of direct and indirect flights from the UK to Japan every week. Narita International Airport is usually the cheapest for good deals due to its larger number of international flights. Use our tools to easily find and compare the best flight options "
+    },
+    {
+     "score": 0.8299370408058167,
+     "url": "https://www.momondo.co.za/flights/tokyo",
+     "title": "R6\u00a0899 Cheap Flights to Tokyo in 2026/27 | momondo",
+     "pid": 1315110,
+     "snippet": "R6\u00a0899 Cheap Flights to Tokyo in 2026/27 | momondo\nR6 899 Cheap flights to Tokyo This is the cheapest one-way flight price found by a momondo user in the last 72 hours by searching for a flight to Tokyo departing on 3/12. Fares may change, and may not be available for all flights or travel dates. Cl"
+    },
+    {
+     "score": 0.8077287673950195,
+     "url": "https://skysonar.com/en-us/flights/tyo-lon/tokyo-to-london",
+     "title": "Tokyo to London Flights from $302",
+     "pid": 459583,
+     "snippet": "Tokyo to London Flights from $302\nMost expensive Tap a month to search those dates Looking to fly from Tokyo to London? Check out our cheap flights deals today. We have fares starting at just $302. Filter Flights Stops All Direct Max 1 stop Airline All airlines Max price: Deal score Great \u226520% off G"
+    },
+    {
+     "score": 0.8057440519332886,
+     "url": "https://www.ana.co.jp/en/us/",
+     "title": "Flights to Tokyo:Fly to Japan with 5-Star Airline - ANA English | ANA",
+     "pid": 1222653,
+     "snippet": "Flights to Tokyo:Fly to Japan with 5-Star Airline - ANA English | ANA\nInformation from ANA Back Pause Proceed Back Pause Proceed Back Pause Proceed Back Pause Proceed Campaigns ANA Featured Routes & Fares ANA Fare Lineup Los Angeles-Tokyo Offering 3 daily non-stop flights to Tokyo (Haneda/Narita) Ch"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.9957499937154353,
+    "search": 0.1655830128584057,
+    "dedupe": 0.067666987888515,
+    "snippets": 1.0998750221915543,
+    "total": 4.32887501665391
+   }
+  },
+  {
+   "query": "recipe for chicken tikka masala",
+   "hits": [
+    {
+     "score": 0.9110934734344482,
+     "url": "https://www.bbcgoodfood.com/recipes/chicken-tikka-masala",
+     "title": "Chicken tikka masala recipe | Good Food",
+     "pid": 1424136,
+     "snippet": "Chicken tikka masala recipe | Good Food\nAll Access for just \u00a36 . F ind triple-tested recipes that take the stress out of deciding what to cook, spend less time planning, and more time enjoying the season. Subscribe now Loading... Ad Loading... Loading... Explore our recipe app Subscribe now and get "
+    },
+    {
+     "score": 0.9072800874710083,
+     "url": "https://en.wikibooks.org/wiki/Cookbook:Chicken_Tikka_Masala",
+     "title": "Cookbook:Chicken Tikka Masala - Wikibooks, open books for an open world",
+     "pid": 1435579,
+     "snippet": "Cookbook:Chicken Tikka Masala - Wikibooks, open books for an open world\nJump to content From Wikibooks, open books for an open world Chicken Tikka Masala Servings 4 Time 1 hour Difficulty Cookbook | Recipes | Ingredients | Equipment | Techniques | Cookbook Disambiguation Pages | Recipes | Meat recip"
+    },
+    {
+     "score": 0.8987434506416321,
+     "url": "https://www.bbcgoodfood.com/recipes/slow-cooker-chicken-tikka-masala",
+     "title": "Slow cooker chicken tikka masala recipe | Good Food",
+     "pid": 1496923,
+     "snippet": "Slow cooker chicken tikka masala recipe | Good Food\nAll Access subscription: Magazine & App Good Food magazine and our award winning app in one premium subscription. Subscribe now for our Christmas issue Subscribe today Podcast Our food team shares tips, techniques and their all-time favourite recip"
+    },
+    {
+     "score": 0.8609550595283508,
+     "url": "https://www.bbcgoodfood.com/recipes/prawn-tikka-masala",
+     "title": "Prawn tikka masala recipe | Good Food",
+     "pid": 1532865,
+     "snippet": "Prawn tikka masala recipe | Good Food\nSubscribe now Loading... Ad Loading... Loading... Explore our recipe app Subscribe now and get access to exclusive recipes, meal plans, podcasts and more. Try today All Access subscription: Magazine & App Good Food magazine and our award winning app in one premi"
+    },
+    {
+     "score": 0.8117842674255371,
+     "url": "https://web.archive.org/web/20070716024029/http://news.bbc.co.uk/1/hi/special_report/1999/02/99/e-cyclopedia/1285804.stm",
+     "title": "BBC News | E-CYCLOPEDIA | Chicken tikka masala: Spice and easy does it",
+     "pid": 2400248,
+     "snippet": "BBC News | E-CYCLOPEDIA | Chicken tikka masala: Spice and easy does it\n130 captures 01 Oct 2002 - 07 Feb 2026 Jun JUL Aug 16 2006 2007 2008 success fail About this capture TIMESTAMPS The Wayback Machine - https://web.archive.org/web/20070716024029/http://news.bbc.co.uk:80/1/hi/special_report/1999/02"
+    },
+    {
+     "score": 0.7904490232467651,
+     "url": "https://www.bbcgoodfood.com/recipes/collection/exclusive-dinner-recipes",
+     "title": "Exclusive dinner recipes | Good Food",
+     "pid": 2045203,
+     "snippet": "Exclusive dinner recipes | Good Food\n40 mins Easy Vegetarian App only Roasting tin chicken tikka masala . This is a premium piece of content available to subscribed users. A star rating of 4.6 out of 5. 55 ratings 1 hr 15 mins Easy"
+    },
+    {
+     "score": 0.7751473784446716,
+     "url": "https://www.bbcgoodfood.com/recipes/roast-chicken-risotto-with-chicken-crackling",
+     "title": "Roast chicken risotto with chicken crackling recipe | Good Food",
+     "pid": 1730237,
+     "snippet": "Roast chicken risotto with chicken crackling recipe | Good Food\nSkip to main content Roast chicken risotto with chicken crackling Cassie Best Save recipe Serves 4 Easy Prep: 20 mins Cook: 45 mins A star rating of 4.8 out of 5. 36 ratings Rate loading... Elevate a standard risotto to something out-of"
+    },
+    {
+     "score": 0.7604753971099854,
+     "url": "https://www.bbcgoodfood.com/recipes/easy-chicken-curry",
+     "title": "Easy chicken curry recipe | Good Food",
+     "pid": 1528635,
+     "snippet": "Easy chicken curry recipe | Good Food\npaste (tikka works well) 400g can chopped tomatoes 100g Greek yogurt 1 small bunch of coriander leaves chopped 50g ground almonds naan breads or cooked basmati rice, to serve Keep the screen awake with cook mode on the Good Food app. Nutrition: per serving kcal "
+    },
+    {
+     "score": 0.7588315606117249,
+     "url": "https://www.bbcgoodfood.com/recipes/chana-masala",
+     "title": "Chana masala recipe | Good Food",
+     "pid": 1789419,
+     "snippet": "Chana masala recipe | Good Food\nghee \u00bd tsp ground coriander \u00bd tsp ground cumin \u00bd tsp chilli powder (Kashmiri if possible) 1 tsp turmeric 1 tsp garam masala 1 \u00bd tsp amchoor powder (optional) 3 medium tomatoes (around 300g), roughly chopped, or 400g can chopped tomatoes 1 lemon juiced \u00bd small pack cor"
+    },
+    {
+     "score": 0.7555842995643616,
+     "url": "https://www.bbcgoodfood.com/recipes/chetnas-end-of-summer-veg-curry",
+     "title": "Chetna's end-of-summer veg curry recipe | Good Food",
+     "pid": 1470788,
+     "snippet": "Chetna's end-of-summer veg curry recipe | Good Food\ng salt 0.2 g Ad Method step 1 To make the masala spice mix, heat a large, dry pan over a low heat and toast the cumin and coriander seeds, the cardamom and cloves for 2 mins until fragrant. Remove the cardamom seeds from the pods, then transfer wit"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.228999976068735,
+    "search": 0.1927920093294233,
+    "dedupe": 0.08062500273808837,
+    "snippets": 1.0332909878343344,
+    "total": 3.535707975970581
+   }
+  },
+  {
+   "query": "what is the capital of australia",
+   "hits": [
+    {
+     "score": 0.8236601948738098,
+     "url": "https://simple.wikipedia.org/wiki/Australia",
+     "title": "Australia - Simple English Wikipedia, the free encyclopedia",
+     "pid": 1424384,
+     "snippet": "Australia - Simple English Wikipedia, the free encyclopedia\n\u2022 Summer ( DST ) UTC +8 to +11.5 ( various [ N 3 ] ) Date format dd/mm/yyyy Mains electricity 230 V\u201350 Hz Driving side left Calling code +61 ISO 3166 code AU Internet TLD .au Today part of Australasia Australia , officially the Commonwealth"
+    },
+    {
+     "score": 0.7948594093322754,
+     "url": "https://www.qldtourism.com/city/au/canberra",
+     "title": "Best hotels & places to stay in Canberra, Australia - QLD Tourism",
+     "pid": 245512,
+     "snippet": "Best hotels & places to stay in Canberra, Australia - QLD Tourism\nGreater Perth Port Stephens Tropical North Queensland Victorian High Country Shoalhaven Gippsland Tweed Coast Top Districts All Districts Acacia Ridge Adelaide CBD Albert Park Albion Annerley Ascot Ascot Ashgrove Ashmore Aspley Auchen"
+    },
+    {
+     "score": 0.7856626510620117,
+     "url": "https://en.wikivoyage.org/wiki/Canberra",
+     "title": "Canberra \u2013 Travel guide at Wikivoyage",
+     "pid": 1398529,
+     "snippet": "Canberra \u2013 Travel guide at Wikivoyage\n12.1 Drugs 13 Connect 14 Cope 14.1 Embassies and High Commissions 15 Go next capital city of Australia Oceania > Australia > Canberra Canberra is a huge city with several district articles that contain information about specific sights, restaurants, and accommod"
+    },
+    {
+     "score": 0.7835649251937866,
+     "url": "https://en.wikipedia.org/wiki/New_South_Wales",
+     "title": "New South Wales - Wikipedia",
+     "pid": 1582936,
+     "snippet": "New South Wales - Wikipedia\nNew South Wales Article Talk For the historical region of Canada, see New Britain (Canada) . \"NSW\" redirects here. For other uses, see NSW (disambiguation) . New South Wales (commonly abbreviated as NSW ) is a state on the east coast of Australia . It borders Queensland t"
+    },
+    {
+     "score": 0.7705090641975403,
+     "url": "https://www.getours.com/destinations/south-pacific",
+     "title": "South Pacific Tours & Packages - 2026 & 2027 | Grand European Travel",
+     "pid": 486329,
+     "snippet": "South Pacific Tours & Packages - 2026 & 2027 | Grand European Travel\nbiodiversity and coral formations. Explore the tropical rainforests of the Daintree National Park and the nearby vibrant city of Brisbane. Canberra in Australian Capital Territory (ACT) Visit Canberra, Australia's capital city, to "
+    },
+    {
+     "score": 0.728826642036438,
+     "url": "https://www.qldtourism.com/city/au/perth",
+     "title": "Best hotels & places to stay in Perth, Australia - QLD Tourism",
+     "pid": 242318,
+     "snippet": "Best hotels & places to stay in Perth, Australia - QLD Tourism\nGreater Perth Port Stephens Tropical North Queensland Victorian High Country Shoalhaven Gippsland Tweed Coast Top Districts All Districts Acacia Ridge Adelaide CBD Albert Park Albion Annerley Ascot Ascot Ashgrove Ashmore Aspley Auchenflo"
+    },
+    {
+     "score": 0.7178561687469482,
+     "url": "https://www.yourinvestmentpropertymag.com.au/top-suburbs/act/",
+     "title": "Australian Capital Territory (ACT) Suburb Profiles & Property Data",
+     "pid": 785407,
+     "snippet": "Australian Capital Territory (ACT) Suburb Profiles & Property Data\nBanks, 2906 Barton, 2600 Beard, 2620 Belconnen, 2617 Bonner, 2914 Bonython, 2905 Braddon, 2612 Brindabella, 2611 Bruce, 2617 Calwell, 2905 Campbell, 2612 Canberra Airport, 2609 Capital Hill, 2600 Casey, 2913 Chapman, 2611 Charnwood, "
+    },
+    {
+     "score": 0.71708744764328,
+     "url": "https://www.accommodationaustralia.com.au/",
+     "title": "Accommodation Australia| Uncover the Best Places to Stay",
+     "pid": 617574,
+     "snippet": "Accommodation Australia| Uncover the Best Places to Stay\nTownsville Mandurah Port Macquarie Hobart Mount Tambourine Coffs Harbour Top Regions All Regions New South Wales Victoria Queensland Melbourne Region Sydney Region North Coast New South Wales West Australia Northern Rivers South Australia Suns"
+    },
+    {
+     "score": 0.7129358649253845,
+     "url": "https://www.qldtourism.com/city/au/sydney",
+     "title": "Best hotels & places to stay in Sydney, Australia - QLD Tourism",
+     "pid": 239975,
+     "snippet": "Best hotels & places to stay in Sydney, Australia - QLD Tourism\nMENU Main Pages Home Page Add My Business Partners Latest News FAQs Contact Us About Us Front Page Subscribe Privay Policy Featured Pages Airports Hotels Homes Top Cities All Cities Sydney Melbourne Perth Gold Coast Brisbane Adelaide Ca"
+    },
+    {
+     "score": 0.7074587345123291,
+     "url": "https://www.netflights.com/flights/australia",
+     "title": "Cheap flights to Australia () | Netflights",
+     "pid": 144309,
+     "snippet": "Cheap flights to Australia () | Netflights\nFlights to Australia Part of Destinia Global Travel Over 25 Years in Business Rated 'Excellent' Come fly to Australia with Netflights flight comparison specialists You've searched for flights to Australia. The cheapest departure offer we've found is on 09/0"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.063291991362348,
+    "search": 0.1652080100029707,
+    "dedupe": 0.08087497553788126,
+    "snippets": 0.9140830079559237,
+    "total": 3.223457984859124
+   }
+  },
+  {
+   "query": "how to fix a leaking faucet",
+   "hits": [
+    {
+     "score": 0.8400208353996277,
+     "url": "https://polovnakola.com/common-home-repairs-you-can-safely-do-yourself/",
+     "title": "Common Home Repairs You Can Safely Do Yourself \u2013 Polovnakola",
+     "pid": 1286468,
+     "snippet": "Common Home Repairs You Can Safely Do Yourself \u2013 Polovnakola\nmore serious issues down the line. 1. Fixing a Leaky Faucet Tools and Materials Needed Adjustable wrench Phillips and flathead screwdrivers Replacement washers or O-rings Plumber\u2019s tape Bucket or towel Steps to Follow 1. Turn off the water"
+    },
+    {
+     "score": 0.817693829536438,
+     "url": "https://www.familyhandyman.com/project/stop-that-annoying-kitchen-faucet-drip-for-good/",
+     "title": "Stop That Annoying Kitchen Faucet Drip for Good (DIY) | Family Handyman",
+     "pid": 1856410,
+     "snippet": "Stop That Annoying Kitchen Faucet Drip for Good (DIY) | Family Handyman\nmany different types of faucets out there, but they all primarily function the same way. If you have a leaking faucet, it is usually due to worn-out parts inside the faucet, such as the rubber O-rings, washers, or cartridges tha"
+    },
+    {
+     "score": 0.7704755067825317,
+     "url": "https://www.bobvila.com/articles/leaking-toilet-tank/",
+     "title": "Leaking Toilet Tank? Here's How to Fix It",
+     "pid": 2373209,
+     "snippet": "Leaking Toilet Tank? Here's How to Fix It\nwashers and checking water lines, if only because it involves total removal of the toilet itself to inspect the parts underneath. First, determine whether the wax ring is to blame: Make sure the water is turned off and the tank is drained properly. Then, rem"
+    },
+    {
+     "score": 0.768356442451477,
+     "url": "https://www.bobvila.com/interior/plumbing-tips/",
+     "title": "12 Plumbing Maintenance and Repair Tips That'll Save You Money",
+     "pid": 1568653,
+     "snippet": "12 Plumbing Maintenance and Repair Tips That'll Save You Money\nwaste, nor can they process fibrous foods, like celery and potato peels, which can quickly clog the garbage disposal . Save your sink by tossing food scraps in the compost pile, and when you do run the appliance, rinse the ground food do"
+    },
+    {
+     "score": 0.7657861709594727,
+     "url": "https://www.familyhandyman.com/list/stop-hiring-out-for-these-home-repairs/",
+     "title": "Stop Hiring Out for These Home Repairs | Family Handyman",
+     "pid": 1711543,
+     "snippet": "Stop Hiring Out for These Home Repairs | Family Handyman\nin a supply line tend to be continuous while drain line leaks are usually intermittent. For a leaky shutoff valve, a wrench should be all you need. If the leak is along a water pipe, replace the leaky section. For a temporary fix, use repair p"
+    },
+    {
+     "score": 0.7651234865188599,
+     "url": "https://www.familyhandyman.com/project/shower-faucet-installation/",
+     "title": "Shower Faucet Installation (DIY) | Family Handyman",
+     "pid": 2352019,
+     "snippet": "Shower Faucet Installation (DIY) | Family Handyman\nSkip to main content Shower Valve Replacement: Two Handles to One How to Change a Shower Head in 3 Easy Steps Shower Faucet Leaking? Here's How to Fix It Replace Your Toilet Fill Valve in 12 Simple Steps How to Replace Shower Faucet Trim How to Tigh"
+    },
+    {
+     "score": 0.7641696333885193,
+     "url": "https://www.bobvila.com/articles/leaking-gutters/",
+     "title": "How to Fix Leaking Rain Gutters",
+     "pid": 1617871,
+     "snippet": "How to Fix Leaking Rain Gutters\nIf they are full of sodden leaves and smelly muck, it\u2019s likely that your problem isn\u2019t so much a leaking gutter as a spillover. Using a small trowel, a gutter scoop, or your gloved hands, clear as much debris from the gutters as possible, dropping it into a bucket for"
+    },
+    {
+     "score": 0.7589187026023865,
+     "url": "https://www.familyhandyman.com/house-and-components/fixtures/faucets/",
+     "title": "Home Faucet Styles, Installation and Repair | Family Handyman",
+     "pid": 1848560,
+     "snippet": "Home Faucet Styles, Installation and Repair | Family Handyman\nspectacular new faucet packed with features that make it harder working and last a lifetime. How to Tighten a Shower Handle Fast fix for an annoying problem How to Replace a Bathtub Spout Bathtub spouts don't last forever. If yours is cor"
+    },
+    {
+     "score": 0.7586567997932434,
+     "url": "https://www.bobvila.com/interior/how-to-use-plumbers-tape/",
+     "title": "How to Use Plumber's Tape the Right Way",
+     "pid": 2338875,
+     "snippet": "How to Use Plumber's Tape the Right Way\ngarden hose connections to prevent wasteful water leaks. Irrigation system connections : Seal threaded joints in sprinkler systems and other irrigation system components. Pipe repair : Replace old plumber\u2019s tape with new plumber\u2019s tape to fix a slow leak betwe"
+    },
+    {
+     "score": 0.7551751136779785,
+     "url": "https://www.bobvila.com/articles/toilet-hissing/",
+     "title": "Is Your Toilet Hissing? Follow These Steps for a DIY Repair",
+     "pid": 2344281,
+     "snippet": "Is Your Toilet Hissing? Follow These Steps for a DIY Repair\nyourself with a plastic drinking cup and perhaps a screwdriver, and follow these steps: Turn off the water supply to the toilet by locating the hose that connects to the bottom of the tank and turning the valve to \u201cOFF.\u201d Flush the toilet to"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.0405410032253712,
+    "search": 0.1773339754436165,
+    "dedupe": 0.07904102676548064,
+    "snippets": 1.0119169892277569,
+    "total": 3.3088329946622252
+   }
+  },
+  {
+   "query": "benefits of meditation",
+   "hits": [
+    {
+     "score": 0.8713035583496094,
+     "url": "https://www.healthline.com/nutrition/12-benefits-of-meditation",
+     "title": "12 Science-Based Benefits of Meditation",
+     "pid": 1260935,
+     "snippet": "12 Science-Based Benefits of Meditation\nSkip to main content Women's Wellness Nutrition Evidence Based How Meditation Benefits Your Mind and Body Medically reviewed by Joslyn Jelinek, LCSW, ACSW, RDDP \u2014 Written by Matthew Thorpe, MD, PhD and Rachael Ajmera, MS, RD \u2014 Updated on August 15, 2024 While "
+    },
+    {
+     "score": 0.8425559997558594,
+     "url": "https://archive.nytimes.com/well.blogs.nytimes.com/2015/11/10/ask-well-the-health-benefits-of-meditation/",
+     "title": "Ask Well: The Health Benefits of Meditation - The New York Times",
+     "pid": 2060916,
+     "snippet": "Ask Well: The Health Benefits of Meditation - The New York Times\nPhoto Credit Jason Henry for The New York Times Q What are the health benefits of meditation? Reader Question \u2022 844 votes A Meditation has long been used to induce calm and physical relaxation. But research on its potential uses for tr"
+    },
+    {
+     "score": 0.8320587873458862,
+     "url": "https://mindfulnessexercises.com/meditation/anxiety/",
+     "title": "Meditation for Anxiety: Calm Your Mind in 5 Minutes (Free Guide)",
+     "pid": 402975,
+     "snippet": "Meditation for Anxiety: Calm Your Mind in 5 Minutes (Free Guide)\nramping up until they\u2019re an 8 out of 10. Noticing the signs of anxiety early is one of the keys to responding skillfully. You learn to observe your anxious experience with kindness and non-judgment. This builds new neural pathways that"
+    },
+    {
+     "score": 0.8065937161445618,
+     "url": "https://www.lesswrong.com/posts/pkiv7ehH4HZ4kwfHW/the-benefits-of-meditation-come-from-telling-people-that-you",
+     "title": "The Benefits of Meditation Come From Telling People That You Meditate \u2014 LessWrong",
+     "pid": 1813699,
+     "snippet": "The Benefits of Meditation Come From Telling People That You Meditate \u2014 LessWrong\nAprillion 5 Comments 5 Humor Meditation Frontpage 39 New Comment 5 comments , sorted by top scoring Click to highlight new comments since: Today at 8:14 PM [ - ] Maitreya 10mo <"
+    },
+    {
+     "score": 0.8019980192184448,
+     "url": "https://www.scientificamerican.com/article/meditations-benefits-stretch-beyond-the-person-who-meditates/",
+     "title": "Meditation\u2019s Benefits Stretch Beyond the Person Who Meditates | Scientific American",
+     "pid": 2003497,
+     "snippet": "Meditation\u2019s Benefits Stretch Beyond the Person Who Meditates | Scientific American\nmeditation for cultivating personal well-being is hardly a secret. For more than 20 years, neuroscientists have been documenting how mindfulness meditation can help people cultivate calm and improve their mood , amon"
+    },
+    {
+     "score": 0.7865976095199585,
+     "url": "https://archive.nytimes.com/well.blogs.nytimes.com/2011/01/28/how-meditation-may-change-the-brain/",
+     "title": "How Meditation May Change the Brain - The New York Times",
+     "pid": 2060757,
+     "snippet": "How Meditation May Change the Brain - The New York Times\nsay these are still quite preliminary findings. We see that there is something there, but we have to replicate these findings and find out what they really mean.\u201d It has been hard to pinpoint the benefits of meditation, but a 2009 study sugges"
+    },
+    {
+     "score": 0.7849576473236084,
+     "url": "https://mindfulnessexercises.com/free-guided-meditation-scripts/",
+     "title": "200+ Free Guided Meditation Scripts (PDF + Audio Downloads)",
+     "pid": 405651,
+     "snippet": "200+ Free Guided Meditation Scripts (PDF + Audio Downloads)\nTeaching this? MindfulPro writes a script on it for the people you guide and narrates it in a studio voice \u2014 14-day free trial, then $39/mo. Benefits of Free Guided Meditation Scripts Whether we use guided meditation scripts for ourselves o"
+    },
+    {
+     "score": 0.7834762334823608,
+     "url": "https://www.healthline.com/health/healthy-sleep/insomnia-home-remedies",
+     "title": "8 Insomnia Home Remedies: Exercises, Oils, and More",
+     "pid": 1619350,
+     "snippet": "8 Insomnia Home Remedies: Exercises, Oils, and More\nof slow, steady breathing while sitting quietly. You observe your breath, body, thoughts, feelings, and sensations as they rise and pass. Mindfulness meditation has numerous health benefits that go hand-in-hand with a healthy lifestyle promoting go"
+    },
+    {
+     "score": 0.78179931640625,
+     "url": "https://mindfulnessexercises.com/8-mindfulness-exercises-for-beginners/",
+     "title": "8 Easy Mindfulness Exercises for Beginners \u2014 Simple 5-Minute Tips",
+     "pid": 402670,
+     "snippet": "8 Easy Mindfulness Exercises for Beginners \u2014 Simple 5-Minute Tips\nthe site, or simply choose to focus your attention on the sensations of breathing. This is your anchor \u2013 a point of reference that you try to return to whenever possible. 5. Notice the inevitable distractions. Your mind will start to "
+    },
+    {
+     "score": 0.7813156843185425,
+     "url": "https://www.nationalgeographic.com/premium/article/meditation-decrease-stress-health",
+     "title": "Does meditation actually work? Here\u2019s what the science says. | National Geographic",
+     "pid": 1722122,
+     "snippet": "Does meditation actually work? Here\u2019s what the science says. | National Geographic\nthose meditation sessions helped my grandmother achieve some sort of communion with a higher power, but a growing body of scientific evidence suggests she benefited from it in multiple ways. The practice was likely an"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.0275000133551657,
+    "search": 0.19737498951144516,
+    "dedupe": 0.06062499596737325,
+    "snippets": 1.029042003210634,
+    "total": 3.314542002044618
+   }
+  },
+  {
+   "query": "javascript promises vs async await",
+   "hits": [
+    {
+     "score": 0.8489088416099548,
+     "url": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Async_JS/Promises",
+     "title": "How to use promises - Learn web development | MDN",
+     "pid": 2290447,
+     "snippet": "How to use promises - Learn web development | MDN\nSkip to main content Skip to search How to use promises Previous Overview: Asynchronous JavaScript Next Promises are the foundation of asynchronous programming in modern JavaScript. A promise is an object returned by an asynchronous function, which r"
+    },
+    {
+     "score": 0.8320366144180298,
+     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/await",
+     "title": "await - JavaScript | MDN",
+     "pid": 1388885,
+     "snippet": "await - JavaScript | MDN\netc.): A new promise is constructed with the native Promise() constructor by calling the object's then() method and passing in a handler that calls the resolve callback. Non-thenable value: An already-fulfilled Promise is constructed and used. Even when the used promise is a"
+    },
+    {
+     "score": 0.8273426294326782,
+     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function",
+     "title": "async function - JavaScript | MDN",
+     "pid": 1532585,
+     "snippet": "async function - JavaScript | MDN\nis fulfilled or rejected. The resolved value of the promise is treated as the return value of the await expression. Use of async and await enables the use of ordinary try / catch blocks around asynchronous code. Note: The await keyword is only valid inside async fun"
+    },
+    {
+     "score": 0.8247057199478149,
+     "url": "https://web.dev/articles/async-functions",
+     "title": "Async functions: making promises friendly \u00a0|\u00a0 Articles \u00a0|\u00a0 web.dev",
+     "pid": 1509713,
+     "snippet": "Async functions: making promises friendly \u00a0|\u00a0 Articles \u00a0|\u00a0 web.dev\nkeyword before a function definition, you can then use await within the function. When you await a promise, the function is paused in a non-blocking way until the promise settles. If the promise fulfills, you get the value back. If t"
+    },
+    {
+     "score": 0.8164687156677246,
+     "url": "https://web.dev/articles/promises",
+     "title": "JavaScript Promises: an introduction \u00a0|\u00a0 Articles \u00a0|\u00a0 web.dev",
+     "pid": 1349745,
+     "snippet": "JavaScript Promises: an introduction \u00a0|\u00a0 Articles \u00a0|\u00a0 web.dev\n// one or more failed }); This is what promises do, but with better naming. If HTML image elements had a \"ready\" method that returned a promise, we could do this: img1 . ready () . then ( function () { // loaded }, function () { // failed"
+    },
+    {
+     "score": 0.8159981369972229,
+     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+     "title": "Promise - JavaScript | MDN",
+     "pid": 1362083,
+     "snippet": "Promise - JavaScript | MDN\nSkip to main content Skip to search Promise Baseline Widely available * This feature is well established and works across many devices and browser versions. It\u2019s been available across browsers since July 2015. * Some parts of this feature may have varying levels of support"
+    },
+    {
+     "score": 0.8159704804420471,
+     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/await_using",
+     "title": "await using - JavaScript | MDN",
+     "pid": 1630485,
+     "snippet": "await using - JavaScript | MDN\nFileHandle object. await using file causes an await during disposal : it makes file disposed asynchronously when the variable goes out of scope. await using with for await...of It's very easy to confuse the following three syntaxes: for await (using x of y) { ... } for"
+    },
+    {
+     "score": 0.8146134614944458,
+     "url": "https://thewayofcode.wordpress.com/2013/01/",
+     "title": "January 2013 \u2013 thewayofcode",
+     "pid": 1797858,
+     "snippet": "January 2013 \u2013 thewayofcode\nPoint of Promises\u201d, and after reading it I really had the feeling I was missing it entirely! What promises are really about As the previously linked page states, Javascript promises are not just about aggregating callbacks, but actually they are mostly about having a few "
+    },
+    {
+     "score": 0.8112560510635376,
+     "url": "https://thewayofcode.wordpress.com/2013/01/22/javascript-promises-and-why-jquery-implementation-is-broken/",
+     "title": "Javascript promises and why jQuery implementation is broken \u2013 thewayofcode",
+     "pid": 1804759,
+     "snippet": "Javascript promises and why jQuery implementation is broken \u2013 thewayofcode\nPoint of Promises\u201d, and after reading it I really had the feeling I was missing it entirely! What promises are really about As the previously linked page states, Javascript promises are not just about aggregating callbacks, b"
+    },
+    {
+     "score": 0.8021154403686523,
+     "url": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/fromAsync",
+     "title": "Array.fromAsync() - JavaScript | MDN",
+     "pid": 1334539,
+     "snippet": "Array.fromAsync() - JavaScript | MDN\ni < 5; i++) { await new Promise((resolve) => setTimeout(resolve, 10 * i)); yield i; } })(); Array.fromAsync(asyncIterable).then((array) => console.log(array)); // [0, 1, 2, 3, 4] When items is an async iterable where each result's value is also a promise, then th"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.0070830069016665,
+    "search": 0.15208299737423658,
+    "dedupe": 0.06554200081154704,
+    "snippets": 1.0309999925084412,
+    "total": 3.2557079975958914
+   }
+  },
+  {
+   "query": "who won the world cup 2022",
+   "hits": [
+    {
+     "score": 0.8382480144500732,
+     "url": "https://www.aljazeera.com/fifa-world-cup-2026/",
+     "title": "World Cup 2026 | World Cup 2026 | Today's latest from Al Jazeera",
+     "pid": 1761808,
+     "snippet": "World Cup 2026 | World Cup 2026 | Today's latest from Al Jazeera\nStates 2 - 0 Full time Bosnia-Herzegovina Spain 3 - 0 Full time Austria Portugal 2 - 1 Full time Croatia Switzerland 2 - 0 Full time Algeria Australia (2) 1 - 1 (4) Pens Egypt Argentina 3 - 2 Full time Cabo Verde Colombia 1 - 0 Full ti"
+    },
+    {
+     "score": 0.808987021446228,
+     "url": "https://www.theguardian.com/football/2026/aug/31/lionel-messis-international-retirement-serves-as-a-reminder-watch-him-while-you-still-can",
+     "title": "Lionel Messi\u2019s international retirement serves as a reminder: watch him while you still can | Argentina | The Guardian",
+     "pid": 1435710,
+     "snippet": "Lionel Messi\u2019s international retirement serves as a reminder: watch him while you still can | Argentina | The Guardian\nwas the leading figure in that legendary run that saw Argentina win the 2021 Copa Am\u00e9rica, the 2022 World Cup, and then defend their Copa Am\u00e9rica title in 2024. Internationally, the"
+    },
+    {
+     "score": 0.8014016151428223,
+     "url": "https://www.bbc.co.uk/sport/football/world-cup/scores-fixtures",
+     "title": "FIFA World Cup - Scores & Fixtures - Football - BBC Sport",
+     "pid": 1604077,
+     "snippet": "FIFA World Cup - Scores & Fixtures - Football - BBC Sport\nFIFA World Cup Scores & Fixtures Skip to content Skip to today Oct 2025 Nov 2025 Dec 2025 Jan 2026 Feb 2026 Mar 2026 Apr 2026 May 2026 Jun 2026 Jul 2026 Aug 2026 Sep 2026 Oct 2026 Nov 2026 Dec 2026 Jan 2027 Feb 2027 Mar 2027 Apr 2027 May 2027"
+    },
+    {
+     "score": 0.795617938041687,
+     "url": "https://www.scoresandstats.com/predictions/soccer/world-cup/",
+     "title": "World Cup Predictions, Picks and Odds",
+     "pid": 827931,
+     "snippet": "World Cup Predictions, Picks and Odds\nminutes, 67.4%. Who won the 2026 World Cup? Spain, 1-0 against Argentina after extra time in the final. What was the biggest upset of the 2026 World Cup? By price, South Africa over South Korea and Australia over T\u00fcrkiye, both at +425 and both in the group stage"
+    },
+    {
+     "score": 0.7941461205482483,
+     "url": "https://www.mlssoccer.com/news/last-dance-lionel-messi-s-best-moments-with-argentina",
+     "title": "Last dance: Lionel Messi's best moments with Argentina | MLSSoccer.com",
+     "pid": 1326961,
+     "snippet": "Last dance: Lionel Messi's best moments with Argentina | MLSSoccer.com\nreaching the Copa Am\u00e9rica final but falling short on three prior occasions \u2013 the last of which prompted a brief early retirement in 2016 \u2013 Messi and Argentina finally got over the hump in the 2021 edition, defeating arch-rivals B"
+    },
+    {
+     "score": 0.7916974425315857,
+     "url": "https://www.bbc.com/sport/football/world-cup",
+     "title": "World Cup 2026: Latest News, Scores, Analysis | BBC",
+     "pid": 1434575,
+     "snippet": "World Cup 2026: Latest News, Scores, Analysis | BBC\nat what's behind Spain's dominance of football with 17 titles in five years across all age groups and in the men's and women's game. 27 Sept 2026 World Cup Netflix secures 2030 World Cup TV rights in Spain Netflix will broadcast World Cup games for"
+    },
+    {
+     "score": 0.7902714014053345,
+     "url": "https://www.npr.org/corrections/?range=2022-01-01...2022-12-31",
+     "title": "NPR Corrections : NPR",
+     "pid": 1991328,
+     "snippet": "NPR Corrections : NPR\nneed to know. Corrected on December 16, 2022 In an earlier post we reported Mbapp\u00e9 was the first teenager to score at a World Cup since 1958. It should have said a World Cup final . Russia launches new wave of air attacks across Ukraine Corrected on December 16, 2022 An earlier"
+    },
+    {
+     "score": 0.7887333631515503,
+     "url": "https://www.espn.com/soccer/scoreboard/_/league/fifa.world",
+     "title": "FIFA World Cup Scores - 2026 Season - ESPN",
+     "pid": 1611218,
+     "snippet": "FIFA World Cup Scores - 2026 Season - ESPN\n2 Portuguese Primeira Liga Promotion/Relegation Playoffs Austrian Bundesliga Greek Super League Chinese Super League CONMEBOL-UEFA Club Challenge Dutch Johan Cruyff Shield Pinatar Cup Emirates Cup Trofeo Joan Gamper Japanese J.League World Challenge Arnold "
+    },
+    {
+     "score": 0.7881161570549011,
+     "url": "https://www.bbc.co.uk/sport/football/articles/c62xzle86n4o",
+     "title": "World Cup 2026: Emi Martinez may 'step aside' from representing Argentina - BBC Sport",
+     "pid": 1613010,
+     "snippet": "World Cup 2026: Emi Martinez may 'step aside' from representing Argentina - BBC Sport\nmove forward, and if it's time to step aside. \"I'm so sorry, I truly tried my best to help my country and my team-mates.\" Martinez won the Yashin Trophy , awarded to the world's best goalkeeper at the Ballon d'Or a"
+    },
+    {
+     "score": 0.78811115026474,
+     "url": "https://www.bbc.com/sport/football/articles/c679plpvellgo",
+     "title": "England women's manager Sarina Wiegman signs two-year contract extension - BBC Sport",
+     "pid": 1435843,
+     "snippet": "England women's manager Sarina Wiegman signs two-year contract extension - BBC Sport\nEngland teams and the growth of our game, excites me every day.\" England thrashed Greece 8-1 on aggregate last week to qualify for round two of the World Cup play-offs, where they will face Ukraine. Should the Lione"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.0317090093158185,
+    "search": 0.18825000734068453,
+    "dedupe": 0.06708299042657018,
+    "snippets": 0.9934999980032444,
+    "total": 3.2805420050863177
+   }
+  },
+  {
+   "query": "how do vaccines work",
+   "hits": [
+    {
+     "score": 0.8167225122451782,
+     "url": "https://www.fda.gov/vaccines-blood-biologics/consumers-biologics/vaccines-children-guide-parents-and-caregivers",
+     "title": "Vaccines for Children - A Guide for Parents and Caregivers | FDA",
+     "pid": 2031835,
+     "snippet": "Vaccines for Children - A Guide for Parents and Caregivers | FDA\nimportant step to get children off to a healthy start.\" The vaccine development process and FDA\u2019s evaluation are rigorous and comprehensive, and vaccines are closely monitored after FDA-approval using various surveillance systems to id"
+    },
+    {
+     "score": 0.8016830682754517,
+     "url": "https://www.scientificamerican.com/article/how-do-mrna-vaccines-work-and-why-are-they-safe-and-effective/",
+     "title": "How do mRNA vaccines work, and why are they safe and effective? | Scientific American",
+     "pid": 1788111,
+     "snippet": "How do mRNA vaccines work, and why are they safe and effective? | Scientific American\nhas since reversed its decision, but the Trump administration has made other moves to target the technology , including cutting nearly $500 million in grant funding for mRNA vaccine projects. Despite setbacks, many"
+    },
+    {
+     "score": 0.791912317276001,
+     "url": "https://www.fda.gov/consumers/health-education-resources/immunization",
+     "title": "Immunization | FDA",
+     "pid": 1791831,
+     "snippet": "Immunization | FDA\nSkip to main content Skip to FDA Search Skip to in this section menu Skip to footer links Home For Consumers Immunization Section N/A In this section Image Fact Sheet: Download and Share Brochure: Download and Share Infographic: Download and Share Immunization happens when a perso"
+    },
+    {
+     "score": 0.7881472706794739,
+     "url": "https://kidshealth.org/en/teens/immune.html",
+     "title": "The Immune System (for Teens) | Nemours KidsHealth",
+     "pid": 1972214,
+     "snippet": "The Immune System (for Teens) | Nemours KidsHealth\nfind their targets and send defenses to lock onto them. T cells are like the soldiers \u2014 they destroy the invaders that the intelligence system finds. How Does the Immune System Work? When the body senses foreign substances \u2014 germs like viruses or ba"
+    },
+    {
+     "score": 0.7864553928375244,
+     "url": "https://nigms.nih.gov/biobeat/2023/10/how-do-medicines-work",
+     "title": "How Do Medicines Work? | National Institute of General Medical Sciences",
+     "pid": 1904595,
+     "snippet": "How Do Medicines Work? | National Institute of General Medical Sciences\nin the body. Some types of medicines work directly on the body\u2019s immune system . Vaccines are medicines composed of a weakened, partial, or killed disease-causing agent that stimulate the body to make antibodies \u2014proteins the bo"
+    },
+    {
+     "score": 0.7819695472717285,
+     "url": "https://www.nationalgeographic.com/premium/article/vaccines-immune-system-inflammation",
+     "title": "How the additives in your vaccines rev up your immune system | National Geographic",
+     "pid": 1864562,
+     "snippet": "How the additives in your vaccines rev up your immune system | National Geographic\nof how these helpers work to take the reins of the immune system and optimize inflammation. The research, experts say, might be the key to a new generation of vaccines that fight off more diseases for longer periods o"
+    },
+    {
+     "score": 0.7809159159660339,
+     "url": "https://medlineplus.gov/childhoodvaccines.html",
+     "title": "Vaccines for Children | Childhood Immunization | MedlinePlus",
+     "pid": 1610097,
+     "snippet": "Vaccines for Children | Childhood Immunization | MedlinePlus\ngerms have been killed or weakened enough that they won't make your child sick. Some vaccines only contain a part of a germ. Other types of vaccines include instructions for your cells to make a protein of the germ. These different vaccine"
+    },
+    {
+     "score": 0.7808125615119934,
+     "url": "https://medlineplus.gov/genetics/understanding/therapy/mrnavaccines/",
+     "title": "What are mRNA vaccines and how do they work?: MedlinePlus Genetics",
+     "pid": 1436529,
+     "snippet": "What are mRNA vaccines and how do they work?: MedlinePlus Genetics\nSkip navigation Official websites use .gov A .gov website belongs to an official government organization in the United States. Secure .gov websites use HTTPS A lock ( ) or https:// means you\u2019ve safely connected to the .gov website. S"
+    },
+    {
+     "score": 0.7769542336463928,
+     "url": "https://ourworldindata.org/vaccination",
+     "title": "Vaccination | Our World in Data",
+     "pid": 1354769,
+     "snippet": "Vaccination | Our World in Data\nContents Vaccines are one of the most powerful tools in public health. They have saved hundreds of millions of lives by preventing deadly diseases like measles, polio, and smallpox. Before vaccines, these infections were common, and surviving them often meant facing s"
+    },
+    {
+     "score": 0.7758710384368896,
+     "url": "https://www.economist.com/podcasts/2021/02/15/the-jab-how-well-will-vaccines-work",
+     "title": "The Jab\u2014how well will vaccines work?",
+     "pid": 1787950,
+     "snippet": "The Jab\u2014how well will vaccines work?\n\u2190 All episodes The Jab | Covid The Jab\u2014how well will vaccines work? A new podcast from The Economist at the sharp end of the global vaccination race Share Feb 15th 2021 | 1 min read Listen to this podcast Your browser does not support the <audio> element. THE RAC"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.022291999310255,
+    "search": 0.19787499331869185,
+    "dedupe": 0.05170798976905644,
+    "snippets": 1.0269999911542982,
+    "total": 3.2988749735523015
+   }
+  },
+  {
+   "query": "best laptops for programming 2026",
+   "hits": [
+    {
+     "score": 0.8264009952545166,
+     "url": "https://uk.pcmag.com/laptops/158/the-best-laptops",
+     "title": "The Best Laptops for 2026",
+     "pid": 1764759,
+     "snippet": "The Best Laptops for 2026\nMost People HP OmniBook 5 14 Jump To Details Check Price Best MacBook for Most People Apple MacBook Air 13-Inch (2026, M5) Jump To Details Check Price Best Budget Windows Laptop Dell XPS 13 (2026) Jump To Details Check Price Best Budget MacBook Apple MacBook Neo Jump To Det"
+    },
+    {
+     "score": 0.7770323157310486,
+     "url": "https://changefindr.com/best-laptops/",
+     "title": "Best Laptops for 2025: Top Picks for Every Budget and Need - Changefindr",
+     "pid": 930158,
+     "snippet": "Best Laptops for 2025: Top Picks for Every Budget and Need - Changefindr\nSkip to content Best Laptops for 2025: Top Picks for Every Budget and Need Victoria Tyler Finding the best laptops in 2025 requires cutting through marketing noise and focusing on real-world performance. Whether someone needs a"
+    },
+    {
+     "score": 0.7652848958969116,
+     "url": "https://www.cnet.com/tech/computing/laptops/",
+     "title": "Laptops - CNET",
+     "pid": 1340214,
+     "snippet": "Laptops - CNET\nhigh levels of processing power. But is it worth the asking price of $2,600? 10/18/2026 Laptops HP\u2019s OmniBook Ultra 16: Our First Look at RTX Spark Is a Promising Start Nvidia RTX Spark laptops are here. See where HP's OmniBook Ultra was strong and on which tests it was less successfu"
+    },
+    {
+     "score": 0.76413494348526,
+     "url": "https://changefindr.com/top-laptops/",
+     "title": "Top Laptops for 2025: Best Picks for Every Budget and Need - Changefindr",
+     "pid": 933844,
+     "snippet": "Top Laptops for 2025: Best Picks for Every Budget and Need - Changefindr\nSkip to content Top Laptops for 2025: Best Picks for Every Budget and Need Victoria Tyler Finding the top laptops in 2025 requires sorting through hundreds of options across price points and use cases. Whether someone needs a p"
+    },
+    {
+     "score": 0.7561476826667786,
+     "url": "https://www.cnet.com/tech/computing/6/",
+     "title": "Computing - Page 6 - CNET",
+     "pid": 1549118,
+     "snippet": "Computing - Page 6 - CNET\nComputing - Page 6 - CNET Skip to content Best Laptops of 2026: Top Picks Tested by CNET Amazon\u2019s Original Kindle Colorsoft Bundle Is Over $140 Off for Prime Day Ahead of the New Model\u2019s Arrival Final Hours: HP\u2019s OmniBook 3 OLED Laptop Is Down to $450 Today, So Why Wait for"
+    },
+    {
+     "score": 0.7539952397346497,
+     "url": "https://www.cnet.com/tech/computing/best-windows-laptop/",
+     "title": "Best Windows Laptop to Buy in 2026",
+     "pid": 1999866,
+     "snippet": "Best Windows Laptop to Buy in 2026\nBest Windows Laptop to Buy in 2026 Skip to content Our expert, award-winning staff selects the products we cover and rigorously researches and tests our top picks. If you buy through our links, we may earn a commission. Matt Elliott Senior Editor Matt Elliott is a "
+    },
+    {
+     "score": 0.7505062818527222,
+     "url": "https://www.cnet.com/tech/computing/best-budget-laptop/",
+     "title": "Best Budget Laptop for 2026 - Cheap Computers Under $500",
+     "pid": 1998673,
+     "snippet": "Best Budget Laptop for 2026 - Cheap Computers Under $500\nBest Budget Laptop for 2026 - Cheap Computers Under $500 Skip to content Our expert, award-winning staff selects the products we cover and rigorously researches and tests our top picks. If you buy through our links, we may earn a commission. M"
+    },
+    {
+     "score": 0.7471619248390198,
+     "url": "https://www.theverge.com/21250695/best-laptops",
+     "title": "The best laptops of 2026 | The Verge",
+     "pid": 1705780,
+     "snippet": "The best laptops of 2026 | The Verge\nof the pricier tech purchases you\u2019ll make, and there are a ludicrous number of models, sizes, form factors, and configurations to pick from. We review a wide swath of them here at The Verge , and we\u2019re constantly considering what\u2019s best and who it\u2019s best for. And"
+    },
+    {
+     "score": 0.7433089017868042,
+     "url": "https://www.cnet.com/deals/best-laptop-deals/",
+     "title": "Best Laptop Deals in 2026: MacBook, Gaming and Budget Picks on Sale Now",
+     "pid": 1400755,
+     "snippet": "Best Laptop Deals in 2026: MacBook, Gaming and Budget Picks on Sale Now\nBest Laptop Deals in 2026: MacBook, Gaming and Budget Picks on Sale Now Skip to content Our expert, award-winning staff selects the products we cover and rigorously researches and tests our top picks. If you buy through our link"
+    },
+    {
+     "score": 0.7422031164169312,
+     "url": "https://www.cnet.com/tech/computing/best-gaming-laptop/",
+     "title": "Best Gaming Laptop for 2026 - CNET",
+     "pid": 1419236,
+     "snippet": "Best Gaming Laptop for 2026 - CNET\nBest Gaming Laptop for 2026 - CNET Skip to content Our expert, award-winning staff selects the products we cover and rigorously researches and tests our top picks. If you buy through our links, we may earn a commission. Lori Grunin Senior Editor / Computers and Gam"
+    }
+   ],
+   "t_ms": {
+    "embed": 1.954208972165361,
+    "search": 0.16500000492669642,
+    "dedupe": 0.05558301927521825,
+    "snippets": 1.0311249934602529,
+    "total": 3.2059169898275286
+   }
+  },
+  {
+   "query": "how to start a small business",
+   "hits": [
+    {
+     "score": 0.8112941980361938,
+     "url": "https://www.entrepreneur.com/topic/how-to-start-a-business",
+     "title": "How to Start a Business | Entrepreneur",
+     "pid": 586923,
+     "snippet": "How to Start a Business | Entrepreneur\nQuit Your Job and Start Your Own Business? Should you stay or should you go? Debating whether to tow the company line for others or go out on your own can be a tough decision, but it doesn't have to be. Asking yourself these four key questions can seriously hel"
+    },
+    {
+     "score": 0.8071976900100708,
+     "url": "https://www.sumup.com/en-gb/starting-business/how-to-start-a-business/",
+     "title": "Starting a Business: A 10 Step Guide for UK Entrepreneurs",
+     "pid": 1306919,
+     "snippet": "Starting a Business: A 10 Step Guide for UK Entrepreneurs\nTable of contents How to start a business in 10 steps: A guide for UK entrepreneurs Step 1: Come up with an idea Step 2: Do your research Step 3: Create your business plan Step 4: Choose the right business structure Step 5: Secure funding Ste"
+    },
+    {
+     "score": 0.8015096187591553,
+     "url": "https://www.usa.gov/start-business",
+     "title": "How to start and fund your own business | USAGov",
+     "pid": 1384134,
+     "snippet": "How to start and fund your own business | USAGov\nSkip to main content How to start and fund your own business Learn how to start and manage your small business, and find local support if you need help. How to start a business If you want to start a new business, the Small Business Administration (SB"
+    },
+    {
+     "score": 0.7864521145820618,
+     "url": "https://ventsmagazine.co.uk/how-to-buy-a-small-business/",
+     "title": "How to Buy a Small Business: A Step-by-Step Guide to Smart Ownership - Vents Magazine",
+     "pid": 457038,
+     "snippet": "How to Buy a Small Business: A Step-by-Step Guide to Smart Ownership - Vents Magazine\ntime am I willing to invest? What\u2019s my budget? Do I want to be hands-on or more of a silent investor? Clarifying your goals helps you stay focused and avoid getting distracted by businesses that don\u2019t fit your visi"
+    },
+    {
+     "score": 0.7847251892089844,
+     "url": "https://blog.mycorporation.com/2017/06/turn-passion-project-full-time-business/",
+     "title": "How to Turn Your Passion Project Into a Full-Time Business - Mycorporation",
+     "pid": 640333,
+     "snippet": "How to Turn Your Passion Project Into a Full-Time Business - Mycorporation\nincludes revenue projections, marketing strategies and analyses, services/products offered and much more. Your business plan shows how you will strategically run your business. It acts as your guide map throughout your small "
+    },
+    {
+     "score": 0.7732934951782227,
+     "url": "https://www.entrepreneur.com/building-a-business",
+     "title": "Building a Business | Entrepreneur",
+     "pid": 586581,
+     "snippet": "Building a Business | Entrepreneur\nSkip to main content You're viewing the US website. Looking for the Site edition? Go to Edition Site Newsletters Building a Business Find Your Business Idea Launch Your Business Run Your Business Grow Your Business Start Your LLC Find Your Business Idea See All 73 "
+    },
+    {
+     "score": 0.7682009935379028,
+     "url": "https://speed-flanigan.id/the-complete-guide-to-starting-a-business/",
+     "title": "The Complete Guide To Starting A Business - Speed-Flanigan",
+     "pid": 653285,
+     "snippet": "The Complete Guide To Starting A Business - Speed-Flanigan\ngenerally there are many possibilities to launch your own business. But, first, you\u2019ll need to have to become the licensed agent, in addition to the requirements differ by state. Ecommerce And Physical Merchandise Businesses The trade-off is"
+    },
+    {
+     "score": 0.765770673751831,
+     "url": "https://thesavvycouple.com/category/make-money/small-businesses/",
+     "title": "Small Businesses Archives - The Savvy Couple",
+     "pid": 475133,
+     "snippet": "Small Businesses Archives - The Savvy Couple\nSkip to primary navigation Skip to main content Skip to primary sidebar Skip to footer Small Businesses Ready to leave the 9-5 and start your own small business? Let us help you with our comprehensive guides on the best online business ideas, how to get s"
+    },
+    {
+     "score": 0.764656126499176,
+     "url": "https://beesoft.com.au/blog/build-simple-website-this-weekend",
+     "title": "How to Build a Simple Website for Your Business This Weekend | BeesoftAI",
+     "pid": 291714,
+     "snippet": "How to Build a Simple Website for Your Business This Weekend | BeesoftAI\ngenuine sentence about why you started the business. This is also where BeesoftAI's Content Improver is useful, paste in your own rough notes and get help tightening the wording, without losing the parts that actually sound lik"
+    },
+    {
+     "score": 0.762008547782898,
+     "url": "https://www.usa.gov/small-business",
+     "title": "Small business | USAGov",
+     "pid": 1350425,
+     "snippet": "Small business | USAGov\nSkip to main content Small business Most popular Start your own business How to get an import license How to get an export license Learn how to start, fund, and manage your own business. Understand how to get import and export licenses. How to start and fund your own business"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.0568330073729157,
+    "search": 0.24666701210662723,
+    "dedupe": 0.06987497908994555,
+    "snippets": 1.1106250167358667,
+    "total": 3.484000015305355
+   }
+  },
+  {
+   "query": "what is a vector database",
+   "hits": [
+    {
+     "score": 0.9101617336273193,
+     "url": "https://www.oracle.com/database/vector-database/",
+     "title": "What Is a Vector Database?",
+     "pid": 1823620,
+     "snippet": "What Is a Vector Database?\nAI Database What Is a Vector Database? Jeffrey Erickson | Content Strategist | July 14, 2026 In This Article What Is a Vector? What Is a Vector Database? Vector Index vs. Vector Database Vector Databases Explained Why Are Vector Databases Important? How Do Vector Databases"
+    },
+    {
+     "score": 0.8981540203094482,
+     "url": "https://www.mongodb.com/resources/basics/databases/vector-databases",
+     "title": "What Are Vector Databases? | MongoDB",
+     "pid": 1374742,
+     "snippet": "What Are Vector Databases? | MongoDB\nAnnouncement Built for unpredictable AI demand: Atlas Infinite and MongoDB 9.0 are here. Read more > >> Announcement Meet the intelligent data platform built for the AI era. Read more > >> New Now in public preview: Atlas Agent Engine, the secure way to run AI ag"
+    },
+    {
+     "score": 0.8305189609527588,
+     "url": "https://stackoverflow.blog/2023/10/09/from-prototype-to-production-vector-databases-in-generative-ai-applications/",
+     "title": "From prototype to production: Vector databases in generative AI applications - Stack Overflow",
+     "pid": 1805379,
+     "snippet": "From prototype to production: Vector databases in generative AI applications - Stack Overflow\nget started with building GenAI applications quickly. As a developer advocate at Weaviate , an open-source vector database, I will use Weaviate to demonstrate relevant concepts as we go along. In the final "
+    },
+    {
+     "score": 0.8285929560661316,
+     "url": "https://www.mongodb.com/docs/voyageai/tutorials/rag/?locale_fallback=it-it",
+     "title": "Retrieval-Augmented Generation (RAG) with Voyage AI - Voyage AI by MongoDB - MongoDB Docs",
+     "pid": 2372376,
+     "snippet": "Retrieval-Augmented Generation (RAG) with Voyage AI - Voyage AI by MongoDB - MongoDB Docs\nProviding additional context helps LLMs generate more accurate responses. This makes RAG an effective architecture for building AI chatbots that deliver personalized, domain-specific question answering and text"
+    },
+    {
+     "score": 0.8138289451599121,
+     "url": "https://docs.digitalocean.com/reference/api/reference/vector-databases/",
+     "title": "Vector Databases | DigitalOcean Documentation",
+     "pid": 1476282,
+     "snippet": "Vector Databases | DigitalOcean Documentation\nGive Feedback For AI agents: The documentation index is at https://docs.digitalocean.com/llms.txt . Markdown versions of pages use the same URL with index.html.md in place of the HTML page (for example, append index.html.md to the directory path instead "
+    },
+    {
+     "score": 0.8134819865226746,
+     "url": "https://stackoverflow.blog/2023/09/20/do-you-need-a-specialized-vector-database-to-implement-vector-search-well/",
+     "title": "Do you need a specialized vector database to implement vector search well? - Stack Overflow",
+     "pid": 1806974,
+     "snippet": "Do you need a specialized vector database to implement vector search well? - Stack Overflow\nStack Overflow Business Stack Internal : the knowledge intelligence layer that powers enterprise AI. Stack Data Licensing : decades of verified, technical knowledge to boost AI performance and trust. Stack Ad"
+    },
+    {
+     "score": 0.7981605529785156,
+     "url": "https://www.elastic.co/elasticsearch/vector-database",
+     "title": "World\u2019s most downloaded vector database: Elasticsearch | Elastic",
+     "pid": 1884188,
+     "snippet": "World\u2019s most downloaded vector database: Elasticsearch | Elastic\nSkip to main content Elasticsearch Vector Database: Ship in minutes, scale affordably to hundreds of billions The hard parts of hybrid retrieval, already done. Optimized defaults, third-party and native Jina AI models, and managed GPU "
+    },
+    {
+     "score": 0.787801206111908,
+     "url": "https://stackoverflow.blog/2023/08/25/the-overflow-192-ask-your-data-better-questions/",
+     "title": "The Overflow #192: Ask your data better questions - Stack Overflow",
+     "pid": 2323039,
+     "snippet": "The Overflow #192: Ask your data better questions - Stack Overflow\njoined? workplace.stackexchange.com \u201cNo matter how much experience you have, a new project is a new project and bootstrapping takes time.\u201d How do vector databases work (for the lay-coder)? datascience.stackexchange.com Start by consi"
+    },
+    {
+     "score": 0.7862623929977417,
+     "url": "https://redis.io/tutorials/howtos/solutions/vector/getting-started-vector/",
+     "title": "Vector Similarity Search with Redis and Node.js: KNN Tutorial",
+     "pid": 1954516,
+     "snippet": "Vector Similarity Search with Redis and Node.js: KNN Tutorial\nhave features such as price , quality , and popularity . Id Product Price ($) Quality (1 - 10) Popularity (1 - 10) 1 Puma Men Race Black Watch 150 5 8 2 Puma Men Top Fluctuation Red Black Watch 180 7 6 3 Inkfruit Women Behind Cream Tshirt"
+    },
+    {
+     "score": 0.7861943244934082,
+     "url": "https://www.elastic.co/docs/solutions/search/vector",
+     "title": "Vector search in Elasticsearch | Elastic Docs",
+     "pid": 1583707,
+     "snippet": "Vector search in Elasticsearch | Elastic Docs\n. Core concepts Vector database A system designed to store vector embeddings at scale and retrieve the most similar vectors to a query embedding, typically using approximate or exact k-nearest neighbor (kNN) search. Elasticsearch functions as a vector da"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.032791991950944,
+    "search": 0.1577500079292804,
+    "dedupe": 0.07062498480081558,
+    "snippets": 1.0488330153748393,
+    "total": 3.3100000000558794
+   }
+  },
+  {
+   "query": "difference between tcp and udp",
+   "hits": [
+    {
+     "score": 0.7810742855072021,
+     "url": "https://blog.cloudflare.com/extending-cloudflares-zero-trust-platform-to-support-udp-and-internal-dns/",
+     "title": "Extending Cloudflare\u2019s Zero Trust platform to support UDP and Internal DNS | Cloudflare Blog",
+     "pid": 2172854,
+     "snippet": "Extending Cloudflare\u2019s Zero Trust platform to support UDP and Internal DNS | Cloudflare Blog\ntheir own unique benefits and drawbacks, which are always felt downstream by the applications that utilize them. Here\u2019s a quick example of how they both work, if you were to ask a question to somebody as a m"
+    },
+    {
+     "score": 0.7339640855789185,
+     "url": "https://simwood.com/2013/12/tls-srtp/",
+     "title": "TLS/SRTP and why you need them!",
+     "pid": 438242,
+     "snippet": "TLS/SRTP and why you need them!\nexample. UDP is great for things that can be fire and forget such as the RTP making up the audio of a call, but there\u2019s better choices for the signalling. Signalling can also operate in TCP which has the benefit of a proper handshake (reducing spoofing opportunities),"
+    },
+    {
+     "score": 0.730638325214386,
+     "url": "https://doc.rust-lang.org/std/net/struct.UdpSocket.html",
+     "title": "UdpSocket in std::net - Rust",
+     "pid": 1359492,
+     "snippet": "UdpSocket in std::net - Rust\nSkip to main content UdpSocket std :: net Struct UdpSocket Copy item path 1.0.0 \u00b7 Source pub struct UdpSocket( /* private fields */ ); Expand description A UDP socket. After creating a UdpSocket by bind ing it to a socket address, data can be sent to and received from an"
+    },
+    {
+     "score": 0.7292187213897705,
+     "url": "https://kb.interspace.com/en/tech-articles/learn",
+     "title": "Interspace Knowledgebase - Learn",
+     "pid": 380317,
+     "snippet": "Interspace Knowledgebase - Learn\nInterspace Knowledgebase Tech Articles Learn Table of contents LEARN Learn 1 / 3 6 How to identify packet loss and latency issues What\u2019s the difference between TCP and UDP? What\u2019s the difference between a router, switch, and firewall? Latency, Bandwidth and Throughpu"
+    },
+    {
+     "score": 0.7255553007125854,
+     "url": "https://docs.discord.com/developers/topics/voice-connections",
+     "title": "Voice - Documentation - Discord",
+     "pid": 1881899,
+     "snippet": "Voice - Documentation - Discord\nDocumentation Index Fetch the complete documentation index at: /llms.txt Use this file to discover all available pages before exploring further. Skip to main content Voice connections operate in a similar fashion to the Gateway connection. However, they use a differen"
+    },
+    {
+     "score": 0.7218475341796875,
+     "url": "https://antonz.org/solod-0.2/",
+     "title": "Solod 0.2: Networking, new targets, friendlier interop",
+     "pid": 860957,
+     "snippet": "Solod 0.2: Networking, new targets, friendlier interop\nTCP client \u2022 Deadlines \u2022 IP addresses \u2022 Targets \u2022 Interop \u2022 Stdlib \u2022 Wrapping up Networking The main feature in v0.2 is the net package. It's a simplified version of Go's net package which supports the three most commonly used transports: TCP (n"
+    },
+    {
+     "score": 0.7187040448188782,
+     "url": "https://doc.rust-lang.org/std/net/index.html",
+     "title": "std::net - Rust",
+     "pid": 1359682,
+     "snippet": "std::net - Rust\nSkip to main content Module net std Module net Copy item path 1.0.0 \u00b7 Source Expand description Networking primitives for TCP/UDP communication. This module provides networking functionality for the Transmission Control and User Datagram Protocols, as well as types for IP and socket "
+    },
+    {
+     "score": 0.7181918025016785,
+     "url": "https://gateway-api.sigs.k8s.io/reference/api-types/udproute/",
+     "title": "UDPRoute | Gateway API",
+     "pid": 2160818,
+     "snippet": "UDPRoute | Gateway API\nMixing UDP and TCP UDP and TCP are distinct transport protocols, so an implementation MAY support a UDP and a TCP listener on the same port without conflict. A common use case is exposing the same service over both protocols, for example DNS on port 53, where UDP traffic is ro"
+    },
+    {
+     "score": 0.710466742515564,
+     "url": "https://docs.nginx.com/nginx/admin-guide/load-balancer/tcp-udp-load-balancer/",
+     "title": "TCP and UDP Load Balancing | NGINX Documentation",
+     "pid": 2186276,
+     "snippet": "TCP and UDP Load Balancing | NGINX Documentation\nTCP and UDP Load Balancing Introduction Load balancing is a traffic management technique that efficiently distributes network traffic across multiple backend servers. NGINX Plus and NGINX Open Source provide Layer 4 (transport layer) proxying and load"
+    },
+    {
+     "score": 0.7023571729660034,
+     "url": "https://www.debugbear.com/blog/http1-vs-http2",
+     "title": "Modern HTTP: HTTP/1.1 vs HTTP/2 For Performance | DebugBear",
+     "pid": 2225913,
+     "snippet": "Modern HTTP: HTTP/1.1 vs HTTP/2 For Performance | DebugBear\nand web performance \u200b In 1997, HTTP upgraded to version 1.1, which introduced the ability to send multiple requests and responses over a single Transmission Control Protocol (TCP) connection. This change improved speed by eliminating the ne"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.013583027292043,
+    "search": 0.24199998006224632,
+    "dedupe": 0.06750001921318471,
+    "snippets": 0.9256249759346247,
+    "total": 3.2487080025020987
+   }
+  },
+  {
+   "query": "how to write a resume",
+   "hits": [
+    {
+     "score": 0.8178955316543579,
+     "url": "https://www.coursera.org/articles/how-to-write-a-cover-letter",
+     "title": "How to Write a Cover Letter (With Examples and Tips) | Coursera",
+     "pid": 1846174,
+     "snippet": "How to Write a Cover Letter (With Examples and Tips) | Coursera\njob posting, showing where you meet them with specific examples, and using your strongest related experience to cover any requirement you do not match exactly. You can even write a cover letter with no experience by connecting school, v"
+    },
+    {
+     "score": 0.8161567449569702,
+     "url": "https://www.deutsch-lernen.com/job_application/how_to_write_a_CV.htm",
+     "title": "How to write a curriculum vitae (CV): Writing a resume",
+     "pid": 778542,
+     "snippet": "How to write a curriculum vitae (CV): Writing a resume\nwrite a professional CV and an accompanying cover letter. The following pages give suggestions and help on how they should be written. Points you should consider when writing a CV or resume Your CV may get as little as 30-60 seconds of considera"
+    },
+    {
+     "score": 0.8083495497703552,
+     "url": "https://www.wikihow.com/Course/How-to-Write-a-Winning-Resume",
+     "title": "How to Write a Winning Resume - wikiHow",
+     "pid": 1489616,
+     "snippet": "How to Write a Winning Resume - wikiHow\nFamily Life Holidays and Traditions Relationships Youth LOG IN Log in Social login does not work in incognito and private browsers. Please log in with your username or email to continue. Facebook Google wikiHow Account No account yet? Create an account RANDOM "
+    },
+    {
+     "score": 0.808296799659729,
+     "url": "https://stackoverflow.blog/2020/11/25/how-to-write-an-effective-developer-resume-advice-from-a-hiring-manager/",
+     "title": "How to write an effective developer resume: Advice from a hiring manager - Stack Overflow",
+     "pid": 2049058,
+     "snippet": "How to write an effective developer resume: Advice from a hiring manager - Stack Overflow\nand typically go through hundreds of resumes per year. I\u2019ve also researched the topic of writing a developer resume that represents you well while writing the book The Tech Resume Inside Out: What a Good Develo"
+    },
+    {
+     "score": 0.797429084777832,
+     "url": "https://www.randstad.co.uk/career-advice/how-to-write-a-cv/",
+     "title": "Top tips and advice on how to write a CV. | Randstad UK",
+     "pid": 1236350,
+     "snippet": "Top tips and advice on how to write a CV. | Randstad UK\nCV writing tips. Looking to land your dream job but not sure if your CV is up to scratch? Knowing what to write in a CV to ensure it gets you an interview can be tough. But with the right information and advice at your fingertips, there's nothi"
+    },
+    {
+     "score": 0.79348224401474,
+     "url": "https://artbusiness.com/how-to-write-artist-resumes-cvs.html",
+     "title": "How to Write an Artist Resume or CV",
+     "pid": 531878,
+     "snippet": "How to Write an Artist Resume or CV\ninclude online shows, online competitions, being represented by \"galleries\" or platforms that exist entirely online, social media accomplishments or distinctions, and more. Now you can either include these items in their traditional categories or you can add an en"
+    },
+    {
+     "score": 0.786792516708374,
+     "url": "https://oploria.com/how-to-build-a-strong-resume-that-stands-out-to-recruiters-strong-resume-tips/",
+     "title": "How to Build a Strong Resume That Stands Out to Recruiters: Strong Resume Tips - Oploria",
+     "pid": 443964,
+     "snippet": "How to Build a Strong Resume That Stands Out to Recruiters: Strong Resume Tips - Oploria\nyour initial impression. Sequencing for Immediate Clarity Place your summary or profile section at the top. This acts as your first handshake. State your job title, strengths, and direction using confident, dire"
+    },
+    {
+     "score": 0.7797240018844604,
+     "url": "https://hackernoon.com/how-to-build-the-perfect-cv-to-land-a-data-science-role-2ga3ttg",
+     "title": "",
+     "pid": 2210751,
+     "snippet": "half of your resume. It is the \u201cShow, don\u2019t tell\u201d part that hiring managers want. Before asking you to disclose your flaws during the interview , they need to be drawn in with strengths. Your main goal is to find and list your main professional achievements. Here\u2019s how to do it right: Use only relev"
+    },
+    {
+     "score": 0.7793300151824951,
+     "url": "https://www.weather.gov/careers/hiring-tip-tricks",
+     "title": "National Weather Service  Hiring Tip & Tricks",
+     "pid": 1681613,
+     "snippet": "National Weather Service  Hiring Tip & Tricks\nis acceptable, it is a good idea to give a very short description of your accomplishments to help the hiring officials decide if you meet the qualifications of the job announcement. Also, it is recommended to create a resume on USAJOBS.gov , but also cre"
+    },
+    {
+     "score": 0.776006281375885,
+     "url": "https://www.cnet.com/tech/services-and-software/how-to-use-chatgpt-to-write-a-resume-that-actually-sounds-like-you/",
+     "title": "How to Write a Resume Using ChatGPT",
+     "pid": 1443310,
+     "snippet": "How to Write a Resume Using ChatGPT\nHow to Write a Resume Using ChatGPT Skip to content Our expert, award-winning staff selects the products we cover and rigorously researches and tests our top picks. If you buy through our links, we may earn a commission. ChatGPT is a great option to speed up resum"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.0260419987607747,
+    "search": 0.1899579947348684,
+    "dedupe": 0.0636249897070229,
+    "snippets": 1.0665419977158308,
+    "total": 3.346166980918497
+   }
+  },
+  {
+   "query": "healthy breakfast ideas",
+   "hits": [
+    {
+     "score": 0.8812239766120911,
+     "url": "https://www.thegraciouspantry.com/healthy-breakfast-recipes/",
+     "title": "Healthy Breakfast Recipes - | Breakfast Ideas | Healthiest Breakfast",
+     "pid": 1165675,
+     "snippet": "Healthy Breakfast Recipes - | Breakfast Ideas | Healthiest Breakfast\nSkip to content A go-to list of healthy breakfast recipes is a good idea to keep on hand because we don\u2019t always have time to think things through in the morning. Whether you need a quick muffin with coffee as you head out the door"
+    },
+    {
+     "score": 0.8617280721664429,
+     "url": "https://www.nhs.uk/healthier-families/recipes/breakfast/",
+     "title": "Healthy breakfast ideas - Healthier Families - NHS",
+     "pid": 2265849,
+     "snippet": "Healthy breakfast ideas - Healthier Families - NHS\nSkip to main content Breakfast recipes Whether it's a quick bite before school or something more fancy at the weekend, a healthy breakfast is a great way to start any day. Mornings can be busy when you have a family to feed, but our easy breakfast i"
+    },
+    {
+     "score": 0.8274315595626831,
+     "url": "https://www.bbcgoodfood.com/recipes/category/breakfast-collections",
+     "title": "All breakfast recipes | Good Food",
+     "pid": 1366305,
+     "snippet": "All breakfast recipes | Good Food\nan energising breakfast. These feel-good recipes are packed with fruit, nuts, oats and other heart-healthy grains. Vegan porridge Make a filling bowl of vegan porridge with our easy recipes and tasty toppings. Try an indulgent peanut butter recipe or tropical overni"
+    },
+    {
+     "score": 0.8255690932273865,
+     "url": "https://www.bbcgoodfood.com/recipes/collection/healthy-breakfast-recipes",
+     "title": "71 healthy breakfast ideas | Good Food",
+     "pid": 1995973,
+     "snippet": "71 healthy breakfast ideas | Good Food\nSkip to main content 71 healthy breakfast ideas 72 Recipes Wake up to a tasty, healthy breakfast whether it's high-protein eggs, avocado on toast, porridge or a healthy smoothie to fuel you through the morning. Try these healthy breakfast dishes, then check out"
+    },
+    {
+     "score": 0.8212418556213379,
+     "url": "https://www.bbcgoodfood.com/recipes/category/healthy-eating-collections",
+     "title": "Healthy eating recipe ideas | Good Food",
+     "pid": 1364579,
+     "snippet": "Healthy eating recipe ideas | Good Food\nmeals include pad Thai, salmon pasta, burgers, curries, lasagne, brownies and more. Easy healthy Healthy cooking doesn't have to be difficult. Our easy healthy recipes are packed full of nutritional benefits and couldn't be simpler to make Healthy meals on a b"
+    },
+    {
+     "score": 0.8183890581130981,
+     "url": "https://jeanetteshealthyliving.com/category/breakfast/",
+     "title": "Healthy Nutritious Breakfast Recipes",
+     "pid": 77433,
+     "snippet": "Healthy Nutritious Breakfast Recipes\noatmeal recipes make for a quick and easy grab-and-go breakfast throughout the week. If you\u2019re looking for a healthy start to the day, overnight oatmeal in a jar is a fun way to get off on the right foot. By mixing and matching different fruit and nut combination"
+    },
+    {
+     "score": 0.8027369379997253,
+     "url": "https://www.bbcgoodfood.com/recipes/collection/breakfast-recipes",
+     "title": "Breakfast Recipes | Good Food",
+     "pid": 1340079,
+     "snippet": "Breakfast Recipes | Good Food\nSkip to main content Breakfast recipes 104 Recipes Big breakfast ideas for weekend feasting and indulgent weekday mornings, from the full English breakfast to to fluffy pancakes and overnight oats. Start your day with these brilliant breakfast ideas, then check out our "
+    },
+    {
+     "score": 0.8026378750801086,
+     "url": "https://www.bbcgoodfood.com/recipes/collection/healthy-breakfasts-kids-recipes",
+     "title": "Healthy breakfasts for kids recipes | Good Food",
+     "pid": 2034616,
+     "snippet": "Healthy breakfasts for kids recipes | Good Food\nSkip to main content Healthy breakfasts for kids recipes 25 Recipes Get your kids off to a flying start with our healthy breakfast recipes. Adjust portion sizes according to the age and appetite of your child, and use whole dairy, ground nuts and seeds"
+    },
+    {
+     "score": 0.8003582954406738,
+     "url": "https://kidshealth.org/en/parents/breakfast.html",
+     "title": "Breakfast Basics | Nemours KidsHealth",
+     "pid": 1587040,
+     "snippet": "Breakfast Basics | Nemours KidsHealth\nmore fiber , calcium , and other important nutrients can help kids do better in school improves memory and attention, which kids need to learn Breakfast eaters get better grades and score higher on standardized tests. And kids who participate in school lunch pro"
+    },
+    {
+     "score": 0.7946603298187256,
+     "url": "https://www.bbcgoodfood.com/recipes/collection/healthy-vegan-breakfast-recipes",
+     "title": "Healthy vegan breakfast recipes | Good Food",
+     "pid": 2088386,
+     "snippet": "Healthy vegan breakfast recipes | Good Food\nSkip to main content Healthy vegan breakfast recipes 26 Recipes Discover our favourite plant-based breakfast ideas, from nutritious porridge, granola and overnight oats to healthy beans on toast and tofu scramble. Try our Healthy Diet Plan, packed with 7 d"
+    }
+   ],
+   "t_ms": {
+    "embed": 1.937499997438863,
+    "search": 0.1747499918565154,
+    "dedupe": 0.05500001134350896,
+    "snippets": 1.0926249960903078,
+    "total": 3.259874996729195
+   }
+  },
+  {
+   "query": "how does gps work",
+   "hits": [
+    {
+     "score": 0.7520536184310913,
+     "url": "https://hacks.mozilla.org/2013/10/who-moved-my-geolocation/",
+     "title": "Who moved my geolocation? - Mozilla Hacks - the Web developer blog",
+     "pid": 1692901,
+     "snippet": "Who moved my geolocation? - Mozilla Hacks - the Web developer blog\nGPS connects with satellite signals, and gets you the coordinates of the device: latitude and longitude. It works well as long as the GPS can connect with satellites, but it can take some time to achieve this, or to give you somethin"
+    },
+    {
+     "score": 0.74900221824646,
+     "url": "https://comparesoft.com/fleet-management-software/gps-fleet-tracking/",
+     "title": "Why GPS Is the Key to Efficient Fleet Management",
+     "pid": 705619,
+     "snippet": "Why GPS Is the Key to Efficient Fleet Management\nby locking onto a number of satellites orbiting the earth to triangulate the position of a GPS tag. Combined with mapping and cellular communication, a GPS device can provide an exact and real-time location of the physical item that is being tracked. "
+    },
+    {
+     "score": 0.7331856489181519,
+     "url": "https://www.atlasyazilim.com.tr/en/services/hardware/vehicle-tracking-systems",
+     "title": "Vehicle Tracking Systems -  Atlas Software",
+     "pid": 276949,
+     "snippet": "Vehicle Tracking Systems -  Atlas Software\ntwo locations and dates you select. CAN I CONTACT THE VEHICLES? With the new screen for special messaging unit, you may contact your vehicles over GPRS for a very small cost. Optionally, you may phone your vehicles with special speaker and microphone set, a"
+    },
+    {
+     "score": 0.7318754196166992,
+     "url": "https://evertpot.com/broadcasting-gps-on-local-network/",
+     "title": "Broadcasting GPS on the local network",
+     "pid": 828087,
+     "snippet": "Broadcasting GPS on the local network\nto the address in the record and gets the GPS information. So, I figured I could just write a small server (with some help from Claude) that emits these lines and registers itself with Avahi (the standard MDNS implemenetation on Linux, or a Mac it would be Bonjo"
+    },
+    {
+     "score": 0.7243479490280151,
+     "url": "https://gpsd.gitlab.io/gpsd/index.html",
+     "title": "GPSd \u2014 Put your GPS on the net!",
+     "pid": 2248639,
+     "snippet": "GPSd \u2014 Put your GPS on the net!\ngpsd \u2014 a GPS service daemon Home News Installation & Building Downloads Support Documentation FAQ Screenshots Recipes Other GPSDs Hardware For GPS Vendors Wish List Hall of Shame Troubleshooting Guide Hacker's Guide References Application Compatibility History Future "
+    },
+    {
+     "score": 0.7170577645301819,
+     "url": "https://www.gpsbabel.org/",
+     "title": "GPSBabel: convert, upload, download data from GPS and Map programs",
+     "pid": 670068,
+     "snippet": "GPSBabel: convert, upload, download data from GPS and Map programs\nWhat is GPSBabel? GPSBabel converts waypoints, tracks, and routes between popular GPS receivers such as Garmin or Magellan and mapping programs like Google Earth or Basecamp. Literally hundreds of GPS receivers and programs are suppo"
+    },
+    {
+     "score": 0.7163494229316711,
+     "url": "http://www.outdoors.ru/orient/index.php",
+     "title": "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+     "pid": 892325,
+     "snippet": "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd. \u00ae \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd"
+    },
+    {
+     "score": 0.7137900590896606,
+     "url": "https://research.google/blog/mapping-the-ionosphere-with-the-power-of-android/",
+     "title": "Mapping the ionosphere with the power of Android",
+     "pid": 2198111,
+     "snippet": "Mapping the ionosphere with the power of Android\nCanada, occur when bursts of energy produced by solar storms interact with the earth\u2019s magnetic field. Photo by Gunjan Sinha courtesy of NASA's Aurorasaurus project. How the ionosphere affects GPS signals GPS and other navigation signals originate fro"
+    },
+    {
+     "score": 0.7090342044830322,
+     "url": "https://spyhuman.com/features/mobile-location-tracker",
+     "title": "Mobile Location Tracker for Android: Live GPS Tracking",
+     "pid": 378507,
+     "snippet": "Mobile Location Tracker for Android: Live GPS Tracking\nor stolen phone Open the dashboard, check the last known position and route, and recover a misplaced or stolen Android phone faster. Field & delivery teams On company-owned phones used with consent, confirm staff on field or delivery routes are "
+    },
+    {
+     "score": 0.7080533504486084,
+     "url": "https://www.scientificamerican.com/article/gps-spoofing-is-scrambling-ships-in-the-strait-of-hormuz/",
+     "title": "GPS spoofing is scrambling ships in the Strait of Hormuz | Scientific American",
+     "pid": 2125810,
+     "snippet": "GPS spoofing is scrambling ships in the Strait of Hormuz | Scientific American\nsituation uniquely challenging is that shipping runs on outdated GPS technology. \u201cThe receivers themselves are out of date by maybe 15 years,\u201d Humphreys says. \u201cSome of them only pull in signals from the U.S. Global Positi"
+    }
+   ],
+   "t_ms": {
+    "embed": 1.9610419985838234,
+    "search": 0.23758300812914968,
+    "dedupe": 0.06737498915754259,
+    "snippets": 1.1044999992009252,
+    "total": 3.370499995071441
+   }
+  },
+  {
+   "query": "learn spanish fast",
+   "hits": [
+    {
+     "score": 0.7571119070053101,
+     "url": "https://www.edx.org/learn/spanish",
+     "title": "Online Spanish classes: courses and certificates | edX",
+     "pid": 1397975,
+     "snippet": "Online Spanish classes: courses and certificates | edX\nDavis Course What is the best way to learn Spanish online? The best way to learn Spanish online is through structured courses that combine grammar and vocabulary with active, real-world practice. While apps and videos can support your learning, "
+    },
+    {
+     "score": 0.7325004935264587,
+     "url": "https://www.scotthyoung.com/blog/2013/10/11/learning-spanish/",
+     "title": "How I'm Learning Spanish - Scott H Young",
+     "pid": 2101198,
+     "snippet": "How I'm Learning Spanish - Scott H Young\nbeen the case. What has worked really well is sticking to the no-speaking English rule. I can say this with confidence by comparing my experience in learning French to learning Spanish. Upholding this constraint has worked better for me than any trick, class "
+    },
+    {
+     "score": 0.7259199619293213,
+     "url": "https://www.scotthyoung.com/blog/2013/09/19/metalearning/",
+     "title": "The Importance of Knowing What You Know - Scott H Young",
+     "pid": 2124399,
+     "snippet": "The Importance of Knowing What You Know - Scott H Young\nmeans learning needs to be flexible and there\u2019s no one \u201csuperior\u201d strategy that automatically dominates. Right now, listening, speaking, reading and writing all form tests on my level of Spanish. In each, I get more information about how much I"
+    },
+    {
+     "score": 0.7249536514282227,
+     "url": "https://sizedal.com/11610/como-responder-a-un-mensaje-de-voz-guia-practica-rapida/",
+     "title": "C\u00f3mo responder a un mensaje de voz: gu\u00eda pr\u00e1ctica r\u00e1pida - Sizedal",
+     "pid": 704740,
+     "snippet": "C\u00f3mo responder a un mensaje de voz: gu\u00eda pr\u00e1ctica r\u00e1pida - Sizedal\nrecomendado Motivo Informaci\u00f3n urgente Texto Lectura m\u00e1s r\u00e1pida y clara Emociones complejas Audio Tono y matices vocales Datos espec\u00edficos Texto F\u00e1cil de copiar y verificar Instrucciones detalladas Audio + texto resumen Claridad y re"
+    },
+    {
+     "score": 0.7237223386764526,
+     "url": "https://www.radio-trinidad.com/podcasts/education",
+     "title": "Best English Podcasts & Education Shows | Trinidad",
+     "pid": 586528,
+     "snippet": "Best English Podcasts & Education Shows | Trinidad\nworld's most renowned educators. In our Caribbean context, the importance of bilingualism cannot be overstated, particularly given our proximity to Latin America. A significant portion of local learners focuses on Spanish proficiency to enhance thei"
+    },
+    {
+     "score": 0.7171449661254883,
+     "url": "https://infobooks.org/free-pdf-books/language-learning/",
+     "title": "50+ Free Language Learning Books [PDF] | Read & Download",
+     "pid": 1243954,
+     "snippet": "50+ Free Language Learning Books [PDF] | Read & Download\nSkip to main content 50+ Free Language Learning Books [PDF] by InfoBooks Updated on February 27, 2026 Found it useful? Share it Looking for language learning books ? We've gathered free language learning books in PDF for over 15 languages, fro"
+    },
+    {
+     "score": 0.7149045467376709,
+     "url": "https://www.babbel.com/?bclid=&irgwc=1&afsrc=1",
+     "title": "Learn a Language Online - Fast & Effective | Babbel",
+     "pid": 97397,
+     "snippet": "Learn a Language Online - Fast & Effective | Babbel\nbites. Start learning The Proven Babbel Method Learn a new language, fast. Our award-winning app uses the Babbel Method to help you speak confidently. You can complete quick lessons, practice conversations with an AI partner, listen to podcasts, an"
+    },
+    {
+     "score": 0.713877260684967,
+     "url": "https://www.commonsensemedia.org/lists/best-bilingual-and-spanish-podcasts-for-kids",
+     "title": "Best Bilingual and Spanish Podcasts for Kids | Common Sense Media",
+     "pid": 2184415,
+     "snippet": "Best Bilingual and Spanish Podcasts for Kids | Common Sense Media\nevents. With podcasts that offer episodes in both Spanish and English, as well as Spanish only, this list provides options for different types of kids, families, and classrooms. You can also check out our list of Kids & Family Podcast"
+    },
+    {
+     "score": 0.7131110429763794,
+     "url": "https://www.commonsensemedia.org/lists/apps-that-help-kids-learn-a-new-language",
+     "title": "Apps That Help Kids Learn a New Language | Common Sense Media",
+     "pid": 2232775,
+     "snippet": "Apps That Help Kids Learn a New Language | Common Sense Media\nreview APP Early Lingo Spanish Language Learning for Kids age 3+ Full-immersion approach has both hits and misses. iPad Free to try , Paid ( Education ) See full review APP Learn English for Toddlers and Kids age 3+ Basic intro to English"
+    },
+    {
+     "score": 0.7067024111747742,
+     "url": "https://es.wikiversity.org/wiki/Departamento_de_lengua_y_literatura",
+     "title": "Departamento de lengua y literatura - Wikiversidad",
+     "pid": 2376847,
+     "snippet": "Departamento de lengua y literatura - Wikiversidad\nel proceso de aprendizaje puedes consultar esta p\u00e1gina: Espa\u00f1ol para hablantes de otras lenguas Si eres hablante nativo del espa\u00f1ol y est\u00e1s interesado aprender otros idioma podr\u00e1s encontrar recursos para ayudarte en esta p\u00e1gina: \u00c1rea de ense\u00f1anza de"
+    }
+   ],
+   "t_ms": {
+    "embed": 1.9837500003632158,
+    "search": 0.21399999968707561,
+    "dedupe": 0.05520897684618831,
+    "snippets": 1.0387080255895853,
+    "total": 3.291667002486065
+   }
+  },
+  {
+   "query": "linux command to find large files",
+   "hits": [
+    {
+     "score": 0.7605454325675964,
+     "url": "https://github.blog/engineering/the-technology-behind-githubs-new-code-search/",
+     "title": "The technology behind GitHub\u2019s new code search - The GitHub Blog",
+     "pid": 1583665,
+     "snippet": "The technology behind GitHub\u2019s new code search - The GitHub Blog\nis north of 200 million, and that code isn\u2019t static: it\u2019s constantly changing and that\u2019s quite challenging for search engines to handle. For the beta, you can currently search almost 45 million repositories, representing 115 TB of code"
+    },
+    {
+     "score": 0.7295972108840942,
+     "url": "https://codapi.org/grep/",
+     "title": "Grep playground",
+     "pid": 1282675,
+     "snippet": "Grep playground\ncodapi Choose a typical use case or try your own: tree search file match:partial match:word match:line regex literal patterns search dir file globs binary ignore case invert match count limit matches matches only files only context silent # Find all occurrences of the # word \"codes\" "
+    },
+    {
+     "score": 0.7260530591011047,
+     "url": "https://antonz.org/grep-by-example/",
+     "title": "Grep by example: Interactive guide",
+     "pid": 859314,
+     "snippet": "Grep by example: Interactive guide\nAnton Zhiyanov projects books blog about \u25d0 grep is the ultimate text search tool available on virtually all Linux machines. While there are now better alternatives (such as ripgrep ), you will still often find yourself on a server where grep is the only search tool"
+    },
+    {
+     "score": 0.7216604351997375,
+     "url": "https://inconsolation.wordpress.com/2014/09/24/bonus-a-massive-missive-of-omission/",
+     "title": "Bonus: A massive missive of omission | Inconsolation",
+     "pid": 1873913,
+     "snippet": "Bonus: A massive missive of omission | Inconsolation\nmodified buffering operations for its standard streams. sum : checksum and count the blocks in a file test : check file types and compare values timeout : run a command with a time limit touch : change file timestamps (I generally use this to show"
+    },
+    {
+     "score": 0.7191566228866577,
+     "url": "https://www.geeksforgeeks.org/linux-unix/linux-tutorial/",
+     "title": "Linux Tutorial - GeeksforGeeks",
+     "pid": 1520804,
+     "snippet": "Linux Tutorial - GeeksforGeeks\npaths, and navigation. File System File Hierarchy Structure Directory Structure File System Navigation Commands Absolute and Relative Pathnames in UNIX Linux Commands Learn essential terminal commands used for navigation, file management, system monitoring, and basic o"
+    },
+    {
+     "score": 0.714740514755249,
+     "url": "https://hackernoon.com/10-helpful-python-tips-and-tricks-for-beginners-64m3wc4",
+     "title": "",
+     "pid": 2160266,
+     "snippet": "'find', 'format', 'format_map', 'index', 'isalnum', 'isalpha', 'isascii', 'isdecimal', 'isdigit', 'isidentifier', 'islower', 'isnumeric', 'isprintable', 'isspace', 'istitle', 'isupper', 'join', 'ljust', 'lower', 'lstrip', 'maketrans', 'partition', 'replace', 'rfind', 'rindex', 'rjust', 'rpartition',"
+    },
+    {
+     "score": 0.7131537199020386,
+     "url": "https://git-annex.branchable.com/tips/Faster_bash_autocompletion_with_big_annex_repos/",
+     "title": "Faster bash autocompletion with big annex repos",
+     "pid": 2115082,
+     "snippet": "Faster bash autocompletion with big annex repos\ngit-annex / tips / Faster bash autocompletion with big annex repos Edit RecentChanges History Preferences Branchable 1 comment install assistant walkthrough tips bugs todo forum comments contact thanks I'm currently using git annex to manage my entire "
+    },
+    {
+     "score": 0.7120630145072937,
+     "url": "https://github.com/alebcay/awesome-shell",
+     "title": "GitHub - alebcay/awesome-shell: A curated list of awesome command-line frameworks, toolkits, guides and gizmos. Inspired by awesome-php. \u00b7 GitHub",
+     "pid": 2272994,
+     "snippet": "GitHub - alebcay/awesome-shell: A curated list of awesome command-line frameworks, toolkits, guides and gizmos. Inspired by awesome-php. \u00b7 GitHub\nShow Git status in Tmux status bar googler - Google Search, Google Site Search, Google News from the terminal googlr - Command line tool that lets you sea"
+    },
+    {
+     "score": 0.7118322849273682,
+     "url": "https://usro.net/lumy-ai-desktop-agent/",
+     "title": "Lumy AI Desktop | AI File Search & Organization for Windows - Ultimate Systems",
+     "pid": 478787,
+     "snippet": "Lumy AI Desktop | AI File Search & Organization for Windows - Ultimate Systems\nroughly what the file is called. Smart A balanced search for everyday requests and the details you remember. Deep Search wider and read more documents when the file is harder to place. Verified Matches A Verified badge sh"
+    },
+    {
+     "score": 0.7105762362480164,
+     "url": "https://matheustavares.dev/posts/parallel-checkout",
+     "title": "Faster Git checkouts on NFS and SSD with parallelism | Matheus Tavares",
+     "pid": 1830238,
+     "snippet": "Faster Git checkouts on NFS and SSD with parallelism | Matheus Tavares\nI chose to benchmark a command where this is the main bottleneck: a git checkout . execution on an empty working tree of the Linux kernel repository (version 5.12). This requires the creation of over 70 thousand files. The comman"
+    }
+   ],
+   "t_ms": {
+    "embed": 2.0596660033334047,
+    "search": 0.32845899113453925,
+    "dedupe": 0.06041600136086345,
+    "snippets": 1.0478339972905815,
+    "total": 3.496374993119389
+   }
+  },
+  {
+   "query": "why is the sky blue",
+   "hits": [
+    {
+     "score": 0.7361864447593689,
+     "url": "https://docs.digitalocean.com/products/inference/how-to/test-agents/",
+     "title": "How to Test Agents Using the Agent Playground on DigitalOcean Inference | DigitalOcean Documentation",
+     "pid": 1690927,
+     "snippet": "How to Test Agents Using the Agent Playground on DigitalOcean Inference | DigitalOcean Documentation\n0 to 1 recommended range. Values above 1 typically produce incoherent output and may be clamped by the underlying model provider. Click to see example responses with different temperature values. For"
+    },
+    {
+     "score": 0.7072921395301819,
+     "url": "https://betterexplained.com/articles/brevity-is-beautiful/print/",
+     "title": "BetterExplained  \u00bb Brevity Is Beautiful \u00bb Print",
+     "pid": 1435622,
+     "snippet": "BetterExplained  \u00bb Brevity Is Beautiful \u00bb Print\ngem. There's no need to appear substantial. Does anyone think the 278-word Gettysburg address isn\u2019t meaty enough? Expert\u2019s Guilt (The sky is not blue) Brevity\u2019s enemy is an armada of helpful caveats. Quick question: is the sky blue? Well, it\u2019s black at"
+    },
+    {
+     "score": 0.7009541988372803,
+     "url": "https://www.earthdata.nasa.gov/topics/atmosphere/top-atmosphere-toa-reflectance",
+     "title": "Top of Atmosphere (TOA) Reflectance | NASA Earthdata",
+     "pid": 1630011,
+     "snippet": "Top of Atmosphere (TOA) Reflectance | NASA Earthdata\nSkip to main content Delivery of new Suomi National Polar-orbiting Partnership (Suomi NPP) satellite observations will cease on November 2, 2026. Data users should transition now to alternative products from NOAA-21 and NOAA-20. Suomi NPP data ann"
+    },
+    {
+     "score": 0.6955751180648804,
+     "url": "https://www.scientificamerican.com/article/why-are-there-no-green-stars/",
+     "title": "Why Are There No Green Stars? | Scientific American",
+     "pid": 2190550,
+     "snippet": "Why Are There No Green Stars? | Scientific American\neven distribution. A graph of solar brightness versus color shows a shape more like a lopsided bell curve , with a long tail beyond the red wavelengths. Surprisingly, the peak of that graph is in the blue-green part of the spectrum! So why doesn\u2019t "
+    },
+    {
+     "score": 0.6940410137176514,
+     "url": "https://betterexplained.com/articles/brevity-is-beautiful/",
+     "title": "Brevity Is Beautiful \u2013 BetterExplained",
+     "pid": 1362069,
+     "snippet": "Brevity Is Beautiful \u2013 BetterExplained\ngem. There's no need to appear substantial. Does anyone think the 278-word Gettysburg address isn\u2019t meaty enough? Expert\u2019s Guilt (The sky is not blue) Brevity\u2019s enemy is an armada of helpful caveats. Quick question: is the sky blue? Well, it\u2019s black at night. A"
+    },
+    {
+     "score": 0.690485417842865,
+     "url": "https://www.nationalgeographic.com/science/article/cerulean-blue-color-history-chemistry",
+     "title": "One of the hardest colors to make is not just blue\u2014it's actually cerulean | National Geographic",
+     "pid": 2382494,
+     "snippet": "One of the hardest colors to make is not just blue\u2014it's actually cerulean | National Geographic\nKali, the Hindu goddess of time and death is often depicted as blue. More recently, baby boys\u2014 and girls \u2014have been associated with baby blue. Blue has held a lot of meanings over time. Someone can have \u201c"
+    },
+    {
+     "score": 0.6860684752464294,
+     "url": "https://www.scientificamerican.com/article/what-makes-stars-twinkle/",
+     "title": "What Makes Stars Twinkle? | Scientific American",
+     "pid": 2192636,
+     "snippet": "What Makes Stars Twinkle? | Scientific American\nusually more obvious for stars near the horizon than overhead. The atmosphere is a shell of air surrounding Earth. When we look straight up, we\u2019re looking through roughly 100 kilometers of air, but toward the horizon, that length increases to more than"
+    },
+    {
+     "score": 0.6860641837120056,
+     "url": "https://www.weather.gov/satellite",
+     "title": "Satellite Images",
+     "pid": 1666965,
+     "snippet": "Satellite Images\nbrighter and warmer objects are darker. Lower layers of clouds, generally warmer and lower in altitude, are colored gray. Colder and generally higher clouds tops are highlighted in colors. Infrared imagery is useful for determining cloud features both at day and night. View Loop (op"
+    },
+    {
+     "score": 0.685170590877533,
+     "url": "https://www.scientificamerican.com/article/what-color-is-this-dot-new-illusion-demonstrates-weird-vision-quirk/",
+     "title": "What color is this dot? New illusion demonstrates weird vision quirk | Scientific American",
+     "pid": 1661332,
+     "snippet": "What color is this dot? New illusion demonstrates weird vision quirk | Scientific American\nthe fact that a blue dot will look less blue when viewed in the center of our vision, these phenomena make for a striking illusion. The illusion doesn\u2019t reveal a new process, Bosten says, \u201cbut it is exploiting"
+    },
+    {
+     "score": 0.6779093146324158,
+     "url": "https://www.scientificamerican.com/article/light-pollution-is-dimming-our-view-of-the-sky-and-its-getting-worse/",
+     "title": "Light Pollution Is Dimming Our View of the Sky, and It's Getting Worse | Scientific American",
+     "pid": 1539023,
+     "snippet": "Light Pollution Is Dimming Our View of the Sky, and It's Getting Worse | Scientific American\nout that over recent years many older outdoor lightbulbs that emitted redder light have been replaced by LEDs that shine more brightly in blue\u2014a color that scatters more easily in the atmosphere and to which"
+    }
+   ],
+   "t_ms": {
+    "embed": 1.9513749866746366,
+    "search": 0.22600000374950469,
+    "dedupe": 0.059999991208314896,
+    "snippets": 0.9117500158026814,
+    "total": 3.1491249974351376
+   }
+  }
+ ]
+}

@@ -178,3 +178,58 @@ distractors, and the long-tail web is full of syndicated copies (the same "Commo
 article appeared as the top 3 results from three different domains). Fixes applied for the final index: exact-duplicate
 passages are dropped at merge time (`merge_parts --dedupe`), and the query path collapses results with the same normalized
 title. Coverage of health/reference/docs comes from the quality crawl, merged in the final section.
+
+## 8. Final combined index (2,411,705 passages / 675,399 docs; main + quality crawls)
+
+Quality crawl (239 authoritative seed hosts: .gov, NHS, MedlinePlus, docs sites, major reference/news):
+294,774 pages in 4,200 s (**70 pages/s**, 50.6 GB, 54,132 hosts). Slower than the main crawl by design: hosts are
+large and deep rather than many, so the per-host politeness delay, not the connection budget, is the limiter.
+Top errors: truncated 47,884 · http_4xx 39,752 · too_short 37,512 · timeout 27,132.
+
+Merge (`merge_parts --dedupe`, 36 parts): 2,568,633 -> **2,411,705 passages, 156,928 exact duplicates dropped (6.1%)**.
+Build (12 threads): flat 1 s (3.7 GB) · HNSW M=32 efC=200 **172 s** (4.4 GB).
+
+| index | ef | recall@10 | p50 ms | p99 ms |
+|---|---|---|---|---|
+| flat (exact) | - | 1.000 | 16.0 | 17.5 |
+| hnsw | 16 | 0.965 | 0.06 | 0.11 |
+| hnsw | 32 | 0.984 | 0.09 | 0.19 |
+| hnsw | **64** | **0.991** | **0.13** | **0.24** |
+| hnsw | 128 | 0.994 | 0.27 | 0.50 |
+
+(Lower ms than section 7 at 1.7x the size: that run shared the CPU with two embedding watchers; this one is on an idle machine.)
+
+**End-to-end, idle machine** (`bench/e2e.py --tag all_coreml`, 30 queries x 3, CoreML GPU query encoder, k=10, ef=64):
+
+| stage | p50 ms | p95 ms | p99 ms |
+|---|---|---|---|
+| embed (bge-small, seq 64, batch 1) | 1.68 | 3.07 | 11.4 |
+| HNSW search (k*3) | 0.19 | 0.26 | 0.35 |
+| dedupe (doc + normalized title) | 0.03 | 0.11 | 0.14 |
+| snippets (mmap) | 0.02 | 1.13 | 1.20 |
+| **total** | **1.94** | **4.53** | **12.8** |
+
+Cold start 5.1 s (model 3.4, index 0.5, meta 1.1). The query encoder is ~85% of the budget; the index is <10%.
+
+Self-eval (500 held-out pages sampled across both crawls, `bench/results/self_eval_all.json`):
+title MRR@10 0.691 (R@1 0.666, R@10 0.742); sentence MRR@10 0.297 (R@1 0.262, R@10 0.374).
+R@1 is up vs section 7 (0.642) and R@10 is down (0.806): title-collapse now hides syndicated copies, so when the held-out
+page *is* a copy, the same article is returned under a different URL and counts as a miss. That is the intended behaviour
+for a user, and a known bias of URL-matching pseudo-queries.
+
+Complex-query spot check (`bench/results/spot_all.txt`, 10 queries): health queries that failed on the main-crawl-only
+index now hit CDC / NHS / MedlinePlus / Scientific American at rank 1-3 (type 2 diabetes + insulin resistance, B12
+deficiency, mRNA vaccines); Rust borrow checker -> the Rust Book; landlord deposit -> USAGov / GOV.UK. Four misses
+(Treaty of Westphalia, HNSW vs IVF, Fermi paradox, reheating pizza) all return topical-but-wrong pages scored <0.75,
+while every correct hit scores >0.80: these are coverage gaps in a 675k-doc corpus, not ranking errors, and the score
+gap is a usable "no good answer" signal.
+
+### Where the returns diminished
+
+| metric | start | end | ceiling and next lever |
+|---|---|---|---|
+| crawl pages/s | 46 | 321 (main) | ~120 new TCP connections/s on this Wi-Fi path; wired link / more machines |
+| embed passages/s | 159 (MLX) | 600-650 (CoreML GPU) | Apple GPU saturated at ~1,500 raw seq/s; a datacenter GPU is 40x |
+| HNSW recall@10 @ p50 | - | 0.991 @ 0.13 ms | flat is 16 ms; ef 128 buys +0.003 for 2x time |
+| e2e query p50 | 9.2 ms (torch/MPS) | 1.94 ms (CoreML) | 1.7 ms is the 12-layer encoder; only a smaller encoder (training, step 3) goes lower |
+| BEIR nDCG@10 | - | 0.713 scifact / 0.344 nfcorpus | equals the model's published MTEB scores: training not needed for accuracy |

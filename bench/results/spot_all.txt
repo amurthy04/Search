@@ -1,0 +1,70 @@
+
+### what causes type 2 diabetes and how is insulin resistance treated   [5.7 ms]
+  0.875  'About Insulin Resistance and Type 2 Diabetes | Diabetes | CDC'  https://www.cdc.gov/diabetes/about/insulin-resistance-type-2-diabetes.html
+  0.859  'Diabetes Causes: How Do You Get Type 1 and Type 2 Diabetes?'  https://www.healthline.com/health/diabetes-causes
+  0.850  'Type 2 Diabetes | Diabetes Type 2 | MedlinePlus'  https://medlineplus.gov/diabetestype2.html
+  0.849  'Understanding Type 2 Diabetes | ADA'  https://diabetes.org/about-diabetes/type-2
+  0.846  'Diabetes Weight Loss: Research, Tips, and Where to Start'  https://www.healthline.com/health/diabetes/diabetes-weight-loss
+
+### who negotiated the Treaty of Westphalia and what did it end   [5.7 ms]
+  0.742  'Wikisource:Requested texts - Wikisource, the free online library'  https://en.wikisource.org/wiki/Wikisource:Requested_texts
+  0.729  'Treaty of Ghent (1814) | National Archives'  https://www.archives.gov/milestone-documents/treaty-of-ghent
+  0.717  'Treaty of Guadalupe Hidalgo (1848) | National Archives'  https://www.archives.gov/milestone-documents/treaty-of-guadalupe-hidalgo
+  0.708  'Surrender of Germany (1945) | National Archives'  https://www.archives.gov/milestone-documents/surrender-of-germany
+  0.708  'Check for the Purchase of Alaska (1868) | National Archives'  https://www.archives.gov/milestone-documents/check-for-the-purchase-of-alaska
+
+### how does the Rust borrow checker prevent data races at compile time   [3.1 ms]
+  0.813  'In Rust we trust? White House Office urges memory safety - Stack Overf'  https://stackoverflow.blog/2024/12/30/in-rust-we-trust-white-house-office-urges-
+  0.802  'Validating References with Lifetimes - The Rust Programming Language'  https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html
+  0.800  'Lifetimes'  https://doc.rust-lang.org/1.8.0/book/lifetimes.html
+  0.795  'References and Borrowing'  https://doc.rust-lang.org/1.8.0/book/references-and-borrowing.html
+  0.795  'core::sync::atomic - Rust'  https://doc.rust-lang.org/core/sync/atomic/
+
+### symptoms of vitamin B12 deficiency in older adults   [3.0 ms]
+  0.854  '8 Overlooked Health and Wellness Checks Older Adults Should Know About'  https://roloxon.com/8-overlooked-health-and-wellness-checks-older-adults-should-
+  0.845  'Vitamin B12 or folate deficiency anaemia - Symptoms\n - NHS'  https://www.nhs.uk/conditions/vitamin-b12-or-folate-deficiency-anaemia/symptoms/
+  0.817  'Vitamin B-12 Level Test: Purpose, Procedure & Results'  https://www.healthline.com/health/vitamin-b12-level
+  0.816  'Vitamin B12: Benefits, Sources, Deficiencies | Good Food'  https://www.bbcgoodfood.com/health/nutrition/what-vitamin-b12
+  0.788  'Pernicious Anemia: Symptoms, Causes, and Treatments'  https://www.healthline.com/health/pernicious-anemia
+
+### why did the Roman Republic collapse into an empire   [2.9 ms]
+  0.752  'Roman Empire – Travel guide at Wikivoyage'  https://en.wikivoyage.org/wiki/Roman_Empire
+  0.711  "How Cicero's murder ushered in the Roman Empire | National Geographic"  https://www.nationalgeographic.com/history/history-magazine/article/death-of-cic
+  0.706  "Enslaved people built the Roman Empire. Here's how their legacy has su"  https://www.nationalgeographic.com/history/article/slaves-built-roman-empire-leg
+  0.703  'Ancient Rome - Facts, Location & Timeline | HISTORY'  https://www.history.com/topics/ancient-rome
+  0.682  'What archaeology reveals about the rise of all-powerful rulers | Scien'  https://www.scientificamerican.com/article/what-archaeology-reveals-about-the-ri
+
+### difference between HNSW and IVF indexes for approximate nearest neighbor search   [3.1 ms]
+  0.741  'National, Regional, and Global Trends in Infertility Prevalence Since '  https://pmc.ncbi.nlm.nih.gov/articles/PMC3525527/
+  0.718  '"Hum Reprod Open"[jour] - Search Results - PubMed'  https://pubmed.ncbi.nlm.nih.gov/?term=%22Hum%20Reprod%20Open%22%5Bjour%5D
+  0.718  'Can the chances of a successful IVF pregnancy be improved with AI? | S'  https://www.scientificamerican.com/article/can-the-chances-of-a-successful-ivf-p
+  0.711  'Mode of conception in relation to nausea and vomiting of pregnancy: a '  https://www.nature.com/articles/s41598-021-88575-z
+  0.711  'Notes on Habbema et al. (2015): "Realizing a Desired Family Size" [rou'  https://colah.github.io/personal/Habbema/
+
+### how to file a small claims case against a landlord for a withheld deposit   [2.9 ms]
+  0.750  'How to file a complaint against a landlord | USAGov'  https://www.usa.gov/tenant-rights
+  0.723  'Deposit protection schemes and landlords: Overview - GOV.UK'  https://www.gov.uk/deposit-protection-schemes-and-landlords
+  0.718  'Preparing a Request for Appeals | Internal Revenue Service'  https://www.irs.gov/appeals/preparing-a-request-for-appeals
+  0.714  "A landlord's legal guide to non-payment evictions, notice requirements"  https://www.inhouse.ai/playbooks/article/your-tenant-stopped-paying-rent-the-lan
+  0.708  'Private renting for tenants: evictions in England: Rules your landlord'  https://www.gov.uk/private-renting-evictions
+
+### what is the Fermi paradox and the main proposed resolutions   [2.7 ms]
+  0.716  'What’s the point of the interstellar Fermi Explorer mission? | Scienti'  https://www.scientificamerican.com/article/whats-the-point-of-the-interstellar-f
+  0.709  'Search | arXiv e-print repository'  https://arxiv.org/search/cond-mat?searchtype=author&query=Bohn,+J+L
+  0.706  '[2610.22639] Universal Threshold Laws for Dipolar Evaporation of Molec'  https://arxiv.org/abs/2610.22639
+  0.706  'Quantum Gases'  https://arxiv.org/list/cond-mat.quant-gas/new
+  0.703  'Black Hole Information Paradox: An Introduction – Of Particular Signif'  https://profmattstrassler.com/articles-and-posts/relativity-space-astronomy-and-
+
+### best way to reheat pizza so the crust stays crispy   [2.0 ms]
+  0.781  'How to make pizza | Good Food'  https://www.bbcgoodfood.com/videos/techniques/how-make-pizza-video
+  0.770  '7 Ways to Use Life Hacks - wikiHow'  https://www.wikihow.com/Use-Life-Hacks
+  0.749  'Classic lasagne recipe | Good Food'  https://www.bbcgoodfood.com/recipes/classic-lasagne-0
+  0.748  'Bubble Up Biscuit Pizza Casserole'  https://www.thelazydish.com/easy-pizza-dinner-casserole-made-with-biscuits/
+  0.746  'Jewelled pork & pistachio pie recipe | Good Food'  https://www.bbcgoodfood.com/recipes/jewelled-pork-pistachio-pie
+
+### how do mRNA vaccines train the immune system   [2.5 ms]
+  0.875  'How do mRNA vaccines work, and why are they safe and effective? | Scie'  https://www.scientificamerican.com/article/how-do-mrna-vaccines-work-and-why-are
+  0.832  'Revolutionary mRNA Cancer Vaccines: Teaching Your Body to Fight Cancer'  https://drmirkin.com/?p=9051
+  0.816  'What are mRNA vaccines and how do they work?: MedlinePlus Genetics'  https://medlineplus.gov/genetics/understanding/therapy/mrnavaccines/
+  0.796  'mRNA vaccines in the context of cancer treatment: from concept to appl'  https://link.springer.com/article/10.1186/s12967-024-06033-6
+  0.791  'Press release: The Nobel Prize in Physiology or Medicine 2023 - NobelP'  https://www.nobelprize.org/prizes/medicine/2023/press-release/
