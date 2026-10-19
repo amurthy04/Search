@@ -238,6 +238,14 @@ def cmd_bench(args):
                 f.write(json.dumps(r) + "\n")
 
 
+def finalize(out: str, dim: int) -> np.ndarray:
+    """Turn the incrementally written .f16.bin into .npy (also usable to recover a crashed run)."""
+    raw = np.fromfile(out + ".f16.bin", dtype=np.float16)
+    vecs = raw.reshape(-1, dim)
+    np.save(out + ".npy", vecs)
+    return vecs
+
+
 def cmd_run(args):
     """Embed the crawl corpus to disk."""
     t_all = time.perf_counter()
@@ -247,12 +255,14 @@ def cmd_run(args):
     meta_fh = open(args.out + ".meta.jsonl.zst", "wb")
     meta_w = zstd.ZstdCompressor(level=3).stream_writer(meta_fh)
     pass_fh = open(args.out + ".passages.bin", "wb")
+    vec_fh = open(args.out + ".f16.bin", "wb")  # vectors appended per flush; a crash keeps everything so far
     offsets = [0]
     vec_chunks = []
     buf_texts, buf_meta = [], []
     n = 0
     t_read = t_embed = 0.0
     t0 = time.perf_counter()
+    dim_holder = [0]
 
     def flush():
         nonlocal t_embed
@@ -265,7 +275,8 @@ def cmd_run(args):
         vecs = emb.encode(texts)
         inv = np.empty_like(order); inv[order] = np.arange(len(order))
         vecs = vecs[inv]
-        vec_chunks.append(vecs.astype(np.float16))
+        v16 = np.ascontiguousarray(vecs.astype(np.float16))
+        vec_fh.write(v16.tobytes()); dim_holder[0] = v16.shape[1]
         for m, txt in zip(buf_meta, buf_texts):
             meta_w.write(orjson.dumps(m) + b"\n")
             b = txt.encode("utf-8")
@@ -289,10 +300,9 @@ def cmd_run(args):
             break
         tr = time.perf_counter()
     flush()
-    meta_w.close(); meta_fh.close(); pass_fh.close()
+    meta_w.close(); meta_fh.close(); pass_fh.close(); vec_fh.close()
     np.save(args.out + ".offsets.npy", np.asarray(offsets, dtype=np.int64))
-    vecs = np.concatenate(vec_chunks) if vec_chunks else np.zeros((0, emb.dim), np.float16)
-    np.save(args.out + ".npy", vecs)
+    vecs = finalize(args.out, dim_holder[0] or emb.dim or 1)
     el = time.perf_counter() - t0
     summary = {"model": args.model, "backend": args.backend, "passages": n, "dim": int(vecs.shape[1]), "elapsed_s": el,
                "passages_per_s": n / el, "embed_s": t_embed, "read_s": t_read, "max_seq": args.max_seq, "batch": args.batch_size}

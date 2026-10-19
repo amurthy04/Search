@@ -13,13 +13,26 @@ _word_re = re.compile(r"\S+")
 
 
 def iter_records(pattern: str) -> Iterator[dict]:
+    """Stream records from zstd JSONL shards. A shard whose writer was killed mid-stream has a truncated tail:
+    we stop at the first undecodable line/frame and move on (a warning goes to stderr)."""
+    import sys
     for path in sorted(glob.glob(pattern)):
-        with open(path, "rb") as fh:
-            dctx = zstd.ZstdDecompressor()
-            with dctx.stream_reader(fh) as reader:
-                for line in io.TextIOWrapper(reader, encoding="utf-8"):
-                    if line.strip():
-                        yield orjson.loads(line)
+        n = 0
+        try:
+            with open(path, "rb") as fh:
+                dctx = zstd.ZstdDecompressor()
+                with dctx.stream_reader(fh) as reader:
+                    for line in io.TextIOWrapper(reader, encoding="utf-8", errors="replace"):
+                        if line.strip():
+                            try:
+                                rec = orjson.loads(line)
+                            except orjson.JSONDecodeError:
+                                print(f"[corpus] truncated record at end of {path} after {n} records", file=sys.stderr)
+                                break
+                            n += 1
+                            yield rec
+        except (zstd.ZstdError, OSError) as e:
+            print(f"[corpus] {path}: {e!r} after {n} records", file=sys.stderr)
 
 
 def chunk_text(text: str, words_per_chunk: int = 180, overlap: int = 30, max_chunks: int = 6) -> list[str]:

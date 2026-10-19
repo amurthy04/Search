@@ -17,14 +17,18 @@ All numbers below are from `bench/results/*.json` produced by the scripts in `be
 | E1 timeouts | total/connect/read 15/5/8 s -> 8/3/5 s (2w x 256) | 163 -> 174 | +7%; more requests hit the deadline but slots turn over faster |
 | E2 seeds | top-8000 Tranco seeds, depth 3 instead of offset-400k seeds | 135 | worse: big sites block bots (403) and time out more |
 | link | `en0` is **Wi-Fi**; ping to 1.1.1.1 goes 7 ms idle -> 31 ms avg / 105 ms max under a 512-connection crawl | | the radio, not the WAN, is the shared limiter that extra workers cannot beat |
-| final | 2 workers x 256 conns, 8/3/5 s timeouts, 400 KB body cap, top-150k seeds, depth 2, <=50 pages/host | ~175 | production config for the main crawl |
+| sustained | after ~10 min of sustained crawling the path degraded: 321 sockets in SYN_SENT, `curl` to wikipedia.org needed 7 s to *connect*, 40% of requests were connect timeouts | 50-75 | upstream (campus NAT / AP) rate-limits **new connections**, not bytes |
+| **cold-host rate limit** | scheduler split into warm hosts (have a keep-alive connection) and cold hosts (need DNS+TCP+TLS); cold hosts drained through a token bucket, warm hosts always first | **289** (vs 52 same minute, same seeds) | TTFB p50 1.8 s -> 0.6 s; timeouts 7189 -> 1685 per 75 s |
+| rate sweep | cold hosts/s per worker: 15 -> 274, 25 -> 282, 40 -> 289, **60 -> 321**, 90 -> 290 | 321 | knee at ~120 new connections/s machine-wide |
+| final | 2 workers x 256 conns, cold-host rate 60/s/worker, 8/3/5 s timeouts, 300 KB body cap, Tranco 600k+ seeds, depth 2, <=40 pages/host | ~300 | production config for the main crawl |
 
-Where the ceiling is: Little's law. ~500 connections in flight / ~1.1 s median request (remote TTFB from thousands of
-small hosts + failed requests holding slots) = ~175 pages/s. Adding in-flight connections raised latency one-for-one
-(2 s -> 4 s p50 at 1.5k conns) and collapsed the path past ~4k, because the Wi-Fi link saturates on packet rate /
-airtime long before its 280 Mbps bulk bandwidth. 46 -> 175 pages/s (3.8x) is the diminishing-returns point for this
-machine on this link. Next levers, in order: plug into Ethernet (expected 2-3x), then more machines (the design shards
-hosts by hash, so N boxes = N x throughput with no coordinator).
+Where the ceiling is: the network path admits roughly 120 *new* TCP connections per second from this machine. A
+breadth-first crawler opens a new connection for almost every page (each page is on a new host), so it is capped at
+~120-175 pages/s and, worse, SYNs queue up and half the connection slots are burnt waiting on timeouts. Scheduling
+warm hosts first and metering cold hosts keeps the connection rate under the limit and fills the remaining slots with
+keep-alive requests: 46 -> 321 pages/s (7x) overall. Past rate 60 the SYN queue builds again and throughput falls.
+Next levers, in order: Ethernet (the Wi-Fi radio also adds ~25 ms of queueing under load), then more machines (hosts
+are sharded by hash, so N boxes = N x throughput with no coordinator).
 
 ## 2. Embedding throughput (passages of ~180 words, max 256 tokens)
 
