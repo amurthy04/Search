@@ -74,15 +74,17 @@ def main():
     ap.add_argument("--parts", default="data/index/parts")
     ap.add_argument("--backend", default="coreml"); ap.add_argument("--model", default="BAAI/bge-small-en-v1.5")
     ap.add_argument("--batch-size", type=int, default=32); ap.add_argument("--max-seq", type=int, default=256)
+    ap.add_argument("--device", default="mps", help="torch device for the st backend")
     ap.add_argument("--flush", type=int, default=4096)
     ap.add_argument("--words", type=int, default=180); ap.add_argument("--overlap", type=int, default=30); ap.add_argument("--max-chunks", type=int, default=6)
     ap.add_argument("--mod", type=int, default=1); ap.add_argument("--rem", type=int, default=0)
     ap.add_argument("--once", action="store_true", help="process what is closed now and exit (no waiting for the crawler)")
     args = ap.parse_args()
     from .embed import make_embedder
-    emb = make_embedder(args.backend, args.model, max_seq=args.max_seq, batch_size=args.batch_size)
+    emb = make_embedder(args.backend, args.model, max_seq=args.max_seq, batch_size=args.batch_size,
+                        device=args.device, fp16=(args.device != "cpu"))
     os.makedirs(args.parts, exist_ok=True)
-    tag = args.backend
+    tag = args.backend + ("_" + args.device if args.backend == "st" else "")
     total = 0; t_start = time.time()
     while True:
         todo = []
@@ -92,8 +94,17 @@ def main():
                 continue
             name = os.path.basename(s).replace(".jsonl.zst", "")
             out_prefix = os.path.join(args.parts, name)
-            if os.path.exists(out_prefix + ".npy") or os.path.exists(out_prefix + ".claim"):
+            if os.path.exists(out_prefix + ".npy"):
                 continue
+            if os.path.exists(out_prefix + ".claim"):
+                try:
+                    pid = int(open(out_prefix + ".claim").read().strip())
+                    os.kill(pid, 0)  # raises if the owner died -> stale claim
+                    continue
+                except ValueError:
+                    continue  # old-style tag claim; assume live
+                except OSError:
+                    os.remove(out_prefix + ".claim")
             todo.append((s, out_prefix))
         if not todo:
             if args.once or not crawler_running():
@@ -101,7 +112,7 @@ def main():
             time.sleep(15)
             continue
         for s, out_prefix in todo:
-            open(out_prefix + ".claim", "w").write(tag)
+            open(out_prefix + ".claim", "w").write(str(os.getpid()))
             r = embed_shard(emb, s, out_prefix, args)
             os.remove(out_prefix + ".claim")
             total += r.get("passages", 0)
