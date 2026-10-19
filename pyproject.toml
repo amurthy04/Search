@@ -8,6 +8,7 @@ dependencies = [
     "aiodns>=4.0.4",
     "aiohttp>=3.14.5",
     "brotli>=1.2.0",
+    "coremltools>=9.0",
     "dnspython>=2.9.0",
     "einops>=0.8.2",
     "faiss-cpu>=1.15.1",

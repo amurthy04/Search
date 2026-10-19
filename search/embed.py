@@ -42,6 +42,18 @@ def prefixes(model_name: str):
     return MODELS.get(model_name, ("", "", False))
 
 
+# pooling used by each model family (needed for the MLX backend, which exposes raw hidden states)
+POOLING = {"BAAI/bge": "cls", "Snowflake/snowflake-arctic": "cls", "intfloat/e5": "mean", "intfloat/multilingual-e5": "mean",
+           "sentence-transformers/all-MiniLM": "mean", "Alibaba-NLP/gte-modernbert": "cls", "nomic-ai": "mean", "mixedbread-ai": "cls"}
+
+
+def pooling_for(model_name: str) -> str:
+    for k, v in POOLING.items():
+        if model_name.startswith(k):
+            return v
+    return "mean"
+
+
 class STEmbedder:
     def __init__(self, model_name: str, device: str = "mps", fp16: bool = True, max_seq: int = 256, batch_size: int = 128):
         import torch
@@ -71,7 +83,7 @@ class STEmbedder:
 class MLXEmbedder:
     """MLX backend: runs the HF transformer with mlx (bert/xlm-roberta family) with mean/CLS pooling."""
 
-    def __init__(self, model_name: str, max_seq: int = 256, batch_size: int = 128, pooling: str = "cls"):
+    def __init__(self, model_name: str, max_seq: int = 256, batch_size: int = 128, pooling: str = ""):
         import mlx.core as mx
         from mlx_embeddings import load
         self.mx = mx
@@ -80,7 +92,7 @@ class MLXEmbedder:
         self.qp, self.dp, _ = prefixes(model_name)
         self.max_seq = max_seq
         self.batch_size = batch_size
-        self.pooling = pooling
+        self.pooling = pooling or pooling_for(model_name)
         self.dim = None
 
     def encode(self, texts, is_query=False, show=False):
@@ -96,7 +108,13 @@ class MLXEmbedder:
             enc = self.tokenizer._tokenizer(batch, return_tensors="np", padding=True, truncation=True, max_length=self.max_seq)
             ids = mx.array(enc["input_ids"]); mask = mx.array(enc["attention_mask"])
             res = self.model(ids, attention_mask=mask)
-            emb = res.text_embeds  # already pooled+normalized in mlx_embeddings
+            hs = res.last_hidden_state
+            if self.pooling == "cls":
+                emb = hs[:, 0, :]
+            else:
+                m = mask[:, :, None].astype(hs.dtype)
+                emb = (hs * m).sum(axis=1) / mx.maximum(m.sum(axis=1), 1e-9)
+            emb = emb / mx.linalg.norm(emb, axis=1, keepdims=True)
             mx.eval(emb)
             arr = np.array(emb.astype(mx.float32))
             out.append((idx, arr))
@@ -108,12 +126,67 @@ class MLXEmbedder:
         return res
 
 
+class CoreMLEmbedder:
+    """CoreML (Apple GPU / ANE) backend. Fixed-shape fp16 graph exported from search.minibert via bench/coreml_convert.py.
+
+    Batches are padded to (B, S); the fixed graph makes the per-batch cost constant, so passages are sorted by
+    length upstream and the last partial batch is padded. ~2.2x the throughput of torch/MPS for bge-small.
+    """
+
+    def __init__(self, model_name: str, max_seq: int = 256, batch_size: int = 32, compute: str = "gpu", **_):
+        import coremltools as ct
+        from transformers import AutoTokenizer
+        from .minibert import MiniBert
+        import torch
+        self.model_name = model_name
+        self.qp, self.dp, _ = prefixes(model_name)
+        self.B, self.S = batch_size, max_seq
+        path = f"data/index/coreml_{model_name.split('/')[-1]}_b{batch_size}_s{max_seq}.mlpackage"
+        if not os.path.exists(path):
+            m = MiniBert.from_hf(model_name, pooling_for(model_name), fixed=(batch_size, max_seq))
+            ids = torch.randint(100, 1000, (batch_size, max_seq)); mask = torch.ones(batch_size, max_seq, dtype=torch.long)
+            traced = torch.jit.trace(m, (ids, mask))
+            ml = ct.convert(traced, inputs=[ct.TensorType(name="input_ids", shape=(batch_size, max_seq), dtype=np.int32),
+                                            ct.TensorType(name="attention_mask", shape=(batch_size, max_seq), dtype=np.int32)],
+                            outputs=[ct.TensorType(name="emb")], compute_precision=ct.precision.FLOAT16,
+                            minimum_deployment_target=ct.target.macOS15, convert_to="mlprogram")
+            os.makedirs(os.path.dirname(path), exist_ok=True)
+            ml.save(path)
+        cu = {"gpu": ct.ComputeUnit.CPU_AND_GPU, "ane": ct.ComputeUnit.CPU_AND_NE, "all": ct.ComputeUnit.ALL}[compute]
+        self.model = ct.models.MLModel(path, compute_units=cu)
+        self.tok = AutoTokenizer.from_pretrained(model_name)
+        self.dim = None
+
+    def encode(self, texts, is_query=False, show=False):
+        pre = self.qp if is_query else self.dp
+        if pre:
+            texts = [pre + t for t in texts]
+        enc = self.tok(texts, return_tensors="np", padding="max_length", truncation=True, max_length=self.S)
+        ids = enc["input_ids"].astype(np.int32); mask = enc["attention_mask"].astype(np.int32)
+        n = len(texts)
+        out = []
+        for i in range(0, n, self.B):
+            bi, bm = ids[i:i + self.B], mask[i:i + self.B]
+            if len(bi) < self.B:
+                pad = self.B - len(bi)
+                bi = np.concatenate([bi, np.zeros((pad, self.S), np.int32)]); bm = np.concatenate([bm, np.zeros((pad, self.S), np.int32)])
+                bm[-pad:, 0] = 1  # avoid all-masked rows
+            r = self.model.predict({"input_ids": bi, "attention_mask": bm})["emb"]
+            out.append(r[: min(self.B, n - i)])
+        res = np.concatenate(out).astype(np.float32)
+        self.dim = res.shape[1]
+        return res
+
+
 def make_embedder(backend: str, model: str, **kw):
     if backend == "st":
         return STEmbedder(model, **kw)
     if backend == "mlx":
         kw.pop("device", None); kw.pop("fp16", None)
         return MLXEmbedder(model, **kw)
+    if backend in ("coreml", "coreml_ane", "coreml_all"):
+        kw.pop("device", None); kw.pop("fp16", None)
+        return CoreMLEmbedder(model, compute={"coreml": "gpu", "coreml_ane": "ane", "coreml_all": "all"}[backend], **kw)
     raise ValueError(backend)
 
 

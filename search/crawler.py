@@ -431,8 +431,15 @@ class Crawler:
                     st.errors["not_html"] += 1
                     return
                 t_ttfb = time.perf_counter()
-                body = await r.content.read(self.max_body)
-                truncated = not r.content.at_eof()
+                # StreamReader.read(n) returns whatever is buffered (<= n), so loop until EOF or the cap.
+                chunks = []; n = 0
+                while n < self.max_body:
+                    chunk = await r.content.read(min(131072, self.max_body - n))
+                    if not chunk:
+                        break
+                    chunks.append(chunk); n += len(chunk)
+                body = b"".join(chunks)
+                truncated = n >= self.max_body and not r.content.at_eof()
                 if truncated:
                     st.errors["truncated"] += 1
                     r.close()  # don't reuse connection with unread body
