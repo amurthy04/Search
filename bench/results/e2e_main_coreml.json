@@ -1,0 +1,2510 @@
+{
+ "tag": "main_coreml",
+ "model": "BAAI/bge-small-en-v1.5",
+ "backend": "coreml",
+ "device": "gpu",
+ "index": "data/index/idx_main.hnsw",
+ "ef": 64,
+ "k": 10,
+ "n_passages": 1381305,
+ "cold_start_s": 11.973805791989435,
+ "load": {
+  "model_s": 7.86777699997765,
+  "index_s": 1.304933917010203,
+  "meta_s": 2.521611958014546
+ },
+ "latency_ms": {
+  "embed": {
+   "p50": 15.395687485579401,
+   "p95": 18.24765798955923,
+   "p99": 28.868762508791356,
+   "mean": 15.074456013260512
+  },
+  "search": {
+   "p50": 0.551271004951559,
+   "p95": 1.0951684409519657,
+   "p99": 1.3780818463419564,
+   "mean": 0.6166578558299484
+  },
+  "dedupe": {
+   "p50": 0.04520799848251045,
+   "p95": 0.2094351904815994,
+   "p99": 0.2867898778640663,
+   "mean": 0.08652270060136086
+  },
+  "snippets": {
+   "p50": 0.08493749191984534,
+   "p95": 2.0226791981258425,
+   "p99": 3.2130187420989382,
+   "mean": 0.6765383661129616
+  },
+  "total": {
+   "p50": 16.470979011501186,
+   "p95": 20.385810603329446,
+   "p99": 31.947696127754117,
+   "mean": 16.454174935804783
+  }
+ },
+ "results": [
+  {
+   "query": "how do transformers work in machine learning",
+   "hits": [
+    {
+     "score": 0.8063467144966125,
+     "url": "https://huggingface.co/docs/transformers/en/index",
+     "title": "Transformers \u00b7 Hugging Face",
+     "pid": 1287275,
+     "snippet": "Transformers \u00b7 Hugging Face\nmodels. generate : Fast text generation with large language models (LLMs) and vision language models (VLMs), including support for streaming and multiple decoding strategies. Design Read our Philosophy to learn more about Transformers\u2019 design principles. Transformers is d"
+    },
+    {
+     "score": 0.7612283825874329,
+     "url": "https://superkids.com/aweb/pages/askascientist/",
+     "title": "SuperKids Ask a Scientist",
+     "pid": 512120,
+     "snippet": "SuperKids Ask a Scientist\nthe past few years by leveraging deep neural networks. Transformers are deep neural networks that can be used for natural language processing and evaluating sequential data (such as biological sequences). Bidirectional Encoder Representations from Transformers (BERT) is pri"
+    },
+    {
+     "score": 0.7310431003570557,
+     "url": "https://www.ibm.com/think/topics/fine-tuning",
+     "title": "What is Fine-Tuning? | IBM",
+     "pid": 575446,
+     "snippet": "What is Fine-Tuning? | IBM\nthe training dataset, and a loss function measures the difference (or loss ) between the model\u2019s predictions for each input and the \u201ccorrect\u201d answers (or ground truth ); during backpropagation , an optimization algorithm\u2014typically gradient descent \u2014is used to adjust model "
+    },
+    {
+     "score": 0.7271077632904053,
+     "url": "https://transluce.org/self-explanations",
+     "title": "Training Language Models to Explain Their Own Computations | Transluce AI",
+     "pid": 1218498,
+     "snippet": "Training Language Models to Explain Their Own Computations | Transluce AI\nWe might hope that such models could explain what features were active in their representations, as well as the true causal relationship between the input tokens, the latent features, and the model outputs. To approach this, w"
+    },
+    {
+     "score": 0.7194921374320984,
+     "url": "https://transluce.org/pcd",
+     "title": "Predictive Concept Decoders | Transluce AI",
+     "pid": 1217547,
+     "snippet": "Predictive Concept Decoders | Transluce AI\nIs it being truthful? What is causing it to behave strangely? These answers should trace back to interpretable features of the internal states so that they are human-auditable. Our key insight is to frame interpretability as a prediction problem: A system t"
+    },
+    {
+     "score": 0.7190839052200317,
+     "url": "https://www.galvanize.com/services/software-engineering-development/",
+     "title": "Software Engineering & Development | Galvanize",
+     "pid": 661201,
+     "snippet": "Software Engineering & Development | Galvanize\ntransform, and govern data at enterprise scale. Participants learn to build pipelines, orchestrate workflows, and operationalize analytics with leading tools and platforms. From batch to streaming data, our programs help teams modernize data infrastruct"
+    },
+    {
+     "score": 0.7165137529373169,
+     "url": "https://www.toolpilot.ai/pages/guides",
+     "title": "Guides \u2013 ToolPilot",
+     "pid": 1377782,
+     "snippet": "Guides \u2013 ToolPilot\nLearning and Deep Learning are two subfields of AI that play a crucial role in enabling machines to learn and make intelligent decisions. Machine Learning involves algorithms that learn from data and improve their performance over time without explicit programming. It focuses on t"
+    },
+    {
+     "score": 0.710607647895813,
+     "url": "https://digiscorp.com/services/ai-ml-development/",
+     "title": "AI & ML Development Services",
+     "pid": 420155,
+     "snippet": "AI & ML Development Services\ncomplex queries; Integrate seamlessly with CRM, ERP, and other systems for holistic service. Read More Unleash the creative potential of AI with custom AI solutions. From art to content, redefine boundaries with AI-driven generation. How we catalyze your creative project"
+    },
+    {
+     "score": 0.7088719606399536,
+     "url": "https://securosis.com/blog/ai-invariants-pt1/",
+     "title": "AI Invariants Part 1: Understanding the Stack | Securosis",
+     "pid": 419663,
+     "snippet": "AI Invariants Part 1: Understanding the Stack | Securosis\nwe use invariants to prevent a wider range of potential outcomes. We\u2019re protecting the organization from developers, users, agents, bad guys, regulators, and broken code. Understanding the Stack Before we get into the invariants, it helps to "
+    },
+    {
+     "score": 0.7062585353851318,
+     "url": "https://transluce.org/neuron-circuits",
+     "title": "Language Model Circuits Are Sparse in the Neuron Basis | Transluce AI",
+     "pid": 1218060,
+     "snippet": "Language Model Circuits Are Sparse in the Neuron Basis | Transluce AI\n] , transcoders [ 13 , 14 , 8 ] , or directly training the model to have sparse circuits [ 15 ] . These learned feature bases are powerful, but they also come with drawbacks. They only approximate the original model, which introdu"
+    }
+   ],
+   "t_ms": {
+    "embed": 16.999917017528787,
+    "search": 1.3738329871557653,
+    "dedupe": 0.23020801017992198,
+    "snippets": 1.7968339961953461,
+    "total": 20.40079201105982
+   }
+  },
+  {
+   "query": "best way to learn rust programming",
+   "hits": [
+    {
+     "score": 0.8016567826271057,
+     "url": "https://mainmatter.com/training/rust/",
+     "title": "Rust training | Mainmatter",
+     "pid": 1274117,
+     "snippet": "Rust training | Mainmatter\nSkip to main content Training and workshops Rust training We teach teams and individuals how to adopt and succeed with Rust. Our hands-on workshops cover everything from language basics to async, proc macros, advanced testing, embedded Rust, and migrating C to Rust. Our wo"
+    },
+    {
+     "score": 0.7894065380096436,
+     "url": "https://mainmatter.com/rust-adoption-handbook/",
+     "title": "The Rust Adoption Handbook | Mainmatter",
+     "pid": 1276684,
+     "snippet": "The Rust Adoption Handbook | Mainmatter\nfor a practical guide to why, where, and how to successfully adopt Rust for cloud-native systems. Rust & Mainmatter: a unique skillset We support clients in rewriting existing codebases to Rust, using Rust to accelerate hot modules in Python, Ruby, Node.js, or"
+    },
+    {
+     "score": 0.7800654172897339,
+     "url": "https://nostarch.com/rust-programming-language-3e",
+     "title": "The Rust Programming Language, 3rd Edition | No Starch Press",
+     "pid": 588583,
+     "snippet": "The Rust Programming Language, 3rd Edition | No Starch Press\nSkip to main content WANT SWEET DEALS? JOIN OUR MAILING LIST The Rust Programming Language, 3rd Edition by Steve Klabnik, Carol Nichols, and Chris Krycho, with contributions from the Rust Community March 2026, 624 pp. ISBN-13: 978171850444"
+    },
+    {
+     "score": 0.7735322713851929,
+     "url": "https://www.doulos.com/training/arm-and-embedded-software/rust/rust-fundamentals/",
+     "title": "Rust Fundamentals",
+     "pid": 1274157,
+     "snippet": "Rust Fundamentals\nShare Rust Fundamentals Standard Level - Live Instructor-Led Training 4 days (In-Person) 8 hours per day or 5 sessions (Live Online) 6 hours per session Today\u2019s software development requirements, in terms of complexity, reliability and scalability, mean that even the most diligent "
+    },
+    {
+     "score": 0.7711913585662842,
+     "url": "https://doc.rust-lang.org/stable/",
+     "title": "Rust Documentation",
+     "pid": 589467,
+     "snippet": "Rust Documentation\nfew projects along the way, and by the end, you\u2019ll have a solid grasp of how to use the language. \u00a7 Rust By Example If reading multiple hundreds of pages about a language isn\u2019t your style, then Rust By Example has you covered. RBE shows off a bunch of code without using a lot of w"
+    },
+    {
+     "score": 0.768060564994812,
+     "url": "https://www.doulos.com/training/arm-and-embedded-software/rust/rust-for-embedded-systems/",
+     "title": "Rust for Embedded Systems",
+     "pid": 1274337,
+     "snippet": "Rust for Embedded Systems\nShare Rust for Embedded Systems Standard Level - Live Instructor-Led Training 4 days (In-Person) 8 hours per day or 5 sessions (Live Online) 6 hours per session Rust for Embedded Systems provides engineers with a foundational understanding of Rust for embedded development, "
+    },
+    {
+     "score": 0.7633267641067505,
+     "url": "https://integer32.com/",
+     "title": "Integer 32",
+     "pid": 584424,
+     "snippet": "Integer 32\nWe know Rust. Rust, a proven systems programming language, is a great choice for projects whose goals align with Rust's: being as fast as C but with memory and thread safety checks that prevent segfaults and data races. With modern tooling and a growing ecosystem, more companies are seein"
+    },
+    {
+     "score": 0.7577764987945557,
+     "url": "https://ferrous-systems.com/training/",
+     "title": "Training  - Ferrous Systems",
+     "pid": 584834,
+     "snippet": "Training  - Ferrous Systems\nblock Thorough grounding in Rust Training for Individuals Introduction + Embedded Rust Combo Expert Rust trainer Hands-on exercises Combination of Intro to Rust + Embedded Rust trainings 8 half days over two weeks Training for Individuals Embedded Rust Training Expert emb"
+    },
+    {
+     "score": 0.7524473071098328,
+     "url": "https://www.jetbrains.com/rust/",
+     "title": "RustRover: Rust IDE by JetBrains",
+     "pid": 1268719,
+     "snippet": "RustRover: Rust IDE by JetBrains\nRustRover JetBrains IDEs Coming in new version What's New Documentation Use Cases Pricing Download Pricing Overview RustRover Free for non-commercial use A Powerful IDE for Rust Code, test, debug, and deploy \u2013 all right out of the box. Download Request a demo Focus o"
+    },
+    {
+     "score": 0.750318706035614,
+     "url": "https://www.doulos.com/training/arm-and-embedded-software/rust/",
+     "title": "Rust Training",
+     "pid": 1273687,
+     "snippet": "Rust Training\nRust Training Find a Training Course Share Rust Training Rust is an object-based language designed for performance, safety and security. In addition to features such as functional programming, it offers mechanisms for low level memory management. As a result, Rust is used in applicatio"
+    }
+   ],
+   "t_ms": {
+    "embed": 12.612041988177225,
+    "search": 0.7617920055054128,
+    "dedupe": 0.18745800480246544,
+    "snippets": 1.9189169979654253,
+    "total": 15.480208996450529
+   }
+  },
+  {
+   "query": "symptoms of vitamin d deficiency",
+   "hits": [
+    {
+     "score": 0.7420663833618164,
+     "url": "https://apo24.at/de/beitrag/vitamin-d-mangel-gesund-bleiben-trotz-dunkler-jahreszeit",
+     "title": "Vitamin D Mangel: Gesund bleiben trotz dunkler Jahreszeit",
+     "pid": 145898,
+     "snippet": "Vitamin D Mangel: Gesund bleiben trotz dunkler Jahreszeit\nein Lebensstil mit wenig Aufenthalt im Freien oder eine starke Sonnenschutznutzung k\u00f6nnen den Wert senken. Um den Vitamin-D-Wert zu bestimmen, empfiehlt sich eine Blutabnahme . Die Dosierung von Vitamin-D-Pr\u00e4paraten h\u00e4ngt vom individuellen We"
+    },
+    {
+     "score": 0.7348772883415222,
+     "url": "https://www.nature.com/articles/s12276-018-0038-9",
+     "title": "Exploring vitamin D metabolism and function in cancer | Experimental & Molecular Medicine",
+     "pid": 579588,
+     "snippet": "Exploring vitamin D metabolism and function in cancer | Experimental & Molecular Medicine\nSkip to main content Thank you for visiting nature.com. You are using a browser version with limited support for CSS. To obtain the best experience, we recommend you use a more up to date browser (or turn off c"
+    },
+    {
+     "score": 0.731719970703125,
+     "url": "https://vitaminshoppe.ky/product-category/vitamin-d/",
+     "title": "VITAMIN D Archives - The Vitamin Shoppe Cayman Island's",
+     "pid": 1069181,
+     "snippet": "VITAMIN D Archives - The Vitamin Shoppe Cayman Island's\n19.99 Read more Add to wishlist PLNT ORG VITAMIN D3 2000IU 60ct $ 23.99 Add to cart Add to wishlist VITAMIN D3 5000IU & K2 100MCG 60ct $ 19.99 Add to cart Add to wishlist VITAMIN D3 2500IU & K2 90MCG 60ct $ 15.99 Add to cart Add to wishlist VIT"
+    },
+    {
+     "score": 0.7198419570922852,
+     "url": "https://eqology.com/eqology-vitamin-k2d3-gold",
+     "title": "Eqology Vitamin K2 + D3 Gold",
+     "pid": 826560,
+     "snippet": "Eqology Vitamin K2 + D3 Gold\nnormal bones Vitamin D: Vitamin D contributes to the maintenance of normal bones Vitamin D contributes to the maintenance of normal muscle function Vitamin D contributes to normal absorption/utilisation of calcium and phosphorus Vitamin D contributes to the maintenance o"
+    },
+    {
+     "score": 0.7192013263702393,
+     "url": "https://nadstore.com/collections/vitamin-d",
+     "title": "Vitamin D \u2013 nadstore",
+     "pid": 1159983,
+     "snippet": "Vitamin D \u2013 nadstore\nOur mission is to create the finest nutritional supplements in small batches, through tireless research, using only the finest raw materials Read more less 10 in stock $78.99 Pure Encapsulations Pure Encapsulations Vitamin D3 | Bone, Joint, Breast Health | 250 Capsules 9 reviews"
+    },
+    {
+     "score": 0.7147220969200134,
+     "url": "https://tryeverwellhealth.com/products/everwell-vitamin-d3-k2-capsules",
+     "title": "EverWell Vitamin D3+K2 Capsules",
+     "pid": 1094872,
+     "snippet": "EverWell Vitamin D3+K2 Capsules\nsee results? The timeframe for seeing results with can vary based on your current vitamin D levels and individual response, but customers report: Initial effects (within 1-2 weeks): Improved energy levels Better mood and reduced anxiety Enhanced sleep quality Continue"
+    },
+    {
+     "score": 0.7128137946128845,
+     "url": "https://www.frontiersin.org/journals/nutrition/articles/10.3389/fnut.2026.1858064/full",
+     "title": "Frontiers | Enhanced acute absorption of vitamin D3 with a liposomal formulation (Cymbiotika) compared to a standard formulation in healthy adults: a randomized double-blind crossover study",
+     "pid": 1276365,
+     "snippet": "Frontiers | Enhanced acute absorption of vitamin D3 with a liposomal formulation (Cymbiotika) compared to a standard formulation in healthy adults: a randomized double-blind crossover study\ncomparator formulation. Conclusion: These findings suggest that the Cymbiotika formulation may enhance the acu"
+    },
+    {
+     "score": 0.7127610445022583,
+     "url": "https://nadstore.com/products/solgar-vitamin-d3-cholecalciferol-250-mcg-10-000-iu-helps-maintain-healthy-bones-teeth-immune-system-support-non-gmo-gluten-free-dairy-free-120-servings-120-count-pack-of-2",
+     "title": "Solgar Vitamin D3 (Cholecalciferol) 10000U Softgels, 120 Count (Pack o \u2013 nadstore",
+     "pid": 1161759,
+     "snippet": "Solgar Vitamin D3 (Cholecalciferol) 10000U Softgels, 120 Count (Pack o \u2013 nadstore\nbone disorder. I drink milk and eat fish and take a multivitamin but it was this big dose that gave me relief. I do not know what my levels were, but thanks to a reviewer here, I am a whole lot better. My future was lo"
+    },
+    {
+     "score": 0.7116262912750244,
+     "url": "https://eqology.com/eqology-vitamin-k2-d3",
+     "title": "Eqology Vitamin K2 + D3",
+     "pid": 829116,
+     "snippet": "Eqology Vitamin K2 + D3\nyour circulation/cardiovascular health. Vitamin K contributes to normal blood clotting. Good for your bones. Vitamin K and vitamin D contributes to the maintenance of normal bones. Good for your blood concentration of calcium. Vitamin D contributes to normal absorption/utilis"
+    },
+    {
+     "score": 0.7092556357383728,
+     "url": "https://accessmedlab.com/physician-tests/wellness-basic-panel/",
+     "title": "Wellness Panel Blood Tests | CBC, Metabolic, Lipid & Thyroid  | Wellness | Access Labs",
+     "pid": 94901,
+     "snippet": "Wellness Panel Blood Tests | CBC, Metabolic, Lipid & Thyroid  | Wellness | Access Labs\ndetecting poor diets to chronic diseases, wellness and health panels are designed to comprehensively analyze patient health. These biomarkers include hormones, vitamins and nutrients, and additional heart-specific"
+    }
+   ],
+   "t_ms": {
+    "embed": 13.519750005798414,
+    "search": 0.6838749977760017,
+    "dedupe": 0.1924170064739883,
+    "snippets": 1.9464579818304628,
+    "total": 16.342499991878867
+   }
+  },
+  {
+   "query": "how to make sourdough bread at home",
+   "hits": [
+    {
+     "score": 0.8798421025276184,
+     "url": "https://www.cookrepublic.com/how-to-make-a-sourdough-starter-at-home-tips-tricks-and-troubleshooting/",
+     "title": "How To Make A Sourdough Starter At Home - Tips, Tricks And Troubleshooting - Cook Republic",
+     "pid": 98043,
+     "snippet": "How To Make A Sourdough Starter At Home - Tips, Tricks And Troubleshooting - Cook Republic\nRecipes Subscribe Substack Cooking School About Contact \u00d7 Recipes Subscribe Substack Cooking School About Contact \u00d7 Home \u276d Fermenting How To Make A Sourdough Starter At Home - Tips, Tricks And Troubleshooting "
+    },
+    {
+     "score": 0.8484404683113098,
+     "url": "https://breaddad.com/bread-machine-sourdough-recipe/",
+     "title": "Bread Machine Sourdough Bread (No Oven) - Bread Dad",
+     "pid": 215637,
+     "snippet": "Bread Machine Sourdough Bread (No Oven) - Bread Dad\nThis bread machine sourdough recipe produces a delicious sourdough bread. It is a fantastic sandwich bread to make at home because sourdough bread has an unique sour and tangy flavor. Sourdough bread tastes similar to the breads that were made hund"
+    },
+    {
+     "score": 0.8330832719802856,
+     "url": "https://exactlyhowlong.com/homemade-bread/",
+     "title": "Homemade Bread",
+     "pid": 1075915,
+     "snippet": "Homemade Bread\nSkip to content Trending Post: 15 Cozy Fall Living Room Ideas Easy Recipes Homemade Bread By Samantha Posted on October 1, 2026 Updated on October 5, 2026 \u2193 Jump to Recipe Homemade bread is simply flour, water, yeast, salt, and a bit of time. This recipe takes about three hours from s"
+    },
+    {
+     "score": 0.7969778776168823,
+     "url": "https://www.wildfermentation.com/events/sourdough-bread-hands-on-workshop-with-fermenters-club/",
+     "title": "Sourdough Bread Hands-on Workshop with Fermenters Club | Wild Fermentation :: Wild Fermentation",
+     "pid": 780060,
+     "snippet": "Sourdough Bread Hands-on Workshop with Fermenters Club | Wild Fermentation :: Wild Fermentation\nmaking and eating fermenting foods DEMO: We\u2019ll show you how easy it is to start making naturally-leavened bread yourself at home! TASTE: We\u2019ll have a variety of sourdough bread flavors and will bake bread"
+    },
+    {
+     "score": 0.781335175037384,
+     "url": "https://breaddad.com/list-of-bread-recipes/",
+     "title": "80+ Easy Bread Recipes - Bread Dad",
+     "pid": 213952,
+     "snippet": "80+ Easy Bread Recipes - Bread Dad\nThese easy bread recipes cover white bread, whole wheat bread, French bread, multigrain bread, bagels, hamburger buns & more. Homemade bread is so much better than semi-stale store bread! You also know what you are putting in your bread and can screen out weird pre"
+    },
+    {
+     "score": 0.7691037058830261,
+     "url": "https://breaddad.com/bread-machine-recipes/",
+     "title": "100+ Easy Bread Machine Recipes - Bread Dad",
+     "pid": 213910,
+     "snippet": "100+ Easy Bread Machine Recipes - Bread Dad\nHere are 100+ easy bread machine recipes. You will find bread machine recipes for banana bread, sourdough bread, French bread, pizza dough, etc. These easy recipes allow you to make a huge variety of delicious bread machine breads & desserts. My bread mach"
+    },
+    {
+     "score": 0.7672870755195618,
+     "url": "https://shoppinglists.cc/posts/before-you-start-baking-bread.html",
+     "title": "Before You Start Baking Bread \u2014 Shopping Lists",
+     "pid": 176905,
+     "snippet": "Before You Start Baking Bread \u2014 Shopping Lists\nBefore You Start Baking Bread Bread at home is mostly waiting, but the first mix goes a lot better if the basics are already in the cupboard. Here is what actually gets used. Bread flour More protein than all-purpose, which is what gives the loaf its ch"
+    },
+    {
+     "score": 0.7669469118118286,
+     "url": "https://breaddad.com/soft-whole-wheat-bread-recipe/",
+     "title": "Soft Whole Wheat Bread Recipe - Bread Dad",
+     "pid": 219462,
+     "snippet": "Soft Whole Wheat Bread Recipe - Bread Dad\nbut without all the chemicals & fillers and\u2026 one that tastes like it was made with love from home\u2026 I finally found it! I am ecstatically happy to be able to make yummy bread using the best healthy ingredients! Thank you Bread Dad!!\u201d This recipe creates only "
+    },
+    {
+     "score": 0.765662670135498,
+     "url": "https://breaddad.com/honey-oat-bread-recipe/",
+     "title": "Honey Oat Bread Recipe - Bread Dad",
+     "pid": 220457,
+     "snippet": "Honey Oat Bread Recipe - Bread Dad\ndough on the cutting board. Press down on the dough with your hands and create a \u201cflattish\u201d rectangle with the dough. The dough should be roughly 1 inch high. Roll up the dough into a tight \u201cjelly roll\u201d. FYI \u2013 Please see the short instructional videos in the tips s"
+    },
+    {
+     "score": 0.7656381130218506,
+     "url": "https://zhangcatherine.com/category/bread-recipes/",
+     "title": "Soft and Easy Bread Recipes to Bake at Home",
+     "pid": 905026,
+     "snippet": "Soft and Easy Bread Recipes to Bake at Home\nSkip to content Subscribe to be the first to receive new dessert recipes in your inbox. Sign up now FEATURED RECIPE: Banana Bao Home \u203a Recipes \u203a Bread Bread Master your dough. Discover fluffy milk bread, cinnamon rolls and other favourites made simple and "
+    }
+   ],
+   "t_ms": {
+    "embed": 15.565666981274262,
+    "search": 0.43354101944714785,
+    "dedupe": 0.1526669948361814,
+    "snippets": 1.8222079961560667,
+    "total": 17.974082991713658
+   }
+  },
+  {
+   "query": "what causes inflation",
+   "hits": [
+    {
+     "score": 0.8472040891647339,
+     "url": "https://www.clevelandfed.org/center-for-inflation-research/inflation-explained-your-guide-to-inflation-basics",
+     "title": "Inflation Explained: Your Guide to Inflation Basics",
+     "pid": 680311,
+     "snippet": "Inflation Explained: Your Guide to Inflation Basics\ncauses inflation? Learn about this important economic indicator and the factors influencing its behavior. What are the causes of inflation? What is demand-pull inflation? What is cost-push inflation? What are inflation expectations, and how do they"
+    },
+    {
+     "score": 0.7954328060150146,
+     "url": "https://profmattstrassler.com/articles-and-posts/relativity-space-astronomy-and-cosmology/history-of-the-universe/inflation/",
+     "title": "Inflation \u2013 Of Particular Significance",
+     "pid": 1228291,
+     "snippet": "Inflation \u2013 Of Particular Significance\nmake any sense if you go back too far, or for some other reason. But in many contexts it almost doesn\u2019t matter, as I\u2019ll now explain through a set of figures, answering some frequently asked questions along the way. What caused this insane rate of expansion? The"
+    },
+    {
+     "score": 0.7270686030387878,
+     "url": "https://ocpathink.org/post/independent-journalism/experts-tell-oklahoma-lawmakers-government-is-making-things-more-expensive",
+     "title": "Experts tell Oklahoma lawmakers government is making things more\u2026",
+     "pid": 394085,
+     "snippet": "Experts tell Oklahoma lawmakers government is making things more\u2026\nSen. Micheal Bergstrom, an Adair Republican who requested the legislative study on government\u2019s role in higher prices, noted that inflation \u201cis a hidden tax that is caused by state and local actions.\u201d While federal deficit spending an"
+    },
+    {
+     "score": 0.7192624807357788,
+     "url": "https://www.alux.com/video/how-you-can-make-inflation-work-for-you/",
+     "title": "How You Can Make Inflation Work For You - Video by Alux.com",
+     "pid": 200665,
+     "snippet": "How You Can Make Inflation Work For You - Video by Alux.com\nHow You Can Make Inflation Work For You Latest Posts More amazing stories from Alux Education 15 Things That Instantly Lower Status Education 15 Things You Take For Granted Education 10 Ways To Instantly Improve Your Life Education 15 Thing"
+    },
+    {
+     "score": 0.7172747254371643,
+     "url": "https://tesserapp.org/raffle/inflation-x-sage-hive-56ce",
+     "title": "INFLATION x SAGE HIVE \u00b7 Tessera",
+     "pid": 765237,
+     "snippet": "INFLATION x SAGE HIVE \u00b7 Tessera\nActivity [ Follow on X/Twitter ] [ Follow on X/Twitter ] [ Follow on X/Twitter ] + 2 MMAraid X Inflation GTD INFLATION The concept INFLATION is an interactive onchain artwork by Harto about the erosion of purchasing power. Participants enter with a fictional currency,"
+    },
+    {
+     "score": 0.7115570306777954,
+     "url": "https://www.report.at/energie/was-die-inflation-wirklich-antreibt-thomas-eisenhuth-report-plus-10-2026",
+     "title": "REPORT Mehrwert f\u00fcr Manager \u2013 Was die Inflation wirklich antreibt",
+     "pid": 716947,
+     "snippet": "REPORT Mehrwert f\u00fcr Manager \u2013 Was die Inflation wirklich antreibt\nGrundfunktionen Addition und Multiplikation zu beherrschen. Der aktuelle Fernw\u00e4rmepreis von derzeit durchschnittlichen 15 Cent/kWh wird den bestehenden und k\u00fcnftigen Kunden der Fernw\u00e4rme Wien \u2013 bald allen Einwohnern der Stadt \u2013 in Zuk"
+    },
+    {
+     "score": 0.7099347114562988,
+     "url": "https://www.nber.org/papers/w30116",
+     "title": "Comparing Past and Present Inflation | NBER",
+     "pid": 1257350,
+     "snippet": "Comparing Past and Present Inflation | NBER\nSkip to main content Comparing Past and Present Inflation Marijn A. Bolhuis , Judd N. L. Cramer & Lawrence H. Summers Share X LinkedIn Facebook Bluesky Threads Email Link Working Paper 30116 DOI 10.3386/w30116 Issue Date June 2022 There have been important"
+    },
+    {
+     "score": 0.7054769992828369,
+     "url": "https://vanrenterghem.biz/posts/inflation_targets.html",
+     "title": "Thoughts on inflation targets.",
+     "pid": 169575,
+     "snippet": "Thoughts on inflation targets.\ndifficulty is ascertaining the facts. (The example he provides might sound a bit dated to modern-day sports data scientists.) Funny as that may be, the entire text can be read as a marvellous admonition of the idea for of allowing central banks to determine what effect"
+    },
+    {
+     "score": 0.7037881016731262,
+     "url": "https://www.bankofengland.co.uk/explainers/current-interest-rate",
+     "title": "What is happening with interest rates in the UK? | Bank of England \u2013 the UK's central bank",
+     "pid": 1319450,
+     "snippet": "What is happening with interest rates in the UK? | Bank of England \u2013 the UK's central bank\nrising how the UK's economy is growing how many people are in work We will announce our next decision on Thursday 5 November 2026. You can see our full list of upcoming dates along with links to our more detai"
+    },
+    {
+     "score": 0.7018815279006958,
+     "url": "https://www.kinderzeitmaschine.de/a-z/i/",
+     "title": "Lexikon - Buchstabe: I | Kinderzeitmaschine",
+     "pid": 411228,
+     "snippet": "Lexikon - Buchstabe: I | Kinderzeitmaschine\nDie Industrie nimmt also zu, immer mehr wird durch Maschinen gefertigt, die landwirtschaftliche Produktion nimmt ab. Inflation Inflation ist ein anderes Wort f\u00fcr Geldentwertung. G\u00fcter und Waren werden immer teurer, die Kaufkraft und damit der Wert des Geld"
+    }
+   ],
+   "t_ms": {
+    "embed": 16.815625014714897,
+    "search": 1.075665990356356,
+    "dedupe": 0.6296250212471932,
+    "snippets": 3.091124992351979,
+    "total": 21.612041018670425
+   }
+  },
+  {
+   "query": "climate change effects on coral reefs",
+   "hits": [
+    {
+     "score": 0.820082426071167,
+     "url": "https://coralrestoration.org/why-save-coral-reefs/",
+     "title": "Why Save Coral Reefs? - Coral Restoration Foundation",
+     "pid": 785132,
+     "snippet": "Why Save Coral Reefs? - Coral Restoration Foundation\ncoral reefs, disturbance events include heating events, hurricanes, cold water upwellings, ship groundings, disease outbreaks, overfishing, pollution, and more. LOCAL STRESSORS Overfishing harms coral reefs by disrupting the food chain, increasing"
+    },
+    {
+     "score": 0.8042151927947998,
+     "url": "https://www.npr.org/2024/09/09/g-s1-21624/florida-coral-reefs-bleaching",
+     "title": "Florida\u2019s coral reefs are still ailing but doing better : NPR",
+     "pid": 1258552,
+     "snippet": "Florida\u2019s coral reefs are still ailing but doing better : NPR\nsummer they didn\u2019t see significant bleaching. Climate Coral reefs can't keep up with climate change. So scientists are speeding up evolution Corals expel their algae when the water is too hot for too long of a period. Last summer, record "
+    },
+    {
+     "score": 0.7956087589263916,
+     "url": "https://coralrestoration.org/blog/",
+     "title": "Blog - Coral Restoration Foundation",
+     "pid": 790942,
+     "snippet": "Blog - Coral Restoration Foundation\nmarine ecosystems, and support the communities that depend on them. Join us in making a lasting impact. Donate Monthly Donation One-time Donation Other Ways of Giving Gifts of Stock Honorary & Memorial Gifts Donor Advised Funds Legacy Gifts Corporate Giving Crypto"
+    },
+    {
+     "score": 0.7938804626464844,
+     "url": "https://www.frontiersin.org/journals/ecology-and-evolution/articles/10.3389/fevo.2021.689915/full",
+     "title": "Frontiers | Contemporary Oyster Reef Restoration: Responding to a Changing World",
+     "pid": 1273151,
+     "snippet": "Frontiers | Contemporary Oyster Reef Restoration: Responding to a Changing World\nthe coast ( Burke et al., 2001 ), and in many parts of the world this coastal population growth is at or above twice national rates ( McGranahan et al., 2007 ). Additionally, many of the world\u2019s coasts and oceans are ho"
+    },
+    {
+     "score": 0.7891423106193542,
+     "url": "https://journalofcosmology.com/extinction117.html",
+     "title": "6th Extinction Theory - What It Is And How Could It Affect You? - Journalofcosmology.com",
+     "pid": 739913,
+     "snippet": "6th Extinction Theory - What It Is And How Could It Affect You? - Journalofcosmology.com\ntree cover that otherwise helps to catch atmospheric carbon dioxide. Since water absorbs 93% of the extra heat that greenhouse gases trap in Earth\u2019s atmosphere, marine species and coral reefs are more prone to b"
+    },
+    {
+     "score": 0.7758570909500122,
+     "url": "https://rare.org/opinions-insights/to-save-ocean-life-make-coastal-communities-investable/",
+     "title": "To save ocean life, make coastal communities investable \u2013 Rare",
+     "pid": 335385,
+     "snippet": "To save ocean life, make coastal communities investable \u2013 Rare\nSkip to main content Opinions & Insights To save ocean life, make coastal communities investable This op-ed originally ran in ImpactAlpha on September 30, 2026 Brett Jenks October 6, 2026 Communities Conservation Innovative finance Susta"
+    },
+    {
+     "score": 0.7671223878860474,
+     "url": "https://coralrestoration.org/mission-vision/",
+     "title": "Mission & Vision - Coral Restoration Foundation",
+     "pid": 789507,
+     "snippet": "Mission & Vision - Coral Restoration Foundation\nthe power to help communities bounce back from economic uncertainty. Coral Restoration Foundation has begun conducting analyses on the socioeconomic impact of coral reef restoration \u2014 a pioneering effort in the field. The data show that investment in e"
+    },
+    {
+     "score": 0.7629865407943726,
+     "url": "https://ocean-climate.org/en/understanding-ipcc-reports/",
+     "title": "Understanding IPCC Reports - Ocean & Climate Platform",
+     "pid": 792359,
+     "snippet": "Understanding IPCC Reports - Ocean & Climate Platform\nfor tomorrow? Marine ecosystems in a changing climate: insights from the IPCC\u2019s Sixth Assessment Report\u201d. Drawing from the IPCC Sixth Assessment Report, this new publication provides a synthesis on current knowledge about the linkages between mar"
+    },
+    {
+     "score": 0.7622430324554443,
+     "url": "https://www.frontiersin.org/journals/marine-science/articles/10.3389/fmars.2022.873768/full",
+     "title": "Frontiers | Some Like it Hot: The Ecology, Ecosystem Benefits and Restoration Potential of Oyster Reefs in Tropical Waters",
+     "pid": 1272654,
+     "snippet": "Frontiers | Some Like it Hot: The Ecology, Ecosystem Benefits and Restoration Potential of Oyster Reefs in Tropical Waters\nis evidence of unsustainable and destructive harvesting that has resulted in the decline of tropical oyster reefs, and these reefs should therefore be included in restoration ef"
+    },
+    {
+     "score": 0.7584655284881592,
+     "url": "https://coralrestoration.org/crf-in-the-news/",
+     "title": "CRF in the News - Coral Restoration Foundation",
+     "pid": 790139,
+     "snippet": "CRF in the News - Coral Restoration Foundation\nmarine ecosystems, and support the communities that depend on them. Join us in making a lasting impact. Donate Monthly Donation One-time Donation Other Ways of Giving Gifts of Stock Honorary & Memorial Gifts Donor Advised Funds Legacy Gifts Corporate Gi"
+    }
+   ],
+   "t_ms": {
+    "embed": 9.224249981343746,
+    "search": 0.5120830028317869,
+    "dedupe": 0.24441699497401714,
+    "snippets": 1.7855830083135515,
+    "total": 11.766332987463102
+   }
+  },
+  {
+   "query": "python asyncio tutorial",
+   "hits": [
+    {
+     "score": 0.7348648309707642,
+     "url": "https://hynek.me/articles/",
+     "title": "Hynek\u2019s Blog",
+     "pid": 784830,
+     "snippet": "Hynek\u2019s Blog\nnon-native speakers. It\u2019s so bad that it sparked a cottage industry of click-baity articles full of sketchy ads. Since English is my third language, I stumbled a lot myself until I wrote this cheatsheet. \u2192 Read more One of the main appeals of using Python\u2019s asyncio is being able to fire"
+    },
+    {
+     "score": 0.7308299541473389,
+     "url": "https://moleculesai.app/blog/canvas-idle-watchdog-long-blocking-turns/",
+     "title": "The canvas idle watchdog: how a blocking tool call starves the heartbeat and cancels a long turn \u2014 Molecule AI",
+     "pid": 1174094,
+     "snippet": "The canvas idle watchdog: how a blocking tool call starves the heartbeat and cancels a long turn \u2014 Molecule AI\nthe turn survives indefinitely. The prior idleTimeoutDuration was 5 minutes . The starvation path Python runtimes (including claude-code\u2019s asyncio-based infrastructure) run the heartbeat as"
+    },
+    {
+     "score": 0.7241610288619995,
+     "url": "https://bigmike.help/en/tags/python/",
+     "title": "python | BigMike.help - IT support for startups, developers and business",
+     "pid": 824577,
+     "snippet": "python | BigMike.help - IT support for startups, developers and business\ndate \u2014 the data changes, the image must be updated on a schedule without \u2026 Read more 2026-06-01 Why I decided to build the billionth ToDo app in my spare time #telegram #aiogram #python #todo #llm A todo app is a kind of Hello "
+    },
+    {
+     "score": 0.7104706168174744,
+     "url": "https://cerebrium.ai/docs/v4/examples/twilio-voice-agent",
+     "title": "Twilio Voice Agent with PipeCat - Cerebrium",
+     "pid": 261658,
+     "snippet": "Twilio Voice Agent with PipeCat - Cerebrium\nfastapi = \"latest\" uvicorn = \"latest\" python-dotenv = \"latest\" loguru = \"latest\" Set up a FastAPI server to handle Twilio calls and upgrade to WebSocket connections for real-time communication. Add this code to main.py : import json from fastapi import Fas"
+    },
+    {
+     "score": 0.7092125415802002,
+     "url": "https://wasi.dev/releases/wasi-p3",
+     "title": "WASI 0.3 \u00b7 WASI.dev",
+     "pid": 975243,
+     "snippet": "WASI 0.3 \u00b7 WASI.dev\ncomponent instance. B would have to actively poll just to relay readiness signals. In practice, the wake-up chain gets dropped. This is sometimes called the sandwich problem : WASI 0.2 could express async, but could not compose it across component boundaries. WASI 0.3 solves this"
+    },
+    {
+     "score": 0.7058312892913818,
+     "url": "https://aishippinglabs.com/courses/python",
+     "title": "Python for AI Engineering | AI Shipping Labs",
+     "pid": 296775,
+     "snippet": "Python for AI Engineering | AI Shipping Labs\nBack to Courses A practical Python course built around a real running project: a podcast aggregator. You learn Python by writing it, growing the project from a Jupyter notebook into a structured command-line application that can fetch, parse, and analyze "
+    },
+    {
+     "score": 0.7050747871398926,
+     "url": "https://cerebrium.ai/docs/v4/examples/realtime-voice-agents",
+     "title": "Real-time Voice Agent - Cerebrium",
+     "pid": 255445,
+     "snippet": "Real-time Voice Agent - Cerebrium\nvLLM framework and makes it OpenAI compatible: import os import time import json from huggingface_hub import login from pydantic import BaseModel from vllm import SamplingParams, AsyncLLMEngine from vllm.engine.arg_utils import AsyncEngineArgs login(token=os.environ"
+    },
+    {
+     "score": 0.7047034502029419,
+     "url": "https://docs.python.org/3/glossary.html",
+     "title": "Glossary \u2014 Python 3.15.0 documentation",
+     "pid": 1287202,
+     "snippet": "Glossary \u2014 Python 3.15.0 documentation\nin practice; \u201casynchronous generator\u201d alone is almost always sufficient. asynchronous generator function \u00b6 A function which returns an asynchronous generator iterator . It looks like a coroutine function defined with async def except that it contains yield expr"
+    },
+    {
+     "score": 0.7037581205368042,
+     "url": "https://www.kubicle.com/courses/python-fundamentals",
+     "title": "Python Fundamentals Subject | Kubicle",
+     "pid": 1086277,
+     "snippet": "Python Fundamentals Subject | Kubicle\nPython Basics Connect to live data and APIs Pull csv files hosted online, scrape web\u2011page tables, and connect to live APIs. Move beyond static spreadsheets to data that updates itself. Python Basics Apply Python to real workplace projects Build a frost\u2011risk pred"
+    },
+    {
+     "score": 0.7022014856338501,
+     "url": "https://cerebrium.ai/docs/v4/examples/featured",
+     "title": "Featured Examples - Cerebrium",
+     "pid": 252518,
+     "snippet": "Featured Examples - Cerebrium\nDocumentation Index Fetch the complete documentation index at: /docs/llms.txt Use this file to discover all available pages before exploring further. Skip to main content Featured Endpoints Integrations Voice Image & Video Python Apps ASGI Gradio Interface Create chat i"
+    }
+   ],
+   "t_ms": {
+    "embed": 13.942375022452325,
+    "search": 1.1305419902782887,
+    "dedupe": 0.1757080026436597,
+    "snippets": 1.8724999972619116,
+    "total": 17.121125012636185
+   }
+  },
+  {
+   "query": "history of the roman empire",
+   "hits": [
+    {
+     "score": 0.7189921140670776,
+     "url": "https://militaryhistoryonline.com/ancient",
+     "title": "Military History Online - Ancient Articles",
+     "pid": 720669,
+     "snippet": "Military History Online - Ancient Articles\nFrom our contributors Ancient articles PUGNA AD TICINUM: The First Round in History\u2019s Greatest Rivalry By Fabio Lusiani Fabio Lusiani follows Hannibal\u2019s arrival in northern Italy through the first confrontation with a Roman army at the Ticinus River. The Al"
+    },
+    {
+     "score": 0.7117776274681091,
+     "url": "https://infobooks.org/free-pdf-books/history/",
+     "title": "100+ Free History Books [PDF] | Read & Download",
+     "pid": 1288768,
+     "snippet": "100+ Free History Books [PDF] | Read & Download\nSkip to main content 100+ Free History Books [PDF] by InfoBooks Updated on February 24, 2026 Found it useful? Share it Looking for history books ? We've gathered over 100 free history books in PDF , covering topics like ancient civilizations, world war"
+    },
+    {
+     "score": 0.7107633948326111,
+     "url": "https://knowunity.com.br/knowledge/histria",
+     "title": "Hist\u00f3ria - Knowunity",
+     "pid": 1176989,
+     "snippet": "Hist\u00f3ria - Knowunity\n800-1920 Direitos Civis e Reforma Social Sistemas Imperiais Globais Crises Econ\u00f4micas do S\u00e9culo XX Revolu\u00e7\u00f5es Industriais e Tecnol\u00f3gicas Era Napole\u00f4nica 1803-1830 Civiliza\u00e7\u00e3o Urbana do Vale do Indo Movimentos de Resist\u00eancia Anticolonial Presidentes dos EUA e L\u00edderes Mundiais Ide"
+    },
+    {
+     "score": 0.7079833149909973,
+     "url": "https://phoenicia.org/datingchronology",
+     "title": "Origin of the Phoenician Empire -- Accurately Dating Phoenician History",
+     "pid": 337473,
+     "snippet": "Origin of the Phoenician Empire -- Accurately Dating Phoenician History\nPhoenician Pictograms Punic Translation of the Bible Science, Greek Books Translated by Eastern Christians and Civilized Arabs Ships Time Concept Wine, Phoenician Voyages, Ancient Voyages, Modern Bibliography Sources References "
+    },
+    {
+     "score": 0.7052462100982666,
+     "url": "https://www.gelateriaromana.com/storia.php",
+     "title": "La storia della Gelateria Romana: qualit\u00e0 e gusto dal 1947 | Gelateria La Romana",
+     "pid": 1005276,
+     "snippet": "La storia della Gelateria Romana: qualit\u00e0 e gusto dal 1947 | Gelateria La Romana\nLA ROMANA DAL 1947 SRL come soggetto che eroga la soluzione di Firma Elettronica Avanzata e l\u2019assenza di qualunque elemento nell\u2019oggetto della sottoscrizione atto a modificarne gli atti, fatti o dati nello stesso rappre"
+    },
+    {
+     "score": 0.7027309536933899,
+     "url": "https://www.foxnews.com/travel/ancient-roman-military-fortifications-found-strategic-location-egypt",
+     "title": "Archaeologists found sophisticated Ptolemaic and Roman era fortifications, once protected Egypt | Fox News",
+     "pid": 573187,
+     "snippet": "Archaeologists found sophisticated Ptolemaic and Roman era fortifications, once protected Egypt | Fox News\nused for planting trees that adorned the entrance of the fortress during the Ptolemaic era,\" the release noted. ARCHAEOLOGISTS UNCOVER TREASURES FROM 3,000-YEAR-OLD GOLD MINE IN EGYPT THAT 'REV"
+    },
+    {
+     "score": 0.702359676361084,
+     "url": "https://antigonejournal.com/2026/05/britain-classical-18th-century/",
+     "title": "There is a Senate in London: Britain's Classical 18th Century \u2013 Antigone",
+     "pid": 24468,
+     "snippet": "There is a Senate in London: Britain's Classical 18th Century \u2013 Antigone\nup columns and name their country houses after Roman villas. All that took place in the towns and countryside of Hanoverian Britain. Yet it was something considerably more important than that. After the Glorious Revolution of 1"
+    },
+    {
+     "score": 0.7018337845802307,
+     "url": "https://www.gelateriaromana.com/consigli.php",
+     "title": "Commenti Gelateria Romana: i tuoi consigli per farci migliorare | Gelateria La Romana",
+     "pid": 1010608,
+     "snippet": "Commenti Gelateria Romana: i tuoi consigli per farci migliorare | Gelateria La Romana\ndel firmatario. LA ROMANA DAL 1947 SRL identifica preliminarmente il firmatario dei documenti verificando, per tramite degli intermediari incaricati, un documento di riconoscimento in corso di validit\u00e0. Il processo"
+    },
+    {
+     "score": 0.7009956240653992,
+     "url": "https://www.romanoimpero.com/2013/01/le-province-romane.html",
+     "title": "",
+     "pid": 835949,
+     "snippet": "HOME VIDEO EMPIRE MAP ROME MAP LE PROVINCE ROMANE Sezioni: Province Romane , Urbanizzazione RAPPRESENTAZIONE DELLE PROVINCE ROMANE (MUSEI CAPITOLINI) LE GUERRE DI ESPANSIONE IN ITALIA Una provincia romana \u00e8 la pi\u00f9 grande unit\u00e0 amministrativa dei domini in territorio straniero dell'antica Roma, prece"
+    },
+    {
+     "score": 0.7009173035621643,
+     "url": "https://earlywritings.com/forum/viewforum.php?f=11",
+     "title": "Classical Texts and History - Biblical Criticism & History Forum - earlywritings.com",
+     "pid": 547140,
+     "snippet": "Classical Texts and History - Biblical Criticism & History Forum - earlywritings.com\nBiblical Criticism & History Forum - earlywritings.com Skip to content Quick links Unanswered topics Active topics Search FAQ Login Register Board index Classical Texts and History Search Classical Texts and History"
+    }
+   ],
+   "t_ms": {
+    "embed": 17.055583011824638,
+    "search": 0.8862919930834323,
+    "dedupe": 0.2157909912057221,
+    "snippets": 1.7397920018993318,
+    "total": 19.897457998013124
+   }
+  },
+  {
+   "query": "how to train for a marathon",
+   "hits": [
+    {
+     "score": 0.795369029045105,
+     "url": "https://runforcharity.com/start-to-run/training-plans",
+     "title": "",
+     "pid": 888906,
+     "snippet": "Training Plans Marathon Training Plan Run for charity recommends that you allow yourself at least 24 Weeks to train for a marathon. Our training plans are design for beginners who have little to no running experience, we also recommend that you consult your doctor before you start any training plan."
+    },
+    {
+     "score": 0.7468435764312744,
+     "url": "https://runbundle.com/articles/getting-started-with-running",
+     "title": "Getting Started with Running | runbundle",
+     "pid": 1213143,
+     "snippet": "Getting Started with Running | runbundle\nto continue to progress, this should be done cautiously. Muscles, bones, ligaments, and tendons all take time to adapt. Frustratingly, this takes time. Listen to your body. If you begin to suffer any muscle soreness then ease back and cross-train (cycling and"
+    },
+    {
+     "score": 0.7429800033569336,
+     "url": "https://runnerclick.com/marathon/",
+     "title": "Marathon Archives | RunnerClick",
+     "pid": 260201,
+     "snippet": "Marathon Archives | RunnerClick\nGet started on your Marathon training journey The Marathon (26.2 Miles) is going to require some serious training, planning, and execution. Our marathon training guides, insights and resources can help every step of the way. Editors Pick 3 Ways To Lace Up Running Shoe"
+    },
+    {
+     "score": 0.7426313161849976,
+     "url": "https://www.themotherrunners.com/marathon-taper-tips/",
+     "title": "How Do You Taper for a Marathon? - The Mother Runners",
+     "pid": 1345069,
+     "snippet": "How Do You Taper for a Marathon? - The Mother Runners\nThe official start of your marathon taper is the day after your longest run which usually caps at 20+ miles or 3.5 hours. Runners who run less mileage, 40 miles or less, and runners who don\u2019t feel fatigued from the training need less time to tape"
+    },
+    {
+     "score": 0.729836106300354,
+     "url": "https://runnerclick.com/overtraining-syndrome/",
+     "title": "Overtraining Syndrome: Signs and 4 Ways to Fix It Fast! | RunnerClick",
+     "pid": 274175,
+     "snippet": "Overtraining Syndrome: Signs and 4 Ways to Fix It Fast! | RunnerClick\nother excuse to keep up with their training sessions, the only way to recover from overtraining is to stop training. You don\u2019t need to rest forever. Pause your training program for at least one to three weeks and note how you feel"
+    },
+    {
+     "score": 0.7223020792007446,
+     "url": "https://runbundle.com/tools/running-training-paces-calculator",
+     "title": "Running Training Paces Calculator | runbundle",
+     "pid": 1210971,
+     "snippet": "Running Training Paces Calculator | runbundle\nmean easy-paced (see above). Many coaches would place these paces into the \"easy\" category, but it can be useful to distinguish between the two, since these paces certainly feel more demanding. Certainly, a long run for many runners can exceed the maximu"
+    },
+    {
+     "score": 0.7112434506416321,
+     "url": "https://runnerclick.com/5k-how-long-and-what-to-expect/",
+     "title": "The 5K: How Long and What To Expect About This Distance |RC",
+     "pid": 264269,
+     "snippet": "The 5K: How Long and What To Expect About This Distance |RC\nCouch to 5K program. Someone doing C25K should just set themselves a goal to stay on track, complete the workouts (whether they are run/walk or both) and look forward to having fun on race day. If you have been running for a while and are p"
+    },
+    {
+     "score": 0.710373044013977,
+     "url": "https://runnerclick.com/half-marathon/",
+     "title": "Half Marathon Archives | RunnerClick",
+     "pid": 259660,
+     "snippet": "Half Marathon Archives | RunnerClick\nGet started on your Half Marathon training journey The Half Marathon (13.1 Miles) takes quite a bit more committment and training than the 5K or 10K. Our Half Marathon guides and insights are here to help. Editors Pick 3 Ways To Lace Up Running Shoes for Wide Fee"
+    },
+    {
+     "score": 0.7018702030181885,
+     "url": "https://runnerclick.com/ultramarathon/",
+     "title": "Ultra / Endurance Archives | RunnerClick",
+     "pid": 260704,
+     "snippet": "Ultra / Endurance Archives | RunnerClick\nGet started on your Endurance training journey Approaching Ultramarathon\u2019s (26.2+ Miles) and endurance races will require very different approaches to training, fueling, hydrating, planning, and motivation. You got this though\u2026.and our guides, insight & resou"
+    },
+    {
+     "score": 0.7016881704330444,
+     "url": "https://leflaner.com/mountaineering-fitness/",
+     "title": "Fit for Mountaineering \u2013 Page 10 \u2013 LeFlaner",
+     "pid": 239138,
+     "snippet": "Fit for Mountaineering \u2013 Page 10 \u2013 LeFlaner\nNavigation Close Walking alone is not enough to reach the top of a mountain. It's a hard sport that requires mental toughness, technical proficiency, and endurance. A potential climber must therefore train on terrain that is similar to their goal in terms "
+    }
+   ],
+   "t_ms": {
+    "embed": 109.75975001929328,
+    "search": 1.4124589797575027,
+    "dedupe": 0.20108302123844624,
+    "snippets": 4.199249990051612,
+    "total": 115.57254201034084
+   }
+  },
+  {
+   "query": "electric car battery lifespan",
+   "hits": [
+    {
+     "score": 0.8427538871765137,
+     "url": "https://www.etyres.co.uk/car-batteries",
+     "title": "Cheap Car Batteries | Lowest Fitted Price Guarantee | etyres",
+     "pid": 320104,
+     "snippet": "Cheap Car Batteries | Lowest Fitted Price Guarantee | etyres\nwork, or even roadside, our huge network of local mobile mechanics is at hand to remove your old battery and replace it with a brand new one. This service includes same-day and next-day options - simply browse the availability calendar and"
+    },
+    {
+     "score": 0.7845161557197571,
+     "url": "https://yosepower.com/blogs/news/when-should-the-electric-bicycle-battery-be-replaced",
+     "title": "When Should the Electric Bicycle Battery Be Replaced\uff1f \u2013 YOSE POWER",
+     "pid": 780842,
+     "snippet": "When Should the Electric Bicycle Battery Be Replaced\uff1f \u2013 YOSE POWER\nE-Bike Batteries for more information. Manufacturer's R ecommended R eplacement C ycle Most batteries have an expected lifespan. Different battery manufacturers may have different standards for battery lifespan and replacement recomm"
+    },
+    {
+     "score": 0.7639158964157104,
+     "url": "https://thehaulier.co.uk/opinion/fleets-should-not-delay-hgv-electrification-journeys/",
+     "title": "Fleets should not delay HGV electrification journeys - The Haulier",
+     "pid": 592314,
+     "snippet": "Fleets should not delay HGV electrification journeys - The Haulier\nto \u00a35m and taking up to three years, inadequate grid connection at a depot is a significant barrier to electrification. In order to reduce cost and lead times, companies should explore what grid capacity their fleet actually needs ba"
+    },
+    {
+     "score": 0.7542844414710999,
+     "url": "https://tipssearch.com/search/post/automotive-reliability-insights-what-makes-vehicles-last-for-years-991505",
+     "title": "Automotive Reliability Insights: What Makes Vehicles Last for Years | tipssearch.com",
+     "pid": 1156948,
+     "snippet": "Automotive Reliability Insights: What Makes Vehicles Last for Years | tipssearch.com\nexamines long-term vehicle trends to help buyers understand which models commonly remain on the road. Comparisons should always include the specific model year because a brand can produce both highly dependable vehi"
+    },
+    {
+     "score": 0.750734806060791,
+     "url": "https://digitalreverb.com/electric-suv-traps-5-mistakes-that-cost-smart-buyers-thousands",
+     "title": "digitalreverb.com | Electric Suv Traps: 5 Mistakes That Cost Smart Buyers Thousands",
+     "pid": 916118,
+     "snippet": "digitalreverb.com | Electric Suv Traps: 5 Mistakes That Cost Smart Buyers Thousands\nalready come at a premium. Dealerships push higher trims with flashy add-ons: 21-inch wheels, 360-degree cameras, custom lighting. While nice, they can inflate costs by $10k+ without improving performance. Know what "
+    },
+    {
+     "score": 0.7469903230667114,
+     "url": "https://www.axle.energy/blog/v2gs-last-mile-is-human",
+     "title": "Axle Energy",
+     "pid": 737881,
+     "snippet": "Axle Energy\nplug in. In Project Sciurus, vehicles were plugged in around 57% of the time , against a typical non-V2G baseline of 30\u201340%. Electric Nation saw the same thing: V2G drivers plug in more often, and at higher states of charge, because there's a financial reason to be plugged-in as default."
+    },
+    {
+     "score": 0.7444473505020142,
+     "url": "https://changefindr.com/laptops-tips/",
+     "title": "Essential Laptop Tips to Boost Performance and Longevity - Changefindr",
+     "pid": 962934,
+     "snippet": "Essential Laptop Tips to Boost Performance and Longevity - Changefindr\nlasted eight hours might struggle to hit four after a couple of years. Understanding how lithium-ion batteries work helps users extend their lifespan. Modern batteries don\u2019t need full discharge cycles. In fact, letting a battery "
+    },
+    {
+     "score": 0.744324266910553,
+     "url": "https://www.axle.energy/blog/vehicle-to-grid-v2g-grows-up",
+     "title": "Axle Energy",
+     "pid": 738983,
+     "snippet": "Axle Energy\nis very compelling: EV batteries are large, connected, and increasingly available as flexible assets. V2G hasn\u2019t been held up by a single barrier; instead, it\u2019s been the complexity of the system-level interactions, with diverging incentives amongst key stakeholders. Carmakers Carmakers n"
+    },
+    {
+     "score": 0.7378455400466919,
+     "url": "https://www.npr.org/2026/09/30/nx-s1-5979915/ev-hybrid-sales-2026-federal-tax-credit",
+     "title": "One year after the end of the EV tax credit, is the future still electric? : NPR",
+     "pid": 1257092,
+     "snippet": "One year after the end of the EV tax credit, is the future still electric? : NPR\ncredit to more buyers, EVs made up about 5% of new car sales. Over the following three years, EV sales grew, ticking past 6, then 7, then 8%. They swelled to 11.4% in September 2025, as people rushed to take advantage o"
+    },
+    {
+     "score": 0.7349498271942139,
+     "url": "https://www.infinitecables.com/collections/batteries",
+     "title": "Batteries",
+     "pid": 1088638,
+     "snippet": "Batteries\nBatteries Find Your UPS Model Number Alkaline Batteries Lithium Batteries Rechargeable Batteries Sealed Lead Acid Batteries Coin Cell Lithium Batteries Alkaline Button Cell Batteries Sealed Lead Acid Batteries (SLA Batteries) The basic lead acid battery has been in use for over 100 years. "
+    }
+   ],
+   "t_ms": {
+    "embed": 15.70654200622812,
+    "search": 1.0355830017942935,
+    "dedupe": 0.16745799803175032,
+    "snippets": 2.116749994456768,
+    "total": 19.02633300051093
+   }
+  },
+  {
+   "query": "quantum computing explained simply",
+   "hits": [
+    {
+     "score": 0.7471975684165955,
+     "url": "https://pirsa.org/subjects/quantum-information",
+     "title": "Quantum Information | PIRSA",
+     "pid": 260263,
+     "snippet": "Quantum Information | PIRSA\nin physics. One week Instructor Pedro Vieira will discuss a paper; students should read it beforehand. One week later students discuss recent papers referring to that paper (20 min each student, ~ 3 presentations; at the end of the class Physics of Quantum Information II "
+    },
+    {
+     "score": 0.74334317445755,
+     "url": "https://www.quantus.com/blog/q-day-quantum-and-the-impact-on-bitcoin/",
+     "title": "Q-Day, Quantum, and the Impact on Bitcoin",
+     "pid": 1191679,
+     "snippet": "Q-Day, Quantum, and the Impact on Bitcoin\na future cryptographically relevant quantum computer. 1. Start with the problem the quantum machine can solve Early in the episode, Chris asks Colton what different quantum computers are like to work with. He begins by describing their differences. The word "
+    },
+    {
+     "score": 0.7421619892120361,
+     "url": "https://signal.org/blog/pqxdh/",
+     "title": "Signal >> Blog >> Quantum Resistance and the Signal Protocol",
+     "pid": 678207,
+     "snippet": "Signal >> Blog >> Quantum Resistance and the Signal Protocol\nRSA Cryptosystem in its protocols. Instead, Signal uses elliptic curve cryptography as the public key cryptosystem supporting many of its specifications. Instead of prime integer factorization , as in the RSA example above, elliptic curve "
+    },
+    {
+     "score": 0.7403547763824463,
+     "url": "https://blog.cloudflare.com/pq-2025/",
+     "title": "State of the post-quantum Internet in 2025 | Cloudflare Blog",
+     "pid": 1256201,
+     "snippet": "State of the post-quantum Internet in 2025 | Cloudflare Blog\nhad a proper scare because of a new quantum algorithm. We\u2019ll cover all this and more: what we expect for the coming years; and what you can do today. The quantum threat First things first: why are we changing our cryptography? It\u2019s because"
+    },
+    {
+     "score": 0.7368490695953369,
+     "url": "https://www.newscientist.com/article/2594366-error-correction-record-pushes-quantum-computers-closer-to-usefulness/",
+     "title": "Error-correction record pushes quantum computers closer to usefulness | New Scientist",
+     "pid": 1329738,
+     "snippet": "Error-correction record pushes quantum computers closer to usefulness | New Scientist\nwith the same diminishing being seen when the physical qubit count rose from 19 to 37. This result is important because quantum computers gain computational power as their qubit number increases, so only error-corr"
+    },
+    {
+     "score": 0.723980724811554,
+     "url": "https://pirsa.org/courses",
+     "title": "Courses | PIRSA",
+     "pid": 263497,
+     "snippet": "Courses | PIRSA\nMay 15, 2026 6 talks C26009 Courses Quantum Information Non-local quantum computation (NLQC) is a subject within quantum information theory. NLQC considers, in a certain setting, with how local interactions can be simulated with distributed entanglement plus communication. NLQC has r"
+    },
+    {
+     "score": 0.7201446294784546,
+     "url": "https://pirsa.org/26100131",
+     "title": "Principles of Quantum Optimization for Constrained Problems | PIRSA",
+     "pid": 269961,
+     "snippet": "Principles of Quantum Optimization for Constrained Problems | PIRSA\nthe slowdown depends on how much entanglement must be changed. I will show how algebraic properties of constraints induce such restructuring, and that constraint-aware dynamics reduce the associated slowdown by avoiding unnecessary "
+    },
+    {
+     "score": 0.7174944281578064,
+     "url": "https://telconews.co.uk/story/charting-a-secure-course-to-a-post-quantum-world",
+     "title": "Charting a secure course to a post-quantum world",
+     "pid": 681925,
+     "snippet": "Charting a secure course to a post-quantum world\nTelcoNews UK - Telecommunications news for ICT decision-makers United Kingdom Powered By Quantum Computing Cybersecurity Opinion Charting a secure course to a post-quantum world Wed, 7th Oct 2026 DR SUSANNE KR\u00c4NKL Giesecke+Devrient Quantum computing o"
+    },
+    {
+     "score": 0.7107699513435364,
+     "url": "https://www.quantus.com/whitepaper/",
+     "title": "Quantus Whitepaper | Quantum Security",
+     "pid": 1188818,
+     "snippet": "Quantus Whitepaper | Quantum Security\nthat are intractable for classical machines. Unlike classical bits, which are either 0 or 1, quantum bits (qubits) can exist in multiple states simultaneously, enabling exponential parallelism for certain problems. This capability poses existential risks to the "
+    },
+    {
+     "score": 0.7074297666549683,
+     "url": "https://bibis.ir/category/science-books/engineering-sciences/new-technologies/quantum/",
+     "title": "\u0628\u0627\u06cc\u06af\u0627\u0646\u06cc\u200c\u0647\u0627\u06cc \u06a9\u0648\u0627\u0646\u062a\u0648\u0645 - \u0645\u062c\u0644\u0647 \u0639\u0644\u0645\u06cc \u062a\u0641\u0631\u06cc\u062d\u06cc \u0628\u06cc\u0628\u06cc\u0633",
+     "pid": 894244,
+     "snippet": "\u0628\u0627\u06cc\u06af\u0627\u0646\u06cc\u200c\u0647\u0627\u06cc \u06a9\u0648\u0627\u0646\u062a\u0648\u0645 - \u0645\u062c\u0644\u0647 \u0639\u0644\u0645\u06cc \u062a\u0641\u0631\u06cc\u062d\u06cc \u0628\u06cc\u0628\u06cc\u0633\n\u0645\u0637\u0644\u0628 \u062f\u0627\u0646\u0644\u0648\u062f \u06a9\u062a\u0627\u0628 \u0645\u062d\u0627\u0633\u0628\u0627\u062a \u06a9\u0648\u0627\u0646\u062a\u0648\u0645\u06cc \u0648 \u0641\u06cc\u0632\u06cc\u06a9 \u06a9\u0648\u0627\u0646\u062a\u0648\u0645\u06cc\u060c \u0631\u0648\u06cc\u06a9\u0631\u062f \u062c\u0628\u0631 \u062e\u0637\u06cc \u0645\u062c\u0644\u0647 \u0628\u06cc\u0628\u06cc\u0633 0 1 \u0645\u0627\u0647 \u067e\u06cc\u0634 \u0639\u0646\u0648\u0627\u0646 \u06a9\u062a\u0627\u0628: Quantum Computing and Quantum Physics -A Linear Algebra Approach \u0646\u0648\u06cc\u0633\u0646\u062f\u0647: Flarend Alice, Hilborn Robert \u062d\u0648\u0632\u0647: \u0645\u062d\u0627\u0633\u0628\u0627\u062a \u06a9\u0648\u0627\u0646\u062a\u0648\u0645\u06cc \u0633\u0627\u0644 \u0627\u0646\u062a\u0634\u0627\u0631: 2026 \u062a\u0639\u062f\u0627\u062f \u0635\u0641\u062d"
+    }
+   ],
+   "t_ms": {
+    "embed": 16.685500013409182,
+    "search": 0.8837500063236803,
+    "dedupe": 0.14141699648462236,
+    "snippets": 1.931832986883819,
+    "total": 19.642500003101304
+   }
+  },
+  {
+   "query": "how does the stock market work",
+   "hits": [
+    {
+     "score": 0.7865792512893677,
+     "url": "https://otp-ir.com/pages/trading/stocks/",
+     "title": "Stock Trading App & Platform: Trade Shares with Olymptrade",
+     "pid": 49211,
+     "snippet": "Stock Trading App & Platform: Trade Shares with Olymptrade\ncouldn't find an answer to your question, our 24/7 support team will be happy to help you. Contact support What is stock market trading? Similar to trading on other asset types, trading on the stock market consists of opening and closing tra"
+    },
+    {
+     "score": 0.7497372031211853,
+     "url": "https://www.callmefred.com/can-ai-be-used-to-make-money-in-the-stock-market",
+     "title": "Can AI be used to make money in the stock market? - Call Me Fred",
+     "pid": 1001439,
+     "snippet": "Can AI be used to make money in the stock market? - Call Me Fred\npotential losses. In conclusion, AI can be used to make money in the stock market by providing predictive analytics, algorithmic trading, sentiment analysis, portfolio management, and risk management capabilities. By leveraging the cap"
+    },
+    {
+     "score": 0.7488269805908203,
+     "url": "https://www.degiro.ie/knowledge/investors-academy/beginners-lessons/the-price-of-a-stock",
+     "title": "The price of a stock | DEGIRO | Worldwide online trading",
+     "pid": 1366919,
+     "snippet": "The price of a stock | DEGIRO | Worldwide online trading\nhow a stock can be valued, and what considerations will come into play when you make a trade. No matter the type of product, all listed financial instruments have a price. You may be wondering, what factors determine the price of a stock, such"
+    },
+    {
+     "score": 0.7478108406066895,
+     "url": "https://www.degiro.ie/knowledge/investing-in-shares",
+     "title": "What are stocks / shares | Products | DEGIRO online trading",
+     "pid": 1367798,
+     "snippet": "What are stocks / shares | Products | DEGIRO online trading\nFor a better user experience and secure browsing, please upgrade to the newest version of Internet Explorer or other alternative. What determines the price and value of a share? The price of a share is determined by the last transaction. A "
+    },
+    {
+     "score": 0.7441609501838684,
+     "url": "https://expertoption.finance/education/first_steps/ed104-technical-analysis-101/",
+     "title": "Technical Analysis 101",
+     "pid": 49405,
+     "snippet": "Technical Analysis 101\nEducation First Steps Technical Analysis 101 Ready to trade? Register now Technical Analysis 101 Have you ever wondered how traders predict market movements so accurately? The secret lies in the art of technical analysis. Let's break it down into simple terms, making it easy t"
+    },
+    {
+     "score": 0.7363501787185669,
+     "url": "https://app.zentrack.net/mastering-daily-results-a-comprehensive-guide-to-business-fi-25-2/",
+     "title": "Mastering Daily Results: A Comprehensive Guide to Business, Finance & Productivity - ZenTrack Bookmarks",
+     "pid": 649362,
+     "snippet": "Mastering Daily Results: A Comprehensive Guide to Business, Finance & Productivity - ZenTrack Bookmarks\nabout stock management, marketing strategies, and staffing needs. Similarly, in the finance sector, daily result charts can monitor stock prices, currency fluctuations, and economic indicators, ai"
+    },
+    {
+     "score": 0.7332404851913452,
+     "url": "https://statsa.ai/how-it-works",
+     "title": "How Statsa Works \u2014 Collect the People in the News",
+     "pid": 1198449,
+     "snippet": "How Statsa Works \u2014 Collect the People in the News\nThe game How Statsa works A stock-market style game where every card is a real person in the global news. Build a binder, watch their value rise with headlines, and out-collect your friends. Step 1 Start with 10,000 credits Sign up free. You get a fr"
+    },
+    {
+     "score": 0.7318594455718994,
+     "url": "https://otp-ir.com/pages/about/faq/",
+     "title": "FAQ: Trading questions, Forex trading \u2013 Olymptrade",
+     "pid": 55300,
+     "snippet": "FAQ: Trading questions, Forex trading \u2013 Olymptrade\naccount? The Olymptrade demo account provides the same functionality as a live account but uses virtual funds which can't be withdrawn. How do traders make money? Traders make money based on movements on the market. There are different ways this is "
+    },
+    {
+     "score": 0.7231435775756836,
+     "url": "https://cmsprime.com/trading-need-to-knows/",
+     "title": "Learn FX Trading: Forex Basics Explained | CMS Prime Academy",
+     "pid": 1132959,
+     "snippet": "Learn FX Trading: Forex Basics Explained | CMS Prime Academy\nSkip to content Everything You Need to Know About Forex \u2014 and How It Works Learn currency trading from the basics \u2014 understand what forex is, how it works, and how you can trade currency pairs confidently with a trusted forex broker. If yo"
+    },
+    {
+     "score": 0.7209123969078064,
+     "url": "https://jlcollinsnh.com/2025/05/12/the-one-thing-that-will-determine-whether-the-market-makes-you-wealthy-or-leaves-you-bleeding-on-the-side-of-the-road/",
+     "title": "The one thing that will determine whether the market makes you wealthy or leaves you bleeding on the side of the road - JLCollinsnh",
+     "pid": 502214,
+     "snippet": "The one thing that will determine whether the market makes you wealthy or leaves you bleeding on the side of the road - JLCollinsnh\nYou are here: Home / Stock Investing Series / The one thing that will determine whether the market makes you wealthy or leaves you bleeding on the side of the road I\u2019ve"
+    }
+   ],
+   "t_ms": {
+    "embed": 17.900083999847993,
+    "search": 0.9249580034520477,
+    "dedupe": 0.2016669895965606,
+    "snippets": 2.2297500108834356,
+    "total": 21.256459003780037
+   }
+  },
+  {
+   "query": "cheap flights to tokyo",
+   "hits": [
+    {
+     "score": 0.8854145407676697,
+     "url": "https://skysonar.com/en-us/destinations/city/tokyo-tyo",
+     "title": "Cheap Flights to Tokyo \u2013 Compare Airlines & Deals",
+     "pid": 470282,
+     "snippet": "Cheap Flights to Tokyo \u2013 Compare Airlines & Deals\navg from $46 June $883 avg from $52 July $975 avg from $69 Peak August $974 avg from $87 September $822 avg from $78 October $618 avg from $31 Cheapest November $666 avg from $24 December $691 avg from $32 Tracked fares Price Overview for Tokyo Lowes"
+    },
+    {
+     "score": 0.8773696422576904,
+     "url": "https://www.momondo.com/flights/tokyo",
+     "title": "$293 Cheap Flights to Tokyo in 2026/27 | momondo",
+     "pid": 1365489,
+     "snippet": "$293 Cheap Flights to Tokyo in 2026/27 | momondo\n$293 Cheap flights to Tokyo This is the cheapest one-way flight price found by a momondo user in the last 72 hours by searching for a flight to Tokyo departing on 2/7. Fares may change, and may not be available for all flights or travel dates. Click t"
+    },
+    {
+     "score": 0.8763686418533325,
+     "url": "https://www.netflights.com/flights/tokyo",
+     "title": "Cheap flights to Tokyo (TYO) | Netflights",
+     "pid": 143935,
+     "snippet": "Cheap flights to Tokyo (TYO) | Netflights\nCheap flights to Tokyo Part of Destinia Global Travel Over 25 Years in Business Rated 'Excellent' Popular routes to Tokyo from the UK choose your favourite departure airport in the UK Manchester to Tokyo search for prices Find flights Belfast to Tokyo search"
+    },
+    {
+     "score": 0.8632991313934326,
+     "url": "https://www.momondo.ca/flights/tokyo",
+     "title": "C$\u00a0454 Cheap Flights to Tokyo in 2026/27 | momondo",
+     "pid": 688684,
+     "snippet": "C$\u00a0454 Cheap Flights to Tokyo in 2026/27 | momondo\nC$ 454 Cheap flights to Tokyo This is the cheapest one-way flight price found by a momondo user in the last 72 hours by searching for a flight to Tokyo departing on 9/2. Fares may change, and may not be available for all flights or travel dates. Cli"
+    },
+    {
+     "score": 0.8614451885223389,
+     "url": "https://www.momondo.com.au/flights/tokyo",
+     "title": "$338 Cheap Flights to Tokyo in 2026/27 | momondo",
+     "pid": 1361943,
+     "snippet": "$338 Cheap Flights to Tokyo in 2026/27 | momondo\n$338 Cheap flights to Tokyo This is the cheapest one-way flight price found by a momondo user in the last 72 hours by searching for a flight to Tokyo departing on 5/11. Fares may change, and may not be available for all flights or travel dates. Click "
+    },
+    {
+     "score": 0.8603042364120483,
+     "url": "https://www.momondo.ie/flights/tokyo",
+     "title": "\u20ac324 Cheap Flights to Tokyo in 2026/27 | momondo",
+     "pid": 685932,
+     "snippet": "\u20ac324 Cheap Flights to Tokyo in 2026/27 | momondo\n\u20ac324 Cheap flights to Tokyo This is the cheapest one-way flight price found by a momondo user in the last 72 hours by searching for a flight to Tokyo departing on 25/11. Fares may change, and may not be available for all flights or travel dates. Click"
+    },
+    {
+     "score": 0.8445042371749878,
+     "url": "https://www.netflights.com/flights/japan",
+     "title": "Cheap flights to Japan () | Netflights",
+     "pid": 147929,
+     "snippet": "Cheap flights to Japan () | Netflights\nare hundreds of direct and indirect flights from the UK to Japan every week. Narita International Airport is usually the cheapest for good deals due to its larger number of international flights. Use our tools to easily find and compare the best flight options "
+    },
+    {
+     "score": 0.8299371004104614,
+     "url": "https://www.momondo.co.za/flights/tokyo",
+     "title": "R6\u00a0899 Cheap Flights to Tokyo in 2026/27 | momondo",
+     "pid": 1363496,
+     "snippet": "R6\u00a0899 Cheap Flights to Tokyo in 2026/27 | momondo\nR6 899 Cheap flights to Tokyo This is the cheapest one-way flight price found by a momondo user in the last 72 hours by searching for a flight to Tokyo departing on 3/12. Fares may change, and may not be available for all flights or travel dates. Cl"
+    },
+    {
+     "score": 0.8077287673950195,
+     "url": "https://skysonar.com/en-us/flights/tyo-lon/tokyo-to-london",
+     "title": "Tokyo to London Flights from $302",
+     "pid": 475098,
+     "snippet": "Tokyo to London Flights from $302\nMost expensive Tap a month to search those dates Looking to fly from Tokyo to London? Check out our cheap flights deals today. We have fares starting at just $302. Filter Flights Stops All Direct Max 1 stop Airline All airlines Max price: Deal score Great \u226520% off G"
+    },
+    {
+     "score": 0.8057440519332886,
+     "url": "https://www.ana.co.jp/en/us/",
+     "title": "Flights to Tokyo:Fly to Japan with 5-Star Airline - ANA English | ANA",
+     "pid": 1267052,
+     "snippet": "Flights to Tokyo:Fly to Japan with 5-Star Airline - ANA English | ANA\nInformation from ANA Back Pause Proceed Back Pause Proceed Back Pause Proceed Back Pause Proceed Campaigns ANA Featured Routes & Fares ANA Fare Lineup Los Angeles-Tokyo Offering 3 daily non-stop flights to Tokyo (Haneda/Narita) Ch"
+    }
+   ],
+   "t_ms": {
+    "embed": 17.216125008417293,
+    "search": 0.784707983257249,
+    "dedupe": 0.22887502564117312,
+    "snippets": 1.9083749793935567,
+    "total": 20.138082996709272
+   }
+  },
+  {
+   "query": "recipe for chicken tikka masala",
+   "hits": [
+    {
+     "score": 0.7513954043388367,
+     "url": "https://www.willflyforfood.net/category/national-dish-quest/",
+     "title": "Category: NATIONAL DISH QUEST | Will Fly for Food",
+     "pid": 526653,
+     "snippet": "Category: NATIONAL DISH QUEST | Will Fly for Food\nPretty Cone Tumpeng is kind of a sacred meal for Indonesians. Its cone shape (usually, but not exclusively, made from rice and urab) is golden yellow and represents the island. Read More about Indonesia\u2019s Tumpeng is More Than Just a Pretty Cone What "
+    },
+    {
+     "score": 0.7475811839103699,
+     "url": "https://www.cookdtv.com/categories/dish-types/kebabs_tikkas_grills",
+     "title": "Kebab, Tikka & Grill Recipes | Cookd",
+     "pid": 1227478,
+     "snippet": "Kebab, Tikka & Grill Recipes | Cookd\n120 recipes \u00b7 page 1 of 6 Tandoori Mint Chutney 20 mins \u00b7 23 cal not spicy \u00b7 No Cooking \u00b7 Low calorie Chicken Malai Tikka 40 mins \u00b7 428 cal mild \u00b7 Pan-Fried \u00b7 High protein Paneer Tikka Chapati Quesadilla 40 mins \u00b7 483 cal medium \u00b7 Pan-Fried \u00b7 Source of protein Ch"
+    },
+    {
+     "score": 0.7438243627548218,
+     "url": "https://myheartbeets.com/category/method-cooking-style/onion-masala-recipes/",
+     "title": "Onion Masala Recipes | My Heart Beets",
+     "pid": 150146,
+     "snippet": "Onion Masala Recipes | My Heart Beets\nSkip to primary navigation Skip to main content Home > Cooking Method > Onion Masala Recipes Welcome to the Indian Onion Masala series here on My Heart Beets! I am on a mission to help you simplify Indian cooking, and having onion masala on hand is essential for"
+    },
+    {
+     "score": 0.7402335405349731,
+     "url": "https://www.cookdtv.com/",
+     "title": "Cookd \u2014 Brilliant meals at home, every time",
+     "pid": 1219394,
+     "snippet": "Cookd \u2014 Brilliant meals at home, every time\n, 60 recipes Soups & Salads , 100 recipes Kebabs & Grills , 120 recipes Bakes , 170 recipes Cookd masalas See all \u2192 Wedding Bhai Biryani \u20b9249 Madras 65 \u20b999 \u20b994 Dindigul Biryani \u20b9249 Ambur Biryani \u20b9249 Biryanis of Tamilnadu (3 Variant Packs) \u20b9747 \u20b9449 Madur"
+    },
+    {
+     "score": 0.7385823726654053,
+     "url": "https://www.whynutrition.in/blogs/recipes/palak-corn",
+     "title": "WHY Nutrition",
+     "pid": 697746,
+     "snippet": "WHY Nutrition\n4 g Coriander seeds - whole / ground, powdered 1.6 g Dried chillies, powdered 4 g Salt 1.2 g Garam Masala 2 g Kasuri methi, crushed To serve, optional 20 ml Cream, fresh Instructions: Prepare the palak Blanch palak in boiling water for 1 minute. Transfer immediately to cold water. Drai"
+    },
+    {
+     "score": 0.7320427894592285,
+     "url": "https://www.cookdtv.com/categories/dish-types/kebabs_tikkas_grills?diet=veg",
+     "title": "Kebab, Tikka & Grill Recipes | Cookd",
+     "pid": 1233428,
+     "snippet": "Kebab, Tikka & Grill Recipes | Cookd\n38 recipes \u00b7 veg only \u00b7 page 1 of 2 Tandoori Mint Chutney 20 mins \u00b7 23 cal not spicy \u00b7 No Cooking \u00b7 Low calorie Paneer Tikka Chapati Quesadilla 40 mins \u00b7 483 cal medium \u00b7 Pan-Fried \u00b7 Source of protein Tandoori Pineapple 20 mins \u00b7 313 cal mild \u00b7 Grilled \u00b7 Low carb"
+    },
+    {
+     "score": 0.7316636443138123,
+     "url": "https://www.clubhouse.ca/en-ca/recipes/indian",
+     "title": "Indian | Club House",
+     "pid": 167376,
+     "snippet": "Indian | Club House\nIndian Inspired Recipes Explore all the exciting and fragrant spices of India with delicious recipes like Masuman Beef Stew, Grilled Indian-Spiced Flatbread, Mango Chutney, Chicken Tikka Masala and Garam Masala Roasted Cauliflower. Discover techniques, spices and flavours sure to"
+    },
+    {
+     "score": 0.7308048009872437,
+     "url": "https://www.cookdtv.com/search",
+     "title": "Search recipes | Cookd",
+     "pid": 1234385,
+     "snippet": "Search recipes | Cookd\nSearch Cook with what you have Use a photo of your fridge or shelf and we spot the ingredients, or pick them yourself. Use a photo Pick ingredients Your photo is used only to spot ingredients and isn\u2019t kept. Cookd masalas All-in-1 masalas and kits, delivered home \u2192 What are yo"
+    },
+    {
+     "score": 0.7276467084884644,
+     "url": "https://www.babaganosh.org/chicken-wild-rice-casserole/",
+     "title": "Chicken Wild Rice Casserole | Babaganosh",
+     "pid": 415437,
+     "snippet": "Chicken Wild Rice Casserole | Babaganosh\nbecause it's so tender! \u2153 cup parmesan cheese (freshly grated is best, but use what you have!) 1 tablespoon dry parsley More comfort food casseroles: Weeknight Shepherd's Pie You'll also need: 8x8 inch baking dish Large skillet or saute pan More comfort food "
+    },
+    {
+     "score": 0.7251149415969849,
+     "url": "https://www.babaganosh.org/hot-honey-chicken/",
+     "title": "Hot Honey Chicken - 20 Minute Dinner | Babaganosh",
+     "pid": 413356,
+     "snippet": "Hot Honey Chicken - 20 Minute Dinner | Babaganosh\nchicken stir fry recipes: Chicken and Vegetable Stir Fry with Thai Red Chili Paste For serving: Chopped scallions for garnish Cooked rice (try cauliflower rice for lower carbs, or chicken bone broth rice for a higher-protein rice side dish ) Steamed "
+    }
+   ],
+   "t_ms": {
+    "embed": 16.415374993812293,
+    "search": 0.6527089863084257,
+    "dedupe": 0.14879100490361452,
+    "snippets": 1.9385420018807054,
+    "total": 19.15541698690504
+   }
+  },
+  {
+   "query": "what is the capital of australia",
+   "hits": [
+    {
+     "score": 0.7948594093322754,
+     "url": "https://www.qldtourism.com/city/au/canberra",
+     "title": "Best hotels & places to stay in Canberra, Australia - QLD Tourism",
+     "pid": 253693,
+     "snippet": "Best hotels & places to stay in Canberra, Australia - QLD Tourism\nGreater Perth Port Stephens Tropical North Queensland Victorian High Country Shoalhaven Gippsland Tweed Coast Top Districts All Districts Acacia Ridge Adelaide CBD Albert Park Albion Annerley Ascot Ascot Ashgrove Ashmore Aspley Auchen"
+    },
+    {
+     "score": 0.7705090641975403,
+     "url": "https://www.getours.com/destinations/south-pacific",
+     "title": "South Pacific Tours & Packages - 2026 & 2027 | Grand European Travel",
+     "pid": 502865,
+     "snippet": "South Pacific Tours & Packages - 2026 & 2027 | Grand European Travel\nbiodiversity and coral formations. Explore the tropical rainforests of the Daintree National Park and the nearby vibrant city of Brisbane. Canberra in Australian Capital Territory (ACT) Visit Canberra, Australia's capital city, to "
+    },
+    {
+     "score": 0.728826642036438,
+     "url": "https://www.qldtourism.com/city/au/perth",
+     "title": "Best hotels & places to stay in Perth, Australia - QLD Tourism",
+     "pid": 250413,
+     "snippet": "Best hotels & places to stay in Perth, Australia - QLD Tourism\nGreater Perth Port Stephens Tropical North Queensland Victorian High Country Shoalhaven Gippsland Tweed Coast Top Districts All Districts Acacia Ridge Adelaide CBD Albert Park Albion Annerley Ascot Ascot Ashgrove Ashmore Aspley Auchenflo"
+    },
+    {
+     "score": 0.7178561687469482,
+     "url": "https://www.yourinvestmentpropertymag.com.au/top-suburbs/act/",
+     "title": "Australian Capital Territory (ACT) Suburb Profiles & Property Data",
+     "pid": 812261,
+     "snippet": "Australian Capital Territory (ACT) Suburb Profiles & Property Data\nBanks, 2906 Barton, 2600 Beard, 2620 Belconnen, 2617 Bonner, 2914 Bonython, 2905 Braddon, 2612 Brindabella, 2611 Bruce, 2617 Calwell, 2905 Campbell, 2612 Canberra Airport, 2609 Capital Hill, 2600 Casey, 2913 Chapman, 2611 Charnwood, "
+    },
+    {
+     "score": 0.71708744764328,
+     "url": "https://www.accommodationaustralia.com.au/",
+     "title": "Accommodation Australia| Uncover the Best Places to Stay",
+     "pid": 638202,
+     "snippet": "Accommodation Australia| Uncover the Best Places to Stay\nTownsville Mandurah Port Macquarie Hobart Mount Tambourine Coffs Harbour Top Regions All Regions New South Wales Victoria Queensland Melbourne Region Sydney Region North Coast New South Wales West Australia Northern Rivers South Australia Suns"
+    },
+    {
+     "score": 0.7129358649253845,
+     "url": "https://www.qldtourism.com/city/au/sydney",
+     "title": "Best hotels & places to stay in Sydney, Australia - QLD Tourism",
+     "pid": 247996,
+     "snippet": "Best hotels & places to stay in Sydney, Australia - QLD Tourism\nMENU Main Pages Home Page Add My Business Partners Latest News FAQs Contact Us About Us Front Page Subscribe Privay Policy Featured Pages Airports Hotels Homes Top Cities All Cities Sydney Melbourne Perth Gold Coast Brisbane Adelaide Ca"
+    },
+    {
+     "score": 0.7074587345123291,
+     "url": "https://www.netflights.com/flights/australia",
+     "title": "Cheap flights to Australia () | Netflights",
+     "pid": 149286,
+     "snippet": "Cheap flights to Australia () | Netflights\nFlights to Australia Part of Destinia Global Travel Over 25 Years in Business Rated 'Excellent' Come fly to Australia with Netflights flight comparison specialists You've searched for flights to Australia. The cheapest departure offer we've found is on 09/0"
+    },
+    {
+     "score": 0.7064417600631714,
+     "url": "https://www.australiaaccommodation.com/",
+     "title": "Australia Accommodation including Hotel Rentals",
+     "pid": 638208,
+     "snippet": "Australia Accommodation including Hotel Rentals\nDarwin Newcastle Cairns Wollongong Byron Bay Redcliffe Townsville Mandurah Port Macquarie Hobart Mount Tambourine Coffs Harbour Top Regions All Regions New South Wales Victoria Queensland Melbourne Region Sydney Region North Coast New South Wales West "
+    },
+    {
+     "score": 0.7014890909194946,
+     "url": "https://www.accommodationvic.com.au/",
+     "title": "Accommodation VIC, Australia - Melbourne",
+     "pid": 1324346,
+     "snippet": "Accommodation VIC, Australia - Melbourne\nSydney Eastern Suburbs Southbank Central Business District Adelaide CBD Broadbeach Darwin CBD Brisbane CBD Hobart CBD Bondi St Kilda Collins Street Kings Beach South Brisbane Coolangatta City Centre Docklands Burleigh Heads Top Countries All Countries Austral"
+    },
+    {
+     "score": 0.699291467666626,
+     "url": "https://www.qldtourism.com/homes",
+     "title": "The World's Best Vacation Rentals | QLD Tourism",
+     "pid": 247385,
+     "snippet": "The World's Best Vacation Rentals | QLD Tourism\nMENU Main Pages Home Page Add My Business Partners Latest News FAQs Contact Us About Us Front Page Subscribe Privay Policy Featured Pages Airports Hotels Homes Top Cities All Cities Sydney Melbourne Perth Gold Coast Brisbane Adelaide Canberra Darwin Ne"
+    }
+   ],
+   "t_ms": {
+    "embed": 18.242707999888808,
+    "search": 0.6373749929480255,
+    "dedupe": 0.11812499724328518,
+    "snippets": 1.5787500014994293,
+    "total": 20.576957991579548
+   }
+  },
+  {
+   "query": "how to fix a leaking faucet",
+   "hits": [
+    {
+     "score": 0.8400208353996277,
+     "url": "https://polovnakola.com/common-home-repairs-you-can-safely-do-yourself/",
+     "title": "Common Home Repairs You Can Safely Do Yourself \u2013 Polovnakola",
+     "pid": 1333116,
+     "snippet": "Common Home Repairs You Can Safely Do Yourself \u2013 Polovnakola\nmore serious issues down the line. 1. Fixing a Leaky Faucet Tools and Materials Needed Adjustable wrench Phillips and flathead screwdrivers Replacement washers or O-rings Plumber\u2019s tape Bucket or towel Steps to Follow 1. Turn off the water"
+    },
+    {
+     "score": 0.8388242721557617,
+     "url": "https://oceaniccleaningservice.com/common-home-repairs-you-can-safely-do-yourself/",
+     "title": "Common Home Repairs You Can Safely Do Yourself \u2013 Oceaniccleaningservice",
+     "pid": 1333690,
+     "snippet": "Common Home Repairs You Can Safely Do Yourself \u2013 Oceaniccleaningservice\nmore serious issues down the line. 1. Fixing a Leaky Faucet Tools and Materials Needed Adjustable wrench Phillips and flathead screwdrivers Replacement washers or O-rings Plumber\u2019s tape Bucket or towel Steps to Follow 1. Turn of"
+    },
+    {
+     "score": 0.781408965587616,
+     "url": "https://llmseoservices.org/common-home-repairs-you-can-safely-do-yourself/",
+     "title": "Common Home Repairs You Can Safely Do Yourself \u2014 We're a Results-Driven SEO Agency Built for Modern Businesses",
+     "pid": 648651,
+     "snippet": "Common Home Repairs You Can Safely Do Yourself \u2014 We're a Results-Driven SEO Agency Built for Modern Businesses\npacking nut, and reattach the handle. Turn the water supply back on and check for leaks. Safety Notes Always turn off the water supply before starting any work on a faucet. If you encounter"
+    },
+    {
+     "score": 0.7711294889450073,
+     "url": "https://portalnewsletter.co.za/wp/2026/10/19/common-home-repairs-you-can-safely-do-yourself/",
+     "title": "Common Home Repairs You Can Safely Do Yourself \u2013 Portal Newsletter",
+     "pid": 652044,
+     "snippet": "Common Home Repairs You Can Safely Do Yourself \u2013 Portal Newsletter\nAdjustable wrench Phillips and flathead screwdrivers Replacement washers or O-rings Plumber\u2019s tape Bucket or towel Steps to Follow 1. Turn off the water supply: Locate the shut-off valve under the sink and turn it clockwise to stop t"
+    },
+    {
+     "score": 0.7475450038909912,
+     "url": "https://www.house-improvements.com/basement-pool-leak",
+     "title": "How To Fix A Leaky Crack in a Pool or Basement Wall Cement",
+     "pid": 882993,
+     "snippet": "How To Fix A Leaky Crack in a Pool or Basement Wall Cement\nForums Kitchen Bathroom Interior Electrical Videos Misc Support Us Close You are here: House Improvements Home > Interior How To Fix A Leaky Crack In Your Basement Wall Or Pool\u200f So you have a crack or old snap tie hole in your basement wall "
+    },
+    {
+     "score": 0.7413792610168457,
+     "url": "https://homaryreviews.com/garbage-disposal-troubleshooting-the-basics-every-homeowner/",
+     "title": "Garbage Disposal Troubleshooting: The Basics Every Homeowner Should Know \u2013 Homaryreviews",
+     "pid": 1334729,
+     "snippet": "Garbage Disposal Troubleshooting: The Basics Every Homeowner Should Know \u2013 Homaryreviews\ndisposal, including: Sink Flange: The seal around the sink flange can deteriorate over time, leading to leaks. Tighten the flange or replace the seal if necessary. Drain Lines: Connections between the disposal a"
+    },
+    {
+     "score": 0.7382513284683228,
+     "url": "https://hedaroibergroup.com/garbage-disposal-troubleshooting-the-basics-every-homeowner/",
+     "title": "Garbage Disposal Troubleshooting: The Basics Every Homeowner Should Know \u2013 Hedaroibergroup",
+     "pid": 6610,
+     "snippet": "Garbage Disposal Troubleshooting: The Basics Every Homeowner Should Know \u2013 Hedaroibergroup\ndisposal, including: Sink Flange: The seal around the sink flange can deteriorate over time, leading to leaks. Tighten the flange or replace the seal if necessary. Drain Lines: Connections between the disposal"
+    },
+    {
+     "score": 0.7292653322219849,
+     "url": "https://www.house-improvements.com/forums/viewtopic.php?t=16597",
+     "title": "What should I do first if a water pipe suddenly bursts in my house? - Home Improvement Forum",
+     "pid": 879095,
+     "snippet": "What should I do first if a water pipe suddenly bursts in my house? - Home Improvement Forum\narea unless you for some reason have the proper key for the curb stop there is no way your shutting it off. Around here that is a city employee thing not a home owner thing to have. \"Plumbing Yuma\" ( I'm hop"
+    },
+    {
+     "score": 0.7226712107658386,
+     "url": "https://quandify.com/pages/leak-detection",
+     "title": "Leak Detection",
+     "pid": 454564,
+     "snippet": "Leak Detection\ntake hold The fitting fails further; water runs continuously now. The 24\u201348 h industry mould window starts to close. Drywall behind cabinets soaks through. Repair shifts from \"drying\" to \"demolition\". With detection in place, this stage never happens T + 1 week The claim, the rebuild "
+    },
+    {
+     "score": 0.7200409770011902,
+     "url": "https://ecofriend.com/13-water-saving-tips-to-prepare-for-a-drought.html",
+     "title": "13 water-saving tips to prepare for a drought - Ecofriend",
+     "pid": 509141,
+     "snippet": "13 water-saving tips to prepare for a drought - Ecofriend\nhot summers, when your AC runs fully, place a container under the water outlet tube. Let the water accumulate in small quantities which can be used for washing and cleaning. In the end, you will be surprised to find the quantity of water coll"
+    }
+   ],
+   "t_ms": {
+    "embed": 5.578332988079637,
+    "search": 0.7854170107748359,
+    "dedupe": 0.12520799646154046,
+    "snippets": 1.6202499973587692,
+    "total": 8.109207992674783
+   }
+  },
+  {
+   "query": "benefits of meditation",
+   "hits": [
+    {
+     "score": 0.8713035583496094,
+     "url": "https://www.healthline.com/nutrition/12-benefits-of-meditation",
+     "title": "12 Science-Based Benefits of Meditation",
+     "pid": 1306870,
+     "snippet": "12 Science-Based Benefits of Meditation\nSkip to main content Women's Wellness Nutrition Evidence Based How Meditation Benefits Your Mind and Body Medically reviewed by Joslyn Jelinek, LCSW, ACSW, RDDP \u2014 Written by Matthew Thorpe, MD, PhD and Rachael Ajmera, MS, RD \u2014 Updated on August 15, 2024 While "
+    },
+    {
+     "score": 0.8320587873458862,
+     "url": "https://mindfulnessexercises.com/meditation/anxiety/",
+     "title": "Meditation for Anxiety: Calm Your Mind in 5 Minutes (Free Guide)",
+     "pid": 416461,
+     "snippet": "Meditation for Anxiety: Calm Your Mind in 5 Minutes (Free Guide)\nramping up until they\u2019re an 8 out of 10. Noticing the signs of anxiety early is one of the keys to responding skillfully. You learn to observe your anxious experience with kindness and non-judgment. This builds new neural pathways that"
+    },
+    {
+     "score": 0.7849576473236084,
+     "url": "https://mindfulnessexercises.com/free-guided-meditation-scripts/",
+     "title": "200+ Free Guided Meditation Scripts (PDF + Audio Downloads)",
+     "pid": 419257,
+     "snippet": "200+ Free Guided Meditation Scripts (PDF + Audio Downloads)\nTeaching this? MindfulPro writes a script on it for the people you guide and narrates it in a studio voice \u2014 14-day free trial, then $39/mo. Benefits of Free Guided Meditation Scripts Whether we use guided meditation scripts for ourselves o"
+    },
+    {
+     "score": 0.78179931640625,
+     "url": "https://mindfulnessexercises.com/8-mindfulness-exercises-for-beginners/",
+     "title": "8 Easy Mindfulness Exercises for Beginners \u2014 Simple 5-Minute Tips",
+     "pid": 416150,
+     "snippet": "8 Easy Mindfulness Exercises for Beginners \u2014 Simple 5-Minute Tips\nthe site, or simply choose to focus your attention on the sensations of breathing. This is your anchor \u2013 a point of reference that you try to return to whenever possible. 5. Notice the inevitable distractions. Your mind will start to "
+    },
+    {
+     "score": 0.7734485864639282,
+     "url": "https://www.alhakam.org/neuroscience-prayer-how-prayer-rewires-our-brain",
+     "title": "The neuroscience of prayer: How prayer rewires our brain | Al Hakam",
+     "pid": 906518,
+     "snippet": "The neuroscience of prayer: How prayer rewires our brain | Al Hakam\na greater self-efficacy , may foster healthy social connections and are free from the negative influences of existential crises and aimlessness. Interestingly, religious beliefs and practices can help in protecting mental health by "
+    },
+    {
+     "score": 0.763444721698761,
+     "url": "https://www.artofliving.org/us-en",
+     "title": "Art of Living | Meditation, Breathwork & Wellness Programs",
+     "pid": 684992,
+     "snippet": "Art of Living | Meditation, Breathwork & Wellness Programs\nLearn more Sahaj Samadhi Meditation\u2122 HSA/FSA eligible Learn a personalized mantra-based technique that gives you the deepest meditation you've ever experienced. Sleep & Anxiety Protocol HSA/FSA eligible Learn to regulate your mind by regulat"
+    },
+    {
+     "score": 0.7560564279556274,
+     "url": "https://commercecrunch.com/for-your-mind-and-body/the-financial-and-personal-payoff-of-mind-body-investments/",
+     "title": "The Financial and Personal Payoff of Mind-Body Investments \u2013 CommerceCrunch",
+     "pid": 921133,
+     "snippet": "The Financial and Personal Payoff of Mind-Body Investments \u2013 CommerceCrunch\nsuch as mindfulness and meditation are frequently associated with reduced stress levels and improved focus, both of which may translate into better professional performance and financial decision-making. For example, mindful"
+    },
+    {
+     "score": 0.7543586492538452,
+     "url": "https://mindfulnessexercises.com/6-mindful-breathing-exercises/",
+     "title": "6 Mindful Breathing Exercises (Free Audio + Step-by-Step)",
+     "pid": 417261,
+     "snippet": "6 Mindful Breathing Exercises (Free Audio + Step-by-Step)\nMindfulPro writes a script on it for the people you guide and narrates it in a studio voice \u2014 14-day free trial, then $39/mo. Watch this video Bringing mindful attention to our breath benefits us in many ways. Mindfulness breathing exercises "
+    },
+    {
+     "score": 0.7540868520736694,
+     "url": "https://yogachicago.com/2026/01/harmonizing-body-and-mind-ayurveda-and-meditation-in-modern-urban-life/",
+     "title": "Harmonizing Body and Mind: Ayurveda and Meditation in Modern Urban Life - Yoga Chicago",
+     "pid": 392931,
+     "snippet": "Harmonizing Body and Mind: Ayurveda and Meditation in Modern Urban Life - Yoga Chicago\ntime. For vata imbalance, seated meditation with slow, rhythmic breathing and extended exhalations promotes grounding and stability. Gentle mantra repetition or body awareness helps anchor attention. For pitta imb"
+    },
+    {
+     "score": 0.7537236213684082,
+     "url": "https://www.humantouch.com/pages/benefits-massage",
+     "title": "Benefits of Engaging in Daily Massage",
+     "pid": 439032,
+     "snippet": "Benefits of Engaging in Daily Massage\ntense. Regular massage eases tight muscles and helps to release endorphins. This enables restorative relaxation and helps your mind and body maintain a healthy state. Relieve Stress Every single day, we face stressful situations, such as tight deadlines, relatio"
+    }
+   ],
+   "t_ms": {
+    "embed": 14.78070899611339,
+    "search": 0.7554999901913106,
+    "dedupe": 0.1789579982869327,
+    "snippets": 1.6882499912753701,
+    "total": 17.403416975867003
+   }
+  },
+  {
+   "query": "javascript promises vs async await",
+   "hits": [
+    {
+     "score": 0.7988455891609192,
+     "url": "https://dev.to/jenc/shtpost-can-we-stop-saying-syntactic-sugar-3i4j",
+     "title": "Sh*tpost: can we stop saying \"syntactic sugar\"? - DEV Community",
+     "pid": 1281294,
+     "snippet": "Sh*tpost: can we stop saying \"syntactic sugar\"? - DEV Community\nis internally just unrolling promises yielded from a generator function. I was doing this with my own code and libraries like co for years before async/await became popular. I think even q had a version of the concept. The experience wa"
+    },
+    {
+     "score": 0.7427313327789307,
+     "url": "https://philipwalton.com/articles/untangling-deeply-nested-promise-chains/",
+     "title": "Untangling Deeply-Nested Promise Chains \u2014 Philip Walton",
+     "pid": 952577,
+     "snippet": "Untangling Deeply-Nested Promise Chains \u2014 Philip Walton\nIf you\u2019ve been writing JavaScript for a while, you\u2019ve probably heard terms like callback hell or the pyramid of doom . When promises were added to JavaScript a few years ago, I remember reading a lot of blog posts claiming that these problems w"
+    },
+    {
+     "score": 0.7181688547134399,
+     "url": "https://lisperator.net/blog/slip-news---more-common-lisp/",
+     "title": "SLip news - more Common Lisp!",
+     "pid": 902658,
+     "snippet": "SLip news - more Common Lisp!\nstreaming, although I think the reality is that the browser will wait for the full body to come in before resolving those promises\u2026 but they are promises, therefore asynchronous. And our Lisp code doesn't have to care. When an async primitive is called, the VM will just"
+    },
+    {
+     "score": 0.7146099805831909,
+     "url": "https://docs.rs/futures/0.3.31/futures/index.html",
+     "title": "futures - Rust",
+     "pid": 1276068,
+     "snippet": "futures - Rust\nCrate futures Crate futures Copy item path Source Expand description Abstractions for asynchronous programming. This crate provides a number of core abstractions for writing asynchronous code: Futures are single eventual values produced by asynchronous computations. Some programming l"
+    },
+    {
+     "score": 0.7136874198913574,
+     "url": "https://evertpot.com/syntactic-sugar/",
+     "title": "On syntactic sugar",
+     "pid": 867461,
+     "snippet": "On syntactic sugar\nsubscribe August 13, 2022 On syntactic sugar Ever so often the term \u2018syntactic sugar\u2019 comes when people discuss language features, and it\u2019s not uncommon to see the word \u2018just\u2019 right in front of it; some examples: Why Async/Await Is More Than Just Syntactic Sugar JS classes are not"
+    },
+    {
+     "score": 0.7118444442749023,
+     "url": "https://evertpot.com/using-top-level-await-is-bc-break/",
+     "title": "In the future using top-level await might be cause a backwards compatibility break in Node",
+     "pid": 859244,
+     "snippet": "In the future using top-level await might be cause a backwards compatibility break in Node\nsubscribe October 18, 2024 In the future using top-level await might be cause a backwards compatibility break in Node Node 23 was released this week, and the hot ticket item probably is the fact that you can n"
+    },
+    {
+     "score": 0.7063030004501343,
+     "url": "https://algospot.com/judge/problem/read/PROMISES",
+     "title": "algospot.com ::  \n\tPROMISES",
+     "pid": 920222,
+     "snippet": "algospot.com ::  \n\tPROMISES\n\uc904\uc5d0\ub294 \uac01 \uc904\uc5d0 3\uac1c\uc758 \uc815\uc218 a, b, c (0 <= a,b <= V-1,1 <= c <= 100000) \ub85c \uc774\ubbf8 \uc874\uc7ac\ud558\ub294 \uace0\uc18d\ub3c4\ub85c\uc758 \uc815\ubcf4\uac00 \uc8fc\uc5b4\uc9d1\ub2c8\ub2e4. a \uc640 b \ub294 \uc774 \uace0\uc18d\ub3c4\ub85c\uac00 \uc5f0\uacb0\ud558\ub294 \ub3c4\uc2dc\uc758 \ubc88\ud638, \uadf8\ub9ac\uace0 c \ub294 \ud574\ub2f9 \uace0\uc18d\ub3c4\ub85c\ub97c \ud1b5\ud574 \ub450 \ub3c4\uc2dc \uac04\uc744 \uc774\ub3d9\ud558\ub294 \ub370 \uac78\ub9ac\ub294 \uc2dc\uac04\uc744 \ub098\ud0c0\ub0c5\ub2c8\ub2e4. \uadf8 \ud6c4 N \uc904\uc5d0 \uac19\uc740 \ud615\ud0dc\ub85c \uc55e\uc73c\ub85c \uac74\uc124\ud560 \uace0\uc18d\ub3c4\ub85c\uc758 \uc815\ubcf4\uac00 \uc21c\uc11c\ub300\ub85c \uc8fc\uc5b4\uc9d1\ub2c8\ub2e4. \ubaa8\ub4e0 \ub3c4\ub85c\ub294 \uc591\ubc29\ud5a5 \ud1b5\ud589\uc774 \uac00\ub2a5\ud558\uba70, \uac01 \uacbd\uc6b0\uc758 \ud1b5\ud589 \uc2dc\uac04\uc740 \uac19\uc2b5\ub2c8\ub2e4. \ucd9c\ub825 \uac01 \ud14c\uc2a4\ud2b8 \ucf00\uc774\uc2a4\ub9c8\ub2e4 \ud55c \uc904\uc5d0 N"
+    },
+    {
+     "score": 0.6937766075134277,
+     "url": "https://jakearchibald.com/2017/es-modules-in-browsers/",
+     "title": "ECMAScript modules in browsers - JakeArchibald.com",
+     "pid": 1343595,
+     "snippet": "ECMAScript modules in browsers - JakeArchibald.com\nmodule scripts are always deferred, whether they import anything or not. Async works on external & inline modules <!-- This executes as soon as its imports have fetched --> < script async type = \" module \" > import { addTextToBody } from './utils.mj"
+    },
+    {
+     "score": 0.6891683340072632,
+     "url": "https://www.openfaas.com/blog/adaptive-concurrency/",
+     "title": "What Adaptive Concurrency Means for Async Functions | OpenFaaS - Serverless Functions Made Simple",
+     "pid": 34804,
+     "snippet": "What Adaptive Concurrency Means for Async Functions | OpenFaaS - Serverless Functions Made Simple\nthe function takes 5 minutes, the caller waits 5 minutes. Asynchronous \u2014 caller returns immediately, work is processed in the background The caller sends a request to /async-function/<name> and gets bac"
+    },
+    {
+     "score": 0.6881244778633118,
+     "url": "https://evertpot.com/node-changelog-cli-tool/",
+     "title": "Building a simple CLI tool with modern Node.js",
+     "pid": 864502,
+     "snippet": "Building a simple CLI tool with modern Node.js\nand start using it. Here\u2019s the first few lines of parse.mjs : // @ts-check import { Changelog , VersionLog } from \" ./changelog.mjs \" ; import { readFile } from ' node:fs/promises ' ; /** * @param {string} filename * @returns {Promise<Changelog>} */ exp"
+    }
+   ],
+   "t_ms": {
+    "embed": 15.966792008839548,
+    "search": 0.8699999889358878,
+    "dedupe": 0.13749999925494194,
+    "snippets": 1.5790410107001662,
+    "total": 18.553333007730544
+   }
+  },
+  {
+   "query": "who won the world cup 2022",
+   "hits": [
+    {
+     "score": 0.795617938041687,
+     "url": "https://www.scoresandstats.com/predictions/soccer/world-cup/",
+     "title": "World Cup Predictions, Picks and Odds",
+     "pid": 856463,
+     "snippet": "World Cup Predictions, Picks and Odds\nminutes, 67.4%. Who won the 2026 World Cup? Spain, 1-0 against Argentina after extra time in the final. What was the biggest upset of the 2026 World Cup? By price, South Africa over South Korea and Australia over T\u00fcrkiye, both at +425 and both in the group stage"
+    },
+    {
+     "score": 0.7941461801528931,
+     "url": "https://www.mlssoccer.com/news/last-dance-lionel-messi-s-best-moments-with-argentina",
+     "title": "Last dance: Lionel Messi's best moments with Argentina | MLSSoccer.com",
+     "pid": 1375618,
+     "snippet": "Last dance: Lionel Messi's best moments with Argentina | MLSSoccer.com\nreaching the Copa Am\u00e9rica final but falling short on three prior occasions \u2013 the last of which prompted a brief early retirement in 2016 \u2013 Messi and Argentina finally got over the hump in the 2021 edition, defeating arch-rivals B"
+    },
+    {
+     "score": 0.7792326807975769,
+     "url": "https://news.abplive.com/sports/football/fifa-world-cup",
+     "title": "FIFA World Cup 2026: Match Schedule, Fixtures, Live Scores, Results, Points Table, Teams & Latest News -ABP Live English",
+     "pid": 604244,
+     "snippet": "FIFA World Cup 2026: Match Schedule, Fixtures, Live Scores, Results, Points Table, Teams & Latest News -ABP Live English\nTo Critics Football WATCH: Haaland Recreates Viral AI Restaurant Meme With MrBeast Football WATCH: Messi Unveils Special Argentina Jersey Ahead Of Farewell Match Football Mbappe B"
+    },
+    {
+     "score": 0.7769837975502014,
+     "url": "https://78win88.site/world-cup-2026/",
+     "title": "World Cup 2026 - Ng\u00e0y H\u1ed9i B\u00f3ng \u0110\u00e1 Ch\u1ea1m \u0110\u1ec9nh C\u1ea3m X\u00fac M\u1edbi",
+     "pid": 1338340,
+     "snippet": "World Cup 2026 - Ng\u00e0y H\u1ed9i B\u00f3ng \u0110\u00e1 Ch\u1ea1m \u0110\u1ec9nh C\u1ea3m X\u00fac M\u1edbi\ntin v\u1ec1 World Cup 2026 cho newbie L\u1ecbch s\u1eed m\u1edf r\u1ed9ng Gi\u1eefa n\u0103m 2022, Li\u00ean \u0111o\u00e0n b\u00f3ng \u0111\u00e1 th\u1ebf gi\u1edbi c\u00f4ng b\u1ed1 l\u1ea7n \u0111\u1ea7u ti\u00ean World Cup m\u1edbi nh\u1ea5t s\u1ebd c\u00f3 48 \u0111\u1ed9i tuy\u1ec3n thay v\u00ec 32, t\u0103ng s\u1ed1 l\u01b0\u1ee3ng b\u1ea3ng \u0111\u1ea5u c\u0169ng nh\u01b0 m\u1edf r\u1ed9ng ph\u1ea1m vi tham d\u1ef1 tr\u00ean to\u00e0n ch\u00e2u M\u1ef9. Quy\u1ebft \u0111"
+    },
+    {
+     "score": 0.7627004981040955,
+     "url": "https://travel-library.com/cau-thu-tre-nhat-world-cup-2026-top-5-sao-mai-dang-xem-nhat/",
+     "title": "C\u1ea7u th\u1ee7 tr\u1ebb nh\u1ea5t World Cup 2026: Top 5 sao mai \u0111\u00e1ng xem nh\u1ea5t",
+     "pid": 544644,
+     "snippet": "C\u1ea7u th\u1ee7 tr\u1ebb nh\u1ea5t World Cup 2026: Top 5 sao mai \u0111\u00e1ng xem nh\u1ea5t\nthi \u0111\u1ea5u chuy\u00ean nghi\u1ec7p t\u1ea1i Liga MX v\u00e0 t\u1eebng c\u00f9ng \u0111\u1ed9i tuy\u1ec3n Mexico gi\u00e0nh Gold Cup 2025. \u0110i\u1ec3m m\u1ea1nh c\u1ee7a Mora l\u00e0 kh\u1ea3 n\u0103ng x\u1eed l\u00fd b\u00f3ng trong kh\u00f4ng gian h\u1eb9p, quan s\u00e1t v\u00e0 \u0111\u01b0a ra quy\u1ebft \u0111\u1ecbnh nhanh. Anh c\u00f3 th\u1ec3 ho\u1ea1t \u0111\u1ed9ng ph\u00eda sau ti\u1ec1n \u0111\u1ea1o, ph\u1ed1i h\u1ee3p ng\u1eafn"
+    },
+    {
+     "score": 0.7604781985282898,
+     "url": "https://www.thetriangle.org/opinion",
+     "title": "Opinion - The Triangle",
+     "pid": 1044519,
+     "snippet": "Opinion - The Triangle\nFinancial Field, over 400,000 supporters in the stands, and over 500,000 visitors to Lemon Hill's fan festival. Among the fans from more than 190 countries who poured in and out to enjoy Philly's World A historic finish for England Joshua Fendyke | July 24, 2026 England secure"
+    },
+    {
+     "score": 0.7594209909439087,
+     "url": "https://www.beinsports.com/en-us/soccer/la-liga/articles-video/the-award-kylian-mbapp%C3%A9-won-ahead-of-the-2026-ballon-d-or-is-it-a-sign-he-ll-win-on-october-26-2026-10-19",
+     "title": "The Award Kylian Mbapp\u00e9 Won Ahead of the 2026 Ballon d\u2019Or: Is It a Sign He\u2019ll Win on October 26? | beIN SPORTS",
+     "pid": 1333335,
+     "snippet": "The Award Kylian Mbapp\u00e9 Won Ahead of the 2026 Ballon d\u2019Or: Is It a Sign He\u2019ll Win on October 26? | beIN SPORTS\nboost ahead of the October 26 ceremony in London , but it does not guarantee that he will win the Ballon d\u2019Or. The two honors use different voting systems, and the final result will depend "
+    },
+    {
+     "score": 0.7481130361557007,
+     "url": "https://xn--72c5ak8bzbzh.casino/mm/",
+     "title": "\u1021\u103d\u1014\u103a\u101c\u102d\u102f\u1004\u103a\u1038 \u1018\u1031\u102c\u101c\u102f\u1036\u1038\u101c\u1031\u102c\u1004\u103a\u1038\u1000\u1005\u102c\u1038 \u101d\u1018\u103a\u1006\u102d\u102f\u1000\u103a",
+     "pid": 498460,
+     "snippet": "\u1021\u103d\u1014\u103a\u101c\u102d\u102f\u1004\u103a\u1038 \u1018\u1031\u102c\u101c\u102f\u1036\u1038\u101c\u1031\u102c\u1004\u103a\u1038\u1000\u1005\u102c\u1038 \u101d\u1018\u103a\u1006\u102d\u102f\u1000\u103a\n\u1015\u103d\u1032\u1005\u1009\u103a\u1019\u103b\u102c\u1038\u101e\u100a\u103a \u1021\u1004\u103a\u1039\u1002\u101c\u102d\u1015\u103a\u1000\u101c\u1015\u103a\u1019\u103b\u102c\u1038\u1010\u1005\u103a\u101c\u103b\u103e\u1031\u102c\u1000\u103a \u1021\u1005\u1031\u102c\u1015\u102d\u102f\u1004\u103a\u1038\u1021\u1006\u1004\u1037\u103a \u1015\u103d\u1032\u1005\u1009\u103a\u1019\u103b\u102c\u1038\u104a \u1015\u101a\u103a\u1014\u101a\u103a\u1010\u102e \u1021\u1006\u102f\u1036\u1038\u1021\u1016\u103c\u1010\u103a\u1019\u103b\u102c\u1038\u1014\u103e\u1004\u1037\u103a \u1021\u101e\u1004\u103a\u1038\u1021\u101c\u103e\u100a\u1037\u103a\u1000\u103b\u1000\u1005\u102c\u1038\u1005\u1031\u101e\u100a\u1037\u103a \u1019\u101f\u102c\u1017\u103b\u1030\u101f\u102c\u1019\u103b\u102c\u1038\u1021\u1015\u1031\u102b\u103a \u101c\u1031\u102c\u1004\u103a\u1038\u1000\u103c\u1031\u1038\u1011\u1015\u103a\u1001\u103d\u1004\u1037\u103a \u1015\u103c\u102f\u1015\u102b\u101e\u100a\u103a\u104b World Cup \u1021\u1010\u103d\u1000\u103a \u0e41\u0e17\u0e07\u0e1a\u0e2d\u0e25 - \u1014\u102d\u102f\u1004\u103a\u1004\u1036\u1010\u1000\u102c \u1015\u103c\u102d\u102f\u1004\u103a\u1015\u103d\u1032 \u101c\u1031\u102c\u1004\u103a\u1038\u1000\u1005\u102c\u1038\u1001\u103c\u1004\u103a\u1038\u1010\u103d\u1004\u103a \u1000\u1019\u1039\u1018\u102c\u101c\u102f\u1036\u1038\u1006\u102d\u102f\u1004\u103a\u101b\u102c \u1021\u1019\u103b\u102d\u102f\u1038\u101e\u102c\u1038"
+    },
+    {
+     "score": 0.7480554580688477,
+     "url": "https://soccerstats.us/teams/united-states/",
+     "title": "United States | SoccerStats.us",
+     "pid": 1137588,
+     "snippet": "United States | SoccerStats.us\nKwinsi Williams 18218 2 Oct. 10, 2025 IF 2025 Ecuador 1 - 1 United States Q2 Stadium Filip Dujic 20738 2 Sept. 9, 2025 IF 2025 Japan 0 - 2 United States ScottsMiracle-Gro Field Bryan Hamed L\u00f3pez Castellanos 20192 2 Sept. 6, 2025 IF 2025 South Korea 2 - 0 United States "
+    },
+    {
+     "score": 0.7473244667053223,
+     "url": "https://www.therugbyforum.com/forums/rugby-world-cup-2023.183/",
+     "title": "Rugby World Cup 2023 | The Rugby Forum - Global Rugby Union News, Six Nations & RWC Discussion",
+     "pid": 812202,
+     "snippet": "Rugby World Cup 2023 | The Rugby Forum - Global Rugby Union News, Six Nations & RWC Discussion\nstories. Don't just read The Rugby Forum . Join it. Create your free account to join the discussion. or Join with email By continuing you agree to the terms and privacy policy . No thanks Free. Leave any t"
+    }
+   ],
+   "t_ms": {
+    "embed": 18.167041998822242,
+    "search": 0.5318750045262277,
+    "dedupe": 0.12591600534506142,
+    "snippets": 1.5426669851876795,
+    "total": 20.36749999388121
+   }
+  },
+  {
+   "query": "how do vaccines work",
+   "hits": [
+    {
+     "score": 0.7310118079185486,
+     "url": "https://drmirkin.com/?p=9051",
+     "title": "Revolutionary mRNA Cancer Vaccines: Teaching Your Body to Fight Cancer Like a Virus | Dr. Gabe Mirkin on Fitness, Health and Nutrition",
+     "pid": 946718,
+     "snippet": "Revolutionary mRNA Cancer Vaccines: Teaching Your Body to Fight Cancer Like a Virus | Dr. Gabe Mirkin on Fitness, Health and Nutrition\nto recognize and attack the coronavirus, mRNA cancer vaccines teach your immune system to recognize and attack cancer cells. Recent research from the University of F"
+    },
+    {
+     "score": 0.7242125272750854,
+     "url": "https://ankurahospitals.com/specialities/pediatric-vaccinations",
+     "title": "Comprehensive Pediatric Vaccinations for Child Health - Ankura Hospitals",
+     "pid": 853063,
+     "snippet": "Comprehensive Pediatric Vaccinations for Child Health - Ankura Hospitals\nFact: Vaccines provide immunity without exposing children to the risks of severe illness or complications from the disease. Giving multiple vaccines at once is unsafe. Myth: Giving multiple vaccines at once is unsafe. Fact: Chi"
+    },
+    {
+     "score": 0.7225700616836548,
+     "url": "https://www.in.gov/health/immunization/child-and-teen-immunizations",
+     "title": "Immunization: Child and Teen Immunizations",
+     "pid": 1288086,
+     "snippet": "Immunization: Child and Teen Immunizations\nset up a vaccine visit. Anyone with private health insurance can set up a immunization appointment at a local pharmacy. Provider Map Vaccines for Children Program for No-Cost Vaccines What I need to know about my Vaccines? Vaccines provide immunity against "
+    },
+    {
+     "score": 0.7180770635604858,
+     "url": "https://www.nobelprize.org/prizes/medicine/2023/press-release/",
+     "title": "Press release: The Nobel Prize in Physiology or Medicine 2023 - NobelPrize.org",
+     "pid": 1277912,
+     "snippet": "Press release: The Nobel Prize in Physiology or Medicine 2023 - NobelPrize.org\nimmune response to a particular pathogen. This gives the body a head start in the fight against disease in the event of a later exposure. Vaccines based on killed or weakened viruses have long been available, exemplified "
+    },
+    {
+     "score": 0.7140343189239502,
+     "url": "https://publichealthinsider.com/2026/09/04/the-dangerous-spread-of-measles-stops-with-us/",
+     "title": "The dangerous spread of measles stops with us \u2013 PUBLIC HEALTH INSIDER",
+     "pid": 117547,
+     "snippet": "The dangerous spread of measles stops with us \u2013 PUBLIC HEALTH INSIDER\n(More info: st.news/mmr ) What everyone can do to protect against measles Sustained measles transmission is not inevitable in our state. Each of us plays an important role in keeping measles at bay, beginning with a simple first s"
+    },
+    {
+     "score": 0.7137761116027832,
+     "url": "https://www.seattletimes.com/opinion/the-dangerous-spread-of-measles-stops-with-us/",
+     "title": "The dangerous spread of measles stops with us | The Seattle Times",
+     "pid": 1298074,
+     "snippet": "The dangerous spread of measles stops with us | The Seattle Times\na simple first step: verifying that you have documented measles immunity with your healthcare provider. Get a measles vaccine if you do not have vaccination records, or have not had a test that shows you are immune. You are generally "
+    },
+    {
+     "score": 0.7057915925979614,
+     "url": "https://drug-dev.com/vaccine-technology-delivering-better-global-vaccination-programs-by-removing-the-needle-syringe-fridge/",
+     "title": "VACCINE TECHNOLOGY - Delivering Better Global Vaccination Programs by Removing the Needle, Syringe & Fridge",
+     "pid": 117723,
+     "snippet": "VACCINE TECHNOLOGY - Delivering Better Global Vaccination Programs by Removing the Needle, Syringe & Fridge\ndue to a break in the cold-chain, and there are costs associated with the actual storage and handling of vaccine in this way, both in financial terms as well as in the carbon footprint \u2013 refri"
+    },
+    {
+     "score": 0.6982814073562622,
+     "url": "https://www.paho.org/en/topics/immunization",
+     "title": "Immunization - PAHO/WHO | Pan American Health Organization",
+     "pid": 666935,
+     "snippet": "Immunization - PAHO/WHO | Pan American Health Organization\nHome Topics Immunization Immunization Immunization Newsletter, v.48, n.1, April 2026 Vaccination Week in the Americas 2026 Regional Immunization Action Plan for the Americas 2030 Overview Key facts PAHO Response Visit campaign's page Welcome"
+    },
+    {
+     "score": 0.6972403526306152,
+     "url": "https://publichealthinsider.com/2026/08/17/planning-ahead-make-back-to-school-vaccination-appointments-now/",
+     "title": "Planning ahead: Make back-to-school vaccination appointments now \u2013 PUBLIC HEALTH INSIDER",
+     "pid": 119757,
+     "snippet": "Planning ahead: Make back-to-school vaccination appointments now \u2013 PUBLIC HEALTH INSIDER\nPUBLIC HEALTH INSIDER Official insights from Public Health \u2013 Seattle & King County staff Leer en espa\u00f1ol School\u2019s about more than math quizzes and book reports. It\u2019s where kids go to play, grow, and build commun"
+    },
+    {
+     "score": 0.6920871734619141,
+     "url": "https://link.springer.com/article/10.1186/s12967-024-06033-6",
+     "title": "mRNA vaccines in the context of cancer treatment: from concept to application | Journal of Translational Medicine | Springer Nature Link",
+     "pid": 582329,
+     "snippet": "mRNA vaccines in the context of cancer treatment: from concept to application | Journal of Translational Medicine | Springer Nature Link\nfuture opportunities Article 17 May 2024 Promises and pitfalls of mRNA-based vaccines as cancer treatment Article Open access 05 August 2026 Explore related subjec"
+    }
+   ],
+   "t_ms": {
+    "embed": 6.603999994695187,
+    "search": 0.6541250040754676,
+    "dedupe": 0.16112500452436507,
+    "snippets": 2.0850420114584267,
+    "total": 9.504292014753446
+   }
+  },
+  {
+   "query": "best laptops for programming 2026",
+   "hits": [
+    {
+     "score": 0.7770323157310486,
+     "url": "https://changefindr.com/best-laptops/",
+     "title": "Best Laptops for 2025: Top Picks for Every Budget and Need - Changefindr",
+     "pid": 963055,
+     "snippet": "Best Laptops for 2025: Top Picks for Every Budget and Need - Changefindr\nSkip to content Best Laptops for 2025: Top Picks for Every Budget and Need Victoria Tyler Finding the best laptops in 2025 requires cutting through marketing noise and focusing on real-world performance. Whether someone needs a"
+    },
+    {
+     "score": 0.7641348838806152,
+     "url": "https://changefindr.com/top-laptops/",
+     "title": "Top Laptops for 2025: Best Picks for Every Budget and Need - Changefindr",
+     "pid": 966850,
+     "snippet": "Top Laptops for 2025: Best Picks for Every Budget and Need - Changefindr\nSkip to content Top Laptops for 2025: Best Picks for Every Budget and Need Victoria Tyler Finding the top laptops in 2025 requires sorting through hundreds of options across price points and use cases. Whether someone needs a p"
+    },
+    {
+     "score": 0.7303394079208374,
+     "url": "https://changefindr.com/category/laptops/page/2/",
+     "title": "Laptops Archives - Page 2 of 2 - Changefindr",
+     "pid": 967176,
+     "snippet": "Laptops Archives - Page 2 of 2 - Changefindr\nSkip to content Laptops Laptop Ideas for Every Need and Budget in 2025 Victoria Tyler January 3, 2026 Essential Laptop Techniques to Boost Your Productivity and Performance Victoria Tyler January 3, 2026 Laptops for Beginners: A Simple Guide to Choosing Y"
+    },
+    {
+     "score": 0.7177377343177795,
+     "url": "https://www.cnet.com/best/",
+     "title": "Best Products - CNET",
+     "pid": 625579,
+     "snippet": "Best Products - CNET\nin 2026 From the iPhone 18 Pro to the Galaxy S26 Ultra and Pixel 11 Pro Fold, here are our top recommendations. 09/29/2026 Headphones Best Wireless Earbuds of 2026 I've reviewed hundreds of wireless earbuds for CNET, and these are my current top picks at a variety of prices. 10/"
+    },
+    {
+     "score": 0.708142876625061,
+     "url": "https://konovo.rs/kategorija-proizvoda/laptopovi/lenovo/",
+     "title": "Lenovo Laptopovi - Top Cene za 2026 - Kupite Online u Srbiji",
+     "pid": 479148,
+     "snippet": "Lenovo Laptopovi - Top Cene za 2026 - Kupite Online u Srbiji\nva\u0161ih zahteva i li\u010dnih potreba. Od profesionalnih ThinkPad serija idealnih za zahtevne aplikacije, do pristupa\u010dnih IdeaPad modela koji pru\u017eaju dobar balans izmedju cene i kvaliteta. Ako ste pak zaljubljenik u gaming ma\u0161ine, Legion laptopov"
+    },
+    {
+     "score": 0.7035825252532959,
+     "url": "https://konovo.rs/kategorija-proizvoda/laptopovi/hp/",
+     "title": "HP Laptopovi - Top Cene za 2026 - Kupite Online u Srbiji",
+     "pid": 478721,
+     "snippet": "HP Laptopovi - Top Cene za 2026 - Kupite Online u Srbiji\nKonovo Vam nudi \u0161irok izbor najrazli\u010ditijih HP laptopova koji mogu da ispune sve va\u0161e razli\u010dite zahteve i potrebe. Tu su profesionalne Elitebook i Probook serije idealne za zahtevne aplikacije, multifunkcionalni modeli iz Spectre serije do pri"
+    },
+    {
+     "score": 0.7002720236778259,
+     "url": "https://futuretechnologies.co.ke/product-category/computing/laptops/",
+     "title": "laptops \u2013 Future Technologies",
+     "pid": 458295,
+     "snippet": "laptops \u2013 Future Technologies\nSkip to navigation Skip to content Welcome to Future Technologies Store | Got Questions ? Call us 24/7! 0700 061 555 Track Your Order My Account Filters EliteBook , laptops 5Z574ES, HP EliteBook 1040 G10, Core i7-1360P, 16GB RAM 512GB SSD, 14\u2033 WUXGA Touch - 10% EliteBoo"
+    },
+    {
+     "score": 0.6939002275466919,
+     "url": "https://changefindr.com/how-to-laptops/",
+     "title": "How to Choose the Right Laptop for Your Needs - Changefindr",
+     "pid": 965561,
+     "snippet": "How to Choose the Right Laptop for Your Needs - Changefindr\nand casual users find excellent options without very costly. $800\u2013$1,200: Mid-range laptops deliver premium features. Expect better build quality, faster processors, improved displays, and longer battery life. Business users and creative ho"
+    },
+    {
+     "score": 0.6926920413970947,
+     "url": "https://konovo.rs/kategorija-proizvoda/laptopovi/dell/",
+     "title": "Dell Laptopovi - Top Cene za 2026 - Kupite Online u Srbiji",
+     "pid": 479721,
+     "snippet": "Dell Laptopovi - Top Cene za 2026 - Kupite Online u Srbiji\nkoji mogu da ispune sve potrebe i razli\u010dite zahteve koje imate. Tu su profesionalne Latiude i Precision serije idealne za zahtevne aplikacije, pristupa\u010dni modeli iz Vostro serije koji pru\u017eaju dobar balans izmedju cene i kvaliteta. Ako tra\u017eit"
+    },
+    {
+     "score": 0.6853734850883484,
+     "url": "https://changefindr.com/category/laptops/",
+     "title": "Laptops Archives - Changefindr",
+     "pid": 948407,
+     "snippet": "Laptops Archives - Changefindr\nSkip to content Laptops Laptop Examples: A Guide to Different Types and Popular Models Victoria Tyler January 3, 2026 Laptops vs Desktops: Which Is the Right Choice for You? Victoria Tyler January 3, 2026 What Is a Laptop? A Complete Guide to Portable Computing Victori"
+    }
+   ],
+   "t_ms": {
+    "embed": 14.219292002962902,
+    "search": 0.9077080176211894,
+    "dedupe": 0.13845899957232177,
+    "snippets": 1.7862079839687794,
+    "total": 17.051667004125193
+   }
+  },
+  {
+   "query": "how to start a small business",
+   "hits": [
+    {
+     "score": 0.8112941980361938,
+     "url": "https://www.entrepreneur.com/topic/how-to-start-a-business",
+     "title": "How to Start a Business | Entrepreneur",
+     "pid": 606699,
+     "snippet": "How to Start a Business | Entrepreneur\nQuit Your Job and Start Your Own Business? Should you stay or should you go? Debating whether to tow the company line for others or go out on your own can be a tough decision, but it doesn't have to be. Asking yourself these four key questions can seriously hel"
+    },
+    {
+     "score": 0.8071976900100708,
+     "url": "https://www.sumup.com/en-gb/starting-business/how-to-start-a-business/",
+     "title": "Starting a Business: A 10 Step Guide for UK Entrepreneurs",
+     "pid": 1355014,
+     "snippet": "Starting a Business: A 10 Step Guide for UK Entrepreneurs\nTable of contents How to start a business in 10 steps: A guide for UK entrepreneurs Step 1: Come up with an idea Step 2: Do your research Step 3: Create your business plan Step 4: Choose the right business structure Step 5: Secure funding Ste"
+    },
+    {
+     "score": 0.7864521145820618,
+     "url": "https://ventsmagazine.co.uk/how-to-buy-a-small-business/",
+     "title": "How to Buy a Small Business: A Step-by-Step Guide to Smart Ownership - Vents Magazine",
+     "pid": 472496,
+     "snippet": "How to Buy a Small Business: A Step-by-Step Guide to Smart Ownership - Vents Magazine\ntime am I willing to invest? What\u2019s my budget? Do I want to be hands-on or more of a silent investor? Clarifying your goals helps you stay focused and avoid getting distracted by businesses that don\u2019t fit your visi"
+    },
+    {
+     "score": 0.7847251892089844,
+     "url": "https://blog.mycorporation.com/2017/06/turn-passion-project-full-time-business/",
+     "title": "How to Turn Your Passion Project Into a Full-Time Business - Mycorporation",
+     "pid": 661706,
+     "snippet": "How to Turn Your Passion Project Into a Full-Time Business - Mycorporation\nincludes revenue projections, marketing strategies and analyses, services/products offered and much more. Your business plan shows how you will strategically run your business. It acts as your guide map throughout your small "
+    },
+    {
+     "score": 0.7732934951782227,
+     "url": "https://www.entrepreneur.com/building-a-business",
+     "title": "Building a Business | Entrepreneur",
+     "pid": 606334,
+     "snippet": "Building a Business | Entrepreneur\nSkip to main content You're viewing the US website. Looking for the Site edition? Go to Edition Site Newsletters Building a Business Find Your Business Idea Launch Your Business Run Your Business Grow Your Business Start Your LLC Find Your Business Idea See All 73 "
+    },
+    {
+     "score": 0.7682009935379028,
+     "url": "https://speed-flanigan.id/the-complete-guide-to-starting-a-business/",
+     "title": "The Complete Guide To Starting A Business - Speed-Flanigan",
+     "pid": 675013,
+     "snippet": "The Complete Guide To Starting A Business - Speed-Flanigan\ngenerally there are many possibilities to launch your own business. But, first, you\u2019ll need to have to become the licensed agent, in addition to the requirements differ by state. Ecommerce And Physical Merchandise Businesses The trade-off is"
+    },
+    {
+     "score": 0.765770673751831,
+     "url": "https://thesavvycouple.com/category/make-money/small-businesses/",
+     "title": "Small Businesses Archives - The Savvy Couple",
+     "pid": 491322,
+     "snippet": "Small Businesses Archives - The Savvy Couple\nSkip to primary navigation Skip to main content Skip to primary sidebar Skip to footer Small Businesses Ready to leave the 9-5 and start your own small business? Let us help you with our comprehensive guides on the best online business ideas, how to get s"
+    },
+    {
+     "score": 0.764656126499176,
+     "url": "https://beesoft.com.au/blog/build-simple-website-this-weekend",
+     "title": "How to Build a Simple Website for Your Business This Weekend | BeesoftAI",
+     "pid": 301400,
+     "snippet": "How to Build a Simple Website for Your Business This Weekend | BeesoftAI\ngenuine sentence about why you started the business. This is also where BeesoftAI's Content Improver is useful, paste in your own rough notes and get help tightening the wording, without losing the parts that actually sound lik"
+    },
+    {
+     "score": 0.756033182144165,
+     "url": "https://speed-flanigan.id/a-step-by-step-guide-to-starting-your-own-business/",
+     "title": "A Step-by-step Guide To Starting Your Own Business - Speed-Flanigan",
+     "pid": 676014,
+     "snippet": "A Step-by-step Guide To Starting Your Own Business - Speed-Flanigan\noffer a CAPTCHA-style confirmation. Start growing using the WhatsApp Company app by using these quick and simple steps. If you are not typically the franchisor/licensor/fuel supplier/etc., you should also provide their own email. Sh"
+    },
+    {
+     "score": 0.7530679106712341,
+     "url": "https://afgonline.com.au/start-your-brokerage/",
+     "title": "Starting your own mortgage brokerage - Free ebook - AFG",
+     "pid": 1184083,
+     "snippet": "Starting your own mortgage brokerage - Free ebook - AFG\nSkip to content The 8-step plan for aspiring self-employed brokers Starting a mortgage broking business is a life-changing experience, but it is not as simple as picking a logo and choosing an aggregator. It requires careful consideration and s"
+    }
+   ],
+   "t_ms": {
+    "embed": 14.187916996888816,
+    "search": 0.890750001417473,
+    "dedupe": 0.10945799294859171,
+    "snippets": 1.5450829814653844,
+    "total": 16.733207972720265
+   }
+  },
+  {
+   "query": "what is a vector database",
+   "hits": [
+    {
+     "score": 0.7854301929473877,
+     "url": "https://www.mongodb.com/products/platform/atlas-vector-search",
+     "title": "MongoDB Vector Search | MongoDB",
+     "pid": 619844,
+     "snippet": "MongoDB Vector Search | MongoDB\nNOW GA Search & Vector Search are available in Enterprise Advanced & Community Edition. Read the blog > >> NOW GA Hybrid Search in MongoDB: Combine search & vector search in one workflow. Read the blog > >> Announcement MongoDB Vector Search benchmarks: Test, evaluate"
+    },
+    {
+     "score": 0.734251081943512,
+     "url": "https://www.mongodb.com/",
+     "title": "MongoDB | The Intelligent Data Platform for the AI Era | MongoDB",
+     "pid": 619190,
+     "snippet": "MongoDB | The Intelligent Data Platform for the AI Era | MongoDB\nLearning Hub Voyage AI State-of-the art embedding models and rerankers made for building, scaling, and deploying intelligent applications. Learn more MongoDB Atlas The multi-cloud, intelligent data platform for any use case Learn about"
+    },
+    {
+     "score": 0.719264566898346,
+     "url": "https://www.digitalocean.com/products/data-services",
+     "title": "Data Services | DigitalOcean",
+     "pid": 584783,
+     "snippet": "Data Services | DigitalOcean\nframework. Vector Databases Skip the complexity of self-hosting and the high cost of vendor lock-in with Managed Weaviate, pgVector and OpenSearch - open-source compatible solutions that let you focus on building, not operations. Launch production-ready vector infrastruc"
+    },
+    {
+     "score": 0.7051671147346497,
+     "url": "https://www.mongodb.com/products/platform/atlas-database",
+     "title": "Atlas Database | MongoDB",
+     "pid": 619553,
+     "snippet": "Atlas Database | MongoDB\nAnnouncement Built for unpredictable AI demand: Atlas Infinite and MongoDB 9.0 are here. Read more > >> Announcement Meet the intelligent data platform built for the AI era. Read more > >> New Now in public preview: Atlas Agent Engine, the secure way to run AI agents at scal"
+    },
+    {
+     "score": 0.6973851919174194,
+     "url": "https://www.mongodb.com/products/platform",
+     "title": "MongoDB Atlas | Intelligent Data Platform | MongoDB",
+     "pid": 619728,
+     "snippet": "MongoDB Atlas | Intelligent Data Platform | MongoDB\nreason from the information that matters. Act without losing the thread When agents can carry context, memory, and state into action, they can respond with continuity instead of starting from scratch each time. Make every action part of the record "
+    },
+    {
+     "score": 0.6965981125831604,
+     "url": "https://www.mongodb.com/products/platform/atlas-search",
+     "title": "MongoDB Search: Scalable Full-Text Search | MongoDB",
+     "pid": 619722,
+     "snippet": "MongoDB Search: Scalable Full-Text Search | MongoDB\nwhereas MongoDB Vector Search on Atlas allows searching through data based on semantic meaning captured in vectors. Learn about Vector Search Does using MongoDB Search on Atlas require an Atlas account? Yes, you need an Atlas account to use MongoDB"
+    },
+    {
+     "score": 0.6942827701568604,
+     "url": "https://jensenlab.org/research/databases/",
+     "title": "Network databases - JensenLab",
+     "pid": 419671,
+     "snippet": "Network databases - JensenLab\nmethod for inferring functional associations from single-cell RNA-seq and proteomics atlases (Koutrouli et al., 2023). The method is similar to SVD-Phy in the sense that it starts from profiles, applies dimensionality reduction to reduce redundancy, and calculates Pears"
+    },
+    {
+     "score": 0.692754864692688,
+     "url": "https://www.digitalocean.com/products/knowledge-bases",
+     "title": "Knowledge Bases | Fully Managed RAG | DigitalOcean",
+     "pid": 584158,
+     "snippet": "Knowledge Bases | Fully Managed RAG | DigitalOcean\n& legal intelligence Analyze regulatory documents with metadata filters and generate summarized, auditable answers for compliance workflows. FAQs Do I need to manage a vector database? No. Knowledge Bases includes fully managed vector storage and re"
+    },
+    {
+     "score": 0.6879051923751831,
+     "url": "https://aishippinglabs.com/blog/ai-engineer-learning-path",
+     "title": "AI Engineer Learning Path | AI Shipping Labs",
+     "pid": 283542,
+     "snippet": "AI Engineer Learning Path | AI Shipping Labs\nVector Databases essential 10.8% PostgreSQL important 9.3% Tools and Frameworks GenAI Frameworks No single framework dominates. Architectural understanding matters more than library loyalty. LangChain 18.8% LangGraph 8.0% LlamaIndex 5.8% LLM Providers Ven"
+    },
+    {
+     "score": 0.6805629134178162,
+     "url": "https://vectorsfile.com/",
+     "title": "Download Free Laser Cut Template and Vector Art | Vectors File",
+     "pid": 997147,
+     "snippet": "Download Free Laser Cut Template and Vector Art | Vectors File\nSkip to content Free Vectors for CNC Laser Cutting, Wood Router and Printing Free Laser Cut Templates, DXF File, CDR Vector, 3D Puzzle, Vector Art Design, Wood Cutting, Plasma Cutting, Puzzle Pattern Vectors Free Download Vectors File is"
+    }
+   ],
+   "t_ms": {
+    "embed": 15.405292011564597,
+    "search": 1.1553329823073,
+    "dedupe": 0.09841701830737293,
+    "snippets": 1.3793749967589974,
+    "total": 18.038417008938268
+   }
+  },
+  {
+   "query": "difference between tcp and udp",
+   "hits": [
+    {
+     "score": 0.7339640855789185,
+     "url": "https://simwood.com/2013/12/tls-srtp/",
+     "title": "TLS/SRTP and why you need them!",
+     "pid": 452939,
+     "snippet": "TLS/SRTP and why you need them!\nexample. UDP is great for things that can be fire and forget such as the RTP making up the audio of a call, but there\u2019s better choices for the signalling. Signalling can also operate in TCP which has the benefit of a proper handshake (reducing spoofing opportunities),"
+    },
+    {
+     "score": 0.7292187213897705,
+     "url": "https://kb.interspace.com/en/tech-articles/learn",
+     "title": "Interspace Knowledgebase - Learn",
+     "pid": 393142,
+     "snippet": "Interspace Knowledgebase - Learn\nInterspace Knowledgebase Tech Articles Learn Table of contents LEARN Learn 1 / 3 6 How to identify packet loss and latency issues What\u2019s the difference between TCP and UDP? What\u2019s the difference between a router, switch, and firewall? Latency, Bandwidth and Throughpu"
+    },
+    {
+     "score": 0.7218475341796875,
+     "url": "https://antonz.org/solod-0.2/",
+     "title": "Solod 0.2: Networking, new targets, friendlier interop",
+     "pid": 891134,
+     "snippet": "Solod 0.2: Networking, new targets, friendlier interop\nTCP client \u2022 Deadlines \u2022 IP addresses \u2022 Targets \u2022 Interop \u2022 Stdlib \u2022 Wrapping up Networking The main feature in v0.2 is the net package. It's a simplified version of Go's net package which supports the three most commonly used transports: TCP (n"
+    },
+    {
+     "score": 0.6895791888237,
+     "url": "https://tailscale.com/blog/how-nat-traversal-works",
+     "title": "How NAT traversal works",
+     "pid": 1253140,
+     "snippet": "How NAT traversal works\nmake it traverse NATs, because you have to send and receive extra packets that aren\u2019t part of the \u201cmain\u201d protocol you\u2019re trying to speak. Some protocols tightly integrate the NAT traversal with the rest (e.g. WebRTC). But if you\u2019re building your own, it\u2019s helpful to think of "
+    },
+    {
+     "score": 0.680017352104187,
+     "url": "https://yetanotherchris.dev/net/inside-the-systemio-namespace-part-2/",
+     "title": "Inside The System.IO Namespace Part 2 | Chris's coding blog",
+     "pid": 524958,
+     "snippet": "Inside The System.IO Namespace Part 2 | Chris's coding blog\nmany years ago writing C# libraries to read UDP packets from game servers for Quake 3, Half Life, Unreal. The main project went the way of a lot OS projects and remained unfinished, however the main bulk of the UDP reading logic was complet"
+    },
+    {
+     "score": 0.674700140953064,
+     "url": "http://airhook.ofb.net/",
+     "title": "Airhook",
+     "pid": 411222,
+     "snippet": "Airhook\na single Airhook session. By obviating the need for multiple connections between the same hosts, Airhook can efficiently share congestion control knowledge and session status metadata. TCP is usually implemented in the operating system kernel and layered directly on IP. For portability, the "
+    },
+    {
+     "score": 0.6669021844863892,
+     "url": "https://crypticstreet.com/residential-proxies-how-to-stay-invisible-online/",
+     "title": "Residential Proxies: How to Stay Invisible Online - Crypticstreet",
+     "pid": 919308,
+     "snippet": "Residential Proxies: How to Stay Invisible Online - Crypticstreet\ntargeting specialists for local promotion. Each group faces the problem: websites quickly detect repeated requests from the same address. Residential proxies solve this without sacrificing speed, and operation remains stable even unde"
+    },
+    {
+     "score": 0.6596850752830505,
+     "url": "https://tailscale.com/blog/tailcat",
+     "title": "Tailcat: An open-source CLI for Tailscale\u2019s WireGuard\u00ae, NAT traversal, and DERP",
+     "pid": 1252531,
+     "snippet": "Tailcat: An open-source CLI for Tailscale\u2019s WireGuard\u00ae, NAT traversal, and DERP\nto the netmap At that point, if the server is cool with that client\u2019s public key (it can be optionally locked down), then it replies with a happy MEOW reply. The client then proceeds to make a TCP connection to the other"
+    },
+    {
+     "score": 0.6563525199890137,
+     "url": "https://tds.so/blog/postback-latency-280-to-28-en",
+     "title": "Postback latency: how we cut it from 280ms to 28ms \u00b7 TDS.SO",
+     "pid": 1052419,
+     "snippet": "Postback latency: how we cut it from 280ms to 28ms \u00b7 TDS.SO\nthe edge immediately responds 200 OK, then writes the payload to a shared-memory queue. Every 10ms a separate process gathers everything in the queue into a single UDP packet and fires it at the central collector. Pros: client-side latency "
+    },
+    {
+     "score": 0.6559705138206482,
+     "url": "https://feross.org/libtorrent-webtorrent/",
+     "title": "libtorrent adds support for the WebTorrent protocol \u00bb Feross.org",
+     "pid": 1174010,
+     "snippet": "libtorrent adds support for the WebTorrent protocol \u00bb Feross.org\nBitTorrent protocol in a protocol extension (see the \u03bcTP protocol) and now UDP is the primary transport used by BitTorrent clients. With this big news, we\u2019re one step closer to the vision of browser-based torrents. One day soon, you\u2019ll"
+    }
+   ],
+   "t_ms": {
+    "embed": 7.77550000930205,
+    "search": 0.8299589972011745,
+    "dedupe": 0.15337500371970236,
+    "snippets": 1.3963330129627138,
+    "total": 10.15516702318564
+   }
+  },
+  {
+   "query": "how to write a resume",
+   "hits": [
+    {
+     "score": 0.8161567449569702,
+     "url": "https://www.deutsch-lernen.com/job_application/how_to_write_a_CV.htm",
+     "title": "How to write a curriculum vitae (CV): Writing a resume",
+     "pid": 805170,
+     "snippet": "How to write a curriculum vitae (CV): Writing a resume\nwrite a professional CV and an accompanying cover letter. The following pages give suggestions and help on how they should be written. Points you should consider when writing a CV or resume Your CV may get as little as 30-60 seconds of considera"
+    },
+    {
+     "score": 0.797429084777832,
+     "url": "https://www.randstad.co.uk/career-advice/how-to-write-a-cv/",
+     "title": "Top tips and advice on how to write a CV. | Randstad UK",
+     "pid": 1281164,
+     "snippet": "Top tips and advice on how to write a CV. | Randstad UK\nCV writing tips. Looking to land your dream job but not sure if your CV is up to scratch? Knowing what to write in a CV to ensure it gets you an interview can be tough. But with the right information and advice at your fingertips, there's nothi"
+    },
+    {
+     "score": 0.7934821844100952,
+     "url": "https://artbusiness.com/how-to-write-artist-resumes-cvs.html",
+     "title": "How to Write an Artist Resume or CV",
+     "pid": 550082,
+     "snippet": "How to Write an Artist Resume or CV\ninclude online shows, online competitions, being represented by \"galleries\" or platforms that exist entirely online, social media accomplishments or distinctions, and more. Now you can either include these items in their traditional categories or you can add an en"
+    },
+    {
+     "score": 0.786792516708374,
+     "url": "https://oploria.com/how-to-build-a-strong-resume-that-stands-out-to-recruiters-strong-resume-tips/",
+     "title": "How to Build a Strong Resume That Stands Out to Recruiters: Strong Resume Tips - Oploria",
+     "pid": 458889,
+     "snippet": "How to Build a Strong Resume That Stands Out to Recruiters: Strong Resume Tips - Oploria\nyour initial impression. Sequencing for Immediate Clarity Place your summary or profile section at the top. This acts as your first handshake. State your job title, strengths, and direction using confident, dire"
+    },
+    {
+     "score": 0.7746627330780029,
+     "url": "https://www.deutsch-lernen.com/job_application/how_to_write_a_cover_letter.htm",
+     "title": "German cover letter example: Writing an application letter",
+     "pid": 805674,
+     "snippet": "German cover letter example: Writing an application letter\nissues: First Paragraph - Why you are writing Middle Paragraphs - What you have to offer Concluding Paragraph - How you will follow-up Do not repeat your what is already in your CV, simply refer to it! \"As you can see from my CV, \u2026\". If a pa"
+    },
+    {
+     "score": 0.7737573385238647,
+     "url": "https://officetemplatesonline.com/college-resume-templates-in-ms-word-format/",
+     "title": "6+ College Resume Templates and Examples in MS Word Format",
+     "pid": 233962,
+     "snippet": "6+ College Resume Templates and Examples in MS Word Format\nskills, data analysis skills, leadership skills, et cetera Achievements and Awards \u2013 if you have won a competition, received an award or trophy, or gotten a scholarship mention it in this section. Anything that you think is your achievement "
+    },
+    {
+     "score": 0.7709848880767822,
+     "url": "https://topictracking.com/professional-development/how-to-stand-out-in-a-competitive-job-market-the-ultimate-resume-and-cover-letter-guide/",
+     "title": "How to Stand Out in a Competitive Job Market: The Ultimate Resume and Cover Letter Guide \u2013 TopicTracking",
+     "pid": 956700,
+     "snippet": "How to Stand Out in a Competitive Job Market: The Ultimate Resume and Cover Letter Guide \u2013 TopicTracking\na new content strategy. Quantifiable achievements demonstrate your effectiveness and make your resume more compelling. Keep It Concise but Comprehensive While it may be tempting to include every "
+    },
+    {
+     "score": 0.7684496641159058,
+     "url": "https://officetemplatesonline.com/free-modern-resume-templates-for-ms-word/",
+     "title": "Free Resume Templates for Word 2026\u2013Editable & ATS-Friendly",
+     "pid": 229916,
+     "snippet": "Free Resume Templates for Word 2026\u2013Editable & ATS-Friendly\ncan write your name along with the title. Nearby is a place for your photo where you can add your latest photo. The template has a prominent place for your contact information where you can write your phone number, mobile number, email, add"
+    },
+    {
+     "score": 0.7644651532173157,
+     "url": "https://urbeuniversity.edu/student-services",
+     "title": "Student services",
+     "pid": 549969,
+     "snippet": "Student services\nyour name, email and contact number on top. Make your resume stand out using key words. Key words are used in electronic research for specific candidates in mind. Results are ranked by the amount of times these certain words are found in your resume. Action words are important to de"
+    },
+    {
+     "score": 0.7629518508911133,
+     "url": "https://officetemplatesonline.com/best-creative-resume-templates-for-freshers-in-ms-word/",
+     "title": "22+ Best Creative Resume for Freshers: Templates in MS Word",
+     "pid": 230480,
+     "snippet": "22+ Best Creative Resume for Freshers: Templates in MS Word\nDownload 183.61 KB Get Template #7 \u2013 For Accounting and Finance Download Accounting and Finance Fresher Resume Template MS Word Format \u2022 Free Download 135.39 KB Get Template #8 \u2013 For Arts and Humanities Download Arts and Humanities Fresher "
+    }
+   ],
+   "t_ms": {
+    "embed": 14.570708008250222,
+    "search": 0.696083006914705,
+    "dedupe": 0.1314590044785291,
+    "snippets": 1.656624983297661,
+    "total": 17.054875002941117
+   }
+  },
+  {
+   "query": "healthy breakfast ideas",
+   "hits": [
+    {
+     "score": 0.8812239766120911,
+     "url": "https://www.thegraciouspantry.com/healthy-breakfast-recipes/",
+     "title": "Healthy Breakfast Recipes - | Breakfast Ideas | Healthiest Breakfast",
+     "pid": 1208328,
+     "snippet": "Healthy Breakfast Recipes - | Breakfast Ideas | Healthiest Breakfast\nSkip to content A go-to list of healthy breakfast recipes is a good idea to keep on hand because we don\u2019t always have time to think things through in the morning. Whether you need a quick muffin with coffee as you head out the door"
+    },
+    {
+     "score": 0.8183890581130981,
+     "url": "https://jeanetteshealthyliving.com/category/breakfast/",
+     "title": "Healthy Nutritious Breakfast Recipes",
+     "pid": 79835,
+     "snippet": "Healthy Nutritious Breakfast Recipes\noatmeal recipes make for a quick and easy grab-and-go breakfast throughout the week. If you\u2019re looking for a healthy start to the day, overnight oatmeal in a jar is a fun way to get off on the right foot. By mixing and matching different fruit and nut combination"
+    },
+    {
+     "score": 0.7828604578971863,
+     "url": "https://momsdinner.net/all-recipes/breakfast/",
+     "title": "Breakfast Recipes - Mom's Dinner",
+     "pid": 472250,
+     "snippet": "Breakfast Recipes - Mom's Dinner\nBreakfast Recipes Start your day right with these wonderful breakfast recipes. Everything from eggs to muffins. There are some great make-ahead options too for busy mornings. Try out these Sausage Egg Cups with these hearty Morning Glory Muffins . Having guests? Use "
+    },
+    {
+     "score": 0.767737627029419,
+     "url": "https://www.thelazydish.com/category/breakfast/",
+     "title": "Easy Breakfast Ideas Archives - The Lazy Dish",
+     "pid": 289017,
+     "snippet": "Easy Breakfast Ideas Archives - The Lazy Dish\nSkip to main content Skip to secondary menu Skip to primary sidebar Easy Breakfast Ideas Whether it's a lazy Sunday at home with the kids or you are trying to feed a crowd in the morning, you're sure to find some yummy breakfast ideas here that are a bre"
+    },
+    {
+     "score": 0.7664520740509033,
+     "url": "https://chooseveg.com/eat/",
+     "title": "Mouthwatering vegan and vegetarian meals are just a click away - ChooseVeg",
+     "pid": 1156726,
+     "snippet": "Mouthwatering vegan and vegetarian meals are just a click away - ChooseVeg\nSelect Language English (US) Espa\u00f1ol Portugu\u00eas (BR) Facebook Instagram X Pinterest Kindness can change the world. Donate today to help animals. \u00d7 \u2018Bacon\u2019 & Avocado Breakfast Sandwich Don\u2019t want bread for your sandwich? Make y"
+    },
+    {
+     "score": 0.7658776044845581,
+     "url": "https://www.thegraciouspantry.com/healthy-lunches/",
+     "title": "Healthy Lunches - | Healthy Lunch Ideas | The Gracious Pantry",
+     "pid": 1209049,
+     "snippet": "Healthy Lunches - | Healthy Lunch Ideas | The Gracious Pantry\nSkip to content Healthy lunches don\u2019t have to be time-consuming or require hours in the kitchen. They can be quick, easy, and completely delicious! Whether you need healthy lunch ideas for work, packed lunches for school, or for your fami"
+    },
+    {
+     "score": 0.7612928748130798,
+     "url": "https://urbanfarmie.com/breakfast-recipes/",
+     "title": "Breakfast Recipes",
+     "pid": 500497,
+     "snippet": "Breakfast Recipes\nSkip to content Grab the FREE Thanksgiving Mistakes + Fixes Guide Home \u203a Recipe Index \u203a Breakfast Breakfast Recipes Start your day right with easy, tasty vegetarian breakfast recipes. From hearty scrambles to fluffy pancakes, these dishes make mornings better for busy families. Egg"
+    },
+    {
+     "score": 0.7551793456077576,
+     "url": "https://www.starseekly.com/en-us/article/food-and-drink/delicious-and-easy-meal-prep-recipes-for-busy-individuals-3690463393",
+     "title": "Delicious and easy meal prep recipes for busy individuals - Starseekly",
+     "pid": 236434,
+     "snippet": "Delicious and easy meal prep recipes for busy individuals - Starseekly\nfor dinner?\u201d to just reheating a delicious, homemade meal. Whether you cook on weekends or allocate specific nights during the week, understanding the basics of meal prep lays a solid foundation for success. Simple meal prep reci"
+    },
+    {
+     "score": 0.7525551319122314,
+     "url": "https://eggs.ca/recipeideas/20-of-our-favourite-breakfast-sandwiches/",
+     "title": "20 of Our Favourite Breakfast Sandwiches - Eggs.ca",
+     "pid": 1198401,
+     "snippet": "20 of Our Favourite Breakfast Sandwiches - Eggs.ca\ngrab-and-go meal. Get the Recipe 8 / 20 Cheddar Biscuit Egg Sandwich Homemade cheddar biscuits elevate this hearty breakfast sandwich. The apple chutney adds a sweet-tart contrast to the smoky sausage and rich egg. Most components can be prepared ah"
+    },
+    {
+     "score": 0.7491247653961182,
+     "url": "https://commercecrunch.com/for-your-mind-and-body/mindful-morning-habits-for-a-stress-free-day/",
+     "title": "Mindful Morning Habits for a Stress-Free Day \u2013 CommerceCrunch",
+     "pid": 919777,
+     "snippet": "Mindful Morning Habits for a Stress-Free Day \u2013 CommerceCrunch\nor Calm, also offer quick and accessible sessions perfect for busy mornings. Even just five minutes of mindfulness can improve clarity, lower anxiety, and enhance overall well-being. Pairing this practice with a quiet space free from dist"
+    }
+   ],
+   "t_ms": {
+    "embed": 16.275166010018438,
+    "search": 0.599749997491017,
+    "dedupe": 0.11716701555997133,
+    "snippets": 1.4826249971520156,
+    "total": 18.474708020221442
+   }
+  },
+  {
+   "query": "how does gps work",
+   "hits": [
+    {
+     "score": 0.74900221824646,
+     "url": "https://comparesoft.com/fleet-management-software/gps-fleet-tracking/",
+     "title": "Why GPS Is the Key to Efficient Fleet Management",
+     "pid": 729354,
+     "snippet": "Why GPS Is the Key to Efficient Fleet Management\nby locking onto a number of satellites orbiting the earth to triangulate the position of a GPS tag. Combined with mapping and cellular communication, a GPS device can provide an exact and real-time location of the physical item that is being tracked. "
+    },
+    {
+     "score": 0.7331855893135071,
+     "url": "https://www.atlasyazilim.com.tr/en/services/hardware/vehicle-tracking-systems",
+     "title": "Vehicle Tracking Systems -  Atlas Software",
+     "pid": 286109,
+     "snippet": "Vehicle Tracking Systems -  Atlas Software\ntwo locations and dates you select. CAN I CONTACT THE VEHICLES? With the new screen for special messaging unit, you may contact your vehicles over GPRS for a very small cost. Optionally, you may phone your vehicles with special speaker and microphone set, a"
+    },
+    {
+     "score": 0.7318754196166992,
+     "url": "https://evertpot.com/broadcasting-gps-on-local-network/",
+     "title": "Broadcasting GPS on the local network",
+     "pid": 856619,
+     "snippet": "Broadcasting GPS on the local network\nto the address in the record and gets the GPS information. So, I figured I could just write a small server (with some help from Claude) that emits these lines and registers itself with Avahi (the standard MDNS implemenetation on Linux, or a Mac it would be Bonjo"
+    },
+    {
+     "score": 0.7170578241348267,
+     "url": "https://www.gpsbabel.org/",
+     "title": "GPSBabel: convert, upload, download data from GPS and Map programs",
+     "pid": 692333,
+     "snippet": "GPSBabel: convert, upload, download data from GPS and Map programs\nWhat is GPSBabel? GPSBabel converts waypoints, tracks, and routes between popular GPS receivers such as Garmin or Magellan and mapping programs like Google Earth or Basecamp. Literally hundreds of GPS receivers and programs are suppo"
+    },
+    {
+     "score": 0.7163494229316711,
+     "url": "https://outdoors.ru/orient/index.php",
+     "title": "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+     "pid": 939056,
+     "snippet": "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd. \u00ae \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd"
+    },
+    {
+     "score": 0.7163494229316711,
+     "url": "http://www.outdoors.ru/orient/index.php",
+     "title": "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd",
+     "pid": 923792,
+     "snippet": "\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\n\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd. \u00ae \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd\ufffd \ufffd\ufffd\ufffd\ufffd\ufffd"
+    },
+    {
+     "score": 0.7090342044830322,
+     "url": "https://spyhuman.com/features/mobile-location-tracker",
+     "title": "Mobile Location Tracker for Android: Live GPS Tracking",
+     "pid": 391285,
+     "snippet": "Mobile Location Tracker for Android: Live GPS Tracking\nor stolen phone Open the dashboard, check the last known position and route, and recover a misplaced or stolen Android phone faster. Field & delivery teams On company-owned phones used with consent, confirm staff on field or delivery routes are "
+    },
+    {
+     "score": 0.7081257700920105,
+     "url": "https://www.mylnikov.org/archives/1142",
+     "title": "\u0413\u0435\u043e\u043b\u043e\u043a\u0430\u0446\u0438\u044f \u0431\u0435\u0437 GPS (\u0447\u0430\u0441\u0442\u044c 2) \u00ab Alexander Mylnikov",
+     "pid": 1224476,
+     "snippet": "\u0413\u0435\u043e\u043b\u043e\u043a\u0430\u0446\u0438\u044f \u0431\u0435\u0437 GPS (\u0447\u0430\u0441\u0442\u044c 2) \u00ab Alexander Mylnikov\n\u0440\u0435\u0433\u0438\u043e\u043d\u0435 \u0437\u0430\u043f\u0440\u043e\u0441\u0430. \u0412\u0430\u0436\u043d\u043e \u0437\u0430\u043c\u0435\u0442\u0438\u0442\u044c \u0447\u0442\u043e \"\u043f\u043e\u043b\u0443\u0447\u0435\u043d\u043d\u044b\u0435\" \u0434\u0430\u043d\u043d\u044b\u0435 \u043f\u0440\u043e\u0445\u043e\u0434\u044f\u0442 \u043f\u043e\u043b\u043d\u044b\u0439 \u0446\u0438\u043a\u043b \u043e\u0431\u043d\u043e\u0432\u043b\u0435\u043d\u0438\u044f \u0437\u0430 \u043c\u0435\u0441\u044f\u0446. \u041f\u0440\u0438\u043c\u0435\u0440: http://api.mylnikov.org/geolocation/cell?v=1.1&mcc=250&mnc=02&cellid=200719106&lac=7840 \u0420\u0430\u0437\u0432\u0435\u0440\u043d\u0443\u0442\u043e\u0435 \u043e\u043f\u0438\u0441\u0430\u043d\u0438\u0435 \u0440\u0430\u0431\u043e\u0442\u044b \u0441 API \u0433\u0435\u043e\u043b\u043e\u043a\u0430\u0446\u0438\u0438 \u043f\u043e \u043c\u043e\u0431\u0438\u043b\u044c\u043d\u044b"
+    },
+    {
+     "score": 0.7060248851776123,
+     "url": "http://keymanassurance.ru/t/27175",
+     "title": "\u0411\u043e\u043b\u044c\u0448\u0430\u044f \u044d\u043d\u0446\u0438\u043a\u043b\u043e\u043f\u0435\u0434\u0438\u044f \u0430\u0432\u0442\u043e\u0434\u043e\u0440\u043e\u0433 \u0423\u0440\u0430\u043b, \u0421\u0438\u0431\u0438\u0440\u044c, \u0414\u0430\u043b\u044c\u043d\u0438\u0439 \u0412\u043e\u0441\u0442\u043e\u043a \u0412\u0435\u0440\u0441\u0438\u044f 4 \u0421\u0435\u0440\u0438\u044f: \u0411\u043e\u043b\u044c\u0448\u0430\u044f \u044d\u043d\u0446\u0438\u043a\u043b\u043e\u043f\u0435\u0434\u0438\u044f \u0430\u0432\u0442\u043e\u0434\u043e\u0440\u043e\u0433",
+     "pid": 1376662,
+     "snippet": "\u0411\u043e\u043b\u044c\u0448\u0430\u044f \u044d\u043d\u0446\u0438\u043a\u043b\u043e\u043f\u0435\u0434\u0438\u044f \u0430\u0432\u0442\u043e\u0434\u043e\u0440\u043e\u0433 \u0423\u0440\u0430\u043b, \u0421\u0438\u0431\u0438\u0440\u044c, \u0414\u0430\u043b\u044c\u043d\u0438\u0439 \u0412\u043e\u0441\u0442\u043e\u043a \u0412\u0435\u0440\u0441\u0438\u044f 4 \u0421\u0435\u0440\u0438\u044f: \u0411\u043e\u043b\u044c\u0448\u0430\u044f \u044d\u043d\u0446\u0438\u043a\u043b\u043e\u043f\u0435\u0434\u0438\u044f \u0430\u0432\u0442\u043e\u0434\u043e\u0440\u043e\u0433\n\u043f\u0443\u043d\u043a\u0442 \u043d\u0430\u0437\u043d\u0430\u0447\u0435\u043d\u0438\u044f \u041a\u0430\u043b\u0438\u0431\u0440\u043e\u0432\u043a\u0443 \u0442\u043e\u0447\u043d\u043e\u0441\u0442\u0438 \u043f\u043e\u043b\u043e\u0436\u0435\u043d\u0438\u044f \u043e\u0431\u044a\u0435\u043a\u0442\u043e\u0432 \u043c\u0435\u0441\u0442\u043d\u043e\u0441\u0442\u0438 \u043f\u043e \u043a\u043e\u043e\u0440\u0434\u0438\u043d\u0430\u0442\u0430\u043c GPS-\u043f\u0440\u0438\u0435\u043c\u043d\u0438\u043a\u0430 \u0418\u0437\u0432\u043b\u0435\u0447\u0435\u043d\u0438\u0435 \u0438\u0437 \u043f\u0430\u043c\u044f\u0442\u0438 \u043f\u0440\u0438\u0435\u043c\u043d\u0438\u043a\u0430 GPS \u0438 \u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u0438\u0435 \u043d\u0430 \u0434\u0438\u0441\u043a \u043a\u043e\u043c\u043f\u044c\u044e\u0442\u0435\u0440\u0430 \u043f\u0440\u043e\u0439\u0434\u0435\u043d\u043d\u044b\u0445 \u043f\u0443\u0442\u0435\u0439, \u043f\u0440\u0435\u0434\u0441\u0442\u0430\u0432\u043b\u0435\u043d\u0438"
+    },
+    {
+     "score": 0.6952372193336487,
+     "url": "https://www.geoarm.com/interactive-alarm-monitoring-services.html",
+     "title": "Interactive Alarm Monitoring Services - GeoArm Security",
+     "pid": 282592,
+     "snippet": "Interactive Alarm Monitoring Services - GeoArm Security\napp to control your property in a matter of seconds. Now you can always be confident that your security system is set to operate in the armed stay (e.g. when sleeping at night) or armed away mode (e.g. when away from the property during the day"
+    }
+   ],
+   "t_ms": {
+    "embed": 15.906124986940995,
+    "search": 0.8295410079881549,
+    "dedupe": 0.13395899441093206,
+    "snippets": 1.6213750059250742,
+    "total": 18.490999995265156
+   }
+  },
+  {
+   "query": "learn spanish fast",
+   "hits": [
+    {
+     "score": 0.7237223386764526,
+     "url": "https://www.radio-trinidad.com/podcasts/education",
+     "title": "Best English Podcasts & Education Shows | Trinidad",
+     "pid": 606281,
+     "snippet": "Best English Podcasts & Education Shows | Trinidad\nworld's most renowned educators. In our Caribbean context, the importance of bilingualism cannot be overstated, particularly given our proximity to Latin America. A significant portion of local learners focuses on Spanish proficiency to enhance thei"
+    },
+    {
+     "score": 0.7171449661254883,
+     "url": "https://infobooks.org/free-pdf-books/language-learning/",
+     "title": "50+ Free Language Learning Books [PDF] | Read & Download",
+     "pid": 1289039,
+     "snippet": "50+ Free Language Learning Books [PDF] | Read & Download\nSkip to main content 50+ Free Language Learning Books [PDF] by InfoBooks Updated on February 27, 2026 Found it useful? Share it Looking for language learning books ? We've gathered free language learning books in PDF for over 15 languages, fro"
+    },
+    {
+     "score": 0.7149045467376709,
+     "url": "https://www.babbel.com/?bclid=&irgwc=1&afsrc=1",
+     "title": "Learn a Language Online - Fast & Effective | Babbel",
+     "pid": 100493,
+     "snippet": "Learn a Language Online - Fast & Effective | Babbel\nbites. Start learning The Proven Babbel Method Learn a new language, fast. Our award-winning app uses the Babbel Method to help you speak confidently. You can complete quick lessons, practice conversations with an AI partner, listen to podcasts, an"
+    },
+    {
+     "score": 0.7005405426025391,
+     "url": "https://infobooks.org/free-pdf-books/spanish-books/",
+     "title": "50+ Spanish Books for Free! [PDF]",
+     "pid": 1291621,
+     "snippet": "50+ Spanish Books for Free! [PDF]\na particular subject of study, such as medicine, history, or biology... we invite you to visit InfoLibros where you will find a wide collection of free books in Spanish. Spanish Books for Beginners Basics, grammar, first steps. Spanish books for beginner readers. Ho"
+    },
+    {
+     "score": 0.6997981071472168,
+     "url": "https://www.littlebeespeech.com/articulation-station-spanish",
+     "title": "Articulation Station Pro Espa\u00f1ol | Spanish Articulation App",
+     "pid": 175462,
+     "snippet": "Articulation Station Pro Espa\u00f1ol | Spanish Articulation App\nsound. Extra targets offer more practice opportunities! Tagline Track Progress Easily track progress with detailed scoring and in-depth reports. Gain valuable insights to support learning and measure success every step of the way. Session D"
+    },
+    {
+     "score": 0.6975932121276855,
+     "url": "https://maspeak.com/",
+     "title": "Learn any language, for free",
+     "pid": 1107763,
+     "snippet": "Learn any language, for free\nmaspeak Log in Sign up maspeak Sign up Log in Learn any language, for free Maspeak helps you learn to speak new languages with smart quizzes, real examples, and audio. No fluff \u2014 just what works. Start learning for free \u2192 Log in 53,696 + words 55 Languages available 120,"
+    },
+    {
+     "score": 0.694135844707489,
+     "url": "https://infolibros.org/libros-pdf-gratis/idiomas/",
+     "title": "150+ Libros para Aprender Idiomas en PDF Gratis | InfoLibros",
+     "pid": 604254,
+     "snippet": "150+ Libros para Aprender Idiomas en PDF Gratis | InfoLibros\nrecursos te ayudar\u00e1n a perfeccionar tu dominio del idioma. Libros para Aprender Espa\u00f1ol Gram\u00e1tica, vocabulario, espa\u00f1ol. Recursos para aprender o mejorar el idioma m\u00e1s hablado de Am\u00e9rica. Libros de Ejercicios de Espa\u00f1ol Gram\u00e1tica, ortograf"
+    },
+    {
+     "score": 0.6881741285324097,
+     "url": "https://fasttext.cc/blog/2017/10/02/blog-post.html",
+     "title": "Language identification \u00b7 fastText",
+     "pid": 898789,
+     "snippet": "Language identification \u00b7 fastText\nFast and accurate language identification using fastText We are excited to announce that we are publishing a fast and accurate tool for text-based language identification. It can recognize more than 170 languages, takes less than 1MB of memory and can classify thou"
+    },
+    {
+     "score": 0.6817210912704468,
+     "url": "https://shop.forwardmovement.org/product-category/resources/spanish-other-languages",
+     "title": "Forward Movement - Spanish & Other Languages",
+     "pid": 976162,
+     "snippet": "Forward Movement - Spanish & Other Languages\nprocesi\u00f3n. Read more You pay $0.00 Club Biblico Las historias de Rut y Ester nos ense\u00f1an mucho sobre el concepto hebreo de jesed, que describe la bondad sagrada y la voluntad de establecer relaciones sacrificiales con seres queridos y con nuestras comunid"
+    },
+    {
+     "score": 0.6807102560997009,
+     "url": "https://prestamos-enlinea.com.mx/prestamos-para-jovenes/",
+     "title": "Pr\u00e9stamos para j\u00f3venes - (Dinero en 15 min)",
+     "pid": 340518,
+     "snippet": "Pr\u00e9stamos para j\u00f3venes - (Dinero en 15 min)\nSkip to content Pr\u00e9stamos para j\u00f3venes Los mejores pr\u00e9stamos para j\u00f3venes del mercado crediticio en un solo clic. Obt\u00e9n tu pr\u00e9stamos y por Internet lo m\u00e1s f\u00e1cil y r\u00e1pido posible y, adem\u00e1s, con las mejores condiciones. Rellena la solicitud y disp\u00f3n de los m"
+    }
+   ],
+   "t_ms": {
+    "embed": 8.824791992083192,
+    "search": 0.7929170096758753,
+    "dedupe": 0.13199998647905886,
+    "snippets": 1.5467499906662852,
+    "total": 11.296458978904411
+   }
+  },
+  {
+   "query": "linux command to find large files",
+   "hits": [
+    {
+     "score": 0.7295971512794495,
+     "url": "https://codapi.org/grep/",
+     "title": "Grep playground",
+     "pid": 1329209,
+     "snippet": "Grep playground\ncodapi Choose a typical use case or try your own: tree search file match:partial match:word match:line regex literal patterns search dir file globs binary ignore case invert match count limit matches matches only files only context silent # Find all occurrences of the # word \"codes\" "
+    },
+    {
+     "score": 0.72605299949646,
+     "url": "https://antonz.org/grep-by-example/",
+     "title": "Grep by example: Interactive guide",
+     "pid": 889369,
+     "snippet": "Grep by example: Interactive guide\nAnton Zhiyanov projects books blog about \u25d0 grep is the ultimate text search tool available on virtually all Linux machines. While there are now better alternatives (such as ripgrep ), you will still often find yourself on a server where grep is the only search tool"
+    },
+    {
+     "score": 0.7118322849273682,
+     "url": "https://usro.net/lumy-ai-desktop-agent/",
+     "title": "Lumy AI Desktop | AI File Search & Organization for Windows - Ultimate Systems",
+     "pid": 495105,
+     "snippet": "Lumy AI Desktop | AI File Search & Organization for Windows - Ultimate Systems\nroughly what the file is called. Smart A balanced search for everyday requests and the details you remember. Deep Search wider and read more documents when the file is harder to place. Verified Matches A Verified badge sh"
+    },
+    {
+     "score": 0.7062860727310181,
+     "url": "https://helloacm.com/coding-exercise-source-codes-and-binaries/",
+     "title": "Coding Exercise - Source Codes and Binaries | Algorithms, Blockchain and Cloud",
+     "pid": 139628,
+     "snippet": "Coding Exercise - Source Codes and Binaries | Algorithms, Blockchain and Cloud\nC How to Find Out Whether a Machine is Big Endian or Little Endian in C/C++? Zip (3 kb) Linux C How to Find Out Whether a Machine is Big Endian or Little Endian in C/C++? Zip (4 kb) Windows C# Just a Simple Parallel Runne"
+    },
+    {
+     "score": 0.7007620334625244,
+     "url": "https://huxsoft.com/apps/pc-cleaner/help-file/",
+     "title": "PC Cleaner for Windows - Product Help File - HUXSoft.com",
+     "pid": 822885,
+     "snippet": "PC Cleaner for Windows - Product Help File - HUXSoft.com\ntime (a week ago, a month ago, six months ago, or one year ago). This ensures that you exclusively remove the intended files, optimizing storage space while retaining full control over your deletions. Define file size for the scan When conduct"
+    },
+    {
+     "score": 0.6978405714035034,
+     "url": "https://helloacm.com/?s=Linux",
+     "title": "Linux | Algorithms, Blockchain and Cloud",
+     "pid": 144733,
+     "snippet": "Linux | Algorithms, Blockchain and Cloud\nSearch Results for: Linux Linux servers can run out of disk space because of growing logs, backups, caches, or Docker data, potentially causing databases, websites, and other services to fail. This article explains \u2026 [Continue Reading...] Understanding the Le"
+    },
+    {
+     "score": 0.6959447264671326,
+     "url": "https://flmngr.com/doc/file-manager-for-amazon-s3",
+     "title": "Use Flmngr file manage with Amazon S3",
+     "pid": 356768,
+     "snippet": "Use Flmngr file manage with Amazon S3\n\"HEAD\" , \"GET\" ] , \" AllowedOrigins \": [ \"*\" ] , \" ExposeHeaders \": [] } ] Big buckets If your bucket holds tens of thousands of files, enable Flmngr .isDynamicDirListing in the file manager options: the folder tree is then loaded level by level, and every opene"
+    },
+    {
+     "score": 0.6949666738510132,
+     "url": "https://la-samhna.de/samhain/s_faq.html",
+     "title": "Samhain Labs | samhain Fact Sheet",
+     "pid": 145946,
+     "snippet": "Samhain Labs | samhain Fact Sheet\nhidden by kernel rootkits). For small files (less than 9200 bytes after zlib compression), it is optionally possible to store the full file in the baseline database, such that it is possible to find out what has been changed. Twelve different policies (i.e. differen"
+    },
+    {
+     "score": 0.693087100982666,
+     "url": "https://fileflap.net/blog/create-file-manifest-for-delivery/",
+     "title": "How to Create a File Manifest for a Large Delivery | FileFlap",
+     "pid": 1146092,
+     "snippet": "How to Create a File Manifest for a Large Delivery | FileFlap\nSkip to content Organization & workflow How to Create a File Manifest for a Large Delivery Create a simple file manifest with paths, sizes, purposes, and optional checksums so recipients can check a large delivery and spot missing files. "
+    },
+    {
+     "score": 0.6907645463943481,
+     "url": "https://fileflap.net/use-cases/send-large-files-online",
+     "title": "Send Large Files Online \u2013 Up to 1TB Per File, 5TB Per Collection | FileFlap | FileFlap",
+     "pid": 1143048,
+     "snippet": "Send Large Files Online \u2013 Up to 1TB Per File, 5TB Per Collection | FileFlap | FileFlap\nat full speed from the nearest CDN node \u2014 no waiting, no account creation, no friction. You get download analytics so you know when your file was accessed. Why FileFlap for large files? \u2192 1TB per file \u2014 no workaro"
+    }
+   ],
+   "t_ms": {
+    "embed": 14.60008299909532,
+    "search": 0.7964590040501207,
+    "dedupe": 0.1658329856581986,
+    "snippets": 1.707000017631799,
+    "total": 17.26937500643544
+   }
+  },
+  {
+   "query": "why is the sky blue",
+   "hits": [
+    {
+     "score": 0.6760469079017639,
+     "url": "https://photosearch.tv/photos/night-sky/",
+     "title": "Free Night sky Photos \u2013 Free Download | PhotoSearch.tv",
+     "pid": 1190070,
+     "snippet": "Free Night sky Photos \u2013 Free Download | PhotoSearch.tv\nFree Night sky Photos Night sky photography captures the quiet beauty of the universe, offering a sense of wonder that is hard to find elsewhere. Many people search for these images to evoke feelings of peace, mystery, or vastness. You will find"
+    },
+    {
+     "score": 0.6671382784843445,
+     "url": "https://photosearch.tv/collections/sky/",
+     "title": "Sky & weather \u2013 Free Photos by Topic | PhotoSearch.tv",
+     "pid": 1198762,
+     "snippet": "Sky & weather \u2013 Free Photos by Topic | PhotoSearch.tv\nSky & weather 20 collections of free photos with Creative Commons and public domain licences. Sunset Sunrise Clouds Blue sky Night sky Milky Way Stars Moon Full moon Aurora Northern lights Rainbow Lightning Storm Fog Rain Snow Golden hour Twiligh"
+    },
+    {
+     "score": 0.66204833984375,
+     "url": "https://shwebcommerce.com/webcolors.html",
+     "title": "Website Colors",
+     "pid": 1343110,
+     "snippet": "Website Colors\nof the association to bananas, custards and lemons. Pale yellow is an excellent choice for point-of-purchase materials (materials at the cash register or reception area) because the eye sees the highly reflective yellow before it notices any other color. Brown - Rich. Sheltering. Dura"
+    },
+    {
+     "score": 0.6610410809516907,
+     "url": "https://raillynews.com/2026/10/discovery-of-a-green-white-dwarf-star-65-light-years-away/",
+     "title": "RaillyNews - Discovery of a Green-White Dwarf Star 65 Light Years Away",
+     "pid": 644818,
+     "snippet": "RaillyNews - Discovery of a Green-White Dwarf Star 65 Light Years Away\nin Star Coloration In stellar atmospheres, elements such as calcium, sodium, and lithium have a profound effect on the observed color. These elements absorb light at specific wavelengths\u2014most notably in the yellow, orange, and re"
+    },
+    {
+     "score": 0.6529550552368164,
+     "url": "https://photosearch.tv/photos/sunset/",
+     "title": "Free Sunset Photos \u2013 Free Download | PhotoSearch.tv",
+     "pid": 1187863,
+     "snippet": "Free Sunset Photos \u2013 Free Download | PhotoSearch.tv\nby Kakadu \u00b7 CC BY-NC 2.0 Sunset by Infomastern \u00b7 CC BY-SA 2.0 sunset by PHOTOPHANATIC1 \u00b7 CC BY-NC-SA 2.0 Sunset by Martin_Borgman \u00b7 CC BY-NC-ND 2.0 See more sunset photos \u2192 More free photos from Openverse Free to use, with credit. All photos here h"
+    },
+    {
+     "score": 0.6526601314544678,
+     "url": "https://www.sciencedaily.com/releases/2026/10/261017230018.htm",
+     "title": "Astronomers discover a ghostly green star unlike any known before | ScienceDaily",
+     "pid": 1290573,
+     "snippet": "Astronomers discover a ghostly green star unlike any known before | ScienceDaily\nSun's visible surface, known as the photosphere. Under these extreme conditions, small amounts of elements such as carbon, calcium, and sodium interact with the surrounding helium plasma. These interactions allow the el"
+    },
+    {
+     "score": 0.6452804207801819,
+     "url": "https://www.wallpics.com/collections/blue",
+     "title": "Blue Wall Art \u2013 Wallpics",
+     "pid": 433376,
+     "snippet": "Blue Wall Art \u2013 Wallpics\nor concentrated work. Different saturations and tints of blue produce varying psychological responses, with lighter variations promoting feelings of openness and airiness while darker tones encourage introspection and focused contemplation. This psychological versatility exp"
+    },
+    {
+     "score": 0.6418948173522949,
+     "url": "https://sunrise.am/blog/",
+     "title": "Blog \u2014 Sunrise, Sunset & Daylight Stories | Sunrise.am",
+     "pid": 24841,
+     "snippet": "Blog \u2014 Sunrise, Sunset & Daylight Stories | Sunrise.am\nand Winter Sunsets Are More Colourful Many people notice that sunsets become noticeably more vivid as the year moves from summer into autumn and winter. October 01, 2026 Why Are Sunsets Red and Orange? The Science of Scattering The red and orang"
+    },
+    {
+     "score": 0.6399970054626465,
+     "url": "https://cpdn.org/resources-for-schools/climate-science-faqs",
+     "title": "Climate Science FAQs from CPDN, University of Oxford",
+     "pid": 413056,
+     "snippet": "Climate Science FAQs from CPDN, University of Oxford\nvapour condenses and forms droplets, which we see as clouds, and may become large enough to fall to the Earth\u2019s surface as rain or snow. In the tropics, the ascent is vigorous and huge cumulonimbus clouds (thunder clouds) form, reaching over 10km "
+    },
+    {
+     "score": 0.6394538879394531,
+     "url": "https://skysonar.com/en-us/tools/metar-map",
+     "title": "METAR Map: Real-Time Airport Weather & Live Conditions | SkySonar",
+     "pid": 462733,
+     "snippet": "METAR Map: Real-Time Airport Weather & Live Conditions | SkySonar\nthe vicinity (within 8 km of the aerodrome) Descriptor MI shallow BC patches PR partial DR low drifting BL blowing SH showers TS thunderstorm FZ freezing Precipitation DZ drizzle RA rain SN snow SG snow grains IC ice crystals PL ice p"
+    }
+   ],
+   "t_ms": {
+    "embed": 16.422083019278944,
+    "search": 0.8606250048615038,
+    "dedupe": 0.12383298599161208,
+    "snippets": 1.6180420061573386,
+    "total": 19.024583016289398
+   }
+  }
+ ]
+}

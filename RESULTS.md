@@ -153,3 +153,28 @@ learn rust" -> Rust training pages; "how do vaccines work" -> vaccine pages) but
 i.e. long-tail sites, so authoritative answers (Wikipedia, docs, major health/news sites) are simply not in it. That is a
 coverage problem, not a retrieval problem -> fixed by the depth crawl over 239 authoritative hosts (`data/seeds/quality_hosts.txt`),
 which reuses keep-alive connections and so runs alongside the main crawl without spending the new-connection budget.
+
+## 7. Scale-up: main crawl index (1,381,305 passages / 385,098 pages)
+
+Build (12 threads): flat 2 s (2.1 GB) · HNSW M=32 efC=200 **337 s** (2.5 GB) · HNSW+SQ8 334 s (0.9 GB).
+
+| index | ef | recall@10 | p50 ms | p99 ms |
+|---|---|---|---|---|
+| flat (exact) | - | 1.000 | 24.0 | 44.0 |
+| hnsw | 16 | 0.958 | 0.16 | 0.45 |
+| hnsw | 32 | 0.978 | 0.24 | 0.67 |
+| hnsw | **64** | **0.985** | **0.42** | **1.07** |
+| hnsw | 128 | 0.990 | 0.76 | 1.72 |
+| hnsw | 256 | 0.993 | 1.66 | 3.52 |
+| hnsw_sq | 64 | 0.974 | 0.41 | 0.77 |
+
+End-to-end (30 queries x 3, CoreML query encoder, **measured while two embedding watchers shared the GPU**): embed p50 15.4 ms,
+search 0.55 ms, dedupe 0.05, snippets 0.08, total p50 16.5 ms / p99 32 ms. Cold start 12 s (model 7.9, index 1.3, meta 2.5).
+Idle-machine numbers for the same path were 5.3 ms embed / 5.8 ms total (section 5); the final section re-measures on the combined index.
+
+Self-eval (500 held-out pages): title MRR@10 0.694 (R@1 0.642, R@10 0.806);
+sentence MRR@10 0.295 (R@10 0.415). Down from 0.84/0.42 at 231k passages: 6x more
+distractors, and the long-tail web is full of syndicated copies (the same "Common Home Repairs You Can Safely Do Yourself"
+article appeared as the top 3 results from three different domains). Fixes applied for the final index: exact-duplicate
+passages are dropped at merge time (`merge_parts --dedupe`), and the query path collapses results with the same normalized
+title. Coverage of health/reference/docs comes from the quality crawl, merged in the final section.

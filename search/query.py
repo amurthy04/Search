@@ -18,6 +18,16 @@ import orjson
 import zstandard as zstd
 
 
+import re as _re
+_title_sep = _re.compile(r"\s*[|\-–—:]\s*")
+
+
+def _norm_title(t: str) -> str:
+    """Title without the site-name suffix/prefix, lowercased: 'Foo Bar – SiteName' -> 'foo bar'."""
+    parts = [p for p in _title_sep.split(t.lower().strip()) if len(p) > 12]
+    return max(parts, key=len) if parts else t.lower().strip()
+
+
 def load_meta(prefix: str):
     urls, titles, docs = [], [], []
     with open(prefix + ".meta.jsonl.zst", "rb") as fh:
@@ -70,14 +80,17 @@ class Engine:
         t1 = time.perf_counter()
         scores, ids = self.searcher.search(qv, k * overfetch)
         t2 = time.perf_counter()
-        seen = set(); hits = []
+        seen = set(); seen_titles = set(); hits = []
         for s, i in zip(scores[0], ids[0]):
             if i < 0:
                 continue
             d = int(self.docs[i])
             if d in seen:
                 continue
-            seen.add(d)
+            tkey = _norm_title(self.titles[i])
+            if tkey and tkey in seen_titles:
+                continue  # syndicated copy of a page already shown (same title) -> collapse
+            seen.add(d); seen_titles.add(tkey)
             hits.append({"score": float(s), "url": self.urls[i], "title": self.titles[i], "pid": int(i)})
             if len(hits) >= k:
                 break
