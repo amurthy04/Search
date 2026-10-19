@@ -45,12 +45,31 @@ CoreML path: `search/minibert.py` is a 60-line traceable BERT that loads HF weig
 `bench/coreml_convert.py` exports a fixed-shape fp16 mlprogram. The Neural Engine is slow for this layout (it wants
 the Apple `ane_transformers` (B,C,1,S) conv layout); the GPU through CoreML is 2.2x faster than torch/MPS.
 
-## 3. Accuracy (BEIR nDCG@10, our chunk/index pipeline)
+## 3. Accuracy (BEIR nDCG@10 / Recall@100, our pipeline, max_seq 512)
 
-| model | SciFact | NFCorpus |
-|---|---|---|
-| static-retrieval-mrl-en-v1 | 0.593 | 0.301 |
-| (transformer models: pending, see below) | | |
+| model | SciFact nDCG@10 | NFCorpus nDCG@10 | SciFact R@100 | NFCorpus R@100 |
+|---|---|---|---|---|
+| Alibaba-NLP/gte-modernbert-base | 0.756 | 0.350 | 0.973 | 0.318 |
+| BAAI/bge-base-en-v1.5 | 0.740 | 0.375 | 0.967 | 0.337 |
+| intfloat/e5-base-v2 | 0.722 | 0.355 | 0.963 | 0.319 |
+| Snowflake/snowflake-arctic-embed-m-v1.5 | 0.718 | 0.364 | 0.943 | 0.325 |
+| BAAI/bge-small-en-v1.5 | 0.713 | 0.344 | 0.942 | 0.311 |
+| Snowflake/snowflake-arctic-embed-s | 0.699 | 0.328 | 0.928 | 0.287 |
+| intfloat/multilingual-e5-small | 0.676 | 0.312 | 0.925 | 0.273 |
+| sentence-transformers/all-MiniLM-L6-v2 | 0.654 | 0.311 | 0.932 | 0.305 |
+| sentence-transformers/static-retrieval-mrl-en-v1 | 0.593 | 0.301 | 0.905 | 0.278 |
+
+Sanity check: bge-small's published MTEB SciFact nDCG@10 is 0.713 and MiniLM's is ~0.645; we reproduce both, so chunking,
+prefixes and the index are not losing accuracy.
+
+**Model decision: `BAAI/bge-small-en-v1.5`.** Base-size models buy +2.7 (bge-base) to +4.3 (gte-modernbert) nDCG points
+on SciFact at 1/3 to 1/8 of the throughput; gte-modernbert has no fast path on Apple silicon at all. bge-small has the
+best accuracy of the 384-d models and the fastest accelerated path (CoreML GPU). If accuracy on the crawled corpus turns
+out to be the bottleneck, bge-base via the same CoreML export is the next step before any training.
+
+Embedding pipeline (CoreML, real passages, mean 235 tokens): tokenization 9,300/s (not the bottleneck); `predict` sustained
+560-840 passages/s on real batches vs 1,491/s in the short conversion benchmark (GPU clock/thermal variance; re-measured
+below on an idle machine). At ~3.5 passages/page this is >= the crawl rate, so embedding is not the pipeline bottleneck.
 
 ## 4. Index
 (pending)

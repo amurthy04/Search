@@ -1,0 +1,118 @@
+{
+  "elapsed_s": 75.5564751625061,
+  "pages": 21867,
+  "pages_per_s": 289.41265395148037,
+  "mbytes": 2669.04472,
+  "wire_mbytes": 662.644035,
+  "errors": {
+    "ClientConnectorDNSError": 188,
+    "http_4xx": 692,
+    "truncated": 4340,
+    "too_short": 3563,
+    "http_5xx": 135,
+    "ClientConnectorError": 72,
+    "timeout": 1685,
+    "ClientConnectorCertificateError": 84,
+    "ClientConnectorSSLError": 8,
+    "http_2xx": 11,
+    "not_html": 77,
+    "TooManyRedirects": 37,
+    "http_3xx": 6,
+    "ClientOSError": 5,
+    "ClientResponseError": 2,
+    "ClientPayloadError": 3,
+    "ServerDisconnectedError": 6,
+    "NonHttpUrlRedirectClientError": 38
+  },
+  "status": {
+    "200": 25722,
+    "403": 258,
+    "526": 3,
+    "503": 72,
+    "202": 10,
+    "404": 290,
+    "500": 42,
+    "525": 2,
+    "307": 6,
+    "429": 126,
+    "520": 8,
+    "409": 2,
+    "400": 5,
+    "405": 1,
+    "418": 2,
+    "401": 5,
+    "425": 1,
+    "502": 7,
+    "523": 1,
+    "203": 1,
+    "444": 1,
+    "410": 1
+  },
+  "dns": {
+    "miss": 2786,
+    "fail": 188,
+    "hit": 5591
+  },
+  "hosts": 28309,
+  "seen_urls": 92385,
+  "crashes": [],
+  "latency_ms": {
+    "robots": {
+      "p50": 0.06275001214817166,
+      "p90": 0.13687499449588358,
+      "p99": 0.40020799497142434
+    },
+    "dns": {
+      "p50": 0.0,
+      "p90": 0.005458015948534012,
+      "p99": 428.7767909991089
+    },
+    "connect": {
+      "p50": 0.0,
+      "p90": 397.3405410069972,
+      "p99": 2297.7874999924097
+    },
+    "ttfb": {
+      "p50": 593.8580410147551,
+      "p90": 2045.5692920077126,
+      "p99": 4489.666583016515
+    },
+    "download": {
+      "p50": 2.9856670007575303,
+      "p90": 317.2111249878071,
+      "p99": 2182.5439580134116
+    },
+    "parse": {
+      "p50": 1.0204169957432896,
+      "p90": 2.4039999989327043,
+      "p99": 5.518916994333267
+    },
+    "total": {
+      "p50": 669.4377090025228,
+      "p90": 2368.623916001525,
+      "p99": 5051.483666989952
+    }
+  },
+  "config": {
+    "concurrency": 256,
+    "per_host": 2,
+    "host_delay": 0.5,
+    "max_per_host": 40,
+    "max_depth": 2,
+    "time_limit": 75.0,
+    "max_pages": 10000000,
+    "max_body": 300000,
+    "max_links": 150,
+    "nameservers": [
+      "128.95.112.1",
+      "128.95.120.1",
+      "1.1.1.1",
+      "8.8.8.8"
+    ],
+    "timeout_total": 8.0,
+    "timeout_connect": 3.0,
+    "timeout_read": 5.0,
+    "new_host_rate": 40.0,
+    "workers": 2
+  }
+}

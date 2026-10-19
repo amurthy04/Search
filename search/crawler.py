@@ -252,7 +252,11 @@ class Crawler:
         self.outbox_n = 0
 
         self.hosts: dict[str, Host] = {}
-        self.ready: list[HostEntry] = []
+        self.ready: list[HostEntry] = []   # warm hosts (have fetched / have a connection)
+        self.cold: list[HostEntry] = []    # hosts never fetched: each needs DNS + TCP + TLS -> rate limited
+        self.new_host_rate = cfg.get("new_host_rate", 0.0)  # per second per worker; 0 = unlimited
+        self.tokens = 0.0
+        self.tokens_t = time.time()
         self.seen: set[int] = set()
         self.frontier_size = 0
         self.stats = Stats()
@@ -353,16 +357,18 @@ class Crawler:
     def _schedule(self, h: Host, when: float):
         if not h.scheduled and h.queue and h.inflight < self.per_host:
             h.scheduled = True
-            heapq.heappush(self.ready, HostEntry(when, h.name))
+            if self.new_host_rate and h.done == 0 and h.inflight == 0 and h.errors == 0:
+                heapq.heappush(self.cold, HostEntry(when, h.name))
+            else:
+                heapq.heappush(self.ready, HostEntry(when, h.name))
             self.wake.set()
 
-    def next_url(self):
-        now = time.time()
-        while self.ready:
-            e = self.ready[0]
+    def _pop(self, heap, now):
+        while heap:
+            e = heap[0]
             if e.ready_at > now:
                 return None, e.ready_at - now
-            heapq.heappop(self.ready)
+            heapq.heappop(heap)
             h = self.hosts[e.host]
             h.scheduled = False
             if not h.queue or h.inflight >= self.per_host:
@@ -373,6 +379,26 @@ class Crawler:
             self._schedule(h, now + self.host_delay)
             return (url, depth, h), 0
         return None, None
+
+    def next_url(self):
+        now = time.time()
+        item, wait = self._pop(self.ready, now)
+        if item is not None:
+            return item, 0
+        if not self.new_host_rate:
+            return self._pop(self.cold, now) if self.cold else (None, wait)
+        # token bucket for cold hosts
+        self.tokens = min(self.tokens + (now - self.tokens_t) * self.new_host_rate, self.new_host_rate)
+        self.tokens_t = now
+        if self.tokens >= 1.0 and self.cold:
+            item2, wait2 = self._pop(self.cold, now)
+            if item2 is not None:
+                self.tokens -= 1.0
+                return item2, 0
+            wait = min(w for w in (wait, wait2) if w is not None) if (wait is not None or wait2 is not None) else None
+        elif self.cold:
+            wait = min(wait, 0.05) if wait is not None else 0.05
+        return None, wait
 
     # ---------- robots ----------
     async def robots_allowed(self, session, h: Host, url: str) -> bool:
@@ -547,7 +573,7 @@ class Crawler:
                     t.add_done_callback(tasks.discard)
                     launched += 1
                 if launched == 0:
-                    if self.inflight == 0 and not self.ready:
+                    if self.inflight == 0 and not self.ready and not self.cold:
                         if self.nw <= 1:
                             break  # frontier exhausted
                         idle_since = idle_since or now
@@ -626,6 +652,10 @@ def _worker_main(wid, nw, seeds, inboxes, stats_q, out, cfg):
     if uvloop is not None:
         asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
     c = Crawler(out, cfg, wid, nw, inboxes, stats_q)
+
+    def _term(*_):
+        c.stop = True
+    signal.signal(signal.SIGTERM, _term)
     try:
         asyncio.run(c.run(seeds))
     except Exception as e:  # pragma: no cover
@@ -646,6 +676,14 @@ def run_multi(seeds, out, cfg, nw):
     t0 = time.time()
     for p in procs:
         p.start()
+
+    def _forward(*_):
+        print("stopping workers (flushing shards)...", flush=True)
+        for p in procs:
+            if p.is_alive():
+                os.kill(p.pid, signal.SIGTERM)
+    signal.signal(signal.SIGTERM, _forward)
+    signal.signal(signal.SIGINT, _forward)
     latest = {}
     finals = {}
     last_print = t0
@@ -726,6 +764,7 @@ def main(argv=None):
     ap.add_argument("--timeout-total", type=float, default=15)
     ap.add_argument("--timeout-connect", type=float, default=5)
     ap.add_argument("--timeout-read", type=float, default=8)
+    ap.add_argument("--new-host-rate", type=float, default=0, help="max cold hosts started per second per worker (0 = unlimited)")
     ap.add_argument("--summary", default="")
     args = ap.parse_args(argv)
 
@@ -733,7 +772,8 @@ def main(argv=None):
     cfg = {"concurrency": args.concurrency, "per_host": args.per_host, "host_delay": args.host_delay,
            "max_per_host": args.max_per_host, "max_depth": args.max_depth, "time_limit": args.time_limit,
            "max_pages": args.max_pages, "max_body": args.max_body, "max_links": args.max_links, "nameservers": ns,
-           "timeout_total": args.timeout_total, "timeout_connect": args.timeout_connect, "timeout_read": args.timeout_read}
+           "timeout_total": args.timeout_total, "timeout_connect": args.timeout_connect, "timeout_read": args.timeout_read,
+           "new_host_rate": args.new_host_rate}
     seeds = load_seeds(args.seeds, args.n_seeds, args.seed_offset)
     if args.workers <= 1:
         if uvloop is not None:

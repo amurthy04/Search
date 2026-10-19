@@ -1,0 +1,12 @@
+{
+ "model": "BAAI/bge-small-en-v1.5",
+ "backend": "coreml",
+ "passages": 20000,
+ "dim": 384,
+ "elapsed_s": 31.357988458010368,
+ "passages_per_s": 637.7960125465579,
+ "embed_s": 30.928023792948807,
+ "read_s": 0.41238143359078094,
+ "max_seq": 256,
+ "batch": 32
+}
