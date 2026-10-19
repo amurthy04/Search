@@ -1,0 +1,10 @@
+=== concurrency=256 ===
+cpu@20s= 88.6
+cpu@60s= 86.9
+pages/s 6.2 pages 4206 MB 770 hosts 19382
+=== concurrency=512 ===
+cpu@20s=
+cpu@60s=
+pages/s 0.1 pages 70 MB 13 hosts 10199
+=== concurrency=1024 ===
+cpu@20s=101.7

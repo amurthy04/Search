@@ -1,0 +1,83 @@
+{
+  "elapsed_s": 40.323615074157715,
+  "pages": 6587,
+  "pages_per_s": 163.35340935791805,
+  "mbytes": 590.970311,
+  "errors": {
+    "ClientConnectorDNSError": 439,
+    "ClientConnectorCertificateError": 315,
+    "too_short": 4625,
+    "ClientConnectorSSLError": 27,
+    "http_4xx": 1196,
+    "ClientConnectorError": 72,
+    "truncated": 6120,
+    "http_2xx": 61,
+    "not_html": 42,
+    "ClientResponseError": 35,
+    "http_5xx": 45,
+    "http_3xx": 12,
+    "TooManyRedirects": 7,
+    "timeout": 251,
+    "ServerDisconnectedError": 8,
+    "ClientOSError": 9,
+    "http_9xx": 1,
+    "robots_disallow": 1
+  },
+  "hosts": 9198,
+  "seen_urls": 94183,
+  "latency_ms": {
+    "robots": {
+      "p50": 0.04687500768341124,
+      "p90": 0.07850001566112041,
+      "p99": 0.9809999901335686
+    },
+    "dns": {
+      "p50": 37.328042002627626,
+      "p90": 276.49879100499675,
+      "p99": 883.4650829958264
+    },
+    "connect": {
+      "p50": 292.1825830126181,
+      "p90": 845.7733330142219,
+      "p99": 1711.1939589958638
+    },
+    "ttfb": {
+      "p50": 802.5907920091413,
+      "p90": 1948.8562910119072,
+      "p99": 4435.706625023158
+    },
+    "download": {
+      "p50": 0.007792026735842228,
+      "p90": 0.05008300649933517,
+      "p99": 159.5159999851603
+    },
+    "parse": {
+      "p50": 0.658750010188669,
+      "p90": 1.641165988985449,
+      "p99": 3.575874987291172
+    },
+    "total": {
+      "p50": 806.2942080141511,
+      "p90": 1959.2239579942543,
+      "p99": 4435.783917026129
+    }
+  },
+  "config": {
+    "concurrency": 384,
+    "per_host": 2,
+    "host_delay": 0.5,
+    "max_per_host": 50,
+    "max_depth": 2,
+    "time_limit": 40.0,
+    "max_pages": 100000,
+    "max_body": 600000,
+    "max_links": 150,
+    "nameservers": [
+      "128.95.112.1",
+      "128.95.120.1",
+      "1.1.1.1",
+      "8.8.8.8"
+    ],
+    "workers": 1
+  }
+}

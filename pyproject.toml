@@ -1,0 +1,39 @@
+[project]
+name = "search"
+version = "0.1.0"
+description = "Add your description here"
+requires-python = ">=3.12"
+dependencies = [
+    "ada-url>=4.0.0",
+    "aiodns>=4.0.4",
+    "aiohttp>=3.14.5",
+    "brotli>=1.2.0",
+    "dnspython>=2.9.0",
+    "einops>=0.8.2",
+    "faiss-cpu>=1.15.1",
+    "hnswlib>=0.8.0",
+    "huggingface-hub[hf-xet]>=1.33.0",
+    "mlx>=0.32.4",
+    "mlx-embeddings>=0.1.0",
+    "numpy>=2.5.4",
+    "orjson>=3.13.0",
+    "protego>=0.7.0",
+    "pyarrow>=26.0.0",
+    "rich>=15.0.0",
+    "selectolax>=1.0.1",
+    "sentence-transformers>=6.1.0",
+    "tldextract>=5.4.0",
+    "torch>=2.14.1",
+    "typer>=0.27.3",
+    "usearch>=2.26.5",
+    "uvloop>=0.23.0",
+    "xxhash>=4.0.2",
+    "zstandard>=0.25.0",
+]
+
+[project.scripts]
+search = "search:main"
+
+[build-system]
+requires = ["uv_build>=0.13.1,<0.14.0"]
+build-backend = "uv_build"

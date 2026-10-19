@@ -1,0 +1,24 @@
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+Fetching 10 files:  10%|█         | 1/10 [00:00<00:01,  8.92it/s]Fetching 10 files:  20%|██        | 2/10 [00:00<00:01,  7.05it/s]Fetching 10 files:  90%|█████████ | 9/10 [00:00<00:00, 24.00it/s]Fetching 10 files: 100%|██████████| 10/10 [00:04<00:00,  2.34it/s]
+BAAI/bge-small-en-v1.5 ok 4.7 s
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files:  10%|█         | 1/10 [00:00<00:01,  5.42it/s]Fetching 10 files:  80%|████████  | 8/10 [00:00<00:00, 32.27it/s]Fetching 10 files: 100%|██████████| 10/10 [00:10<00:00,  1.05s/it]
+BAAI/bge-base-en-v1.5 ok 10.7 s
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files:  11%|█         | 1/9 [00:00<00:00,  8.95it/s]Fetching 9 files:  78%|███████▊  | 7/9 [00:04<00:01,  1.43it/s]Fetching 9 files:  89%|████████▉ | 8/9 [00:04<00:00,  1.66it/s]Fetching 9 files: 100%|██████████| 9/9 [00:11<00:00,  1.84s/it]Fetching 9 files: 100%|██████████| 9/9 [00:11<00:00,  1.29s/it]
+intfloat/e5-base-v2 ok 11.8 s
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files:  10%|█         | 1/10 [00:00<00:01,  7.75it/s]Fetching 10 files:  60%|██████    | 6/10 [00:00<00:00, 29.54it/s]Fetching 10 files:  90%|█████████ | 9/10 [00:12<00:00, 29.54it/s]Fetching 10 files: 100%|██████████| 10/10 [00:16<00:00,  2.03s/it]Fetching 10 files: 100%|██████████| 10/10 [00:16<00:00,  1.63s/it]
+Snowflake/snowflake-arctic-embed-m-v1.5 ok 16.6 s
+Fetching 8 files:   0%|          | 0/8 [00:00<?, ?it/s]Fetching 8 files:  12%|█▎        | 1/8 [00:00<00:00,  9.81it/s]Fetching 8 files: 100%|██████████| 8/8 [00:39<00:00,  5.08s/it]Fetching 8 files: 100%|██████████| 8/8 [00:39<00:00,  4.89s/it]
+Alibaba-NLP/gte-modernbert-base ok 39.3 s
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files:  10%|█         | 1/10 [00:00<00:00,  9.12it/s]Fetching 10 files:  80%|████████  | 8/10 [00:00<00:00, 29.07it/s]Fetching 10 files:  90%|█████████ | 9/10 [00:17<00:00, 29.07it/s]Fetching 10 files: 100%|██████████| 10/10 [00:24<00:00,  3.25s/it]Fetching 10 files: 100%|██████████| 10/10 [00:24<00:00,  2.41s/it]
+nomic-ai/nomic-embed-text-v1.5 ok 24.3 s
+Fetching 12 files:   0%|          | 0/12 [00:00<?, ?it/s]Fetching 12 files:   8%|▊         | 1/12 [00:00<00:01,  9.13it/s]Fetching 12 files:  67%|██████▋   | 8/12 [00:00<00:00, 39.53it/s]Fetching 12 files: 100%|██████████| 12/12 [00:03<00:00,  2.67it/s]Fetching 12 files: 100%|██████████| 12/12 [00:03<00:00,  3.32it/s]
+sentence-transformers/all-MiniLM-L6-v2 ok 3.8 s
+Fetching 5 files:   0%|          | 0/5 [00:00<?, ?it/s]Fetching 5 files:  20%|██        | 1/5 [00:00<00:00,  5.67it/s]Fetching 5 files:  80%|████████  | 4/5 [00:00<00:00, 15.79it/s]Fetching 5 files:  80%|████████  | 4/5 [00:18<00:00, 15.79it/s]Fetching 5 files: 100%|██████████| 5/5 [00:19<00:00,  5.44s/it]Fetching 5 files: 100%|██████████| 5/5 [00:19<00:00,  3.93s/it]
+sentence-transformers/static-retrieval-mrl-en-v1 ok 19.9 s
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files:  10%|█         | 1/10 [00:00<00:00,  9.27it/s]Fetching 10 files:  60%|██████    | 6/10 [00:00<00:00, 27.56it/s]Fetching 10 files:  90%|█████████ | 9/10 [00:05<00:00,  1.32it/s]Fetching 10 files:  90%|█████████ | 9/10 [00:19<00:00,  1.32it/s]Fetching 10 files: 100%|██████████| 10/10 [01:02<00:00, 10.26s/it]Fetching 10 files: 100%|██████████| 10/10 [01:02<00:00,  6.21s/it]
+Qwen/Qwen3-Embedding-0.6B ok 62.3 s
+Fetching 9 files:   0%|          | 0/9 [00:00<?, ?it/s]Fetching 9 files:  11%|█         | 1/9 [00:00<00:00,  9.00it/s]Fetching 9 files:  67%|██████▋   | 6/9 [00:00<00:00, 23.17it/s]Fetching 9 files: 100%|██████████| 9/9 [00:12<00:00,  1.81s/it]Fetching 9 files: 100%|██████████| 9/9 [00:12<00:00,  1.42s/it]
+intfloat/multilingual-e5-small ok 13.0 s
+Fetching 10 files:   0%|          | 0/10 [00:00<?, ?it/s]Fetching 10 files:  10%|█         | 1/10 [00:00<00:00,  9.10it/s]Fetching 10 files:  40%|████      | 4/10 [00:00<00:00, 19.54it/s]Fetching 10 files:  90%|█████████ | 9/10 [00:13<00:00, 19.54it/s]Fetching 10 files: 100%|██████████| 10/10 [00:40<00:00,  4.68s/it]Fetching 10 files: 100%|██████████| 10/10 [00:40<00:00,  4.03s/it]
+Snowflake/snowflake-arctic-embed-s ok 40.5 s
+DOWNLOADS_DONE
