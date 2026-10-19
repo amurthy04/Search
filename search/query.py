@@ -51,7 +51,8 @@ class Engine:
         from .embed import make_embedder
         from .index import Searcher
         t0 = time.perf_counter()
-        self.emb = make_embedder(backend, model, device=device, fp16=(device != "cpu"), max_seq=max_seq, batch_size=32)
+        bs = 1 if backend.startswith("coreml") else 32  # CoreML graph is fixed-shape: batch 1 for single queries
+        self.emb = make_embedder(backend, model, device=device, fp16=(device != "cpu"), max_seq=max_seq, batch_size=bs)
         self.t_model = time.perf_counter() - t0
         t0 = time.perf_counter()
         self.searcher = Searcher(kind, index_path, threads=threads)

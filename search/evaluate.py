@@ -60,11 +60,20 @@ def ndcg_at_k(ranked: list[str], rel: dict, k: int = 10) -> float:
 
 
 def cmd_beir(args):
+    if len(args.models) > 1:
+        # one subprocess per model: faiss (own OpenMP) + transformers' threaded weight loading segfault in one process
+        import subprocess, sys
+        for m in args.models:
+            subprocess.run([sys.executable, "-m", "search.evaluate", "beir", "--models", m, "--datasets", *args.datasets,
+                            "--backend", args.backend, "--device", args.device, "--max-seq", str(args.max_seq),
+                            "--batch", str(args.batch), "--out", args.out])
+        return
     from .embed import make_embedder
     results = {}
     for model in args.models:
         emb = make_embedder(args.backend, model, device=args.device, fp16=True, max_seq=args.max_seq, batch_size=args.batch)
-        import faiss  # after model load: importing faiss (own OpenMP) first segfaults transformers' threaded weight loading
+        import faiss
+        faiss.omp_set_num_threads(1)  # multi-threaded faiss segfaults once torch has initialised its own OpenMP runtime
         for name in args.datasets:
             corpus, queries, qrels = load_beir(name)
             ids = list(corpus)

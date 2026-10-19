@@ -608,13 +608,16 @@ def format_line(elapsed, snaps, t0):
     inst = (pages - _prev["pages"]) / max(1e-6, now - _prev["t"])
     _prev.update(pages=pages, t=now)
     lat = collections.defaultdict(list)
+    errs = collections.Counter()
     for s in snaps:
+        errs.update(s["errors"])
         for k, v in s["lat"].items():
             lat[k].extend(v)
+    top = " ".join(f"{k}={v}" for k, v in errs.most_common(4))
     return (f"[{elapsed:6.0f}s] pages={pages} ({pages/max(elapsed,1e-6):.1f}/s avg, {inst:.1f}/s now) MB={mb:.0f} "
             f"wireMB={wire:.0f} err={err} frontier={frontier} hosts={hosts} inflight={inflight} | p50 dns={pct(lat['dns'],50):.0f} "
             f"conn={pct(lat['connect'],50):.0f} ttfb={pct(lat['ttfb'],50):.0f} dl={pct(lat['download'],50):.0f} "
-            f"parse={pct(lat['parse'],50):.1f} total={pct(lat['total'],50):.0f}ms p95 total={pct(lat['total'],95):.0f}ms")
+            f"parse={pct(lat['parse'],50):.1f} total={pct(lat['total'],50):.0f}ms p95 total={pct(lat['total'],95):.0f}ms | {top}")
 
 
 # ---------------------------------------------------------------- multiprocess

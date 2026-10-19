@@ -157,22 +157,33 @@ class CoreMLEmbedder:
         self.tok = AutoTokenizer.from_pretrained(model_name)
         self.dim = None
 
+    def _batches(self, texts):
+        """Tokenize batch i+1 on a worker thread while batch i runs on the GPU."""
+        from concurrent.futures import ThreadPoolExecutor
+        B, S = self.B, self.S
+
+        def tok(chunk):
+            enc = self.tok(chunk, return_tensors="np", padding="max_length", truncation=True, max_length=S)
+            ids = enc["input_ids"].astype(np.int32); mask = enc["attention_mask"].astype(np.int32)
+            if len(chunk) < B:
+                pad = B - len(chunk)
+                ids = np.concatenate([ids, np.zeros((pad, S), np.int32)]); mask = np.concatenate([mask, np.zeros((pad, S), np.int32)])
+                mask[-pad:, 0] = 1
+            return len(chunk), ids, mask
+
+        with ThreadPoolExecutor(max_workers=2) as ex:
+            futs = [ex.submit(tok, texts[i:i + B]) for i in range(0, len(texts), B)]
+            for f in futs:
+                yield f.result()
+
     def encode(self, texts, is_query=False, show=False):
         pre = self.qp if is_query else self.dp
         if pre:
             texts = [pre + t for t in texts]
-        enc = self.tok(texts, return_tensors="np", padding="max_length", truncation=True, max_length=self.S)
-        ids = enc["input_ids"].astype(np.int32); mask = enc["attention_mask"].astype(np.int32)
-        n = len(texts)
         out = []
-        for i in range(0, n, self.B):
-            bi, bm = ids[i:i + self.B], mask[i:i + self.B]
-            if len(bi) < self.B:
-                pad = self.B - len(bi)
-                bi = np.concatenate([bi, np.zeros((pad, self.S), np.int32)]); bm = np.concatenate([bm, np.zeros((pad, self.S), np.int32)])
-                bm[-pad:, 0] = 1  # avoid all-masked rows
-            r = self.model.predict({"input_ids": bi, "attention_mask": bm})["emb"]
-            out.append(r[: min(self.B, n - i)])
+        for n, ids, mask in self._batches(texts):
+            r = self.model.predict({"input_ids": ids, "attention_mask": mask})["emb"]
+            out.append(r[:n])
         res = np.concatenate(out).astype(np.float32)
         self.dim = res.shape[1]
         return res
