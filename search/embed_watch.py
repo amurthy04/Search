@@ -8,6 +8,7 @@ from __future__ import annotations
 import argparse
 import glob
 import os
+import re
 import subprocess
 import sys
 import time
@@ -22,10 +23,13 @@ from .corpus import iter_passages
 def crawler_running(shards_pattern: str = "") -> bool:
     """Is a crawler writing to this shard directory? (match on its --out dir so other crawls don't count)"""
     out = subprocess.run(["pgrep", "-fl", "search.crawler"], capture_output=True, text=True).stdout
-    if not out.strip():
+    # only count real crawler processes ("python -m search.crawler ..."), not shells/waiters whose
+    # command line merely mentions the string (that deadlocked the last shard once)
+    lines = [l for l in out.splitlines() if re.search(r"python[^ ]* -m search\.crawler", l)]
+    if not lines:
         return False
     d = os.path.dirname(shards_pattern)
-    return any(d in line for line in out.splitlines()) if d else True
+    return any(d in line for line in lines) if d else True
 
 
 def closed_shards(pattern: str) -> list[str]:
