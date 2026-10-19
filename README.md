@@ -53,3 +53,19 @@ Embed query -> ANN top-k·overfetch -> dedupe by document -> snippets. Each stag
 
 ## Results
 See [RESULTS.md](RESULTS.md) for the optimization log and current numbers.
+
+## What "the whole web" would take
+
+This repo runs the full pipeline on one laptop; the numbers in RESULTS.md are what one machine on a campus Wi-Fi link
+can do (crawl ~300 pages/s, embed ~600 passages/s, query ~2-6 ms). Scaling the same design out:
+
+| | one M5 Pro laptop (measured) | ~1B pages (indexable web, order of magnitude) |
+|---|---|---|
+| crawl | 300 pages/s, capped by ~120 new TCP connections/s on the path | 1B pages / 7 days = ~1,650 pages/s -> 6-10 boxes on wired links. Host-hash sharding already makes workers independent; replace the mp.Queue link routing with a message bus. |
+| HTML storage | 300 KB/page before compression, ~70 KB zstd | ~70 TB zstd; keep only text (~5 KB/page) -> 5 TB |
+| embedding | 600 passages/s (bge-small, CoreML GPU) | 3.5B passages: ~1,600 GPU-hours on this GPU, ~40 GPU-hours on an H100-class card (bge-small ~25k passages/s) |
+| vectors | 384-d fp16 = 768 B/passage | 3.5B x 768 B = 2.7 TB fp16; SQ8 1.3 TB; needs a sharded index (e.g. 64 HNSW shards of ~55M, or IVF-PQ at ~64 B/vector = 220 GB) |
+| query | 0.2 ms HNSW over 231k; embedding 1-6 ms | scatter to shards + merge; HNSW stays ~1 ms/shard, so query latency stays embedding-bound |
+
+Nothing in the pipeline is single-machine by design: the crawler shards by host hash with no coordinator, the embedder
+processes closed shards independently (`embed_watch`), and parts are merged into one index at the end (`merge_parts`).
