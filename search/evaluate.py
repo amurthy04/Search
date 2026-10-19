@@ -61,10 +61,10 @@ def ndcg_at_k(ranked: list[str], rel: dict, k: int = 10) -> float:
 
 def cmd_beir(args):
     from .embed import make_embedder
-    import faiss
     results = {}
     for model in args.models:
         emb = make_embedder(args.backend, model, device=args.device, fp16=True, max_seq=args.max_seq, batch_size=args.batch)
+        import faiss  # after model load: importing faiss (own OpenMP) first segfaults transformers' threaded weight loading
         for name in args.datasets:
             corpus, queries, qrels = load_beir(name)
             ids = list(corpus)

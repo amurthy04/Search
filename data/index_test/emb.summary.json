@@ -1,0 +1,12 @@
+{
+ "model": "BAAI/bge-small-en-v1.5",
+ "backend": "st",
+ "passages": 3000,
+ "dim": 384,
+ "elapsed_s": 73.46817350000492,
+ "passages_per_s": 40.83400821172992,
+ "embed_s": 73.39011612502509,
+ "read_s": 0.06735671602655202,
+ "max_seq": 256,
+ "batch": 128
+}

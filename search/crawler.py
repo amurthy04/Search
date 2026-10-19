@@ -513,7 +513,7 @@ class Crawler:
         self.resolver = DnsPyResolver(self.cfg["nameservers"], concurrency=self.cfg.get("dns_concurrency", 256))
         connector = aiohttp.TCPConnector(limit=self.concurrency + 64, limit_per_host=self.per_host, use_dns_cache=False,
                                          resolver=self.resolver, enable_cleanup_closed=True, happy_eyeballs_delay=None)
-        timeout = aiohttp.ClientTimeout(total=15, connect=5, sock_read=8)
+        timeout = aiohttp.ClientTimeout(total=self.cfg.get("timeout_total", 15), connect=self.cfg.get("timeout_connect", 5), sock_read=self.cfg.get("timeout_read", 8))
         headers = {"User-Agent": USER_AGENT, "Accept": "text/html,application/xhtml+xml;q=0.9,*/*;q=0.1",
                    "Accept-Language": "en;q=0.9,*;q=0.5", "Accept-Encoding": "gzip, deflate, br"}
         tasks: set[asyncio.Task] = set()
@@ -588,7 +588,8 @@ class Crawler:
     def summary(self, elapsed):
         st = self.stats
         return {"elapsed_s": elapsed, "pages": st.pages, "pages_per_s": st.pages / max(elapsed, 1e-6),
-                "mbytes": st.bytes / 1e6, "errors": dict(st.errors), "hosts": len(self.hosts), "seen_urls": len(self.seen),
+                "mbytes": st.bytes / 1e6, "errors": dict(st.errors), "status": {str(k): v for k, v in st.status.items()},
+                "dns": dict(self.resolver.stats) if self.resolver else {}, "hosts": len(self.hosts), "seen_urls": len(self.seen),
                 "latency_ms": {k: {"p50": pct(v, 50), "p90": pct(v, 90), "p99": pct(v, 99)} for k, v in st.lat.items()}}
 
 
@@ -719,13 +720,17 @@ def main(argv=None):
     ap.add_argument("--max-links", type=int, default=150)
     ap.add_argument("--time-limit", type=float, default=0)
     ap.add_argument("--nameservers", default="", help="comma list; default system + public")
+    ap.add_argument("--timeout-total", type=float, default=15)
+    ap.add_argument("--timeout-connect", type=float, default=5)
+    ap.add_argument("--timeout-read", type=float, default=8)
     ap.add_argument("--summary", default="")
     args = ap.parse_args(argv)
 
     ns = [x for x in args.nameservers.split(",") if x] or (system_nameservers() + ["1.1.1.1", "8.8.8.8"])
     cfg = {"concurrency": args.concurrency, "per_host": args.per_host, "host_delay": args.host_delay,
            "max_per_host": args.max_per_host, "max_depth": args.max_depth, "time_limit": args.time_limit,
-           "max_pages": args.max_pages, "max_body": args.max_body, "max_links": args.max_links, "nameservers": ns}
+           "max_pages": args.max_pages, "max_body": args.max_body, "max_links": args.max_links, "nameservers": ns,
+           "timeout_total": args.timeout_total, "timeout_connect": args.timeout_connect, "timeout_read": args.timeout_read}
     seeds = load_seeds(args.seeds, args.n_seeds, args.seed_offset)
     if args.workers <= 1:
         if uvloop is not None:

@@ -1,64 +1,66 @@
 {
-  "elapsed_s": 60.187432289123535,
-  "pages": 3519,
-  "pages_per_s": 58.467355495341806,
-  "mbytes": 496.36209,
+  "elapsed_s": 60.28407311439514,
+  "pages": 9047,
+  "pages_per_s": 150.07280584429657,
+  "mbytes": 1852.222944,
   "errors": {
-    "ClientConnectorDNSError": 699,
-    "ClientConnectorError": 73,
-    "ClientConnectorCertificateError": 250,
-    "http_4xx": 679,
-    "truncated": 1894,
-    "too_short": 1630,
-    "http_5xx": 40,
-    "http_2xx": 25,
-    "not_html": 20,
-    "ClientConnectorSSLError": 31,
-    "http_3xx": 11,
-    "ClientResponseError": 25,
-    "ServerDisconnectedError": 6,
-    "ClientOSError": 4,
-    "timeout": 876,
-    "TooManyRedirects": 10,
-    "NonHttpUrlRedirectClientError": 1
+    "ClientConnectorDNSError": 918,
+    "ClientConnectorSSLError": 41,
+    "http_4xx": 1353,
+    "truncated": 976,
+    "too_short": 1536,
+    "ClientConnectorCertificateError": 429,
+    "ClientConnectorError": 122,
+    "http_5xx": 78,
+    "http_2xx": 65,
+    "ServerDisconnectedError": 12,
+    "TooManyRedirects": 24,
+    "http_3xx": 22,
+    "ClientResponseError": 37,
+    "not_html": 30,
+    "timeout": 564,
+    "ClientPayloadError": 2,
+    "http_9xx": 2,
+    "ClientOSError": 3,
+    "InvalidUrlRedirectClientError": 1
   },
-  "hosts": 11100,
-  "seen_urls": 110401,
+  "hosts": 20373,
+  "seen_urls": 225133,
   "latency_ms": {
     "robots": {
-      "p50": 0.0694170012138784,
-      "p90": 0.2660000172909349,
-      "p99": 1.8493329989723861
+      "p50": 0.07133299368433654,
+      "p90": 0.1478340127505362,
+      "p99": 0.5739590269513428
     },
     "dns": {
-      "p50": 269.1435000160709,
-      "p90": 2311.535874992842,
-      "p99": 3559.626999980537
+      "p50": 122.73316600476392,
+      "p90": 597.6888330187649,
+      "p99": 2493.847083009314
     },
     "connect": {
-      "p50": 1774.6300829749089,
-      "p90": 4107.496250013355,
-      "p99": 4934.679458994651
+      "p50": 602.8988340112846,
+      "p90": 2229.455292021157,
+      "p99": 3835.1542500022333
     },
     "ttfb": {
-      "p50": 2963.065749994712,
-      "p90": 6875.730792002287,
-      "p99": 11066.967541992199
+      "p50": 1424.7227080049925,
+      "p90": 3664.9864590144716,
+      "p99": 7134.215124999173
     },
     "download": {
-      "p50": 0.024124979972839355,
-      "p90": 0.29141700360924006,
-      "p99": 97.2775419941172
+      "p50": 30.29012499609962,
+      "p90": 455.39904199540615,
+      "p99": 2010.7706250273623
     },
     "parse": {
-      "p50": 1.5543329936917871,
-      "p90": 6.316959013929591,
-      "p99": 20.767874986631796
+      "p50": 1.1442079849075526,
+      "p90": 2.8342080186121166,
+      "p99": 7.205333997262642
     },
     "total": {
-      "p50": 2967.2812090138905,
-      "p90": 6880.409917008365,
-      "p99": 11083.176291984273
+      "p50": 1575.2552079793531,
+      "p90": 4001.4501250116155,
+      "p99": 7795.928290986922
     }
   },
   "config": {

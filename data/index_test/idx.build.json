@@ -1,0 +1,24 @@
+[
+ {
+  "kind": "flat",
+  "n": 3000,
+  "dim": 384,
+  "build_s": 0.0011485829891171306,
+  "size_mb": 4.608045,
+  "M": 32,
+  "efc": 200,
+  "nlist": 0,
+  "path": "data/index_test/idx.flat"
+ },
+ {
+  "kind": "hnsw",
+  "n": 3000,
+  "dim": 384,
+  "build_s": 0.34177229201304726,
+  "size_mb": 5.422338,
+  "M": 32,
+  "efc": 200,
+  "nlist": 0,
+  "path": "data/index_test/idx.hnsw"
+ }
+]
