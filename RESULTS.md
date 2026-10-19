@@ -75,8 +75,79 @@ Embedding pipeline (CoreML, real passages, mean 235 tokens): tokenization 9,300/
 560-840 passages/s on real batches vs 1,491/s in the short conversion benchmark (GPU clock/thermal variance; re-measured
 below on an idle machine). At ~3.5 passages/page this is >= the crawl rate, so embedding is not the pipeline bottleneck.
 
-## 4. Index
-(pending)
+## 4. Index (231,342 passages / 80k pages, 384-d, bge-small; `bench/index_sweep.sh`)
 
-## 5. End-to-end query latency
-(pending)
+Build: flat 0.1 s (355 MB) · HNSW M=32 efC=200 33 s (418 MB) · HNSW+SQ8 32 s (152 MB) · usearch f16 31 s (242 MB) · usearch i8 15 s (153 MB) · IVF 4.6 s.
+
+Single-query latency (1 thread) and recall@10 against exact search, 1000 queries:
+
+| index | param | recall@10 | p50 ms | p99 ms | batch ms/q |
+|---|---|---|---|---|---|
+| flat | 0 | 1.000 | 3.24 | 4.28 | 0.247 |
+| hnsw | 16 | 0.975 | 0.06 | 0.11 | 0.065 |
+| hnsw | 32 | 0.986 | 0.10 | 0.17 | 0.102 |
+| hnsw | 64 | 0.994 | 0.19 | 0.28 | 0.178 |
+| hnsw | 128 | 0.996 | 0.35 | 0.52 | 0.349 |
+| hnsw | 256 | 0.997 | 0.72 | 1.00 | 0.678 |
+| hnsw_sq | 16 | 0.968 | 0.07 | 0.12 | 0.067 |
+| hnsw_sq | 32 | 0.980 | 0.11 | 0.18 | 0.110 |
+| hnsw_sq | 64 | 0.986 | 0.19 | 0.29 | 0.180 |
+| hnsw_sq | 128 | 0.988 | 0.35 | 0.51 | 0.341 |
+| hnsw_sq | 256 | 0.990 | 0.68 | 0.93 | 0.647 |
+| usearch_f16 | 16 | 0.994 | 0.29 | 0.45 | 0.273 |
+| usearch_f16 | 32 | 0.994 | 0.29 | 0.42 | 0.268 |
+| usearch_f16 | 64 | 0.994 | 0.29 | 0.45 | 0.271 |
+| usearch_f16 | 128 | 0.994 | 0.29 | 0.45 | 0.270 |
+| usearch_f16 | 256 | 0.994 | 0.29 | 0.43 | 0.271 |
+| usearch_i8 | 16 | 0.932 | 0.14 | 0.22 | 0.134 |
+| usearch_i8 | 32 | 0.932 | 0.14 | 0.22 | 0.131 |
+| usearch_i8 | 64 | 0.932 | 0.14 | 0.22 | 0.133 |
+| usearch_i8 | 128 | 0.932 | 0.15 | 0.24 | 0.141 |
+| usearch_i8 | 256 | 0.932 | 0.15 | 0.24 | 0.135 |
+| flat | 0 | 1.000 | 3.13 | 6.34 | 0.393 |
+| ivf | 4 | 0.846 | 0.10 | 0.13 | 0.037 |
+| ivf | 8 | 0.904 | 0.12 | 0.19 | 0.054 |
+| ivf | 16 | 0.945 | 0.20 | 0.27 | 0.108 |
+| ivf | 32 | 0.969 | 0.27 | 0.34 | 0.218 |
+| ivf | 64 | 0.983 | 0.50 | 0.63 | 0.431 |
+
+**Decision: faiss HNSW (M=32, efConstruction=200), efSearch=64**: recall@10 0.994 at 0.19 ms p50 / 0.28 ms p99, 17x faster
+than exact at this size (the gap widens with N; exact is O(N)). HNSW+SQ8 is 2.7x smaller for -0.8 recall points, the
+option if the index outgrows RAM. usearch's search-expansion knob was not wired in this run (constant numbers), so it
+is compared only at its default. Index search is ~3% of query latency; the query embedding dominates.
+
+## 5. End-to-end query latency (30 web queries x 3 repeats, `bench/e2e.py`, k=10, HNSW ef=64)
+
+| tag | model | backend | passages | embed p50 | search p50 | total p50 | total p95 | total p99 |
+|---|---|---|---|---|---|---|---|---|
+| v1_coreml_gpu | bge-small-en-v1.5 | coreml/gpu | 231342 | 5.3 | 0.28 | 5.8 | 6.8 | 8.4 |
+| v1_st_cpu | bge-small-en-v1.5 | st/cpu | 231342 | 7.9 | 0.25 | 8.2 | 10.1 | 12.7 |
+| v1_st_mps | bge-small-en-v1.5 | st/mps | 231342 | 8.8 | 0.25 | 9.2 | 11.2 | 55.1 |
+
+Single-query embedding backends (same bge-small weights, `bench` in session):
+
+| backend | p50 ms | p95 ms | note |
+|---|---|---|---|
+| torch MPS fp16 | 8.8 | 10.9 | p99 55 ms (GPU scheduling hiccups) |
+| torch CPU fp32, 1 thread | 6.7 | 7.8 | |
+| CoreML GPU, batch 1, seq 64 | 2.9 | 5.3 | |
+| CoreML GPU, batch 1, seq 32 | 2.3 | 4.8 | |
+| CoreML ANE, batch 1, seq 32 | 1.4 | 121 | p95 spikes = contention with the ANE embedding watcher running at the time |
+| CoreML ALL, batch 1, seq 32 | **1.05** | 120 | same caveat; the best path on an idle machine |
+
+**Decision: CoreML batch-1 graph for queries** (`--backend coreml`): end-to-end p50 5.8 ms -> with seq 32 and an idle
+ANE, ~1.5 ms is reachable. Beyond that the remaining cost is the 12-layer transformer itself; the only further lever
+is a smaller/distilled query encoder, i.e. training (step 3 of the brief).
+
+## 6. Accuracy on the crawled corpus (pseudo-queries from 500 held-out pages, `evaluate self`)
+
+| query type | n | MRR@10 | R@1 | R@10 |
+|---|---|---|---|---|
+| page title | 500 | 0.843 | 0.786 | 0.934 |
+| random sentence from body | 454 | 0.418 | 0.341 | 0.575 |
+
+Manual review of the 30 e2e queries (`bench/results/e2e_v1_coreml_gpu.json`): results are topically right ("best way to
+learn rust" -> Rust training pages; "how do vaccines work" -> vaccine pages) but the v1 corpus is Tranco ranks 400k-560k,
+i.e. long-tail sites, so authoritative answers (Wikipedia, docs, major health/news sites) are simply not in it. That is a
+coverage problem, not a retrieval problem -> fixed by the depth crawl over 239 authoritative hosts (`data/seeds/quality_hosts.txt`),
+which reuses keep-alive connections and so runs alongside the main crawl without spending the new-connection budget.

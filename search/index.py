@@ -84,7 +84,7 @@ class Searcher:
         elif self.kind == "ivf":
             self.idx.nprobe = v
         elif self.kind.startswith("usearch"):
-            self.ef = v
+            self.idx.expansion_search = v
 
     def search(self, q: np.ndarray, k: int):
         if self.kind.startswith("usearch"):

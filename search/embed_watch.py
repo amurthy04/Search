@@ -86,8 +86,9 @@ def main():
     total = 0; t_start = time.time()
     while True:
         todo = []
-        for i, s in enumerate(closed_shards(args.shards)):
-            if i % args.mod != args.rem:
+        import zlib
+        for s in closed_shards(args.shards):
+            if zlib.crc32(os.path.basename(s).encode()) % args.mod != args.rem:  # stable assignment as shards appear
                 continue
             name = os.path.basename(s).replace(".jsonl.zst", "")
             out_prefix = os.path.join(args.parts, name)
