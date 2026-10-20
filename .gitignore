@@ -12,3 +12,7 @@ bench/results/prof.out
 *.bin
 .DS_Store
 nohup.out
+video/audio_*/
+video/media/
+video/*.mp4
+video/.venv/
