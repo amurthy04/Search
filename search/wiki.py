@@ -514,6 +514,19 @@ def repair(prefix: str, st: dict):
             os.truncate(tp, cut)
 
 
+def legacy_ivf_sync(index, prefix: str, n: int):
+    """Bring the legacy single-file .ivf to exactly n rows: drop rows of a writer that died before its state write,
+    and add rows appended while the shared IVF (search.ann) was in use and nothing maintained this file."""
+    import faiss
+    if index.ntotal > n:
+        index.remove_ids(faiss.IDSelectorRange(n, index.ntotal))
+    if index.ntotal < n:
+        vecs = np.memmap(prefix + ".f16", dtype=np.float16, mode="r", shape=(n, 384))
+        for a in range(index.ntotal, n, 1 << 20):
+            index.add(np.asarray(vecs[a:min(n, a + (1 << 20))], dtype=np.float32))
+    assert index.ntotal == n, f"index has {index.ntotal} vectors, state says {n}"
+
+
 def cmd_index(a):
     lock = index_lock(getattr(a, "prefix", WIKI))
     try:
@@ -535,11 +548,12 @@ def _index(a):
     if not new:
         print("index up to date:", st["n"], "passages"); return
     t0 = time.time()
-    if os.path.exists(WIKI + ".ivf"):
+    from .ann import IVF_DIR
+    if os.path.exists(os.path.join(IVF_DIR, "meta.json")):
+        index = None  # the shared IVF indexes appended rows at read time (search.ann); only the row files grow
+    elif os.path.exists(WIKI + ".ivf"):
         index = faiss.read_index(WIKI + ".ivf")
-        if index.ntotal > st["n"]:  # a run that died between replacing the .ivf and writing the state
-            index.remove_ids(faiss.IDSelectorRange(st["n"], index.ntotal))
-        assert index.ntotal == st["n"], f"index has {index.ntotal} vectors, state says {st['n']}"
+        legacy_ivf_sync(index, WIKI, st["n"])
     else:  # train the coarse clusters + PQ codebooks on the first parts
         sample = np.concatenate([np.load(p + ".npy", mmap_mode="r")[::3] for p in new[:4]]).astype(np.float32)
         sample = sample[np.random.default_rng(0).permutation(len(sample))[:a.nlist * 60]]
@@ -552,7 +566,8 @@ def _index(a):
             open(WIKI + ".titles.txt", "ab") as tf, open(WIKI + ".pageid.i64", "ab") as gf:
         for p in new:
             v = np.load(p + ".npy")
-            index.add(v.astype(np.float32))
+            if index is not None:
+                index.add(v.astype(np.float32))
             vf.write(v.tobytes())
             off = np.load(p + ".offsets.npy")
             pf.write(open(p + ".passages.bin", "rb").read())
@@ -570,17 +585,42 @@ def _index(a):
             st["n"] += len(v); st["parts"].append(os.path.basename(p))
             print(f"+{os.path.basename(p)}: {len(v):,} -> {st['n']:,} passages", flush=True)
     np.save(WIKI + ".poff.tmp.npy", np.concatenate(poffs)); os.replace(WIKI + ".poff.tmp.npy", WIKI + ".poff.npy")
-    faiss.write_index(index, WIKI + ".ivf.tmp"); os.replace(WIKI + ".ivf.tmp", WIKI + ".ivf")
+    if index is not None:
+        faiss.write_index(index, WIKI + ".ivf.tmp"); os.replace(WIKI + ".ivf.tmp", WIKI + ".ivf")
     open(_state_path(WIKI) + ".tmp", "wb").write(orjson.dumps(st)); os.replace(_state_path(WIKI) + ".tmp", _state_path(WIKI))
     print(f"index: {st['n']:,} passages, {st['pages']:,} articles ({time.time()-t0:.0f}s)", flush=True)
 
 
-class WikiIndex:
-    """Read side. `reload()` picks up passages appended by `search.wiki index` (the state file is written last);
-    everything a search touches is swapped in as one tuple so a concurrent search never mixes old and new."""
+class Titles:
+    """Title row -> title, from titles.txt read as one bytes object plus an index of its newlines (13M Python strings
+    would hold ~1 GB; this is its 290 MB). Built from `prev`, only lines after the first `committed` rows are scanned
+    again: rows past the state file can be cut and rewritten by repair() after a crashed writer."""
 
-    def __init__(self, prefix: str = WIKI, nprobe: int = 64, refine: int = 100):
-        self.prefix, self.nprobe, self.refine = prefix, nprobe, refine
+    def __init__(self, path: str, prev: "Titles | None" = None, committed: int = 0):
+        self.mm = open(path, "rb").read()  # in RAM, not mmapped: cold mmap pages are SSD reads at query time
+        ends = prev.ends[:committed] if prev is not None else np.zeros(0, np.int64)
+        start = int(ends[-1]) + 1 if len(ends) else 0
+        new = np.flatnonzero(np.frombuffer(self.mm, np.uint8, offset=start) == 10) + start if len(self.mm) > start else []
+        self.ends = np.concatenate([ends, np.asarray(new, np.int64)])
+
+    def __len__(self):
+        return len(self.ends)
+
+    def __getitem__(self, d: int) -> str:
+        a = int(self.ends[d - 1]) + 1 if d else 0
+        return self.mm[a:int(self.ends[d])].decode("utf-8")
+
+
+class WikiIndex:
+    """Read side. `reload()` picks up passages appended by `search.wiki index` / `search.wiki_update` (the state
+    file is written last); everything a search touches is swapped in as one tuple so a concurrent search never mixes
+    old and new.
+
+    With `ivf` (a search.ann.IVF), candidates come from the shared sharded index and rows appended since its build
+    are encoded into its delta shard on reload; without it, from the single legacy `.ivf` file."""
+
+    def __init__(self, prefix: str = WIKI, nprobe: int = 64, refine: int = 100, ivf=None):
+        self.prefix, self.nprobe, self.refine, self.ivf = prefix, nprobe, refine, ivf
         self.s = None; self.mtime = 0.0
         self.reload()
 
@@ -594,39 +634,68 @@ class WikiIndex:
         return max(os.path.getmtime(self.prefix + ".state.json"), os.path.getmtime(dp) if os.path.exists(dp) else 0.0)
 
     def reload(self) -> bool:
+        from .ann import Blob, Rows
         sp = self.prefix + ".state.json"
         if not os.path.exists(sp) or self._mtime() == self.mtime:
             return False
-        import faiss
         mtime = self._mtime()
-        n = orjson.loads(open(sp, "rb").read())["n"]
-        index = faiss.read_index(self.prefix + ".ivf")
-        index.nprobe = self.nprobe
-        vecs = np.memmap(self.prefix + ".f16", dtype=np.float16, mode="r", shape=(n, 384))
-        doc = np.memmap(self.prefix + ".doc.i32", dtype=np.int32, mode="r", shape=(n,))
+        st = orjson.loads(open(sp, "rb").read())
+        n = st["n"]
+        rows = Rows(self.prefix + ".f16", n)
+        if self.ivf is not None:
+            if "wiki" in self.ivf.covered:
+                self.ivf.extend("wiki", rows, n)
+            index = None
+        else:
+            import faiss
+            index = faiss.read_index(self.prefix + ".ivf")
+            index.nprobe = self.nprobe
+        # Small per-row arrays live in RAM (620 MB): every query reads a few dozen random entries of each, and as
+        # mmaps under memory pressure each of those reads is a separate ~50-100 us trip to the SSD.
+        doc = np.fromfile(self.prefix + ".doc.i32", dtype=np.int32, count=n)
         poff = np.load(self.prefix + ".poff.npy")
-        pas = np.memmap(self.prefix + ".passages.bin", dtype=np.uint8, mode="r")
-        titles = open(self.prefix + ".titles.txt", encoding="utf-8").read().split("\n")
+        pas = Blob(self.prefix + ".passages.bin")
+        prev = self.s[6] if self.s else None
+        titles = Titles(self.prefix + ".titles.txt", prev, min(st["pages"], self.s_pages if prev is not None else 0))
         # title row -> page id; Wikidata card rows hold -qid, so their hits link to Wikidata, not to the article
-        pageid = np.memmap(self.prefix + ".pageid.i64", dtype=np.int64, mode="r")
+        pageid = np.fromfile(self.prefix + ".pageid.i64", dtype=np.int64)
         dp = self.prefix + ".dead.u8"  # 1 = passage replaced or removed by search.wiki_update
         dead = np.fromfile(dp, np.uint8) if os.path.exists(dp) else np.zeros(0, np.uint8)
-        self.s = (n, index, vecs, doc, poff, pas, titles, dead, pageid)
+        self.s = (n, index, rows, doc, poff, pas, titles, dead, pageid)
+        self.s_pages = st["pages"]  # title rows the state file covered when `titles` was built
         self.mtime = mtime
         return True
 
-    def search(self, qv: np.ndarray, k: int = 8) -> list[dict]:
-        """Approximate top-`refine` from the compressed codes, exact re-score on fp16, one passage per article."""
+    def candidates(self, qv: np.ndarray) -> np.ndarray:
+        """Row ids of the best `refine` passages by compressed-code score."""
         if not self.s:
-            return []
-        n, index, vecs, doc, _, _, titles, dead, pageid = self.s
-        _, ids = index.search(qv.reshape(1, -1).astype(np.float32), self.refine)
-        ids = ids[0][(ids[0] >= 0) & (ids[0] < n)]  # the .ivf can be one indexing run ahead of the state file
+            return np.zeros(0, np.int64)
+        if self.ivf is not None:
+            return self.ivf.search(qv, {"wiki": self.refine})[0]["wiki"][0]
+        _, ids = self.s[1].search(qv.reshape(1, -1).astype(np.float32), self.refine)
+        return ids[0]
+
+    def live_ids(self, ids: np.ndarray) -> np.ndarray:
+        """Drop ids past the state file (an index can be one writer run ahead of it) and tombstoned rows."""
+        n, dead = self.s[0], self.s[7]
+        ids = ids[(ids >= 0) & (ids < n)]
         if len(dead):
             ids = ids[(ids >= len(dead)) | (dead[np.minimum(ids, len(dead) - 1)] == 0)]
-        ids.sort()  # ascending offsets: mmap reads in file order
-        sc = vecs[ids].astype(np.float32) @ qv.astype(np.float32)
-        hits, seen = [], set()
+        return np.sort(ids)
+
+    def prefetch(self, ids: np.ndarray):
+        if self.s:
+            self.s[2].prefetch(ids)
+
+    def hits(self, qv: np.ndarray, ids: np.ndarray, k: int = 8, prefetched: bool = False) -> list[dict]:
+        """Exact re-score of candidate rows on their fp16 vectors, best passage per article."""
+        if not self.s or not len(ids):
+            return []
+        _, _, rows, doc, _, _, titles, _, pageid = self.s
+        if not prefetched:
+            rows.prefetch(ids)
+        sc = rows.get(ids) @ qv.astype(np.float32)
+        out, seen = [], set()
         for j in np.argsort(-sc):
             i = int(ids[j]); d = int(doc[i])
             if d in seen:
@@ -634,16 +703,29 @@ class WikiIndex:
             seen.add(d)
             t = titles[d]
             g = int(pageid[d]) if d < len(pageid) else 0
-            hits.append({"score": float(sc[j]), "pid": i, "title": t,
-                         "url": f"https://www.wikidata.org/wiki/Q{-g}" if g < 0 else url_for(t)})
-            if len(hits) >= k:
+            out.append({"score": float(sc[j]), "pid": i, "title": t, "doc": d,
+                        "url": f"https://www.wikidata.org/wiki/Q{-g}" if g < 0 else url_for(t)})
+            if len(out) >= k:
                 break
-        return hits
+        return out
+
+    def search(self, qv: np.ndarray, k: int = 8) -> list[dict]:
+        """Approximate top-`refine` from the compressed codes, exact re-score on fp16, one passage per article."""
+        if not self.s:
+            return []
+        return self.hits(qv, self.live_ids(self.candidates(qv)), k)
+
+    def prefetch_passages(self, pids):
+        if not self.s:
+            return
+        poff, pas = self.s[4], self.s[5]
+        for pid in pids:
+            a = int(poff[pid]); pas.prefetch(a, int(poff[pid + 1]) - a)
 
     def passage(self, pid: int, max_chars: int = 700) -> str:
         poff, pas = self.s[4], self.s[5]
         a, b = int(poff[pid]), int(poff[pid + 1])
-        return pas[a:min(b, a + max_chars * 4)].tobytes().decode("utf-8", "ignore")[:max_chars + 200]
+        return pas.read(a, min(b, a + max_chars * 4) - a).decode("utf-8", "ignore")[:max_chars + 200]
 
 
 def main():

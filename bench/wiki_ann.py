@@ -38,6 +38,8 @@ def main():
     ap.add_argument("--hnsw-quantizer", type=int, default=0, help="replace the flat coarse quantizer by HNSW(M)")
     ap.add_argument("--threads", type=int, default=1)
     ap.add_argument("--tag", default="")
+    ap.add_argument("--shards", default="", help="index directory written by `python -m search.ann build`")
+    ap.add_argument("--madvise", action="store_true", help="prefetch refine rows concurrently before reading them")
     a = ap.parse_args()
     import faiss
     faiss.omp_set_num_threads(a.threads)
@@ -51,9 +53,24 @@ def main():
     truth_art = [top_articles(tid[j], tsc[j], doc, 8) for j in range(a.nq)]
 
     t0 = time.perf_counter()
-    index = faiss.read_index(a.index)
-    print(f"{a.index}: {index.ntotal:,} vectors, nlist {index.nlist}, load {time.perf_counter() - t0:.1f}s", flush=True)
-    if a.hnsw_quantizer:
+    if a.shards:  # a search.ann index directory, searched exactly as the chat searches it
+        sys.modules.setdefault("torch", None)
+        from search.ann import IVF
+        ivf = IVF(a.shards)
+        print(f"{a.shards}: {ivf.covered['wiki']:,} wiki vectors in {ivf.meta['sources']['wiki']['shards']} shards, "
+              f"nlist {ivf.nlist}, load {time.perf_counter() - t0:.1f}s", flush=True)
+
+        class _IVF:
+            def search(self, x, k):
+                ids, D = ivf.search(x[0], {"wiki": k})[0]["wiki"]
+                return D[None, :], ids[None, :]
+        index = _IVF()
+    else:
+        index = faiss.read_index(a.index)
+        print(f"{a.index}: {index.ntotal:,} vectors, nlist {index.nlist}, load {time.perf_counter() - t0:.1f}s", flush=True)
+    import mmap
+    fd = os.open(P + ".f16", os.O_RDONLY); mm = mmap.mmap(fd, 0, prot=mmap.PROT_READ); PG = mmap.PAGESIZE
+    if a.hnsw_quantizer and not a.shards:
         cent = index.quantizer.reconstruct_n(0, index.nlist)
         hq = faiss.IndexHNSWFlat(index.d, a.hnsw_quantizer, faiss.METRIC_INNER_PRODUCT)
         hq.hnsw.efConstruction = 200
@@ -61,8 +78,11 @@ def main():
         index.quantizer = hq; index.own_fields = False; a._keep = hq
     res = []
     for npb in a.nprobe:
-        index.nprobe = npb
-        if a.hnsw_quantizer:
+        if a.shards:
+            ivf.nprobe = npb
+        else:
+            index.nprobe = npb
+        if a.hnsw_quantizer and not a.shards:
             a._keep.hnsw.efSearch = max(64, 2 * npb)
         for rf in a.refine:
             lat, r10, r8 = [], [], []
@@ -72,6 +92,10 @@ def main():
                 ids = I[0][(I[0] >= 0) & (I[0] < n)]
                 ids = ids[dead[ids] == 0] if len(dead) else ids
                 ids.sort()
+                if a.madvise:
+                    for i in ids:
+                        off = int(i) * 768; b0 = off - off % PG
+                        mm.madvise(mmap.MADV_WILLNEED, b0, off + 768 - b0)
                 sc = vecs[ids].astype(np.float32) @ q[j]
                 lat.append((time.perf_counter() - t) * 1e3)
                 top10 = ids[np.argsort(-sc)[:10]]
@@ -79,6 +103,7 @@ def main():
                 arts = top_articles(ids, sc, doc, 8)
                 r8.append(len(set(arts) & set(truth_art[j])) / max(1, len(truth_art[j])))
             row = {"tag": a.tag, "nprobe": npb, "refine": rf, "hnswq": a.hnsw_quantizer, "threads": a.threads,
+                   "shards": a.shards, "madvise": a.madvise,
                    "recall10": round(float(np.mean(r10)), 4), "art_recall8": round(float(np.mean(r8)), 4),
                    "p50_ms": round(float(np.percentile(lat, 50)), 3), "p95_ms": round(float(np.percentile(lat, 95)), 3)}
             print(json.dumps(row), flush=True)

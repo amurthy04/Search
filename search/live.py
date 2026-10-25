@@ -21,6 +21,8 @@ from __future__ import annotations
 import asyncio
 import glob
 import io
+import json
+import math
 import os
 import subprocess
 import sys
@@ -57,6 +59,9 @@ class _Passages:
 
     def get(self, i: int, max_chars: int = 300) -> str:
         return self.base.get(i, max_chars) if i < self.n else self.extra[i - self.n][:max_chars]
+
+    def prefetch(self, ids, max_chars: int = 700):
+        self.base.prefetch([i for i in ids if i < self.n], max_chars)
 
 
 class Tiered:
@@ -165,9 +170,169 @@ class Tiered:
         return d[None, o], i[None, o]
 
 
+class LiveTier:
+    """Passages added at runtime (live crawl, pasted URLs) when the shared IVF (search.ann) is in use.
+
+    Vectors stay in RAM as fp16. The newest rows (fewer than `fresh_max`) are scored exactly, from an fp32 copy kept
+    for just those rows; older ones are encoded into IVF segments of the shared index under source "live", searched
+    in the same parallel pass as the web and Wikipedia shards and re-scored exactly from this buffer. Segments merge
+    size-tiered (4 on the same size level become one), so encoding work stays O(n log n). Readers take one snapshot
+    tuple and never wait on a writer. Segments are saved under `save_dir` and reloaded on restart when the rows, the
+    IVF build and the base row count all still match."""
+
+    def __init__(self, ivf, base_n: int, save_dir: str, dim: int = 384, fresh_max: int = 8192, fan_in: int = 4):
+        self.ivf, self.start, self.dim, self.fresh_max, self.fan_in = ivf, base_n, dim, fresh_max, fan_in
+        self.save_dir = save_dir
+        # (fp16 rows, rows used, fp32 copy of rows [f32_lo, n), f32_lo)
+        self.snap = (np.empty((65536, dim), np.float16), 0, np.empty((fresh_max * 2, dim), np.float32), 0)
+        self.encoded = 0      # rows [0, encoded) are in segments
+        self.segs: list[tuple[int, int]] = []  # row range of each segment, oldest first
+        self._hashes: dict[tuple[int, int], str] = {}
+        self.wlock = threading.Lock()
+        self.busy = False
+        self.hold = False  # set while a bulk load appends, so it is encoded as one segment, not a few uneven ones
+        self.failed = 0.0  # time of the last failed encode: retried after a minute, not in a loop
+
+    @property
+    def n(self) -> int:
+        return self.snap[1]
+
+    def release(self):
+        self._restore()
+        with self.wlock:
+            self.hold = False
+            self._trim(self.encoded)
+            self._kick()
+
+    def _identity(self) -> dict:
+        return {"built": self.ivf.meta.get("built"), "nlist": self.ivf.nlist, "base_n": self.start}
+
+    def _hash(self, a: int, b: int) -> str:
+        if (a, b) not in self._hashes:
+            import xxhash
+            self._hashes[(a, b)] = xxhash.xxh3_64_hexdigest(np.ascontiguousarray(self.snap[0][a:b]).tobytes())
+        return self._hashes[(a, b)]
+
+    def _restore(self):
+        """Reload saved segments: same IVF build and base, and the same vectors at the same row positions."""
+        mp = os.path.join(self.save_dir, "segments.json")
+        if not os.path.exists(mp):
+            return
+        saved = json.load(open(mp))
+        if not isinstance(saved, dict) or saved.get("identity") != self._identity():
+            return
+        import faiss
+        for seg in saved["segs"]:
+            a, b = seg["rows"]
+            if b > self.n or self.encoded != a or self._hash(a, b) != seg["hash"]:
+                break
+            idx = faiss.read_index(os.path.join(self.save_dir, seg["file"]))
+            idx.nprobe = self.ivf.nprobe
+            with self.ivf._dlock:
+                self.ivf.shards["live"] = self.ivf.shards.get("live", ()) + (idx,)
+            self.segs.append((a, b)); self.encoded = b
+
+    def _save(self):
+        import faiss
+        os.makedirs(self.save_dir, exist_ok=True)
+        shards = self.ivf.shards.get("live", ())
+        segs = []
+        for (a, b), idx in zip(self.segs, shards):
+            h = self._hash(a, b)
+            f = f"seg_{a}_{b}_{h[:12]}.ivf"
+            path = os.path.join(self.save_dir, f)
+            if not os.path.exists(path):
+                faiss.write_index(idx, path + ".tmp"); os.replace(path + ".tmp", path)
+            segs.append({"rows": [a, b], "hash": h, "file": f})
+        with open(os.path.join(self.save_dir, "segments.json.tmp"), "w") as fh:
+            json.dump({"identity": self._identity(), "segs": segs}, fh)
+        os.replace(os.path.join(self.save_dir, "segments.json.tmp"), os.path.join(self.save_dir, "segments.json"))
+        keep = {m["file"] for m in segs}
+        for f in glob.glob(os.path.join(self.save_dir, "seg_*.ivf")):
+            if os.path.basename(f) not in keep:
+                os.remove(f)
+
+    def append(self, vecs: np.ndarray):
+        with self.wlock:
+            buf, n, f32, flo = self.snap
+            need = n + len(vecs)
+            if need > len(buf):
+                nb = np.empty((max(need, 2 * len(buf)), self.dim), np.float16); nb[:n] = buf[:n]; buf = nb
+            buf[n:need] = vecs  # rows past n are invisible to readers until the snapshot is swapped
+            if not self.hold:  # (a bulk load is encoded right after; its fp32 copy would be thrown away)
+                if need - flo > len(f32):
+                    nf = np.empty((max(need - flo, 2 * len(f32)), self.dim), np.float32); nf[:n - flo] = f32[:n - flo]
+                    f32 = nf
+                f32[n - flo:need - flo] = vecs
+            self.snap = (buf, need, f32, flo if not self.hold else need)
+            self._kick()
+
+    def _trim(self, e: int):
+        """Drop fp32 rows below e (now in a segment); rebuild the copy if it does not reach down to e. Holds wlock."""
+        buf, n, f32, flo = self.snap
+        if flo > e:  # rows [e, flo) have no fp32 copy (bulk load)
+            if n - e > 4 * self.fresh_max:
+                return  # a bulk load still being encoded: fresh() reads it from the fp16 rows meanwhile
+            nf = np.empty((max(self.fresh_max * 2, n - e), self.dim), np.float32); nf[:n - e] = buf[e:n]
+        else:
+            nf = np.empty((max(self.fresh_max * 2, n - e), self.dim), np.float32); nf[:n - e] = f32[e - flo:n - flo]
+        self.snap = (buf, n, nf, e)
+
+    def _kick(self):  # caller holds wlock
+        if (not self.busy and not self.hold and self.snap[1] - self.encoded >= self.fresh_max
+                and time.time() - self.failed > 60):
+            self.busy = True
+            threading.Thread(target=self._encode, daemon=True, name="live-encode").start()
+
+    def _encode(self):
+        try:
+            while True:
+                buf, n = self.snap[0], self.snap[1]
+                lo = self.encoded
+                if n - lo < self.fresh_max:
+                    break
+                self.ivf.add_segment("live", buf[lo:n], np.arange(lo, n) + self.start)
+                with self.wlock:
+                    self.segs.append((lo, n)); self.encoded = n
+                    self._trim(n)
+                # size-tiered merge: the newest fan_in segments become one while they are on the same size level
+                while len(self.segs) >= self.fan_in and len({self._level(r) for r in self.segs[-self.fan_in:]}) == 1:
+                    a, b = self.segs[-self.fan_in][0], self.segs[-1][1]
+                    self.ivf.add_segment("live", buf[a:b], np.arange(a, b) + self.start, replace=self.fan_in)
+                    self.segs[-self.fan_in:] = [(a, b)]
+                self._save()
+        except Exception as e:  # keep serving from the fresh tier; retry later instead of in a tight loop
+            self.failed = time.time()
+            print(f"[live] encoding failed, retrying in 60 s: {e!r}", flush=True)
+        finally:
+            with self.wlock:
+                self.busy = False
+                self._kick()  # rows that arrived while this thread was finishing
+
+    def _level(self, r: tuple[int, int]) -> int:
+        return int(math.log(max(1.0, (r[1] - r[0]) / self.fresh_max), self.fan_in))
+
+    def fresh(self, q: np.ndarray, k: int):
+        """Exact top-k over rows not in a segment yet."""
+        buf, n, f32, flo = self.snap
+        lo = self.encoded
+        if n <= lo:
+            return np.zeros(0, np.float32), np.zeros(0, np.int64)
+        if lo >= flo:
+            s = f32[lo - flo:n - flo] @ q
+        else:  # (only while a bulk load is still being encoded)
+            s = buf[lo:n].astype(np.float32) @ q
+        kk = min(k, len(s))
+        top = np.argpartition(-s, kk - 1)[:kk]
+        return s[top], (top + lo + self.start).astype(np.int64)
+
+    def rows(self, pids: np.ndarray) -> np.ndarray:
+        return self.snap[0][pids - self.start].astype(np.float32)
+
+
 class LiveIndex:
     def __init__(self, emb_prefix="data/index/emb_all", index_path="data/index/idx_all.hnsw", live_dir="data/index/live",
-                 ef: int = 64, ingest_batch: int = 16, gpu_busy: threading.Event | None = None):
+                 ef: int = 64, ingest_batch: int = 16, gpu_busy: threading.Event | None = None, ivf_dir: str = "data/ivf"):
         t0 = time.perf_counter()
         from .embed import make_embedder
         # Passage encoders first: loading a CoreML model after faiss is in the process segfaults
@@ -175,20 +340,40 @@ class LiveIndex:
         self.ingest_gpu = make_embedder("coreml", MODEL, max_seq=256, batch_size=ingest_batch)
         self.ingest_ane = make_embedder("coreml_ane", MODEL, max_seq=256, batch_size=ingest_batch)
         self.gpu_busy = gpu_busy or threading.Event()  # set by the LLM while it generates
-        # 32-token batch-1 query graph on the ANE: 0.72 ms p50 vs 2.4 ms for the 64-token GPU graph
-        self.eng = Engine(MODEL, emb_prefix, index_path, "hnsw", backend="coreml_ane", ef=ef, max_seq=32)
+        # batch-1 query graphs on the ANE (~0.45 ms each): 32 tokens, 64 for longer questions
+        use_ivf = os.path.exists(os.path.join(ivf_dir, "meta.json"))
+        self.eng = Engine(MODEL, emb_prefix, index_path, "none" if use_ivf else "hnsw", backend="coreml_ane", ef=ef,
+                          max_seq=32, extra_seqs=(64,))
         self.base_n = len(self.eng.urls)
-        assert self.eng.searcher.idx.ntotal == self.base_n, "index and metadata disagree"
         from .wiki import WikiIndex
         from .wikidata import Cards
-        self.wiki = WikiIndex()  # Wikipedia tier (grows while `search.wiki embed/index` run; reloaded by wiki_reload)
+        self.ivf = None
+        if use_ivf:  # one sharded IVF-PQ index over the web base and Wikipedia (search.ann)
+            from .ann import IVF, Rows
+            self.ivf = IVF(ivf_dir)
+            self.web_rows = Rows(emb_prefix + ".npy")
+            assert self.ivf.meta["sources"]["web"]["n"] == self.base_n == self.web_rows.n, "IVF and web metadata disagree"
+            base = None
+        else:
+            assert self.eng.searcher.idx.ntotal == self.base_n, "index and metadata disagree"
+            base = self.eng.searcher
+        # Wikipedia tier (grows while `search.wiki index` / `search.wiki_update` run; reloaded by wiki_reload)
+        self.wiki = WikiIndex(ivf=self.ivf)
+        # candidates re-scored exactly per query. On 1,000 NQ questions, 64 Wikipedia + 24 web candidates put the answer
+        # in the context as often as 100 + 48 (63.9%) and save ~0.6 ms of random reads (bench/retrieval.py --sweep)
+        self.web_refine = 24
+        self.wiki.refine = 64 if self.ivf is not None else self.wiki.refine
         self.cards = Cards()     # Wikidata fact cards + exact-name entity lookup
-        self.tiers = Tiered(self.eng.searcher, self.base_n, self.eng.searcher.idx.d)
-        self.eng.searcher = self.tiers
+        if self.ivf is not None:
+            self.tiers = LiveTier(self.ivf, self.base_n, os.path.join(live_dir, "ivf"))
+        else:
+            self.tiers = Tiered(base, self.base_n, 384)
+            self.eng.searcher = self.tiers
         self.eng.docs = _Docs(self.eng.docs)
         self.eng.passages = _Passages(self.eng.passages, self.base_n)
         self.next_doc = int(self.eng.docs.base.max()) + 1
-        self.seen = set(self.eng.urls)
+        from .query import UrlSet
+        self.seen = UrlSet(self.eng.urls, emb_prefix + ".meta.urlhash.npy")
         self.wlock = threading.Lock()  # one writer at a time keeps pid order == metadata order
 
         self.ane_free = threading.Event(); self.ane_free.set()
@@ -197,34 +382,56 @@ class LiveIndex:
             self.eng.emb.encode([q], is_query=True)
         for emb in (self.ingest_gpu, self.ingest_ane):  # first predict on each graph compiles it (~150 ms)
             emb.encode(["warm up passage encoder"] * ingest_batch)
-        # snippet reads are random 1 KB reads into a 3 GB file: pull it into the page cache up front
-        threading.Thread(target=self._pretouch, args=(emb_prefix + ".passages.bin",), daemon=True).start()
+        if self.ivf is None:  # (the IVF path prefetches the passages it is about to read instead)
+            # snippet reads are random 1 KB reads into a 3 GB file: pull it into the page cache up front
+            threading.Thread(target=self._pretouch, args=(emb_prefix + ".passages.bin",), daemon=True).start()
 
         self.live_dir = live_dir
         os.makedirs(live_dir, exist_ok=True)
         self.parts_loaded: set[str] = set()
         self.stats = {"live_passages": 0, "live_pages": 0, "ingest_pps": 0.0, "last_ingest": None, "ingest_unit": None}
+        if isinstance(self.tiers, LiveTier):
+            self.tiers.hold = True
         self._load_delta()
         self.load_parts()
+        if isinstance(self.tiers, LiveTier):
+            self.tiers.release()
         self.t_load = time.perf_counter() - t0
 
     # ------------------------------------------------------------------ query
-    def search(self, query: str, k: int = 8) -> dict:
+    def search(self, query: str, k: int = 8, snippets: bool = True, overfetch: int = 3) -> dict:
         self.ane_free.clear()
         try:
             t0 = time.perf_counter()
-            qv = self.eng.embed(query)  # per request: concurrent requests must not share a query vector
-            t_embed = (time.perf_counter() - t0) * 1e3
-            res = self.eng.search(query, k, qv=qv)
-            res["t_ms"]["embed"] = t_embed; res["t_ms"]["total"] += t_embed
-            t0 = time.perf_counter()
-            res["wiki"] = self.wiki.search(qv, k)
-            res["t_ms"]["wiki"] = (time.perf_counter() - t0) * 1e3
-            res["t_ms"]["total"] += res["t_ms"]["wiki"]
-            return res
+            # per request: concurrent requests must not share a query vector
+            qv = self.eng.embed(query)
+            t1 = time.perf_counter()
         finally:
             self.last_query = time.time()
             self.ane_free.set()
+        if self.ivf is None:
+            res = self.eng.search(query, k, qv=qv, snippets=snippets)
+            t2 = time.perf_counter()
+            res["wiki"] = self.wiki.search(qv, k)
+        else:
+            # one coarse pass, then the web and Wikipedia shards and the live tier all scan in parallel
+            kw = k * overfetch
+            cand, (fresh,) = self.ivf.search(qv, {"wiki": self.wiki.refine, "web": self.web_refine, "live": self.web_refine},
+                                             extra=[lambda: self.tiers.fresh(qv, kw)])
+            wiki_ids = self.wiki.live_ids(cand["wiki"][0]) if self.wiki.s else np.zeros(0, np.int64)
+            web_ids, live_ids = np.sort(cand["web"][0]), cand["live"][0]
+            self.wiki.prefetch(wiki_ids); self.web_rows.prefetch(web_ids)  # both sources' reads in flight together
+            D = np.concatenate([self.web_rows.get(web_ids) @ qv, self.tiers.rows(live_ids) @ qv, fresh[0]])
+            I = np.concatenate([web_ids, live_ids, fresh[1]])
+            o = np.argsort(-D)[:kw]
+            res = self.eng.collect(query, D[o], I[o], k, snippets)
+            t2 = time.perf_counter()
+            res["wiki"] = self.wiki.hits(qv, wiki_ids, k, prefetched=True)
+        t3 = time.perf_counter()
+        res["t_ms"] = {**res["t_ms"], "embed": (t1 - t0) * 1e3, "search": (t2 - t1) * 1e3, "wiki": (t3 - t2) * 1e3,
+                       "total": (t3 - t0) * 1e3}
+        res["qv"] = qv
+        return res
 
     def wiki_reload(self, every: float = 60.0):
         """Pick up Wikipedia passages indexed since the last check, and the Wikidata DB once it has been built."""
@@ -249,23 +456,22 @@ class LiveIndex:
             if time.time() - self.last_query >= every:
                 self.eng.emb.encode(["keep warm"], is_query=True)
 
-    def embed_query(self, query: str) -> np.ndarray:
-        self.ane_free.clear()
-        try:
-            return self.eng.emb.encode([query], is_query=True)[0]
-        finally:
-            self.ane_free.set()
-
     def passage(self, pid: int, max_chars: int) -> str:
         return self.eng.passages.get(pid, max_chars)
+
+    def prefetch_passages(self, pids, max_chars: int = 700):
+        self.eng.passages.prefetch(pids, max_chars)
 
     @property
     def size(self) -> int:
         return len(self.eng.urls)
 
     def status(self) -> dict:
-        buf, n, start, segs = self.tiers.state
-        return {**self.stats, "segments": len(segs), "fresh": n, "wiki_passages": self.wiki.n, "wikidata": self.cards.ok}
+        if isinstance(self.tiers, LiveTier):
+            segs, fresh = len(self.tiers.segs), self.tiers.n - self.tiers.encoded
+        else:
+            buf, fresh, start, s = self.tiers.state; segs = len(s)
+        return {**self.stats, "segments": segs, "fresh": fresh, "wiki_passages": self.wiki.n, "wikidata": self.cards.ok}
 
     @staticmethod
     def _pretouch(path: str, block: int = 8 << 20):

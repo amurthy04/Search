@@ -1,0 +1,10 @@
+{"date": "2026-10-25", "qs": "nq_open_dev", "n": 500, "mode": "none", "answer_acc": 0.054}
+{"date": "2026-10-25", "qs": "nq_open_dev", "n": 3610, "mode": "legacy", "thr": 0.75, "source_urls": false, "answer_acc": 0.3654, "ctx_answer_recall": 0.6066}
+{"date": "2026-10-25", "qs": "nq_open_dev", "n": 3610, "mode": "ivf", "thr": 0.75, "source_urls": false, "answer_acc": 0.3715, "ctx_answer_recall": 0.6183}
+{"date": "2026-10-25", "qs": "nq_open_dev", "n": 3610, "mode": "ivf", "thr": 0.70, "source_urls": false, "answer_acc": 0.3853, "ctx_answer_recall": 0.6587}
+{"date": "2026-10-25", "qs": "nq_open_dev", "n": 500, "mode": "ivf", "thr": 0.75, "k_ctx": 3, "source_urls": false, "answer_acc": 0.372, "ctx_answer_recall": 0.608}
+{"date": "2026-10-25", "qs": "nq_open_dev", "n": 500, "mode": "ivf", "thr": 0.75, "k_ctx": 6, "source_urls": false, "answer_acc": 0.408, "ctx_answer_recall": 0.652}
+{"date": "2026-10-25", "qs": "nq_open_dev", "n": 500, "mode": "ivf", "thr": 0.75, "source_urls": false, "system": "lead with the answer", "answer_acc": 0.398, "ctx_answer_recall": 0.628}
+{"date": "2026-10-25", "qs": "nq_open_dev", "n": 500, "mode": "nolink", "thr": 0.75, "source_urls": true, "answer_acc": 0.388, "ctx_answer_recall": 0.622}
+{"date": "2026-10-25", "qs": "nq_open_dev", "n": 500, "mode": "ivf", "thr": 0.75, "source_urls": true, "answer_acc": 0.398, "ctx_answer_recall": 0.628}
+{"date": "2026-10-25", "qs": "nq_open_dev", "n": 3610, "mode": "legacy", "thr": 0.75, "source_urls": true, "answer_acc": 0.3659, "ctx_answer_recall": 0.6066, "note": "as shipped before this change"}

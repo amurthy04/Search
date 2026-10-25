@@ -19,3 +19,5 @@ video/.venv/
 data/wiki/
 data/run/
 data/eval/
+data/ivf*/
+bench/results/answers_*.jsonl

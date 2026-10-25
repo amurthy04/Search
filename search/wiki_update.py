@@ -36,7 +36,7 @@ import orjson
 import requests
 import xxhash
 
-from .wiki import PARTS, WIKI, _disamb, clean_wikitext, index_lock, passages_for, repair, sync_pageids
+from .wiki import PARTS, WIKI, _disamb, clean_wikitext, index_lock, legacy_ivf_sync, passages_for, repair, sync_pageids
 
 API = "https://en.wikipedia.org/w/api.php"
 UA = "SearchLocal/0.1 (personal on-device research index; https://github.com/amurthy04/Search)"
@@ -281,17 +281,21 @@ def plan(st: Store, pages: list[dict]) -> dict:
 
 def commit(prefix: str, parts: str, p: dict, vecs: np.ndarray) -> int:
     """Append new passages + tombstones in the same layout `search.wiki index` writes (state file last)."""
-    import faiss
+    from .ann import IVF_DIR
+    # With the shared IVF (search.ann), readers index rows appended after its build themselves, so only the row
+    # files change here; the legacy single-file .ivf is maintained only when that index does not exist.
+    legacy = not os.path.exists(os.path.join(IVF_DIR, "meta.json"))
     lock = index_lock(prefix)
     try:
         s = _load_state(prefix)
         repair(prefix, s)
         sync_pageids(prefix, parts, s)
-        index = faiss.read_index(prefix + ".ivf")
         n0 = s["n"]
-        if index.ntotal > n0:  # vectors of a run that died between writing the .ivf and the state
-            index.remove_ids(faiss.IDSelectorRange(n0, index.ntotal))
-        assert index.ntotal == n0, f"index has {index.ntotal} vectors, state says {n0}"
+        index = None
+        if legacy:
+            import faiss
+            index = faiss.read_index(prefix + ".ivf")
+            legacy_ivf_sync(index, prefix, n0)
         new_rows, docs, offs = {}, [], []
         poff = np.load(prefix + ".poff.npy")
         end = int(poff[-1])
@@ -306,7 +310,8 @@ def commit(prefix: str, parts: str, p: dict, vecs: np.ndarray) -> int:
                     row = new_rows[a["page"]]
                 b = a["text"].encode("utf-8"); pf.write(b); end += len(b); offs.append(end); docs.append(row)
         if len(vecs):
-            index.add(vecs.astype(np.float32))
+            if index is not None:
+                index.add(vecs.astype(np.float32))
             with open(prefix + ".f16", "ab") as vf, open(prefix + ".doc.i32", "ab") as df:
                 vf.write(vecs.astype(np.float16).tobytes()); df.write(np.asarray(docs, np.int32).tobytes())
             np.save(prefix + ".poff.tmp.npy", np.concatenate([poff, np.asarray(offs, np.int64)]))
@@ -323,7 +328,7 @@ def commit(prefix: str, parts: str, p: dict, vecs: np.ndarray) -> int:
         k = s.get("updates", 0) + 1
         pend = f"{dp}.{k}"
         dead.tofile(pend + ".tmp"); os.replace(pend + ".tmp", pend)
-        if len(vecs):
+        if len(vecs) and index is not None:
             faiss.write_index(index, prefix + ".ivf.tmp"); os.replace(prefix + ".ivf.tmp", prefix + ".ivf")
         s["n"] = n; s["updates"] = k
         open(prefix + ".state.json.tmp", "wb").write(orjson.dumps(s)); os.replace(prefix + ".state.json.tmp", prefix + ".state.json")

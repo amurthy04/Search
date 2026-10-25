@@ -233,3 +233,100 @@ gap is a usable "no good answer" signal.
 | HNSW recall@10 @ p50 | - | 0.991 @ 0.13 ms | flat is 16 ms; ef 128 buys +0.003 for 2x time |
 | e2e query p50 | 9.2 ms (torch/MPS) | 1.94 ms (CoreML) | 1.7 ms is the 12-layer encoder; only a smaller encoder (training, step 3) goes lower |
 | BEIR nDCG@10 | - | 0.713 scifact / 0.344 nfcorpus | equals the model's published MTEB scores: training not needed for accuracy |
+
+## 9. Answer-engine retrieval: one sharded IVF over web + Wikipedia (Oct 25 2026)
+
+What a chat message's retrieval costs, measured through `search.chat.retrieve()` itself (`bench/retrieval.py`):
+embedding the message, searching web + Wikipedia + live passages, and building the context (passages, Wikidata
+cards). Latency is on NQ-open questions asked once each, because repeated questions find their rows already in the
+page cache. Accuracy is (a) whether a gold answer string is in the context the LLM gets and (b) whether
+Qwen3-0.6B's answer contains one (`bench/answer_eval.py`, greedy decoding). ANN recall is against brute force over
+every Wikipedia vector (`bench/ann_truth.py`: 42.7M x 3,610 queries on the GPU in 3 min).
+
+**Starting point** (HNSW web index + Wikipedia IVF16384,PQ192x4fs at nprobe 64, searched one after the other):
+22.8 ms p50 / 61 ms p95 / 89 ms p99 on 500 fresh questions. Where it went:
+
+| finding | cost | change |
+|---|---|---|
+| 424,667 passages from earlier live crawls were never sealed into HNSW segments (a lost-wakeup race), so every query multiplied all of them exactly | 11.9 ms | live passages are segments of the shared IVF (below); the exact tier holds < 8,192 rows |
+| seal subprocesses (all cores) and a 3 GB pretouch read ran for minutes after startup, under every query | embed 1.9 vs 0.8 ms, search 2-4x | no seal subprocesses; no pretouch (reads are prefetched per query instead) |
+| Wikipedia recall at nprobe 64 is 86.6% of the true top 10 (88.9% of the top 8 articles); the 97.4% on record was measured on 786k passages | accuracy | nprobe 384 over shards scanned in parallel: 94.0% (94.7% of the top 8 articles) |
+| the 64-100 re-scored rows were read one after another from the 33 GB fp16 file | 6.6 ms cold | every row's page requested first (madvise WILLNEED), then read: 0.65-1.0 ms |
+| per-row metadata (passage -> article, passage offsets, page ids, 13M titles, web URLs/titles) as mmaps, under memory pressure | 0.2-0.8 ms | in RAM as flat arrays and byte blobs (~1.3 GB; the 13M titles alone were ~1 GB as Python strings) |
+| entity linking: one SQLite B-tree lookup per query n-gram (~20); cards: one lookup per article | 1-2 ms | 64-bit hash filter of the 10.5M names (95 MB); cards in a blob addressed by Wikipedia row, prefetched; linking runs during the search |
+| query encoder: a thread pool created per call, HF tokenizer padding pass | 0.1-0.9 ms | Rust tokenizer into fixed buffers: 0.47 ms isolated |
+| in a session, every question scoring < 0.75 ran a second full search with the previous question prepended | 2x | only for questions that look like follow-ups (<= 4 words or a pronoun) |
+
+**Partitioning.** Recall is set by the share of the index a query scans, more than by the number of lists. Codes
+scanned per query vs the share of the true top 10 inside the scanned lists (1,000 NQ questions):
+
+| centroids | nprobe | codes scanned (p50) | true top 10 in scanned lists |
+|---|---|---|---|
+| 16,384, k-means on a random sample (GPU) | 256 | 748k | 0.930 |
+| | 384 | 1.11M | 0.950 |
+| | 512 | 1.46M | 0.962 |
+| 16,384, the old index's (trained on the first 600k passages) | 256 | 1.06M | 0.947 |
+| | 384 | 1.53M | 0.962 |
+| 65,536, random sample | 1024 | 814k | 0.953 |
+
+Finer lists are the most efficient per code, but picking 1,024 of 65,536 centroids costs 1.1 ms (numpy) or 2 ms
+(HNSW over the centroids), which cancels the gain; the old centroids have lists of up to 233k vectors, which shows in
+p95. Chosen: 16,384 balanced lists, nprobe 384.
+
+**Codes.** PQ96x4 (48 B) does not keep the true top 10 in the best 100 candidates (recall@10 0.873 at nprobe 1024 even
+with perfect lists; 0.919 with 1,000 re-scored); PQ192x4 (96 B) does (re-scoring 1,000 instead of 100 adds nothing
+at nprobe 64). Fast-scan scores are within sd 0.013 of the exact ones, so with 64 candidates re-scored the exact
+top 8 are always among them.
+
+**Sharding.** Split by list (shard s holds lists l with l % 8 == s), so each shard scans whole lists. Split by row
+range, every shard gets a 1/8 sliver of each probed list and fast-scan's per-list cost dominates: 0.98 vs 0.58 ms per
+shard at 1,024 probes. faiss releases the GIL, so 8 shard scans on a thread pool take as long as the slowest one
+(0.76 ms vs 4.6 ms one after another). 13 shards on 15 threads did not beat 8: the extra shards land on busy cores.
+
+Tried and dropped: scoring the centroids in the ANE query graph (+0.26 ms on the ANE, same as the CPU matvec it
+replaces), as a CoreML fp16 matmul on the CPU (0.22 vs 0.24 ms numpy in-process), threading madvise (kernel
+contention: 1.2 vs 0.7 ms), refining only candidates near the cutoff (58 of 64 survive any safe margin).
+
+**Context settings.** On all 3,610 NQ dev questions (greedy Qwen3-0.6B):
+
+| retrieval | threshold | URLs in prompt | answer in context | answer correct |
+|---|---|---|---|---|
+| old indexes (as shipped) | 0.75 | yes | 0.607 | 0.366 |
+| old indexes | 0.75 | no | 0.607 | 0.365 |
+| new index | 0.75 | no | 0.618 | 0.372 |
+| new index (now) | **0.70** | no | **0.659** | **0.385** |
+
+Without retrieval the model gets 5.4% (500 questions).
+
+Lowering the score threshold to 0.70 adds a passage when fewer than 4 pass 0.75: +102 / -52 questions (sign test
+z = 4.0). Six passages instead of four help less per token added; three hurt. Dropping the source URLs from the
+prompt and telling the model to lead with the answer changed nothing measurable (0.366 vs 0.365 on all 3,610 with the
+old indexes; 500 questions for the instruction).
+
+**Result** (fresh NQ questions, 500 per run, the chat's own `retrieve()`):
+
+| | before | after |
+|---|---|---|
+| retrieval p50 / p95 / p99 | 22.8 / 61 / 89 ms | 4.1 / 5.0-5.4 / 5.5-6.7 ms |
+| Wikipedia recall@10 vs brute force | 0.866 | 0.940 |
+| answer in the model's context (3,610 questions) | 0.607 | 0.659 |
+| Qwen3-0.6B answer correct (3,610 questions) | 0.366 | 0.385 |
+
+Where the remaining ~4 ms goes (p50): query embedding on the ANE 0.6-0.8 · centroid scores 0.3-0.4 · the slowest of
+11 shard scans ~1.0 · reading the 88 re-scored rows 0.7-1.0 (more under memory pressure) · exact scores, dedupe,
+passages and cards ~0.5. The ANE's fixed cost per call is ~0.45 ms, and the reads are bounded by the SSD; the next
+levers are a smaller first-pass code (PQ96, 2x cheaper scans) with an in-RAM PQ192 re-rank, at +1 GB of RAM.
+
+**Idle machine.** These are back-to-back questions. In the chat a search follows a generation, and usually seconds of
+reading and typing (`bench` scripts in session, 50-120 questions each):
+
+| before the search | retrieval p50 / p95 |
+|---|---|
+| another search | 3.8 / 4.6 ms |
+| a 1-token generation (GPU prefill of ~1.2k tokens) | 6.6 / 9.8 ms |
+| a generation, then 0.5 s idle | 13.5 / 19.3 ms |
+
+After 0.5 s idle every stage is ~3x slower (embed 0.8 -> 2.6 ms, centroid scores 0.4 -> 1.2, shard scans 1.6 -> 4.9,
+row reads 1.0 -> 3.8): the CPU cores and the ANE are back at low clocks. Marking the search threads user-interactive
+(pthread QoS) did not change it (11.5 vs 11.9 ms). The way around it would be warming the machine while the user types.
+

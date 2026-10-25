@@ -126,6 +126,28 @@ class MLXEmbedder:
         return res
 
 
+def coreml_path(model_name: str, batch_size: int, max_seq: int) -> str:
+    return f"data/index/coreml_{model_name.split('/')[-1]}_b{batch_size}_s{max_seq}.mlpackage"
+
+
+def export_coreml(model_name: str, batch_size: int, max_seq: int):
+    """Fixed-shape fp16 CoreML graph of the embedding model (search.minibert), for CoreMLEmbedder. Needs torch, which
+    inference does not: serving processes keep it (and its OpenMP runtime) out and run this as `search.embed export`."""
+    import coremltools as ct
+    import torch
+    from .minibert import MiniBert
+    path = coreml_path(model_name, batch_size, max_seq)
+    m = MiniBert.from_hf(model_name, pooling_for(model_name), fixed=(batch_size, max_seq))
+    ids = torch.randint(100, 1000, (batch_size, max_seq)); mask = torch.ones(batch_size, max_seq, dtype=torch.long)
+    traced = torch.jit.trace(m, (ids, mask))
+    ml = ct.convert(traced, inputs=[ct.TensorType(name="input_ids", shape=(batch_size, max_seq), dtype=np.int32),
+                                    ct.TensorType(name="attention_mask", shape=(batch_size, max_seq), dtype=np.int32)],
+                    outputs=[ct.TensorType(name="emb")], compute_precision=ct.precision.FLOAT16,
+                    minimum_deployment_target=ct.target.macOS15, convert_to="mlprogram")
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    ml.save(path)
+
+
 class CoreMLEmbedder:
     """CoreML (Apple GPU / ANE) backend. Fixed-shape fp16 graph exported from search.minibert via bench/coreml_convert.py.
 
@@ -133,27 +155,14 @@ class CoreMLEmbedder:
     length upstream and the last partial batch is padded. ~2.2x the throughput of torch/MPS for bge-small.
     """
 
-    def __init__(self, model_name: str, max_seq: int = 256, batch_size: int = 32, compute: str = "gpu", **_):
+    def __init__(self, model_name: str, max_seq: int = 256, batch_size: int = 32, compute: str = "gpu",
+                 extra_seqs: tuple[int, ...] = (), **_):
         import coremltools as ct
         from transformers import AutoTokenizer
-        from .minibert import MiniBert
-        import torch
         self.model_name = model_name
         self.qp, self.dp, _ = prefixes(model_name)
         self.B, self.S = batch_size, max_seq
-        path = f"data/index/coreml_{model_name.split('/')[-1]}_b{batch_size}_s{max_seq}.mlpackage"
-        if not os.path.exists(path):
-            m = MiniBert.from_hf(model_name, pooling_for(model_name), fixed=(batch_size, max_seq))
-            ids = torch.randint(100, 1000, (batch_size, max_seq)); mask = torch.ones(batch_size, max_seq, dtype=torch.long)
-            traced = torch.jit.trace(m, (ids, mask))
-            ml = ct.convert(traced, inputs=[ct.TensorType(name="input_ids", shape=(batch_size, max_seq), dtype=np.int32),
-                                            ct.TensorType(name="attention_mask", shape=(batch_size, max_seq), dtype=np.int32)],
-                            outputs=[ct.TensorType(name="emb")], compute_precision=ct.precision.FLOAT16,
-                            minimum_deployment_target=ct.target.macOS15, convert_to="mlprogram")
-            os.makedirs(os.path.dirname(path), exist_ok=True)
-            ml.save(path)
-        cu = {"gpu": ct.ComputeUnit.CPU_AND_GPU, "ane": ct.ComputeUnit.CPU_AND_NE, "all": ct.ComputeUnit.ALL}[compute]
-        self.model = ct.models.MLModel(path, compute_units=cu)
+        self.model = self._load(ct, model_name, batch_size, max_seq, compute)
         self.tok = AutoTokenizer.from_pretrained(model_name)
         self.dim = None
         # coremltools hands numpy inputs to CoreML zero-copy; CoreML releases them later on its own queue
@@ -164,6 +173,34 @@ class CoreMLEmbedder:
         self._feed = {"input_ids": np.zeros((batch_size, max_seq), np.int32),
                       "attention_mask": np.zeros((batch_size, max_seq), np.int32)}
         self._lock = threading.Lock()
+        # Batch-1 graphs (queries): one per sequence length, smallest that holds the query is used, so a long
+        # question is not cut at max_seq. Tokenized by a private Rust tokenizer: the HF wrapper costs ~20 us more
+        # per call and leaves padding/truncation state on its backend that would change our token ids.
+        self._graphs = []
+        if batch_size == 1:
+            from tokenizers import Tokenizer
+            self._tk = Tokenizer.from_str(self.tok._tokenizer.to_str())
+            self._tk.no_padding(); self._tk.no_truncation()
+            self._graphs = [(max_seq, self.model, self._feed)] + [
+                (S, self._load(ct, model_name, 1, S, compute),
+                 {"input_ids": np.zeros((1, S), np.int32), "attention_mask": np.zeros((1, S), np.int32)})
+                for S in sorted(x for x in extra_seqs if x > max_seq)]
+
+    @staticmethod
+    def _load(ct, model_name, batch_size, max_seq, compute):
+        path = coreml_path(model_name, batch_size, max_seq)
+        if not os.path.exists(path):
+            try:
+                import torch  # noqa: F401
+            except ImportError:  # a serving process keeps torch out (search.chat): export in a child process
+                import subprocess
+                import sys
+                subprocess.run([sys.executable, "-m", "search.embed", "export", "--model", model_name,
+                                "--batch-size", str(batch_size), "--max-seq", str(max_seq)], check=True)
+            else:
+                export_coreml(model_name, batch_size, max_seq)
+        cu = {"gpu": ct.ComputeUnit.CPU_AND_GPU, "ane": ct.ComputeUnit.CPU_AND_NE, "all": ct.ComputeUnit.ALL}[compute]
+        return ct.models.MLModel(path, compute_units=cu)
 
     def _batches(self, texts):
         """Tokenize batch i+1 on a worker thread while batch i runs on the GPU."""
@@ -184,10 +221,28 @@ class CoreMLEmbedder:
             for f in futs:
                 yield f.result()
 
+    def _encode_one(self, text: str) -> np.ndarray:
+        ids = self._tk.encode(text).ids
+        for S, model, feed in self._graphs:
+            if len(ids) <= S:
+                break
+        if len(ids) > S:
+            ids = ids[:S - 1] + ids[-1:]  # truncate, keeping [SEP]
+        L = len(ids)
+        f_ids, f_mask = feed["input_ids"], feed["attention_mask"]
+        f_ids[0, :L] = ids; f_ids[0, L:] = 0
+        f_mask[0, :L] = 1; f_mask[0, L:] = 0
+        return np.array(model.predict(feed)["emb"][:1], dtype=np.float32)
+
     def encode(self, texts, is_query=False, show=False):
         pre = self.qp if is_query else self.dp
         if pre:
             texts = [pre + t for t in texts]
+        if self._graphs and len(texts) == 1:  # single query: no thread pool, no padding pass
+            with self._lock:
+                res = self._encode_one(texts[0])
+            self.dim = res.shape[1]
+            return res
         out = []
         with self._lock:
             for n, ids, mask in self._batches(texts):
@@ -349,6 +404,10 @@ def main():
     r.add_argument("--limit", type=int, default=0)
     r.add_argument("--out", default="data/index/emb")
     r.set_defaults(fn=cmd_run)
+    e = sub.add_parser("export", help="CoreML graph for CoreMLEmbedder (needs torch)")
+    e.add_argument("--model", default="BAAI/bge-small-en-v1.5"); e.add_argument("--batch-size", type=int, default=1)
+    e.add_argument("--max-seq", type=int, default=32)
+    e.set_defaults(fn=lambda a: export_coreml(a.model, a.batch_size, a.max_seq))
     args = ap.parse_args()
     args.fn(args)
 

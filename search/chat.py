@@ -22,13 +22,20 @@ import sys
 import threading
 import time
 import uuid
+from concurrent.futures import ThreadPoolExecutor
 from functools import partial
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 import numpy as np
 
-from .live import PARTS_LIVE, Fetcher, LiveIndex, clean_url
-from .wikidata import wd_url
+# torch is only needed to export CoreML graphs (search.embed export, run in a child process when one is missing).
+# coremltools imports torch and scikit-learn whenever they are installed: seconds of startup, and torch brings its own
+# OpenMP runtime next to faiss's.
+for _m in ("torch", "sklearn"):
+    sys.modules.setdefault(_m, None)
+
+from .live import PARTS_LIVE, Fetcher, LiveIndex, clean_url  # noqa: E402
+from .wikidata import wd_url  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)  # index and CoreML graph paths are repo-relative
@@ -44,6 +51,7 @@ SYSTEM = ("You are a helpful assistant that runs entirely on this computer, with
           "crawler. When a <context> block is given, answer from it and cite sources inline as [1], [2]. If the context "
           "does not answer the question, say so in one sentence, then answer from general knowledge. Be concise.")
 URL_RE = re.compile(r"https?://[^\s<>\"']+")
+_POOL = ThreadPoolExecutor(4, thread_name_prefix="retrieve")  # side lookups that overlap the search (SQLite drops the GIL)
 LIVE_CRAWL_DIR = "data/crawl/live"
 LIVE_SHARDS = LIVE_CRAWL_DIR + "/*.jsonl.zst"
 
@@ -85,6 +93,7 @@ class LLM:
             return f
         # Qwen3's recommended settings per mode
         self.samplers = {False: sampler(0.7, 0.8), True: sampler(0.6, 0.95)}
+        self.greedy = lambda logits: mx.argmax(logits, axis=-1)  # deterministic decoding (evaluation)
         for think in (False, True):  # compile kernels + samplers for both modes before the first request
             c = self.make_cache(self.model)
             for _ in self.stream_generate(self.model, self.tok, self.tok.encode("Hello there, warm up."), max_tokens=4,
@@ -112,8 +121,9 @@ class LLM:
             sess["ids"] += new
             self.gpu_busy.set()
             t0 = time.perf_counter(); first = None; r = None
+            sampler = self.greedy if job.get("greedy") else self.samplers[job["think"]]
             for r in self.stream_generate(self.model, self.tok, new, max_tokens=job["max_tokens"],
-                                          sampler=self.samplers[job["think"]], prompt_cache=sess["cache"]):
+                                          sampler=sampler, prompt_cache=sess["cache"]):
                 sess["ids"].append(r.token)
                 if first is None:
                     first = time.perf_counter() - t0
@@ -141,10 +151,10 @@ class LLM:
         if len(self.sessions) > 16:
             self.sessions.pop(next(iter(self.sessions)))
 
-    def submit(self, session, user, think, max_tokens, cancel):
+    def submit(self, session, user, think, max_tokens, cancel, greedy=False):
         out: queue.Queue = queue.Queue()
         self.jobs.put({"session": session, "user": user, "think": think, "max_tokens": max_tokens,
-                       "cancel": cancel, "out": out})
+                       "cancel": cancel, "out": out, "greedy": greedy})
         return out
 
     def reset(self, session):
@@ -252,9 +262,25 @@ class Crawl:
 
 
 # ---------------------------------------------------------------------------- answer pipeline
-def retrieve(live, fetcher, crawl, message, prev_query, events, k_ctx=4, thr=0.75, ctx_chars=700):
+_REFER = set("it its it's they them their theirs this that these those he him his she her hers there then such".split())
+
+
+def _followup(q: str) -> bool:
+    """Does q lean on the previous turn? Very short ("and in 1990?", "why?") or refers back with a pronoun. A new
+    standalone question in the same session is not retried with the old topic (that search is ~half of a turn's
+    retrieval time, and its results are discarded)."""
+    words = re.findall(r"[a-z']+", q.lower())
+    return len(words) <= 4 or any(w in _REFER for w in words)
+
+
+def retrieve(live, fetcher, crawl, message, prev_query, events, k_ctx=4, thr=0.70, ctx_chars=700, source_urls=False):
     """URLs -> fetch + embed (+ index if new); then search.
-    Returns (context, sources, near misses, query, timings, URLs that yielded no readable text)."""
+    Returns (context, sources, near misses, query, timings, URLs that yielded no readable text).
+
+    thr: minimum cosine score for a passage to enter the context. 0.70 (was 0.75) puts the gold answer in the context
+    for 65.9% of NQ dev questions (61.8% at 0.75) and lifts Qwen3-0.6B's answer accuracy 37.2% -> 38.5% (+102/-52
+    questions of 3,610; bench/answer_eval.py). source_urls: each passage's URL in the prompt; the UI lists the sources itself, and
+    without them the model stops pasting links into answers and prefills ~60 fewer tokens."""
     t, unread = {}, []
     urls = [u for u in (clean_url(x) for x in URL_RE.findall(message)) if u]
     got = []  # freshly fetched pages: [{url, title, texts, vecs, new}]
@@ -283,54 +309,73 @@ def retrieve(live, fetcher, crawl, message, prev_query, events, k_ctx=4, thr=0.7
                 {k: round(v, 2) for k, v in t.items()}, unread)
     def best(r):
         return max([h["score"] for h in r["hits"] + r.get("wiki", [])], default=0.0)
-    res = live.search(q, k=8)
-    if prev_query and not got and best(res) < thr:
+    # entity linking needs only the text: it runs while the query is embedded and searched
+    link = _POOL.submit(live.cards.link, q) if not got else None
+    res = live.search(q, k=8, snippets=False)
+    if prev_query and not got and best(res) < thr and _followup(q):
         # likely a follow-up ("how is it treated?"): retry with the previous topic, keep whichever matches better
-        res2 = live.search(f"{prev_query} {q}", k=8)
+        res2 = live.search(f"{prev_query} {q}", k=8, snippets=False)
         if best(res2) > best(res):
             res, q = res2, f"{prev_query} {q}"
+            link = _POOL.submit(live.cards.link, q)
     t["embed_ms"], t["hnsw_ms"], t["search_ms"] = res["t_ms"]["embed"], res["t_ms"]["search"], res["t_ms"]["total"]
     t["wiki_ms"] = res["t_ms"].get("wiki", 0.0)
 
     picked = []  # (score, url, title, text, live)
     if got:  # the user pointed at these pages: always include their best chunks
-        qv = live.embed_query(q)
+        qv = res["qv"]
         for g in got:
             sc = g["vecs"] @ qv
             picked += [(float(sc[i]), g["url"], g["title"], g["texts"][i], "live") for i in np.argsort(-sc)[:3]]
+    cap = k_ctx + (2 if got else 0)  # context blocks, pasted pages' chunks first
+    picked = picked[:cap]
     seen = {p[1] for p in picked}
     # web and Wikipedia hits come from the same encoder, so their cosine scores rank against each other directly
-    cands = [(h["score"], h["url"], h["title"], lambda h=h: live.passage(h["pid"], ctx_chars),
-              "live" if h["pid"] >= live.base_n else "web") for h in res["hits"]]
-    cands += [(h["score"], h["url"], h["title"], lambda h=h: live.wiki.passage(h["pid"], ctx_chars),
-               "wikidata" if "wikidata.org" in h["url"] else "wiki") for h in res.get("wiki", [])]
-    for sc, url, title, text, kind in sorted(cands, key=lambda c: -c[0]):
-        if sc >= thr and url not in seen:
-            seen.add(url)
-            picked.append((sc, url, title, text(), kind))
-    picked = picked[:k_ctx + (2 if got else 0)]
+    cands = [(h["score"], h["url"], h["title"], h["pid"], "live" if h["pid"] >= live.base_n else "web")
+             for h in res["hits"]]
+    cands += [(h["score"], h["url"], h["title"], h["pid"], "wikidata" if "wikidata.org" in h["url"] else "wiki")
+              for h in res.get("wiki", [])]
+    chosen = []
+    for c in sorted(cands, key=lambda c: -c[0]):
+        if c[0] >= thr and c[1] not in seen:
+            seen.add(c[1]); chosen.append(c)
+    chosen = chosen[:cap - len(picked)]
+    # request every chosen passage's pages at once, then read them
+    live.prefetch_passages([c[3] for c in chosen if c[4] in ("web", "live")], ctx_chars)
+    live.wiki.prefetch_passages([c[3] for c in chosen if c[4] in ("wiki", "wikidata")])
+    for sc, url, title, pid, kind in chosen:
+        text = live.wiki.passage(pid, ctx_chars) if kind in ("wiki", "wikidata") else live.passage(pid, ctx_chars)
+        picked.append((sc, url, title, text, kind))
     # Wikidata: entities named in the question get their fact card even if no passage about them matched
-    linked = [] if got else [tl for tl in live.cards.link(q) if tl not in {p[2] for p in picked}]
+    linked = [] if got else [tl for tl in link.result() if tl not in {p[2] for p in picked}]
 
     sources, blocks = [], []
     carded = {p[2] for p in picked if p[4] == "wikidata"}
+    # a Wikipedia hit carries its article's facts, unless the card itself is already in the context: look the
+    # cards up in parallel (each pool thread has its own SQLite connection)
+    row_of = {h["title"]: h.get("doc") for h in res.get("wiki", [])}
+    want = []
+    for _, _, title, _, kind in picked:
+        if kind == "wiki" and title not in carded and title not in want:
+            want.append(title)
+    cards = dict(zip(want, live.cards.cards_for([row_of.get(t) for t in want], want)))
+    linked_cards = dict(zip(linked[:2], _POOL.map(live.cards.get, linked[:2])))
     for n, (s, url, title, text, kind) in enumerate(picked, 1):
+        art = title
         if kind in ("wiki", "wikidata") and "\n" in text:
             head, text = text.split("\n", 1)  # "Title — Section" / "Title — Wikidata facts" header line
             title = head
         text = text[len(title):].lstrip() if title and text.startswith(title) else text
         text = text[:ctx_chars]
-        # a Wikipedia hit carries its article's facts, unless the card itself is already in the context
-        art = title.split(" — ")[0]
-        card = live.cards.card(art) if kind == "wiki" and art not in carded else None
+        card = cards.get(art) if kind == "wiki" and art not in carded else None
         carded.add(art)
         sources.append({"n": n, "url": url, "title": title or url, "score": round(s, 3), "snippet": text[:240],
                         "live": kind == "live", "kind": kind})
-        blocks.append(f"[{n}] {title} ({url})\n{text}" + (f"\nWikidata: {card[:400]}" if card else ""))
+        blocks.append(f"[{n}] {title}" + (f" ({url})" if source_urls else "") + f"\n{text}" + (f"\nWikidata: {card[:400]}" if card else ""))
     for tl in linked[:2]:
         if tl in carded:
             continue
-        got_card = live.cards.get(tl)
+        got_card = linked_cards.get(tl)
         if got_card:
             qid, card = got_card
             n = len(sources) + 1
@@ -378,7 +423,8 @@ def make_handler(llm, live, fetcher, crawl, args):
             elif self.path.startswith("/search?"):
                 from urllib.parse import parse_qs, urlsplit
                 q = parse_qs(urlsplit(self.path).query).get("q", [""])[0]
-                self._json(live.search(q, 10))
+                r = live.search(q, 10); r.pop("qv", None)
+                self._json(r)
             else:
                 self.send_error(404)
 
@@ -450,6 +496,9 @@ def main():
     soft, hard = resource.getrlimit(resource.RLIMIT_NOFILE)  # the crawler holds thousands of sockets
     want = min(65536, int(subprocess.run(["sysctl", "-n", "kern.maxfilesperproc"], capture_output=True, text=True).stdout or 10240))
     resource.setrlimit(resource.RLIMIT_NOFILE, (max(soft, want), hard))
+    # transformers is imported by both the LLM thread (mlx_lm) and the index loader (the tokenizer); its lazy module
+    # raises ImportError when two threads initialize it at once, so finish that import here first
+    from transformers import AutoTokenizer, PreTrainedTokenizerFast  # noqa: F401
     llm_box, gpu_busy = {}, threading.Event()
     th = threading.Thread(target=lambda: llm_box.setdefault("llm", LLM(args.model, gpu_busy)))  # load while the index loads
     th.start()
@@ -466,6 +515,7 @@ def main():
         crawl.start()
     print(f"ready in {time.perf_counter() - t0:.1f}s: {live.size:,} passages (index {live.t_load:.1f}s, "
           f"LLM {llm.t_load:.1f}s) -> http://localhost:{args.port}", flush=True)
+    ThreadingHTTPServer.request_queue_size = 128  # default 5: a burst of requests gets connection resets
     srv = ThreadingHTTPServer(("127.0.0.1", args.port), make_handler(llm, live, fetcher, crawl, args))
 
     def _term(*_):

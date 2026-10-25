@@ -17,14 +17,18 @@ from __future__ import annotations
 import argparse
 import glob
 import gzip
+import json
 import os
 import re
 import sqlite3
 import subprocess
 import sys
+import threading
 import time
 
+import numpy as np
 import orjson
+import xxhash
 
 RAW = "data/wiki/raw"
 NT = RAW + "/wikidata-truthy.nt.bz2"
@@ -235,6 +239,7 @@ def cmd_build(a):
     db.execute("CREATE INDEX names_name ON names(name)")
     db.commit(); db.close()
     os.replace(DB + ".tmp", DB)
+    Cards.name_hashes(DB)
     write_card_shards()
     print(f"wrote {DB} ({os.path.getsize(DB)/1e9:.1f} GB) in {(time.time()-t0)/60:.1f} min", flush=True)
 
@@ -266,13 +271,109 @@ def write_card_shards(out: str = "data/wiki/shards"):
     print(f"wrote {n:,} card passages to {out}/wiki.{CARD_SHARD0}+", flush=True)
 
 
+CARD_ROWS = DB + ".rows"  # card text by Wikipedia title row: <CARD_ROWS>.bin + <CARD_ROWS>.off.npy
+
+
+def build_card_rows(titles_path: str = "data/wiki/index/wiki.titles.txt", out: str = CARD_ROWS):
+    """The card of every title row of the Wikipedia index (line i of wiki.titles.txt), as one blob + offsets: a
+    card is then one read that can be requested ahead of time, instead of a B-tree walk in the 3 GB SQLite file.
+    Rows appended by later updates fall back to SQLite (Cards.cards_for)."""
+    db = sqlite3.connect(f"file:{DB}?mode=ro", uri=True)
+    t0 = time.time()
+    off = [0]
+    with open(titles_path, "rb") as tf, open(out + ".bin.tmp", "wb") as bf:
+        batch = []
+
+        def flush():
+            got = dict(db.execute(f"SELECT title, card FROM cards WHERE title IN ({','.join('?' * len(batch))})", batch))
+            for t in batch:
+                c = got.get(t)
+                if c:
+                    b = c.encode(); bf.write(b); off.append(off[-1] + len(b))
+                else:
+                    off.append(off[-1])
+            batch.clear()
+        for line in tf:
+            batch.append(line[:-1].decode("utf-8"))
+            if len(batch) == 500:
+                flush()
+        if batch:
+            flush()
+    np.save(out + ".off.tmp.npy", np.asarray(off, np.uint64))
+    with open(out + ".json.tmp", "w") as f:
+        json.dump(_card_rows_key(titles_path, os.path.getsize(titles_path)), f)
+    os.replace(out + ".bin.tmp", out + ".bin"); os.replace(out + ".off.tmp.npy", out + ".off.npy")
+    os.replace(out + ".json.tmp", out + ".json")
+    print(f"card rows: {len(off) - 1:,} title rows, {off[-1] / 1e9:.2f} GB in {time.time() - t0:.0f}s", flush=True)
+
+
+def _card_rows_key(titles_path: str, size: int) -> dict:
+    """What a card-row store was built from: the Wikidata DB, and the titles file's first `size` bytes (rows only ever
+    get appended, so a rebuilt or reordered index shows up as a different hash of that prefix)."""
+    with open(titles_path, "rb") as f:
+        head = f.read(min(size, 1 << 20))
+        f.seek(max(0, size - (1 << 20))); tail = f.read(min(size, 1 << 20))
+    return {"db_mtime": os.path.getmtime(DB), "titles_bytes": size,
+            "titles_hash": xxhash.xxh3_64_hexdigest(head + tail)}
+
+
 class Cards:
     """Read side used by the chat server: card for a Wikipedia title, and exact-name entity lookup on the query."""
 
     def __init__(self, path: str = DB):
-        self.ok = os.path.exists(path)
+        self.ok, self.path = os.path.exists(path), path
+        self._local = threading.local()
         if self.ok:
-            self.db = sqlite3.connect(f"file:{path}?mode=ro", uri=True, check_same_thread=False)
+            self.names_h = self.name_hashes(path)
+        self.rows_off = None
+        titles = "data/wiki/index/wiki.titles.txt"
+        if os.path.exists(CARD_ROWS + ".json") and os.path.exists(titles):
+            key = json.load(open(CARD_ROWS + ".json"))
+            if os.path.getsize(titles) >= key["titles_bytes"] and _card_rows_key(titles, key["titles_bytes"]) == key:
+                from .ann import Blob
+                self.rows_off = np.load(CARD_ROWS + ".off.npy")
+                self.rows_blob = Blob(CARD_ROWS + ".bin")
+            else:  # built for another index or DB: SQLite lookups until `search.wikidata card-rows` is rerun
+                print("[wikidata] card-row store is stale, using SQLite", flush=True)
+
+    def cards_for(self, rows: list[int], titles: list[str]) -> list[str | None]:
+        """Card of each (Wikipedia title row, title): from the row store, all reads requested at once; rows past
+        the store (articles added after it was built) from SQLite."""
+        off = self.rows_off
+        if off is None:
+            return [self.card(t) for t in titles]
+        inside = [d is not None and 0 <= d < len(off) - 1 for d in rows]
+        for d, ok in zip(rows, inside):
+            if ok:
+                self.rows_blob.prefetch(int(off[d]), int(off[d + 1] - off[d]))
+        out = []
+        for d, t, ok in zip(rows, titles, inside):
+            if ok:
+                b = self.rows_blob.read(int(off[d]), int(off[d + 1] - off[d]))
+                out.append(b.decode("utf-8") if b else None)
+            else:
+                out.append(self.card(t))
+        return out
+
+    @property
+    def db(self) -> sqlite3.Connection:
+        """One read-only connection per thread: a shared connection serializes every lookup on its mutex."""
+        c = getattr(self._local, "db", None)
+        if c is None:
+            c = self._local.db = sqlite3.connect(f"file:{self.path}?mode=ro", uri=True, check_same_thread=False)
+        return c
+
+    @staticmethod
+    def name_hashes(path: str = DB) -> np.ndarray:
+        """Sorted 64-bit hashes of every name/alias (12M, 95 MB), cached next to the DB: link() asks SQLite only
+        about query n-grams that are names, instead of one B-tree lookup per n-gram (~20 per question)."""
+        hp = path + ".names.u64"
+        if not os.path.exists(hp) or os.path.getmtime(hp) < os.path.getmtime(path):
+            db = sqlite3.connect(f"file:{path}?mode=ro", uri=True)
+            h = np.fromiter((xxhash.xxh3_64_intdigest(r[0].encode()) for r in db.execute("SELECT DISTINCT name FROM names")),
+                            np.uint64)
+            h.sort(); h.tofile(hp + ".tmp"); os.replace(hp + ".tmp", hp)
+        return np.fromfile(hp, np.uint64)
 
     def get(self, title: str) -> tuple[int, str] | None:
         if not self.ok:
@@ -291,19 +392,27 @@ class Cards:
             return []
         raw = [w.strip(".'") for w in re.findall(r"[\w'.&+-]+", query)]
         words = [w.lower() for w in raw]
-        found, covered = [], set()
+        cand = []  # (i, n, gram), longest first, left to right
         for n in range(min(max_n, len(words)), 0, -1):
             for i in range(len(words) - n + 1):
-                if any(j in covered for j in range(i, i + n)):
-                    continue
                 gram = " ".join(words[i:i + n])
                 if n == 1 and (len(gram) < 3 or gram in _STOP or not raw[i][:1].isupper()):
                     continue  # one word links only when the user capitalized it ("Apple" yes, "apple pie" no)
                 if n > 1 and (words[i] in _STOP or words[i + n - 1] in _STOP or words[i] in ("a", "an", "of", "in")):
                     continue  # "the capital" is not a reference to the newspaper The Capital
-                r = self.db.execute("SELECT title FROM names WHERE name=? ORDER BY bytes DESC LIMIT 1", (gram,)).fetchone()
-                if r and r[0] not in found:
-                    found.append(r[0]); covered.update(range(i, i + n))
+                cand.append((i, n, gram))
+        if not cand:
+            return []
+        hs = np.fromiter((xxhash.xxh3_64_intdigest(g.encode()) for _, _, g in cand), np.uint64, len(cand))
+        pos = np.minimum(np.searchsorted(self.names_h, hs), len(self.names_h) - 1)
+        is_name = self.names_h[pos] == hs
+        found, covered = [], set()
+        for (i, n, gram), hit in zip(cand, is_name):
+            if not hit or any(j in covered for j in range(i, i + n)):
+                continue
+            r = self.db.execute("SELECT title FROM names WHERE name=? ORDER BY bytes DESC LIMIT 1", (gram,)).fetchone()
+            if r and r[0] not in found:
+                found.append(r[0]); covered.update(range(i, i + n))
         return found[:k]
 
 
@@ -317,6 +426,7 @@ def main():
     sub = ap.add_subparsers(dest="cmd", required=True)
     f = sub.add_parser("filter"); f.add_argument("--nt", default=NT); f.add_argument("--threads", type=int, default=12)
     sub.add_parser("build")
+    sub.add_parser("card-rows")
     c = sub.add_parser("card"); c.add_argument("query")
     a = ap.parse_args()
     if a.cmd == "card":
@@ -324,7 +434,7 @@ def main():
         for t in cards.link(a.query) or [a.query]:
             print(t, "->", cards.card(t))
         return
-    {"filter": cmd_filter, "build": cmd_build}[a.cmd](a)
+    {"filter": cmd_filter, "build": cmd_build, "card-rows": lambda a: build_card_rows()}[a.cmd](a)
 
 
 if __name__ == "__main__":
