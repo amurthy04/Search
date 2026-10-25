@@ -156,6 +156,14 @@ class CoreMLEmbedder:
         self.model = ct.models.MLModel(path, compute_units=cu)
         self.tok = AutoTokenizer.from_pretrained(model_name)
         self.dim = None
+        # coremltools hands numpy inputs to CoreML zero-copy; CoreML releases them later on its own queue
+        # (MLE5ExecutionStream.resetQueue) without the GIL, which segfaults once Python has already freed the
+        # array (seen a few seconds after the last predict in a long-lived process). Feed CoreML the same
+        # buffers every call and keep them alive for the embedder's lifetime.
+        import threading
+        self._feed = {"input_ids": np.zeros((batch_size, max_seq), np.int32),
+                      "attention_mask": np.zeros((batch_size, max_seq), np.int32)}
+        self._lock = threading.Lock()
 
     def _batches(self, texts):
         """Tokenize batch i+1 on a worker thread while batch i runs on the GPU."""
@@ -181,9 +189,10 @@ class CoreMLEmbedder:
         if pre:
             texts = [pre + t for t in texts]
         out = []
-        for n, ids, mask in self._batches(texts):
-            r = self.model.predict({"input_ids": ids, "attention_mask": mask})["emb"]
-            out.append(r[:n])
+        with self._lock:
+            for n, ids, mask in self._batches(texts):
+                self._feed["input_ids"][:] = ids; self._feed["attention_mask"][:] = mask
+                out.append(np.array(self.model.predict(self._feed)["emb"][:n], copy=True))
         res = np.concatenate(out).astype(np.float32)
         self.dim = res.shape[1]
         return res

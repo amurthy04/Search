@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ToyEmbed</title>
+<style>
+  :root {
+    --bg: #fff; --fg: #202124; --muted: #70757a; --border: #dfe1e5; --link: #1a0dab; --url: #006621;
+    --shadow: 0 1px 6px rgba(32, 33, 36, .28);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #202124; --fg: #e8eaed; --muted: #9aa0a6; --border: #5f6368; --link: #8ab4f8; --url: #81c995;
+      --shadow: 0 1px 6px rgba(0, 0, 0, .6);
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--fg); font-family: arial, sans-serif; }
+
+  .logo { font-family: "Product Sans", "Century Gothic", Futura, arial, sans-serif; font-weight: 500;
+          letter-spacing: -1px; text-decoration: none; user-select: none; }
+  .logo span:nth-child(4n+1) { color: #4285f4; }
+  .logo span:nth-child(4n+2) { color: #ea4335; }
+  .logo span:nth-child(4n+3) { color: #fbbc05; }
+  .logo span:nth-child(4n+4) { color: #34a853; }
+
+  form { position: relative; width: 100%; }
+  input { width: 100%; height: 46px; padding: 0 44px 0 20px; font-size: 16px; color: var(--fg);
+          background: var(--bg); border: 1px solid var(--border); border-radius: 24px; outline: none; }
+  input:hover, input:focus { box-shadow: var(--shadow); border-color: transparent; }
+  .icon { position: absolute; right: 16px; top: 13px; width: 20px; height: 20px; fill: var(--muted); pointer-events: none; }
+
+  /* home: logo + bar centered */
+  #home { display: flex; flex-direction: column; align-items: center; padding: 0 16px; margin-top: 28vh; }
+  #home .logo { font-size: 84px; margin-bottom: 28px; }
+  #home form { max-width: 584px; }
+
+  /* results */
+  #results { display: none; }
+  header { display: flex; align-items: center; gap: 32px; padding: 20px 16px 16px 32px;
+           border-bottom: 1px solid var(--border); }
+  header .logo { font-size: 30px; }
+  header form { max-width: 692px; }
+  main { max-width: 652px; padding: 0 16px 48px 180px; }
+  .stats { color: var(--muted); font-size: 14px; margin: 14px 0 22px; }
+  .hit { margin-bottom: 28px; }
+  .hit .url { color: var(--url); font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .hit a { color: var(--link); font-size: 20px; line-height: 1.3; text-decoration: none; display: inline-block; margin: 2px 0 4px; }
+  .hit a:hover { text-decoration: underline; }
+  .hit p { margin: 0; font-size: 14px; line-height: 1.58; color: var(--fg); }
+  .empty { color: var(--muted); }
+
+  body.searching #home { display: none; }
+  body.searching #results { display: block; }
+
+  @media (max-width: 760px) {
+    header { flex-direction: column; align-items: stretch; gap: 12px; padding: 16px; }
+    header .logo { text-align: center; }
+    main { padding: 0 16px 48px; }
+    #home .logo { font-size: 56px; }
+  }
+</style>
+</head>
+<body>
+  <div id="home">
+    <a class="logo" href="/"><span>T</span><span>o</span><span>y</span><span>E</span><span>m</span><span>b</span><span>e</span><span>d</span></a>
+    <form><input name="q" autocomplete="off" autofocus aria-label="Search"><svg class="icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></form>
+  </div>
+
+  <div id="results">
+    <header>
+      <a class="logo" href="/"><span>T</span><span>o</span><span>y</span><span>E</span><span>m</span><span>b</span><span>e</span><span>d</span></a>
+      <form><input name="q" autocomplete="off" aria-label="Search"><svg class="icon" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.47 6.47 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg></form>
+    </header>
+    <main>
+      <div class="stats" id="stats"></div>
+      <div id="hits"></div>
+    </main>
+  </div>
+
+<script>
+  const inputs = document.querySelectorAll('input[name=q]');
+  const statsEl = document.getElementById('stats');
+  const hitsEl = document.getElementById('hits');
+
+  document.querySelectorAll('form').forEach(f => f.addEventListener('submit', e => {
+    e.preventDefault();
+    const q = f.q.value.trim();
+    if (!q) return;
+    history.pushState({}, '', '/?q=' + encodeURIComponent(q));
+    render();
+  }));
+  window.addEventListener('popstate', render);
+
+  function el(tag, cls, text) {
+    const n = document.createElement(tag);
+    if (cls) n.className = cls;
+    if (text) n.textContent = text;
+    return n;
+  }
+
+  // Passages are stored as "title\nbody"; drop the title prefix so the snippet is body text.
+  function snippet(h) {
+    let s = h.snippet || '';
+    if (h.title && s.startsWith(h.title)) s = s.slice(h.title.length);
+    s = s.trim();
+    return s.length > 240 ? s.slice(0, 240).replace(/\s+\S*$/, '') + ' …' : s;
+  }
+
+  async function render() {
+    const q = new URLSearchParams(location.search).get('q') || '';
+    inputs.forEach(i => i.value = q);
+    document.title = q ? q + ' - ToyEmbed' : 'ToyEmbed';
+    document.body.classList.toggle('searching', !!q);
+    if (!q) { inputs[0].focus(); return; }
+
+    statsEl.textContent = '';
+    hitsEl.replaceChildren();
+    let res;
+    try {
+      const r = await fetch('/search?k=10&q=' + encodeURIComponent(q));
+      if (!r.ok) throw new Error(r.status);
+      res = await r.json();
+    } catch (e) {
+      hitsEl.append(el('p', 'empty', 'Search failed: is the ToyEmbed server running?'));
+      return;
+    }
+    if (res.query !== q) return;  // a newer search replaced this one
+
+    statsEl.textContent = `${res.hits.length} results (${res.t_ms.total.toFixed(1)} ms)`;
+    if (!res.hits.length) {
+      hitsEl.append(el('p', 'empty', `Your search - ${q} - did not match any documents.`));
+      return;
+    }
+    for (const h of res.hits) {
+      const d = el('div', 'hit');
+      d.append(el('div', 'url', h.url.replace(/^https?:\/\//, '')));
+      const a = el('a', '', h.title || h.url);
+      a.href = h.url;
+      d.append(a, el('p', '', snippet(h)));
+      hitsEl.append(d);
+    }
+  }
+
+  render();
+</script>
+</body>
+</html>

@@ -765,6 +765,7 @@ def main(argv=None):
     ap.add_argument("--timeout-connect", type=float, default=5)
     ap.add_argument("--timeout-read", type=float, default=8)
     ap.add_argument("--new-host-rate", type=float, default=0, help="max cold hosts started per second per worker (0 = unlimited)")
+    ap.add_argument("--shard-pages", type=int, default=20000, help="pages per output shard (small = closed sooner, for live indexing)")
     ap.add_argument("--summary", default="")
     args = ap.parse_args(argv)
 
@@ -773,7 +774,7 @@ def main(argv=None):
            "max_per_host": args.max_per_host, "max_depth": args.max_depth, "time_limit": args.time_limit,
            "max_pages": args.max_pages, "max_body": args.max_body, "max_links": args.max_links, "nameservers": ns,
            "timeout_total": args.timeout_total, "timeout_connect": args.timeout_connect, "timeout_read": args.timeout_read,
-           "new_host_rate": args.new_host_rate}
+           "new_host_rate": args.new_host_rate, "shard_pages": args.shard_pages}
     seeds = load_seeds(args.seeds, args.n_seeds, args.seed_offset)
     if args.workers <= 1:
         if uvloop is not None:

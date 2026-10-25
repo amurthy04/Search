@@ -16,3 +16,6 @@ video/audio_*/
 video/media/
 video/*.mp4
 video/.venv/
+data/wiki/
+data/run/
+data/eval/

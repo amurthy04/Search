@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Hourly Wikipedia delta updater (search.wiki_update). Edit the paths, then see "Running it" in the README. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key><string>org.search.wikiupdate</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/akshaymurthy/Search/.venv/bin/python</string>
+    <string>-m</string><string>search.wiki_update</string>
+    <string>run</string><string>--loop</string><string>3600</string>
+  </array>
+  <key>WorkingDirectory</key><string>/Users/akshaymurthy/Search</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>HF_HUB_OFFLINE</key><string>1</string>
+    <key>OMP_NUM_THREADS</key><string>1</string>
+  </dict>
+  <key>RunAtLoad</key><true/>
+  <key>KeepAlive</key><dict><key>SuccessfulExit</key><false/></dict>
+  <key>ThrottleInterval</key><integer>300</integer>
+  <key>Nice</key><integer>10</integer>
+  <key>LowPriorityIO</key><true/>
+  <key>StandardOutPath</key><string>/Users/akshaymurthy/Search/data/wiki/update.stdout.log</string>
+  <key>StandardErrorPath</key><string>/Users/akshaymurthy/Search/data/wiki/update.stdout.log</string>
+</dict>
+</plist>

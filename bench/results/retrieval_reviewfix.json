@@ -1,0 +1,3570 @@
+{
+ "summary": {
+  "tag": "reviewfix",
+  "n": 150,
+  "offset": 1000,
+  "web_passages": 2411705,
+  "wiki_passages": 42721243,
+  "ctx_answer_recall": 0.6667,
+  "mean_sources": 3.7,
+  "total_ms": {
+   "p50": 27.87,
+   "p95": 62.259,
+   "p99": 82.77,
+   "mean": 31.439
+  },
+  "embed_ms": {
+   "p50": 1.43,
+   "p95": 6.423,
+   "p99": 9.481,
+   "mean": 2.177
+  },
+  "hnsw_ms": {
+   "p50": 7.105,
+   "p95": 14.865,
+   "p99": 24.34,
+   "mean": 8.014
+  },
+  "wiki_ms": {
+   "p50": 14.395,
+   "p95": 34.338,
+   "p99": 58.854,
+   "mean": 17.035
+  },
+  "search_ms": {
+   "p50": 24.44,
+   "p95": 53.57,
+   "p99": 67.661,
+   "mean": 27.619
+  },
+  "link_ms": {
+   "p50": 0.83,
+   "p95": 4.888,
+   "p99": 10.561,
+   "mean": 1.447
+  },
+  "passage_ms": {
+   "p50": 0.812,
+   "p95": 1.165,
+   "p99": 5.668,
+   "mean": 0.805
+  },
+  "card_ms": {
+   "p50": 0.998,
+   "p95": 3.824,
+   "p99": 8.23,
+   "mean": 1.43
+  }
+ },
+ "rows": [
+  {
+   "q": "what does g stand for in baseball stats",
+   "a": [
+    "Games",
+    "Games played"
+   ],
+   "total_ms": 39.55149999819696,
+   "embed_ms": 1.71,
+   "hnsw_ms": 10.8,
+   "search_ms": 32.87,
+   "wiki_ms": 20.16,
+   "link_ms": 4.039916908368468,
+   "passage_ms": 1.1422901879996061,
+   "card_ms": 1.2917910935357213,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "web",
+    "wiki"
+   ],
+   "top": 0.851
+  },
+  {
+   "q": "who was the last nba player to get drafted out of high school",
+   "a": [
+    "Thon Maker"
+   ],
+   "total_ms": 86.01500000804663,
+   "embed_ms": 1.09,
+   "hnsw_ms": 5.34,
+   "search_ms": 54.2,
+   "wiki_ms": 47.47,
+   "link_ms": 20.15462494455278,
+   "passage_ms": 5.358542897738516,
+   "card_ms": 6.099250982515514,
+   "ctx_hit": false,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.866
+  },
+  {
+   "q": "who was the person who escaped from alcatraz",
+   "a": [
+    "Clarence Anglin",
+    "John Anglin",
+    "Frank Morris"
+   ],
+   "total_ms": 22.936624940484762,
+   "embed_ms": 1.6,
+   "hnsw_ms": 6.72,
+   "search_ms": 19.9,
+   "wiki_ms": 11.4,
+   "link_ms": 0.49508397933095694,
+   "passage_ms": 0.9629157138988376,
+   "card_ms": 1.4742501080036163,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.827
+  },
+  {
+   "q": "when was the last amendment to the constitution passed",
+   "a": [
+    "May 5, 1992"
+   ],
+   "total_ms": 28.268791968002915,
+   "embed_ms": 1.54,
+   "hnsw_ms": 6.18,
+   "search_ms": 24.67,
+   "wiki_ms": 16.64,
+   "link_ms": 0.9008330525830388,
+   "passage_ms": 0.8541278075426817,
+   "card_ms": 1.7172090010717511,
+   "ctx_hit": false,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.821
+  },
+  {
+   "q": "who has scored the most tries in rugby union",
+   "a": [
+    "Daisuke Ohata"
+   ],
+   "total_ms": 50.40979094337672,
+   "embed_ms": 2.59,
+   "hnsw_ms": 6.83,
+   "search_ms": 44.35,
+   "wiki_ms": 34.77,
+   "link_ms": 1.0222499258816242,
+   "passage_ms": 1.0541260708123446,
+   "card_ms": 3.703333088196814,
+   "ctx_hit": false,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.855
+  },
+  {
+   "q": "who is the new york state senate majority leader",
+   "a": [
+    "John J. Flanagan"
+   ],
+   "total_ms": 37.00291702989489,
+   "embed_ms": 1.23,
+   "hnsw_ms": 6.24,
+   "search_ms": 30.05,
+   "wiki_ms": 22.4,
+   "link_ms": 1.595832989551127,
+   "passage_ms": 3.722336026839912,
+   "card_ms": 1.4817509800195694,
+   "ctx_hit": false,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.846
+  },
+  {
+   "q": "when did the first marvel vs capcom come out",
+   "a": [
+    "1998",
+    "in 1996",
+    "1996"
+   ],
+   "total_ms": 34.23333296086639,
+   "embed_ms": 1.45,
+   "hnsw_ms": 7.77,
+   "search_ms": 30.79,
+   "wiki_ms": 21.36,
+   "link_ms": 1.3014159630984068,
+   "passage_ms": 0.9956262074410915,
+   "card_ms": 1.020291936583817,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wikidata",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.872
+  },
+  {
+   "q": "who carried the usa flag in opening ceremony",
+   "a": [
+    "Erin Hamlin"
+   ],
+   "total_ms": 63.10774991288781,
+   "embed_ms": 4.92,
+   "hnsw_ms": 15.23,
+   "search_ms": 57.14,
+   "wiki_ms": 36.65,
+   "link_ms": 1.445333007723093,
+   "passage_ms": 2.3085398133844137,
+   "card_ms": 2.0345001248642802,
+   "ctx_hit": false,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.772
+  },
+  {
+   "q": "who played dwight's brother on the office",
+   "a": [
+    "Thomas Middleditch"
+   ],
+   "total_ms": 44.67354097869247,
+   "embed_ms": 1.46,
+   "hnsw_ms": 6.56,
+   "search_ms": 37.22,
+   "wiki_ms": 28.97,
+   "link_ms": 6.0990420170128345,
+   "passage_ms": 0.3577910829335451,
+   "card_ms": 0.8540840353816748,
+   "ctx_hit": false,
+   "n_src": 3,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.774
+  },
+  {
+   "q": "who was toot toot in the green mile",
+   "a": [
+    "A trustee"
+   ],
+   "total_ms": 32.67491597216576,
+   "embed_ms": 1.35,
+   "hnsw_ms": 7.76,
+   "search_ms": 32.02,
+   "wiki_ms": 22.19,
+   "link_ms": 0.5582920275628567,
+   "passage_ms": 0.0,
+   "card_ms": 0.0,
+   "ctx_hit": false,
+   "n_src": 0,
+   "kinds": [],
+   "top": 0.68
+  },
+  {
+   "q": "who is the actor who plays king joffrey",
+   "a": [
+    "Jack Gleeson"
+   ],
+   "total_ms": 43.22841693647206,
+   "embed_ms": 1.49,
+   "hnsw_ms": 9.46,
+   "search_ms": 40.27,
+   "wiki_ms": 29.01,
+   "link_ms": 0.6493340479210019,
+   "passage_ms": 0.42695982847362757,
+   "card_ms": 1.7121670534834266,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.789
+  },
+  {
+   "q": "who starred in the movie natural born killers",
+   "a": [
+    "Robert Downey Jr.",
+    "Robert Downey, Jr.",
+    "Woody Harrelson",
+    "Juliette Lewis",
+    "Tom Sizemore",
+    "Tommy Lee Jones"
+   ],
+   "total_ms": 35.42637499049306,
+   "embed_ms": 7.61,
+   "hnsw_ms": 8.04,
+   "search_ms": 33.67,
+   "wiki_ms": 17.58,
+   "link_ms": 0.9242909727618098,
+   "passage_ms": 0.3672491293400526,
+   "card_ms": 0.3612920409068465,
+   "ctx_hit": true,
+   "n_src": 3,
+   "kinds": [
+    "wiki",
+    "wikidata",
+    "wiki"
+   ],
+   "top": 0.819
+  },
+  {
+   "q": "what was going on in the world in 1900",
+   "a": [
+    "Galveston hurricane",
+    "Boxer Rebellion",
+    "U.S. population exceeds 75 million"
+   ],
+   "total_ms": 21.72349998727441,
+   "embed_ms": 1.2,
+   "hnsw_ms": 6.01,
+   "search_ms": 18.52,
+   "wiki_ms": 11.08,
+   "link_ms": 0.5395420594140887,
+   "passage_ms": 0.8626228664070368,
+   "card_ms": 1.6468340763822198,
+   "ctx_hit": false,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.805
+  },
+  {
+   "q": "when did the nest 3rd generation come out",
+   "a": [
+    "September 1, 2015"
+   ],
+   "total_ms": 27.486667037010193,
+   "embed_ms": 1.31,
+   "hnsw_ms": 8.8,
+   "search_ms": 25.95,
+   "wiki_ms": 15.6,
+   "link_ms": 1.0477910982444882,
+   "passage_ms": 0.0,
+   "card_ms": 0.3891249652951956,
+   "ctx_hit": false,
+   "n_src": 2,
+   "kinds": [
+    "wikidata",
+    "wikidata"
+   ],
+   "top": 0.722
+  },
+  {
+   "q": "who has won the most united states championships",
+   "a": [
+    "Lex Luger",
+    "Ric Flair"
+   ],
+   "total_ms": 39.74400006700307,
+   "embed_ms": 1.47,
+   "hnsw_ms": 9.1,
+   "search_ms": 35.56,
+   "wiki_ms": 24.79,
+   "link_ms": 1.2589170364663005,
+   "passage_ms": 0.9128348901867867,
+   "card_ms": 1.8308337312191725,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.822
+  },
+  {
+   "q": "how much is a 72 oz steak at the big texan",
+   "a": [
+    "$72"
+   ],
+   "total_ms": 24.320124997757375,
+   "embed_ms": 1.76,
+   "hnsw_ms": 7.41,
+   "search_ms": 22.73,
+   "wiki_ms": 13.36,
+   "link_ms": 1.0278329718858004,
+   "passage_ms": 0.13804109767079353,
+   "card_ms": 0.3226669505238533,
+   "ctx_hit": true,
+   "n_src": 1,
+   "kinds": [
+    "wiki"
+   ],
+   "top": 0.779
+  },
+  {
+   "q": "when was the first wonder woman comic released",
+   "a": [
+    "December 1941",
+    "January 1942",
+    "October 1941"
+   ],
+   "total_ms": 37.84150001592934,
+   "embed_ms": 1.32,
+   "hnsw_ms": 6.7,
+   "search_ms": 25.94,
+   "wiki_ms": 17.57,
+   "link_ms": 9.234542027115822,
+   "passage_ms": 0.9933329420164227,
+   "card_ms": 1.5044989995658398,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.819
+  },
+  {
+   "q": "what are the four requirements to establish criminal liability for gross negligence manslaughter",
+   "a": [
+    "the defendant breached this duty"
+   ],
+   "total_ms": 45.29525001998991,
+   "embed_ms": 1.45,
+   "hnsw_ms": 12.22,
+   "search_ms": 40.86,
+   "wiki_ms": 16.91,
+   "link_ms": 1.8707090057432652,
+   "passage_ms": 0.9049178333953023,
+   "card_ms": 1.4571670908480883,
+   "ctx_hit": false,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.786
+  },
+  {
+   "q": "who does the voice of alistair in dragon age",
+   "a": [
+    "Steve Valentine"
+   ],
+   "total_ms": 29.6668749069795,
+   "embed_ms": 1.33,
+   "hnsw_ms": 7.11,
+   "search_ms": 25.58,
+   "wiki_ms": 16.88,
+   "link_ms": 1.1128750629723072,
+   "passage_ms": 0.9420423302799463,
+   "card_ms": 1.8484580796211958,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.809
+  },
+  {
+   "q": "who were the twins that played for kentucky",
+   "a": [
+    "Aaron Harrison",
+    "Andrew Michael Harrison"
+   ],
+   "total_ms": 47.07716591656208,
+   "embed_ms": 6.14,
+   "hnsw_ms": 6.45,
+   "search_ms": 44.58,
+   "wiki_ms": 31.74,
+   "link_ms": 0.33650000113993883,
+   "passage_ms": 0.7702928269281983,
+   "card_ms": 1.2439158745110035,
+   "ctx_hit": false,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.788
+  },
+  {
+   "q": "who coined the phrase let get ready to rumble",
+   "a": [
+    "Michael Buffer"
+   ],
+   "total_ms": 38.85787504259497,
+   "embed_ms": 1.2,
+   "hnsw_ms": 17.95,
+   "search_ms": 37.0,
+   "wiki_ms": 17.64,
+   "link_ms": 1.3877919409424067,
+   "passage_ms": 0.0,
+   "card_ms": 0.36637496668845415,
+   "ctx_hit": false,
+   "n_src": 1,
+   "kinds": [
+    "wikidata"
+   ],
+   "top": 0.687
+  },
+  {
+   "q": "who is command sergeant major of the army",
+   "a": [
+    "Daniel A. Dailey"
+   ],
+   "total_ms": 44.72437500953674,
+   "embed_ms": 7.77,
+   "hnsw_ms": 16.36,
+   "search_ms": 40.3,
+   "wiki_ms": 15.79,
+   "link_ms": 1.3122910168021917,
+   "passage_ms": 1.1633771937340498,
+   "card_ms": 1.8056670669466257,
+   "ctx_hit": false,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata",
+    "wikidata"
+   ],
+   "top": 0.857
+  },
+  {
+   "q": "who is in charge of new issues not mentioned in the constitution",
+   "a": [
+    "Congress"
+   ],
+   "total_ms": 50.26591592468321,
+   "embed_ms": 3.5,
+   "hnsw_ms": 30.48,
+   "search_ms": 49.03,
+   "wiki_ms": 14.82,
+   "link_ms": 1.154624973423779,
+   "passage_ms": 0.0,
+   "card_ms": 0.0,
+   "ctx_hit": false,
+   "n_src": 0,
+   "kinds": [],
+   "top": 0.728
+  },
+  {
+   "q": "where does trick or treat for unicef money go",
+   "a": [
+    "UNICEF's global programing"
+   ],
+   "total_ms": 33.96145906299353,
+   "embed_ms": 1.27,
+   "hnsw_ms": 14.42,
+   "search_ms": 29.15,
+   "wiki_ms": 13.2,
+   "link_ms": 2.3547919699922204,
+   "passage_ms": 0.969584216363728,
+   "card_ms": 1.303166034631431,
+   "ctx_hit": false,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.85
+  },
+  {
+   "q": "when was the first episode of scooby doo",
+   "a": [
+    "September\u00a013,\u00a01969"
+   ],
+   "total_ms": 34.89170805551112,
+   "embed_ms": 5.34,
+   "hnsw_ms": 11.67,
+   "search_ms": 31.87,
+   "wiki_ms": 14.61,
+   "link_ms": 0.8560840506106615,
+   "passage_ms": 0.8707500528544188,
+   "card_ms": 1.1859169462695718,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.8
+  },
+  {
+   "q": "when did the us dollar leave the gold standard",
+   "a": [
+    "October 1976",
+    "August 15, 1971",
+    "1934"
+   ],
+   "total_ms": 30.100584030151367,
+   "embed_ms": 1.18,
+   "hnsw_ms": 13.73,
+   "search_ms": 26.37,
+   "wiki_ms": 11.22,
+   "link_ms": 1.1604579631239176,
+   "passage_ms": 0.990874832496047,
+   "card_ms": 1.389040844514966,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.887
+  },
+  {
+   "q": "who founded mission nuestra senora de la soledad",
+   "a": [
+    "the Franciscan order",
+    "Ferm\u00edn Francisco de Lasu\u00e9n"
+   ],
+   "total_ms": 37.8974589984864,
+   "embed_ms": 3.57,
+   "hnsw_ms": 8.78,
+   "search_ms": 34.06,
+   "wiki_ms": 21.38,
+   "link_ms": 1.6626249998807907,
+   "passage_ms": 0.9001240832731128,
+   "card_ms": 1.1128339683637023,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wikidata",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.868
+  },
+  {
+   "q": "the type of display that google glass presents to its users is called what",
+   "a": [
+    "head-up display",
+    "optical head-mounted display",
+    "Prism projector"
+   ],
+   "total_ms": 72.7080829674378,
+   "embed_ms": 1.51,
+   "hnsw_ms": 7.96,
+   "search_ms": 70.91,
+   "wiki_ms": 60.04,
+   "link_ms": 1.318667083978653,
+   "passage_ms": 0.0,
+   "card_ms": 0.37745898589491844,
+   "ctx_hit": false,
+   "n_src": 1,
+   "kinds": [
+    "wikidata"
+   ],
+   "top": 0.748
+  },
+  {
+   "q": "where are the winter olympics and when do they start",
+   "a": [
+    "Pyeongchang County, South Korea",
+    "Pyeongchang, South Korea",
+    "9 to 25 February 2018",
+    "9 February"
+   ],
+   "total_ms": 75.14683296903968,
+   "embed_ms": 1.07,
+   "hnsw_ms": 7.95,
+   "search_ms": 30.99,
+   "wiki_ms": 21.76,
+   "link_ms": 0.8938340470194817,
+   "passage_ms": 0.7719588465988636,
+   "card_ms": 41.92654287908226,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.856
+  },
+  {
+   "q": "to whom do the powers not given to the federal government by the constitution go",
+   "a": [
+    "the states or the people"
+   ],
+   "total_ms": 21.551207988522947,
+   "embed_ms": 1.48,
+   "hnsw_ms": 6.4,
+   "search_ms": 17.88,
+   "wiki_ms": 9.72,
+   "link_ms": 1.1662079486995935,
+   "passage_ms": 0.8332509314641356,
+   "card_ms": 1.555000082589686,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.82
+  },
+  {
+   "q": "what is the name given to the common currency to the european union",
+   "a": [
+    "euro",
+    "The euro"
+   ],
+   "total_ms": 19.604166969656944,
+   "embed_ms": 1.05,
+   "hnsw_ms": 4.76,
+   "search_ms": 16.2,
+   "wiki_ms": 10.21,
+   "link_ms": 1.129999989643693,
+   "passage_ms": 0.8649991359561682,
+   "card_ms": 1.3370841043069959,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.814
+  },
+  {
+   "q": "which term describes the replacement of damaged cells to mend a tissue",
+   "a": [
+    "Stromal cells"
+   ],
+   "total_ms": 20.695999963209033,
+   "embed_ms": 1.21,
+   "hnsw_ms": 4.63,
+   "search_ms": 18.34,
+   "wiki_ms": 12.29,
+   "link_ms": 0.9603339713066816,
+   "passage_ms": 0.2758761402219534,
+   "card_ms": 1.0544180404394865,
+   "ctx_hit": false,
+   "n_src": 3,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.779
+  },
+  {
+   "q": "what process causes the continents to drift apart how",
+   "a": [
+    "Continental drift"
+   ],
+   "total_ms": 25.04904195666313,
+   "embed_ms": 1.15,
+   "hnsw_ms": 6.41,
+   "search_ms": 22.57,
+   "wiki_ms": 14.78,
+   "link_ms": 0.7632080232724547,
+   "passage_ms": 0.7107083220034838,
+   "card_ms": 0.9192920988425612,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.803
+  },
+  {
+   "q": "who was the first person to successfully introduce a device exclusively designed for data processing",
+   "a": [
+    "Herman Hollerith"
+   ],
+   "total_ms": 32.34758309554309,
+   "embed_ms": 1.23,
+   "hnsw_ms": 6.05,
+   "search_ms": 23.91,
+   "wiki_ms": 16.42,
+   "link_ms": 2.747124992311001,
+   "passage_ms": 0.8871660102158785,
+   "card_ms": 4.468624945729971,
+   "ctx_hit": true,
+   "n_src": 6,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata",
+    "wikidata"
+   ],
+   "top": 0.775
+  },
+  {
+   "q": "prior to 1948 north and south vietnam were a part of",
+   "a": [
+    "France"
+   ],
+   "total_ms": 27.91404107119888,
+   "embed_ms": 1.29,
+   "hnsw_ms": 5.28,
+   "search_ms": 21.39,
+   "wiki_ms": 14.62,
+   "link_ms": 3.1536250608041883,
+   "passage_ms": 1.2836249079555273,
+   "card_ms": 1.852167071774602,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.815
+  },
+  {
+   "q": "who sang if this world were mine with luther vandross",
+   "a": [
+    "Tammi Terrell",
+    "Cheryl Lynn"
+   ],
+   "total_ms": 41.39054100960493,
+   "embed_ms": 1.53,
+   "hnsw_ms": 7.49,
+   "search_ms": 36.57,
+   "wiki_ms": 27.33,
+   "link_ms": 2.2986659314483404,
+   "passage_ms": 0.4535020561888814,
+   "card_ms": 1.7452921019867063,
+   "ctx_hit": true,
+   "n_src": 3,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.813
+  },
+  {
+   "q": "how many times has south korea held the winter olympics",
+   "a": [
+    "two"
+   ],
+   "total_ms": 38.96858298685402,
+   "embed_ms": 1.86,
+   "hnsw_ms": 8.1,
+   "search_ms": 31.43,
+   "wiki_ms": 21.27,
+   "link_ms": 5.396291031502187,
+   "passage_ms": 0.9825410088524222,
+   "card_ms": 0.9957080474123359,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.828
+  },
+  {
+   "q": "which gene segments code for the variable region of the heavy chain",
+   "a": [
+    "V"
+   ],
+   "total_ms": 43.391124927438796,
+   "embed_ms": 1.45,
+   "hnsw_ms": 7.54,
+   "search_ms": 39.76,
+   "wiki_ms": 30.58,
+   "link_ms": 1.136625069193542,
+   "passage_ms": 0.8870002347975969,
+   "card_ms": 1.383083057589829,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.837
+  },
+  {
+   "q": "who sang what are we doing in love",
+   "a": [
+    "Dottie West",
+    "Kenny Rogers"
+   ],
+   "total_ms": 33.5712080122903,
+   "embed_ms": 4.18,
+   "hnsw_ms": 7.21,
+   "search_ms": 33.02,
+   "wiki_ms": 21.42,
+   "link_ms": 0.21058297716081142,
+   "passage_ms": 0.24108309298753738,
+   "card_ms": 0.0,
+   "ctx_hit": true,
+   "n_src": 2,
+   "kinds": [
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.827
+  },
+  {
+   "q": "who won the national championship in volleyball 2017",
+   "a": [
+    "Ohio State"
+   ],
+   "total_ms": 67.34816706739366,
+   "embed_ms": 1.16,
+   "hnsw_ms": 17.59,
+   "search_ms": 52.8,
+   "wiki_ms": 33.81,
+   "link_ms": 11.835291981697083,
+   "passage_ms": 1.1672090040519834,
+   "card_ms": 1.3647089945152402,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.815
+  },
+  {
+   "q": "when was zero first used in mathematical operations",
+   "a": [
+    "By 1770\u00a0BC",
+    "7th\u00a0century"
+   ],
+   "total_ms": 31.156458077020943,
+   "embed_ms": 1.54,
+   "hnsw_ms": 16.23,
+   "search_ms": 28.38,
+   "wiki_ms": 10.27,
+   "link_ms": 0.765250064432621,
+   "passage_ms": 0.8105401648208499,
+   "card_ms": 1.0352501412853599,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.868
+  },
+  {
+   "q": "the lowest temperature at which a lubricant will flow is called the",
+   "a": [
+    "pour point"
+   ],
+   "total_ms": 24.296834017150104,
+   "embed_ms": 1.56,
+   "hnsw_ms": 7.83,
+   "search_ms": 23.29,
+   "wiki_ms": 13.67,
+   "link_ms": 0.927999964915216,
+   "passage_ms": 0.0,
+   "card_ms": 0.0,
+   "ctx_hit": false,
+   "n_src": 0,
+   "kinds": [],
+   "top": 0.746
+  },
+  {
+   "q": "who wrote the song mary had a little lamb",
+   "a": [
+    "John Roulstone",
+    "Sarah Josepha Hale"
+   ],
+   "total_ms": 29.1459170402959,
+   "embed_ms": 1.32,
+   "hnsw_ms": 8.72,
+   "search_ms": 26.87,
+   "wiki_ms": 16.55,
+   "link_ms": 0.9804579894989729,
+   "passage_ms": 0.6264998810365796,
+   "card_ms": 0.5079169059172273,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wikidata",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.83
+  },
+  {
+   "q": "who was an early advocate for using scientific methods based on inductive reasoning",
+   "a": [
+    "Aristotle",
+    "Ren\u00e9 Descartes"
+   ],
+   "total_ms": 24.096000008285046,
+   "embed_ms": 1.57,
+   "hnsw_ms": 8.56,
+   "search_ms": 19.96,
+   "wiki_ms": 9.59,
+   "link_ms": 1.7027080757543445,
+   "passage_ms": 1.1334987357258797,
+   "card_ms": 1.1083759600296617,
+   "ctx_hit": false,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.861
+  },
+  {
+   "q": "when does the call of the wild take place",
+   "a": [
+    "1890s",
+    "the 1890s"
+   ],
+   "total_ms": 31.5836250083521,
+   "embed_ms": 1.39,
+   "hnsw_ms": 8.37,
+   "search_ms": 27.39,
+   "wiki_ms": 17.4,
+   "link_ms": 2.523624920286238,
+   "passage_ms": 0.8169579086825252,
+   "card_ms": 0.652667018584907,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wikidata",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.817
+  },
+  {
+   "q": "when was the first driver's license required",
+   "a": [
+    "1888",
+    "1 January 1904"
+   ],
+   "total_ms": 27.20566699281335,
+   "embed_ms": 1.39,
+   "hnsw_ms": 8.83,
+   "search_ms": 24.54,
+   "wiki_ms": 14.07,
+   "link_ms": 0.5918339593335986,
+   "passage_ms": 0.9131251135841012,
+   "card_ms": 0.9995411382988095,
+   "ctx_hit": false,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.88
+  },
+  {
+   "q": "when was the last time iran had an earthquake",
+   "a": [
+    "2017-12-20"
+   ],
+   "total_ms": 28.929291991516948,
+   "embed_ms": 1.49,
+   "hnsw_ms": 7.1,
+   "search_ms": 26.28,
+   "wiki_ms": 17.43,
+   "link_ms": 0.48045802395790815,
+   "passage_ms": 0.8388758869841695,
+   "card_ms": 1.1567508336156607,
+   "ctx_hit": false,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.824
+  },
+  {
+   "q": "where is the deepest lake in the us located",
+   "a": [
+    "Oregon"
+   ],
+   "total_ms": 35.121041000820696,
+   "embed_ms": 8.75,
+   "hnsw_ms": 10.09,
+   "search_ms": 33.19,
+   "wiki_ms": 14.08,
+   "link_ms": 0.6969160167500377,
+   "passage_ms": 0.7297090487554669,
+   "card_ms": 0.3801250131800771,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wikidata",
+    "wikidata",
+    "wikidata",
+    "wiki"
+   ],
+   "top": 0.802
+  },
+  {
+   "q": "who is the largest supermarket chain in the uk",
+   "a": [
+    "Aldi",
+    "Tesco"
+   ],
+   "total_ms": 52.65412502922118,
+   "embed_ms": 6.59,
+   "hnsw_ms": 12.72,
+   "search_ms": 34.31,
+   "wiki_ms": 14.43,
+   "link_ms": 3.675375017337501,
+   "passage_ms": 5.965166841633618,
+   "card_ms": 8.50462494418025,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.852
+  },
+  {
+   "q": "what is the origin of the name marvin",
+   "a": [
+    "Welsh",
+    "the Welsh name Mervyn"
+   ],
+   "total_ms": 30.79333296045661,
+   "embed_ms": 5.31,
+   "hnsw_ms": 8.41,
+   "search_ms": 30.08,
+   "wiki_ms": 16.06,
+   "link_ms": 0.3570420667529106,
+   "passage_ms": 0.254040933214128,
+   "card_ms": 0.0,
+   "ctx_hit": true,
+   "n_src": 2,
+   "kinds": [
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.833
+  },
+  {
+   "q": "when did italy enter the second world war",
+   "a": [
+    "10 June 1940"
+   ],
+   "total_ms": 36.98554099537432,
+   "embed_ms": 1.84,
+   "hnsw_ms": 6.75,
+   "search_ms": 33.4,
+   "wiki_ms": 24.58,
+   "link_ms": 0.8539999835193157,
+   "passage_ms": 0.8918329840525985,
+   "card_ms": 1.6200829995796084,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.87
+  },
+  {
+   "q": "what river flows through charleston west virginia\u2019s capital",
+   "a": [
+    "Kanawha River",
+    "the Elk and Kanawha Rivers",
+    "Kanawha",
+    "Elk"
+   ],
+   "total_ms": 30.40154103655368,
+   "embed_ms": 5.44,
+   "hnsw_ms": 8.48,
+   "search_ms": 27.28,
+   "wiki_ms": 13.07,
+   "link_ms": 2.3073749616742134,
+   "passage_ms": 0.14258292503654957,
+   "card_ms": 0.5305829690769315,
+   "ctx_hit": true,
+   "n_src": 2,
+   "kinds": [
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.779
+  },
+  {
+   "q": "what is the main objective of criminal law",
+   "a": [
+    "Incapacitation",
+    "Deterrence",
+    "Retribution",
+    "Restoration",
+    "Rehabilitation"
+   ],
+   "total_ms": 32.292666961438954,
+   "embed_ms": 9.15,
+   "hnsw_ms": 7.25,
+   "search_ms": 29.11,
+   "wiki_ms": 12.42,
+   "link_ms": 0.9016669355332851,
+   "passage_ms": 0.8472499903291464,
+   "card_ms": 1.2396682286635041,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.836
+  },
+  {
+   "q": "what theater number was the aurora shooting in",
+   "a": [
+    "9",
+    "Theater 9"
+   ],
+   "total_ms": 40.27062491513789,
+   "embed_ms": 9.89,
+   "hnsw_ms": 9.57,
+   "search_ms": 38.05,
+   "wiki_ms": 18.31,
+   "link_ms": 0.6674160249531269,
+   "passage_ms": 0.6124180508777499,
+   "card_ms": 0.7811249233782291,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.823
+  },
+  {
+   "q": "where does blood go when it leaves the pulmonary artery",
+   "a": [
+    "lungs",
+    "The pulmonary vein"
+   ],
+   "total_ms": 24.347833008505404,
+   "embed_ms": 1.59,
+   "hnsw_ms": 7.95,
+   "search_ms": 21.11,
+   "wiki_ms": 11.35,
+   "link_ms": 1.1454579653218389,
+   "passage_ms": 0.9968342492356896,
+   "card_ms": 0.9273748146370053,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wikidata",
+    "wiki"
+   ],
+   "top": 0.845
+  },
+  {
+   "q": "what states do not allow daylight savings time",
+   "a": [
+    "Navajo",
+    "Hawaii",
+    "Arizona"
+   ],
+   "total_ms": 24.50220799073577,
+   "embed_ms": 1.69,
+   "hnsw_ms": 9.92,
+   "search_ms": 20.7,
+   "wiki_ms": 8.8,
+   "link_ms": 1.165415975265205,
+   "passage_ms": 0.8611249504610896,
+   "card_ms": 1.5894159441813827,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.857
+  },
+  {
+   "q": "who is the highest selling r&b artist of all time",
+   "a": [
+    "Rihanna",
+    "Michael Jackson"
+   ],
+   "total_ms": 30.848083086311817,
+   "embed_ms": 1.66,
+   "hnsw_ms": 10.21,
+   "search_ms": 29.99,
+   "wiki_ms": 17.94,
+   "link_ms": 0.768125057220459,
+   "passage_ms": 0.0,
+   "card_ms": 0.0,
+   "ctx_hit": false,
+   "n_src": 0,
+   "kinds": [],
+   "top": 0.724
+  },
+  {
+   "q": "how many books are in the one piece series",
+   "a": [
+    "83",
+    "more than 80"
+   ],
+   "total_ms": 29.47783307172358,
+   "embed_ms": 1.15,
+   "hnsw_ms": 7.51,
+   "search_ms": 25.89,
+   "wiki_ms": 16.96,
+   "link_ms": 1.5797499800100923,
+   "passage_ms": 0.7856257725507021,
+   "card_ms": 1.0612079640850425,
+   "ctx_hit": false,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.847
+  },
+  {
+   "q": "what stations in seattle are owned by sinclair",
+   "a": [
+    "KOMO-TV",
+    "KUNS-TV"
+   ],
+   "total_ms": 34.76287494413555,
+   "embed_ms": 1.52,
+   "hnsw_ms": 8.7,
+   "search_ms": 31.98,
+   "wiki_ms": 20.03,
+   "link_ms": 0.4598330706357956,
+   "passage_ms": 0.8268749807029963,
+   "card_ms": 1.332332263700664,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.779
+  },
+  {
+   "q": "which state is the richest state in nigeria",
+   "a": [
+    "Lagos State"
+   ],
+   "total_ms": 29.58083397243172,
+   "embed_ms": 1.3,
+   "hnsw_ms": 7.03,
+   "search_ms": 27.97,
+   "wiki_ms": 19.34,
+   "link_ms": 0.5122079746797681,
+   "passage_ms": 0.3402500879019499,
+   "card_ms": 0.5969170015305281,
+   "ctx_hit": true,
+   "n_src": 2,
+   "kinds": [
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.784
+  },
+  {
+   "q": "how many seasons are in star wars the clone wars",
+   "a": [
+    "6"
+   ],
+   "total_ms": 29.83187499921769,
+   "embed_ms": 1.6,
+   "hnsw_ms": 10.63,
+   "search_ms": 23.4,
+   "wiki_ms": 10.93,
+   "link_ms": 3.5506669664755464,
+   "passage_ms": 1.0060002095997334,
+   "card_ms": 1.7002079403027892,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.851
+  },
+  {
+   "q": "when did world war 2 end in the pacific",
+   "a": [
+    "14 and 15 August 1945",
+    "September 2, 1945"
+   ],
+   "total_ms": 26.18404198437929,
+   "embed_ms": 1.13,
+   "hnsw_ms": 5.88,
+   "search_ms": 23.52,
+   "wiki_ms": 16.29,
+   "link_ms": 0.9260419756174088,
+   "passage_ms": 0.9713722392916679,
+   "card_ms": 0.6068338407203555,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "web"
+   ],
+   "top": 0.839
+  },
+  {
+   "q": "how many books are in the diary of a whimpy kid series",
+   "a": [
+    "12"
+   ],
+   "total_ms": 25.03224997781217,
+   "embed_ms": 1.47,
+   "hnsw_ms": 8.98,
+   "search_ms": 23.71,
+   "wiki_ms": 13.0,
+   "link_ms": 0.7538340287283063,
+   "passage_ms": 0.1586669823154807,
+   "card_ms": 0.29912497848272324,
+   "ctx_hit": false,
+   "n_src": 2,
+   "kinds": [
+    "wiki",
+    "web"
+   ],
+   "top": 0.764
+  },
+  {
+   "q": "who did cubs beat in 2016 world series",
+   "a": [
+    "the Indians",
+    "Cleveland Indians"
+   ],
+   "total_ms": 86.04058297351003,
+   "embed_ms": 1.46,
+   "hnsw_ms": 5.0,
+   "search_ms": 64.28,
+   "wiki_ms": 57.62,
+   "link_ms": 7.966166012920439,
+   "passage_ms": 8.215205045416951,
+   "card_ms": 5.418292013928294,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.887
+  },
+  {
+   "q": "who played the girl in my two dads",
+   "a": [
+    "Staci Keanan"
+   ],
+   "total_ms": 24.10016697831452,
+   "embed_ms": 1.08,
+   "hnsw_ms": 7.31,
+   "search_ms": 23.64,
+   "wiki_ms": 15.02,
+   "link_ms": 0.40437502320855856,
+   "passage_ms": 0.0,
+   "card_ms": 0.0,
+   "ctx_hit": false,
+   "n_src": 0,
+   "kinds": [],
+   "top": 0.714
+  },
+  {
+   "q": "when do love and hip hop new york come back on",
+   "a": [
+    "November\u00a013,\u00a02017",
+    "October 30, 2017"
+   ],
+   "total_ms": 64.35712496750057,
+   "embed_ms": 1.08,
+   "hnsw_ms": 41.55,
+   "search_ms": 54.66,
+   "wiki_ms": 11.67,
+   "link_ms": 7.135207997635007,
+   "passage_ms": 0.9543332271277905,
+   "card_ms": 1.3215407961979508,
+   "ctx_hit": true,
+   "n_src": 6,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata",
+    "wikidata"
+   ],
+   "top": 0.895
+  },
+  {
+   "q": "when did ibuprofen become available over the counter",
+   "a": [
+    "1983",
+    "1984"
+   ],
+   "total_ms": 21.42308303155005,
+   "embed_ms": 1.35,
+   "hnsw_ms": 4.75,
+   "search_ms": 18.72,
+   "wiki_ms": 12.41,
+   "link_ms": 0.6830419879406691,
+   "passage_ms": 0.861832988448441,
+   "card_ms": 1.0840831091627479,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.827
+  },
+  {
+   "q": "who played the judge in good will hunting",
+   "a": [
+    "James P. Flynn"
+   ],
+   "total_ms": 19.43441608455032,
+   "embed_ms": 0.97,
+   "hnsw_ms": 5.52,
+   "search_ms": 18.43,
+   "wiki_ms": 11.72,
+   "link_ms": 0.5309999687597156,
+   "passage_ms": 0.17170899081975222,
+   "card_ms": 0.25050004478543997,
+   "ctx_hit": false,
+   "n_src": 1,
+   "kinds": [
+    "wiki"
+   ],
+   "top": 0.797
+  },
+  {
+   "q": "when does the next episode of izombie air",
+   "a": [
+    "May\u00a07,\u00a02018",
+    "May\u00a014,\u00a02018"
+   ],
+   "total_ms": 23.968624998815358,
+   "embed_ms": 0.98,
+   "hnsw_ms": 5.93,
+   "search_ms": 21.26,
+   "wiki_ms": 14.11,
+   "link_ms": 0.5390419391915202,
+   "passage_ms": 0.5404988769441843,
+   "card_ms": 1.4961669221520424,
+   "ctx_hit": false,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.87
+  },
+  {
+   "q": "when is the fa cup semi-finals being played",
+   "a": [
+    "Wembley Stadium"
+   ],
+   "total_ms": 39.655250031501055,
+   "embed_ms": 1.06,
+   "hnsw_ms": 5.96,
+   "search_ms": 36.65,
+   "wiki_ms": 29.46,
+   "link_ms": 0.5420410307124257,
+   "passage_ms": 0.8917059749364853,
+   "card_ms": 1.4573318185284734,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.909
+  },
+  {
+   "q": "who won the most medals in the 1924 winter olympics",
+   "a": [
+    "Norway"
+   ],
+   "total_ms": 23.527792072854936,
+   "embed_ms": 1.08,
+   "hnsw_ms": 5.1,
+   "search_ms": 20.84,
+   "wiki_ms": 14.5,
+   "link_ms": 0.5359590286388993,
+   "passage_ms": 0.8064587600529194,
+   "card_ms": 1.264499849639833,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.854
+  },
+  {
+   "q": "when did muhammad ali win an olympic gold medal",
+   "a": [
+    "1960"
+   ],
+   "total_ms": 35.28370801359415,
+   "embed_ms": 1.44,
+   "hnsw_ms": 6.18,
+   "search_ms": 29.2,
+   "wiki_ms": 21.37,
+   "link_ms": 3.2632079673931003,
+   "passage_ms": 0.9031248046085238,
+   "card_ms": 1.7327090026810765,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.8
+  },
+  {
+   "q": "what is the largest ethnic group in mexico today",
+   "a": [
+    "K'iche'"
+   ],
+   "total_ms": 24.223499931395054,
+   "embed_ms": 1.12,
+   "hnsw_ms": 5.6,
+   "search_ms": 22.0,
+   "wiki_ms": 14.76,
+   "link_ms": 0.3922500181943178,
+   "passage_ms": 0.7727091433480382,
+   "card_ms": 0.9732500184327364,
+   "ctx_hit": false,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "web",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.798
+  },
+  {
+   "q": "where are the mitochondria located in the sperm",
+   "a": [
+    "midpiece"
+   ],
+   "total_ms": 21.37920807581395,
+   "embed_ms": 1.1,
+   "hnsw_ms": 5.51,
+   "search_ms": 18.56,
+   "wiki_ms": 11.77,
+   "link_ms": 0.49454206600785255,
+   "passage_ms": 1.0100399376824498,
+   "card_ms": 1.1931669432669878,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.853
+  },
+  {
+   "q": "what's the highest point in the us",
+   "a": [
+    "Mount Whitney"
+   ],
+   "total_ms": 29.33833305723965,
+   "embed_ms": 4.56,
+   "hnsw_ms": 6.49,
+   "search_ms": 26.75,
+   "wiki_ms": 15.46,
+   "link_ms": 0.4841249901801348,
+   "passage_ms": 0.9547912050038576,
+   "card_ms": 1.0298341512680054,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.829
+  },
+  {
+   "q": "where does kfc get their chicken in south africa",
+   "a": [
+    "reared in South Africa",
+    "South Africa"
+   ],
+   "total_ms": 26.135583990253508,
+   "embed_ms": 1.1,
+   "hnsw_ms": 8.8,
+   "search_ms": 22.72,
+   "wiki_ms": 12.6,
+   "link_ms": 1.1748340912163258,
+   "passage_ms": 0.6430849898606539,
+   "card_ms": 1.4535002410411835,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.774
+  },
+  {
+   "q": "who has trained the most melbourne cup winners",
+   "a": [
+    "Bart Cummings"
+   ],
+   "total_ms": 42.4404579680413,
+   "embed_ms": 3.49,
+   "hnsw_ms": 11.02,
+   "search_ms": 37.74,
+   "wiki_ms": 22.94,
+   "link_ms": 0.8182920282706618,
+   "passage_ms": 0.7750449003651738,
+   "card_ms": 2.949126996099949,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.852
+  },
+  {
+   "q": "what kind of trees have heart shaped leaves",
+   "a": [
+    "Linden",
+    "Eastern Redbud",
+    "Catalpa"
+   ],
+   "total_ms": 37.2709590010345,
+   "embed_ms": 1.42,
+   "hnsw_ms": 7.28,
+   "search_ms": 34.03,
+   "wiki_ms": 25.01,
+   "link_ms": 0.80362509470433,
+   "passage_ms": 0.8574581006541848,
+   "card_ms": 1.4110819902271032,
+   "ctx_hit": false,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.781
+  },
+  {
+   "q": "book series about the end of the world",
+   "a": [
+    "Left Behind"
+   ],
+   "total_ms": 34.57354195415974,
+   "embed_ms": 4.75,
+   "hnsw_ms": 7.84,
+   "search_ms": 27.19,
+   "wiki_ms": 14.36,
+   "link_ms": 2.436083974316716,
+   "passage_ms": 0.8367490954697132,
+   "card_ms": 3.922291100025177,
+   "ctx_hit": false,
+   "n_src": 6,
+   "kinds": [
+    "wiki",
+    "web",
+    "wiki",
+    "wiki",
+    "wikidata",
+    "wikidata"
+   ],
+   "top": 0.787
+  },
+  {
+   "q": "who sings he thinks he'll keep her",
+   "a": [
+    "Mary Chapin Carpenter"
+   ],
+   "total_ms": 25.351583026349545,
+   "embed_ms": 1.54,
+   "hnsw_ms": 5.54,
+   "search_ms": 24.34,
+   "wiki_ms": 16.93,
+   "link_ms": 0.6604579975828528,
+   "passage_ms": 0.25108293630182743,
+   "card_ms": 0.0,
+   "ctx_hit": true,
+   "n_src": 2,
+   "kinds": [
+    "wikidata",
+    "wiki"
+   ],
+   "top": 0.856
+  },
+  {
+   "q": "who sings gone gone gone she been gone so long",
+   "a": [
+    "Chilliwack"
+   ],
+   "total_ms": 33.03133405279368,
+   "embed_ms": 5.13,
+   "hnsw_ms": 11.02,
+   "search_ms": 30.56,
+   "wiki_ms": 14.14,
+   "link_ms": 1.7608749913051724,
+   "passage_ms": 0.0,
+   "card_ms": 0.5965420277789235,
+   "ctx_hit": false,
+   "n_src": 2,
+   "kinds": [
+    "wikidata",
+    "wikidata"
+   ],
+   "top": 0.745
+  },
+  {
+   "q": "when did the movie princess bride come out",
+   "a": [
+    "September 25, 1987",
+    "1987",
+    "September\u00a025,\u00a01987"
+   ],
+   "total_ms": 28.558542020618916,
+   "embed_ms": 1.41,
+   "hnsw_ms": 7.29,
+   "search_ms": 26.23,
+   "wiki_ms": 17.31,
+   "link_ms": 0.6321249529719353,
+   "passage_ms": 0.8571260841563344,
+   "card_ms": 0.6841239519417286,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata",
+    "wikidata"
+   ],
+   "top": 0.809
+  },
+  {
+   "q": "india participated olympic hockey for the first time",
+   "a": [
+    "1927",
+    "1928"
+   ],
+   "total_ms": 34.48883397504687,
+   "embed_ms": 4.63,
+   "hnsw_ms": 11.55,
+   "search_ms": 31.31,
+   "wiki_ms": 14.81,
+   "link_ms": 0.7823340129107237,
+   "passage_ms": 0.9008740307763219,
+   "card_ms": 1.3165419222787023,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.841
+  },
+  {
+   "q": "what does it mean when your baby comes out feet first",
+   "a": [
+    "A footling breech"
+   ],
+   "total_ms": 23.468416999094188,
+   "embed_ms": 3.21,
+   "hnsw_ms": 6.16,
+   "search_ms": 22.24,
+   "wiki_ms": 12.48,
+   "link_ms": 0.82566705532372,
+   "passage_ms": 0.0,
+   "card_ms": 0.3023339668288827,
+   "ctx_hit": false,
+   "n_src": 1,
+   "kinds": [
+    "wikidata"
+   ],
+   "top": 0.743
+  },
+  {
+   "q": "when did they start vaccinating for whooping cough",
+   "a": [
+    "the 1920s",
+    "the 1940s"
+   ],
+   "total_ms": 39.55854196101427,
+   "embed_ms": 9.8,
+   "hnsw_ms": 8.04,
+   "search_ms": 36.26,
+   "wiki_ms": 18.11,
+   "link_ms": 0.8745420491322875,
+   "passage_ms": 0.9467080235481262,
+   "card_ms": 1.2734581250697374,
+   "ctx_hit": false,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.844
+  },
+  {
+   "q": "where was the world economic forum held this year",
+   "a": [
+    "Davos"
+   ],
+   "total_ms": 38.60733297187835,
+   "embed_ms": 2.52,
+   "hnsw_ms": 16.36,
+   "search_ms": 36.15,
+   "wiki_ms": 17.03,
+   "link_ms": 0.4581250250339508,
+   "passage_ms": 0.9148360695689917,
+   "card_ms": 0.9127500234171748,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wikidata",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.853
+  },
+  {
+   "q": "where was the war of the planet of the apes filmed",
+   "a": [
+    "the Lower Mainland in Vancouver",
+    "Lower Mainland in Vancouver",
+    "the Kananaskis"
+   ],
+   "total_ms": 34.25425000023097,
+   "embed_ms": 6.22,
+   "hnsw_ms": 6.1,
+   "search_ms": 30.16,
+   "wiki_ms": 17.57,
+   "link_ms": 1.4922089176252484,
+   "passage_ms": 0.8784170495346189,
+   "card_ms": 1.5242500230669975,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.878
+  },
+  {
+   "q": "what kind of beer is st pauli girl",
+   "a": [
+    "Special Dark",
+    "Lager",
+    "Non-Alcoholic Malt Beverage"
+   ],
+   "total_ms": 30.946708051487803,
+   "embed_ms": 2.86,
+   "hnsw_ms": 11.84,
+   "search_ms": 29.66,
+   "wiki_ms": 14.45,
+   "link_ms": 0.6285419221967459,
+   "passage_ms": 0.1323750475421548,
+   "card_ms": 0.3932500258088112,
+   "ctx_hit": true,
+   "n_src": 1,
+   "kinds": [
+    "wiki"
+   ],
+   "top": 0.842
+  },
+  {
+   "q": "who is emma dating in once upon a time",
+   "a": [
+    "Hook"
+   ],
+   "total_ms": 36.307667032815516,
+   "embed_ms": 4.28,
+   "hnsw_ms": 12.58,
+   "search_ms": 33.56,
+   "wiki_ms": 15.56,
+   "link_ms": 0.5048750899732113,
+   "passage_ms": 0.8359998464584351,
+   "card_ms": 1.2607089010998607,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.807
+  },
+  {
+   "q": "when does the world cup of hockey start",
+   "a": [
+    "2020"
+   ],
+   "total_ms": 29.750040965154767,
+   "embed_ms": 1.39,
+   "hnsw_ms": 7.88,
+   "search_ms": 27.95,
+   "wiki_ms": 18.44,
+   "link_ms": 0.2514160005375743,
+   "passage_ms": 0.8784556994214654,
+   "card_ms": 0.5241250619292259,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wikidata",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.849
+  },
+  {
+   "q": "what is the source of information for account receivables",
+   "a": [
+    "invoices"
+   ],
+   "total_ms": 29.149667010642588,
+   "embed_ms": 1.51,
+   "hnsw_ms": 12.16,
+   "search_ms": 27.9,
+   "wiki_ms": 13.87,
+   "link_ms": 0.6799999391660094,
+   "passage_ms": 0.14083296991884708,
+   "card_ms": 0.2983750309795141,
+   "ctx_hit": false,
+   "n_src": 2,
+   "kinds": [
+    "wiki",
+    "web"
+   ],
+   "top": 0.779
+  },
+  {
+   "q": "what was hawaii's primary export to the united states",
+   "a": [
+    "macadamia nuts",
+    "coffee",
+    "honey",
+    "sugarcane",
+    "pineapple",
+    "livestock"
+   ],
+   "total_ms": 25.05837508942932,
+   "embed_ms": 1.54,
+   "hnsw_ms": 7.05,
+   "search_ms": 22.36,
+   "wiki_ms": 13.55,
+   "link_ms": 0.6414580857381225,
+   "passage_ms": 0.8340820204466581,
+   "card_ms": 1.1130849597975612,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.803
+  },
+  {
+   "q": "where is the villa in call me by your name",
+   "a": [
+    "Moscazzano"
+   ],
+   "total_ms": 37.36420895438641,
+   "embed_ms": 1.15,
+   "hnsw_ms": 9.52,
+   "search_ms": 36.41,
+   "wiki_ms": 25.39,
+   "link_ms": 0.5327500402927399,
+   "passage_ms": 0.0,
+   "card_ms": 0.3223750973120332,
+   "ctx_hit": false,
+   "n_src": 1,
+   "kinds": [
+    "wikidata"
+   ],
+   "top": 0.686
+  },
+  {
+   "q": "when does a wrinkle in time come out in canada",
+   "a": [
+    "March 9, 2018"
+   ],
+   "total_ms": 42.901833076030016,
+   "embed_ms": 8.17,
+   "hnsw_ms": 7.39,
+   "search_ms": 36.49,
+   "wiki_ms": 14.84,
+   "link_ms": 4.6692079631611705,
+   "passage_ms": 0.34604198299348354,
+   "card_ms": 1.2446660548448563,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.836
+  },
+  {
+   "q": "new york heart association functional classification of angina",
+   "a": [
+    "II"
+   ],
+   "total_ms": 27.825708035379648,
+   "embed_ms": 1.32,
+   "hnsw_ms": 14.01,
+   "search_ms": 25.82,
+   "wiki_ms": 10.15,
+   "link_ms": 0.3601249773055315,
+   "passage_ms": 0.8414170006290078,
+   "card_ms": 0.6472088862210512,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wikidata",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.881
+  },
+  {
+   "q": "when was the movie cool hand luke made",
+   "a": [
+    "1967"
+   ],
+   "total_ms": 79.39225004520267,
+   "embed_ms": 2.54,
+   "hnsw_ms": 8.99,
+   "search_ms": 77.52,
+   "wiki_ms": 65.81,
+   "link_ms": 0.9608750697225332,
+   "passage_ms": 0.30304212123155594,
+   "card_ms": 0.5282079800963402,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wikidata",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.862
+  },
+  {
+   "q": "who sings gimme shelter with mick jagger",
+   "a": [
+    "Merry Clayton"
+   ],
+   "total_ms": 61.22154206968844,
+   "embed_ms": 6.02,
+   "hnsw_ms": 5.42,
+   "search_ms": 58.15,
+   "wiki_ms": 46.39,
+   "link_ms": 1.1380839860066772,
+   "passage_ms": 0.8309578988701105,
+   "card_ms": 0.8705409709364176,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wikidata",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.89
+  },
+  {
+   "q": "what is a buckeye the mascot for ohio state university",
+   "a": [
+    "Anthropomorphic buckeye nut"
+   ],
+   "total_ms": 21.013292018324137,
+   "embed_ms": 1.35,
+   "hnsw_ms": 4.81,
+   "search_ms": 18.63,
+   "wiki_ms": 12.26,
+   "link_ms": 0.7949579739943147,
+   "passage_ms": 0.7812919793650508,
+   "card_ms": 0.7023339858278632,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wikidata",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.882
+  },
+  {
+   "q": "the fellowship of the ring director's cut length",
+   "a": [
+    "228 minutes"
+   ],
+   "total_ms": 15.937083982862532,
+   "embed_ms": 0.97,
+   "hnsw_ms": 4.95,
+   "search_ms": 13.74,
+   "wiki_ms": 7.6,
+   "link_ms": 1.18545803707093,
+   "passage_ms": 0.18287415150552988,
+   "card_ms": 0.7524589309468865,
+   "ctx_hit": false,
+   "n_src": 3,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.754
+  },
+  {
+   "q": "who plays addison shepherd on grey's anatomy",
+   "a": [
+    "Kathleen Erin Walsh"
+   ],
+   "total_ms": 16.65829203557223,
+   "embed_ms": 1.11,
+   "hnsw_ms": 4.78,
+   "search_ms": 14.5,
+   "wiki_ms": 8.42,
+   "link_ms": 0.7512079318985343,
+   "passage_ms": 0.6658331258222461,
+   "card_ms": 0.6670431466773152,
+   "ctx_hit": false,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.831
+  },
+  {
+   "q": "who won the womens 2017 ncaa basketball tournament",
+   "a": [
+    "South Carolina"
+   ],
+   "total_ms": 22.385999909602106,
+   "embed_ms": 1.04,
+   "hnsw_ms": 4.23,
+   "search_ms": 20.11,
+   "wiki_ms": 14.71,
+   "link_ms": 0.5315830931067467,
+   "passage_ms": 0.7379181915894151,
+   "card_ms": 0.932999886572361,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.848
+  },
+  {
+   "q": "when did canada sign the un declaration of indigenous rights",
+   "a": [
+    "May 2016",
+    "12 November 2010"
+   ],
+   "total_ms": 19.870333024300635,
+   "embed_ms": 1.12,
+   "hnsw_ms": 5.0,
+   "search_ms": 17.31,
+   "wiki_ms": 11.0,
+   "link_ms": 0.8915000362321734,
+   "passage_ms": 0.6919169100001454,
+   "card_ms": 0.8999999845400453,
+   "ctx_hit": false,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.821
+  },
+  {
+   "q": "distance from one side of a bridge to the other crossword",
+   "a": [
+    "span"
+   ],
+   "total_ms": 19.7123329853639,
+   "embed_ms": 1.0,
+   "hnsw_ms": 5.75,
+   "search_ms": 18.95,
+   "wiki_ms": 12.06,
+   "link_ms": 0.7092920131981373,
+   "passage_ms": 0.0,
+   "card_ms": 0.0,
+   "ctx_hit": false,
+   "n_src": 0,
+   "kinds": [],
+   "top": 0.738
+  },
+  {
+   "q": "the cuban revolt against spain was led by",
+   "a": [
+    "M\u00e1ximo Gomez",
+    "Antonio Maceo",
+    "Jos\u00e9 Mart\u00ed"
+   ],
+   "total_ms": 20.43600007891655,
+   "embed_ms": 1.24,
+   "hnsw_ms": 4.74,
+   "search_ms": 17.64,
+   "wiki_ms": 11.44,
+   "link_ms": 0.8340829517692327,
+   "passage_ms": 0.9637500625103712,
+   "card_ms": 0.881834072060883,
+   "ctx_hit": false,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.798
+  },
+  {
+   "q": "when did sweet caroline start at red sox games",
+   "a": [
+    "1997",
+    "at least 1997"
+   ],
+   "total_ms": 30.88108403608203,
+   "embed_ms": 1.75,
+   "hnsw_ms": 7.81,
+   "search_ms": 27.87,
+   "wiki_ms": 17.62,
+   "link_ms": 1.1904999846592546,
+   "passage_ms": 0.6447499617934227,
+   "card_ms": 1.0702500585466623,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.838
+  },
+  {
+   "q": "what does the adrenal gland produce that is necessary for the sympathetic nervous system to function",
+   "a": [
+    "epinephrine"
+   ],
+   "total_ms": 16.507584019564092,
+   "embed_ms": 1.09,
+   "hnsw_ms": 4.27,
+   "search_ms": 13.25,
+   "wiki_ms": 7.72,
+   "link_ms": 1.0427910601720214,
+   "passage_ms": 0.7002534111961722,
+   "card_ms": 1.427958020940423,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.831
+  },
+  {
+   "q": "colby chees is named after a town in what state",
+   "a": [
+    "Wisconsin"
+   ],
+   "total_ms": 18.19354109466076,
+   "embed_ms": 1.45,
+   "hnsw_ms": 4.81,
+   "search_ms": 17.39,
+   "wiki_ms": 10.94,
+   "link_ms": 0.7520000217482448,
+   "passage_ms": 0.0,
+   "card_ms": 0.0,
+   "ctx_hit": false,
+   "n_src": 0,
+   "kinds": [],
+   "top": 0.74
+  },
+  {
+   "q": "when does season 8 of hawaii five o premiere",
+   "a": [
+    "September 29, 2017"
+   ],
+   "total_ms": 21.818208042532206,
+   "embed_ms": 3.15,
+   "hnsw_ms": 5.84,
+   "search_ms": 20.0,
+   "wiki_ms": 10.81,
+   "link_ms": 0.6195410387590528,
+   "passage_ms": 0.7482491200789809,
+   "card_ms": 0.36187598016113043,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.885
+  },
+  {
+   "q": "what happens when iron reacts with oxygen and water",
+   "a": [
+    "Rust"
+   ],
+   "total_ms": 25.47841693740338,
+   "embed_ms": 5.03,
+   "hnsw_ms": 7.07,
+   "search_ms": 22.88,
+   "wiki_ms": 10.62,
+   "link_ms": 0.6899579893797636,
+   "passage_ms": 0.8585011819377542,
+   "card_ms": 0.9240829385817051,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "web",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.795
+  },
+  {
+   "q": "when did the first train run in england",
+   "a": [
+    "1560s",
+    "As early as 1671",
+    "1830",
+    "1804"
+   ],
+   "total_ms": 23.124082945287228,
+   "embed_ms": 1.72,
+   "hnsw_ms": 5.67,
+   "search_ms": 20.69,
+   "wiki_ms": 13.11,
+   "link_ms": 0.4212090279906988,
+   "passage_ms": 0.8252920815721154,
+   "card_ms": 1.0506248800083995,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.837
+  },
+  {
+   "q": "how many ammendments to the constitution have there been",
+   "a": [
+    "Twenty-seven",
+    "Thirty-three"
+   ],
+   "total_ms": 19.963374943472445,
+   "embed_ms": 1.8,
+   "hnsw_ms": 7.59,
+   "search_ms": 18.58,
+   "wiki_ms": 9.04,
+   "link_ms": 0.27808290906250477,
+   "passage_ms": 0.6890019867569208,
+   "card_ms": 0.31633302569389343,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "web",
+    "wiki",
+    "web",
+    "wiki"
+   ],
+   "top": 0.808
+  },
+  {
+   "q": "who sang it must have been love but its over now",
+   "a": [
+    "Roxette"
+   ],
+   "total_ms": 22.02829101588577,
+   "embed_ms": 1.8,
+   "hnsw_ms": 6.97,
+   "search_ms": 20.0,
+   "wiki_ms": 11.02,
+   "link_ms": 1.0252919746562839,
+   "passage_ms": 0.34291704650968313,
+   "card_ms": 0.561458058655262,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wikidata",
+    "wikidata",
+    "wiki",
+    "wikidata",
+    "wikidata"
+   ],
+   "top": 0.755
+  },
+  {
+   "q": "who invented the first computer game in 1962 and what was the name of the game",
+   "a": [
+    "Spacewar!",
+    "Steve Russell",
+    "Wayne Wiitanen",
+    "Martin Graetz"
+   ],
+   "total_ms": 23.785957950167358,
+   "embed_ms": 1.14,
+   "hnsw_ms": 7.38,
+   "search_ms": 19.81,
+   "wiki_ms": 9.39,
+   "link_ms": 1.5395830851048231,
+   "passage_ms": 0.938582350499928,
+   "card_ms": 1.3456240994855762,
+   "ctx_hit": true,
+   "n_src": 6,
+   "kinds": [
+    "wiki",
+    "web",
+    "wiki",
+    "wiki",
+    "wikidata",
+    "wikidata"
+   ],
+   "top": 0.807
+  },
+  {
+   "q": "who did the original spirit in the sky",
+   "a": [
+    "Norman Greenbaum"
+   ],
+   "total_ms": 21.22729190159589,
+   "embed_ms": 1.45,
+   "hnsw_ms": 6.07,
+   "search_ms": 20.17,
+   "wiki_ms": 12.44,
+   "link_ms": 0.753207947127521,
+   "passage_ms": 0.21274900063872337,
+   "card_ms": 0.0,
+   "ctx_hit": true,
+   "n_src": 2,
+   "kinds": [
+    "wikidata",
+    "wikidata"
+   ],
+   "top": 0.812
+  },
+  {
+   "q": "internet based test of english as a foreign language test",
+   "a": [
+    "TOEFL"
+   ],
+   "total_ms": 23.528499994426966,
+   "embed_ms": 1.35,
+   "hnsw_ms": 7.89,
+   "search_ms": 21.33,
+   "wiki_ms": 11.87,
+   "link_ms": 0.8156250696629286,
+   "passage_ms": 0.8308739634230733,
+   "card_ms": 0.43124996591359377,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "web",
+    "wiki",
+    "wikidata",
+    "wikidata"
+   ],
+   "top": 0.811
+  },
+  {
+   "q": "who plays rachel on jessie punch dumped love",
+   "a": [
+    "Isabella Palmieri"
+   ],
+   "total_ms": 20.832875045016408,
+   "embed_ms": 1.14,
+   "hnsw_ms": 6.56,
+   "search_ms": 19.93,
+   "wiki_ms": 12.0,
+   "link_ms": 0.8243330521509051,
+   "passage_ms": 0.0,
+   "card_ms": 0.0,
+   "ctx_hit": false,
+   "n_src": 0,
+   "kinds": [],
+   "top": 0.718
+  },
+  {
+   "q": "when is season 8 for game of thrones",
+   "a": [
+    "2019",
+    "in 2019"
+   ],
+   "total_ms": 22.762084030546248,
+   "embed_ms": 1.6,
+   "hnsw_ms": 8.17,
+   "search_ms": 20.52,
+   "wiki_ms": 10.47,
+   "link_ms": 0.7014579605311155,
+   "passage_ms": 0.7880419725552201,
+   "card_ms": 0.6178749026730657,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wikidata",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.928
+  },
+  {
+   "q": "who are considered to be the founding fathers",
+   "a": [
+    "George Washington",
+    "Benjamin Franklin",
+    "John Adams",
+    "Alexander Hamilton",
+    "John Jay",
+    "James Madison",
+    "Thomas Jefferson"
+   ],
+   "total_ms": 19.1885830136016,
+   "embed_ms": 1.44,
+   "hnsw_ms": 5.78,
+   "search_ms": 16.91,
+   "wiki_ms": 9.47,
+   "link_ms": 0.3787080058827996,
+   "passage_ms": 0.8450422901660204,
+   "card_ms": 0.9628749685361981,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.843
+  },
+  {
+   "q": "how many players on the line of scrimmage in american football",
+   "a": [
+    "at least seven players",
+    "at least seven",
+    "seven"
+   ],
+   "total_ms": 27.709417045116425,
+   "embed_ms": 0.95,
+   "hnsw_ms": 6.37,
+   "search_ms": 24.06,
+   "wiki_ms": 16.38,
+   "link_ms": 1.5017089899629354,
+   "passage_ms": 0.8141690632328391,
+   "card_ms": 1.1782082729041576,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.882
+  },
+  {
+   "q": "who holds the record for most everest summits",
+   "a": [
+    "Kami Rita",
+    "Phurba Tashi Sherpa",
+    "Apa Sherpa",
+    "Phurba Tashi",
+    "Kami Rita Sherpa"
+   ],
+   "total_ms": 24.945290992036462,
+   "embed_ms": 1.67,
+   "hnsw_ms": 5.18,
+   "search_ms": 22.1,
+   "wiki_ms": 15.02,
+   "link_ms": 0.5555839743465185,
+   "passage_ms": 1.0147521970793605,
+   "card_ms": 1.1262079933658242,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.828
+  },
+  {
+   "q": "who is the director of nightmare before christmas",
+   "a": [
+    "Henry Selick"
+   ],
+   "total_ms": 22.39170903339982,
+   "embed_ms": 1.36,
+   "hnsw_ms": 7.51,
+   "search_ms": 21.02,
+   "wiki_ms": 11.91,
+   "link_ms": 0.6048750365152955,
+   "passage_ms": 0.11037499643862247,
+   "card_ms": 0.5391669692471623,
+   "ctx_hit": true,
+   "n_src": 2,
+   "kinds": [
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.765
+  },
+  {
+   "q": "what are the four main types of precipitation",
+   "a": [
+    "sleet",
+    "hail",
+    "graupel",
+    "snow",
+    "drizzle",
+    "rain"
+   ],
+   "total_ms": 25.633875047788024,
+   "embed_ms": 2.02,
+   "hnsw_ms": 11.65,
+   "search_ms": 24.11,
+   "wiki_ms": 10.1,
+   "link_ms": 0.38645800668746233,
+   "passage_ms": 0.7104171672835946,
+   "card_ms": 0.29579096008092165,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wikidata",
+    "wikidata"
+   ],
+   "top": 0.818
+  },
+  {
+   "q": "who was the 11th prime minister of canada",
+   "a": [
+    "R. B. Bennett",
+    "Arthur Meighen"
+   ],
+   "total_ms": 25.306459050625563,
+   "embed_ms": 1.38,
+   "hnsw_ms": 7.16,
+   "search_ms": 22.71,
+   "wiki_ms": 13.94,
+   "link_ms": 0.5102920113131404,
+   "passage_ms": 0.8559590205550194,
+   "card_ms": 1.0889989789575338,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.821
+  },
+  {
+   "q": "where is hallmark channel home and family filmed",
+   "a": [
+    "Los Angeles, California"
+   ],
+   "total_ms": 28.10158289503306,
+   "embed_ms": 2.56,
+   "hnsw_ms": 9.49,
+   "search_ms": 25.4,
+   "wiki_ms": 13.15,
+   "link_ms": 1.1617920827120543,
+   "passage_ms": 0.32637501135468483,
+   "card_ms": 1.0662500280886889,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.787
+  },
+  {
+   "q": "which term means the study of the nature and causes of disease",
+   "a": [
+    "pathology"
+   ],
+   "total_ms": 21.108750021085143,
+   "embed_ms": 1.3,
+   "hnsw_ms": 5.42,
+   "search_ms": 18.27,
+   "wiki_ms": 11.36,
+   "link_ms": 0.6066670175641775,
+   "passage_ms": 0.9939587907865644,
+   "card_ms": 1.0603329865261912,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.79
+  },
+  {
+   "q": "where are the next two winter olympics going to be held",
+   "a": [
+    "Beijing",
+    "TBD"
+   ],
+   "total_ms": 24.812416057102382,
+   "embed_ms": 1.17,
+   "hnsw_ms": 5.28,
+   "search_ms": 22.35,
+   "wiki_ms": 15.75,
+   "link_ms": 0.4848749376833439,
+   "passage_ms": 0.7184569258242846,
+   "card_ms": 1.1417078785598278,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.855
+  },
+  {
+   "q": "what is the poorest county in the state of florida",
+   "a": [
+    "Union"
+   ],
+   "total_ms": 21.50320797227323,
+   "embed_ms": 1.28,
+   "hnsw_ms": 7.0,
+   "search_ms": 19.7,
+   "wiki_ms": 11.14,
+   "link_ms": 0.9375829249620438,
+   "passage_ms": 0.13816601131111383,
+   "card_ms": 0.590043026022613,
+   "ctx_hit": false,
+   "n_src": 2,
+   "kinds": [
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.769
+  },
+  {
+   "q": "who sings i can't take my eyes off of you",
+   "a": [
+    "Frankie Valli"
+   ],
+   "total_ms": 24.41862504929304,
+   "embed_ms": 1.39,
+   "hnsw_ms": 6.29,
+   "search_ms": 21.86,
+   "wiki_ms": 13.93,
+   "link_ms": 0.5128339398652315,
+   "passage_ms": 0.8317508036270738,
+   "card_ms": 1.0404589120298624,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wikidata",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.825
+  },
+  {
+   "q": "who plays colin on young and the restless",
+   "a": [
+    "Tristan Rogers"
+   ],
+   "total_ms": 19.731458043679595,
+   "embed_ms": 1.59,
+   "hnsw_ms": 4.76,
+   "search_ms": 19.23,
+   "wiki_ms": 12.71,
+   "link_ms": 0.4255829844623804,
+   "passage_ms": 0.0,
+   "card_ms": 0.0,
+   "ctx_hit": false,
+   "n_src": 0,
+   "kinds": [],
+   "top": 0.722
+  },
+  {
+   "q": "how many indian astronauts have gone to space",
+   "a": [
+    "2"
+   ],
+   "total_ms": 26.114583015441895,
+   "embed_ms": 1.13,
+   "hnsw_ms": 7.19,
+   "search_ms": 23.47,
+   "wiki_ms": 14.87,
+   "link_ms": 0.4099999787285924,
+   "passage_ms": 0.8693753043189645,
+   "card_ms": 1.2192090507596731,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.836
+  },
+  {
+   "q": "what is the width of a cricket bat",
+   "a": [
+    "no more than 4.25 inches"
+   ],
+   "total_ms": 25.814708904363215,
+   "embed_ms": 1.26,
+   "hnsw_ms": 8.25,
+   "search_ms": 23.39,
+   "wiki_ms": 13.64,
+   "link_ms": 0.527750002220273,
+   "passage_ms": 0.8432507747784257,
+   "card_ms": 0.9299169760197401,
+   "ctx_hit": false,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.879
+  },
+  {
+   "q": "why did ric flair go back to wcw",
+   "a": [
+    "February 1993"
+   ],
+   "total_ms": 20.35779203288257,
+   "embed_ms": 1.09,
+   "hnsw_ms": 6.14,
+   "search_ms": 17.36,
+   "wiki_ms": 9.92,
+   "link_ms": 1.0705419117584825,
+   "passage_ms": 0.7716661784797907,
+   "card_ms": 1.0333339450880885,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.773
+  },
+  {
+   "q": "who plays manny in diary of a wimpy kid",
+   "a": [
+    "Connor and Owen Fielding",
+    "Wyatt and Dylan Walters"
+   ],
+   "total_ms": 21.91229199524969,
+   "embed_ms": 1.39,
+   "hnsw_ms": 6.5,
+   "search_ms": 19.52,
+   "wiki_ms": 11.31,
+   "link_ms": 1.1903749546036124,
+   "passage_ms": 0.3307501319795847,
+   "card_ms": 0.7129180012270808,
+   "ctx_hit": false,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.815
+  },
+  {
+   "q": "where does the light reaction of photosynthesis occur",
+   "a": [
+    "on the thylakoid membranes"
+   ],
+   "total_ms": 18.66520894691348,
+   "embed_ms": 1.53,
+   "hnsw_ms": 5.66,
+   "search_ms": 16.11,
+   "wiki_ms": 8.69,
+   "link_ms": 0.5663749761879444,
+   "passage_ms": 0.949458684772253,
+   "card_ms": 0.8703330531716347,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "web",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.853
+  },
+  {
+   "q": "who has the most super bowls in nfl history",
+   "a": [
+    "Pittsburgh Steelers",
+    "The Pittsburgh Steelers"
+   ],
+   "total_ms": 22.791582974605262,
+   "embed_ms": 1.33,
+   "hnsw_ms": 6.16,
+   "search_ms": 19.73,
+   "wiki_ms": 12.05,
+   "link_ms": 0.6596669554710388,
+   "passage_ms": 1.0391263058409095,
+   "card_ms": 1.1946660233661532,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.846
+  },
+  {
+   "q": "who has appeared in the most royal rumbles",
+   "a": [
+    "Shawn Michaels"
+   ],
+   "total_ms": 19.19545908458531,
+   "embed_ms": 1.27,
+   "hnsw_ms": 5.54,
+   "search_ms": 16.79,
+   "wiki_ms": 9.74,
+   "link_ms": 0.5488750757649541,
+   "passage_ms": 0.9590421104803681,
+   "card_ms": 0.778959016315639,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.8
+  },
+  {
+   "q": "where did they film the game of thrones",
+   "a": [
+    "Croatia",
+    "Iceland",
+    "Canada",
+    "Spain",
+    "Morocco",
+    "Malta",
+    "Scotland",
+    "United States",
+    "Northern Ireland"
+   ],
+   "total_ms": 16.59095799550414,
+   "embed_ms": 1.11,
+   "hnsw_ms": 6.1,
+   "search_ms": 15.42,
+   "wiki_ms": 7.95,
+   "link_ms": 0.2689589746296406,
+   "passage_ms": 0.6100410828366876,
+   "card_ms": 0.21216797176748514,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.875
+  },
+  {
+   "q": "where did the last name taylor originate from",
+   "a": [
+    "Old French"
+   ],
+   "total_ms": 52.254708018153906,
+   "embed_ms": 1.09,
+   "hnsw_ms": 8.02,
+   "search_ms": 37.0,
+   "wiki_ms": 27.42,
+   "link_ms": 5.067707970738411,
+   "passage_ms": 2.1393749630078673,
+   "card_ms": 7.943501113913953,
+   "ctx_hit": true,
+   "n_src": 3,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.867
+  },
+  {
+   "q": "american horror story freak show girl kidnapped by clown",
+   "a": [
+    "Bonnie Lipton"
+   ],
+   "total_ms": 43.9649160252884,
+   "embed_ms": 1.02,
+   "hnsw_ms": 5.15,
+   "search_ms": 38.63,
+   "wiki_ms": 32.24,
+   "link_ms": 0.9259579237550497,
+   "passage_ms": 0.0,
+   "card_ms": 4.339332925155759,
+   "ctx_hit": false,
+   "n_src": 1,
+   "kinds": [
+    "wikidata"
+   ],
+   "top": 0.711
+  },
+  {
+   "q": "who won the most mvp awards in the nba",
+   "a": [
+    "Kareem Abdul-Jabbar"
+   ],
+   "total_ms": 57.807749952189624,
+   "embed_ms": 1.04,
+   "hnsw_ms": 4.54,
+   "search_ms": 55.39,
+   "wiki_ms": 49.55,
+   "link_ms": 0.33054198138415813,
+   "passage_ms": 0.9676252957433462,
+   "card_ms": 0.910583883523941,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.853
+  },
+  {
+   "q": "who plays sven in the santa clarita diet",
+   "a": [
+    "Leo Howard"
+   ],
+   "total_ms": 18.328582984395325,
+   "embed_ms": 1.3,
+   "hnsw_ms": 4.12,
+   "search_ms": 17.58,
+   "wiki_ms": 11.97,
+   "link_ms": 0.550583004951477,
+   "passage_ms": 0.14141597785055637,
+   "card_ms": 0.0,
+   "ctx_hit": false,
+   "n_src": 1,
+   "kinds": [
+    "wikidata"
+   ],
+   "top": 0.755
+  },
+  {
+   "q": "who is the current cruiserweight champion in wwe",
+   "a": [
+    "Cedric Alexander",
+    "Cedric Alexander,"
+   ],
+   "total_ms": 16.805500024929643,
+   "embed_ms": 0.94,
+   "hnsw_ms": 3.72,
+   "search_ms": 14.58,
+   "wiki_ms": 9.78,
+   "link_ms": 0.3211670555174351,
+   "passage_ms": 0.8639158913865685,
+   "card_ms": 0.992625136859715,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.799
+  },
+  {
+   "q": "who did corbin dance with on dancing with the stars",
+   "a": [
+    "Karina Smirnoff"
+   ],
+   "total_ms": 16.440666979178786,
+   "embed_ms": 0.88,
+   "hnsw_ms": 3.83,
+   "search_ms": 14.36,
+   "wiki_ms": 9.52,
+   "link_ms": 1.6499159391969442,
+   "passage_ms": 0.0,
+   "card_ms": 0.38795790169388056,
+   "ctx_hit": false,
+   "n_src": 1,
+   "kinds": [
+    "wikidata"
+   ],
+   "top": 0.744
+  },
+  {
+   "q": "who abolished the monarchy and declared france a republic",
+   "a": [
+    "Convention",
+    "France's Legislative Assembly"
+   ],
+   "total_ms": 16.720833955332637,
+   "embed_ms": 0.94,
+   "hnsw_ms": 3.43,
+   "search_ms": 14.47,
+   "wiki_ms": 9.89,
+   "link_ms": 0.6275840569287539,
+   "passage_ms": 0.8077931124716997,
+   "card_ms": 0.7444998482242227,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.842
+  },
+  {
+   "q": "who plays harley quinn in the lego batman movie",
+   "a": [
+    "Jenny Slate"
+   ],
+   "total_ms": 16.479916987009346,
+   "embed_ms": 1.03,
+   "hnsw_ms": 4.29,
+   "search_ms": 13.52,
+   "wiki_ms": 8.03,
+   "link_ms": 1.2087500654160976,
+   "passage_ms": 0.8083321154117584,
+   "card_ms": 0.8723329519852996,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.856
+  },
+  {
+   "q": "how many different kinds of pokemon cards are there",
+   "a": [
+    "eleven"
+   ],
+   "total_ms": 16.334625077433884,
+   "embed_ms": 0.99,
+   "hnsw_ms": 4.43,
+   "search_ms": 14.2,
+   "wiki_ms": 8.62,
+   "link_ms": 0.4266249015927315,
+   "passage_ms": 0.7300400175154209,
+   "card_ms": 0.9057919960469007,
+   "ctx_hit": false,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.829
+  },
+  {
+   "q": "what is australia's location in the world and region",
+   "a": [
+    "Oceania"
+   ],
+   "total_ms": 18.6225000070408,
+   "embed_ms": 1.07,
+   "hnsw_ms": 4.25,
+   "search_ms": 17.43,
+   "wiki_ms": 11.98,
+   "link_ms": 0.31724991276860237,
+   "passage_ms": 0.5835833726450801,
+   "card_ms": 0.23150001652538776,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "web",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.87
+  },
+  {
+   "q": "batman and robin episode only fools and horses",
+   "a": [
+    "\"Heroes and Villains\""
+   ],
+   "total_ms": 22.193958051502705,
+   "embed_ms": 1.02,
+   "hnsw_ms": 6.84,
+   "search_ms": 20.54,
+   "wiki_ms": 12.51,
+   "link_ms": 0.9755420032888651,
+   "passage_ms": 0.11520797852426767,
+   "card_ms": 0.48600102309137583,
+   "ctx_hit": true,
+   "n_src": 2,
+   "kinds": [
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.755
+  },
+  {
+   "q": "who won the 30 man royal rumble match",
+   "a": [
+    "Shinsuke Nakamura",
+    "Randy Orton"
+   ],
+   "total_ms": 14.876874978654087,
+   "embed_ms": 1.05,
+   "hnsw_ms": 4.71,
+   "search_ms": 12.97,
+   "wiki_ms": 7.08,
+   "link_ms": 0.733708031475544,
+   "passage_ms": 0.49220898654311895,
+   "card_ms": 0.5735409213230014,
+   "ctx_hit": true,
+   "n_src": 5,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki",
+    "wikidata"
+   ],
+   "top": 0.811
+  },
+  {
+   "q": "who is the supreme justice of the supreme court",
+   "a": [
+    "John Roberts"
+   ],
+   "total_ms": 21.634125034324825,
+   "embed_ms": 1.98,
+   "hnsw_ms": 5.08,
+   "search_ms": 18.78,
+   "wiki_ms": 11.54,
+   "link_ms": 1.3264170847833157,
+   "passage_ms": 0.8063321001827717,
+   "card_ms": 0.6407490000128746,
+   "ctx_hit": true,
+   "n_src": 4,
+   "kinds": [
+    "wiki",
+    "wiki",
+    "wiki",
+    "wiki"
+   ],
+   "top": 0.804
+  }
+ ]
+}

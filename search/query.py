@@ -74,9 +74,14 @@ class Engine:
         self.t_meta = time.perf_counter() - t0
         self.emb.encode(["warmup query"], is_query=True)
 
-    def search(self, query: str, k: int = 10, overfetch: int = 3, snippets: bool = True) -> dict:
+    def embed(self, query: str) -> np.ndarray:
+        return self.emb.encode([query], is_query=True).astype(np.float32)[0]
+
+    def search(self, query: str, k: int = 10, overfetch: int = 3, snippets: bool = True,
+               qv: np.ndarray | None = None) -> dict:
+        """qv: the query's vector if the caller already has it (it searches a second index with the same one)."""
         t0 = time.perf_counter()
-        qv = self.emb.encode([query], is_query=True).astype(np.float32)
+        qv = (self.embed(query) if qv is None else qv)[None, :]
         t1 = time.perf_counter()
         scores, ids = self.searcher.search(qv, k * overfetch)
         t2 = time.perf_counter()
@@ -153,7 +158,11 @@ def main():
             q = req.query.get("q", "")
             k = int(req.query.get("k", args.k))
             return web.json_response(eng.search(q, k))
-        app = web.Application(); app.router.add_get("/search", handle)
+        page = os.path.join(os.path.dirname(__file__), "web", "index.html")
+
+        async def home(req):
+            return web.FileResponse(page)
+        app = web.Application(); app.router.add_get("/search", handle); app.router.add_get("/", home)
         web.run_app(app, port=args.port, print=lambda *a: print(f"serving on :{args.port}", flush=True))
 
 
