@@ -281,10 +281,10 @@ def plan(st: Store, pages: list[dict]) -> dict:
 
 def commit(prefix: str, parts: str, p: dict, vecs: np.ndarray) -> int:
     """Append new passages + tombstones in the same layout `search.wiki index` writes (state file last)."""
-    from .ann import IVF_DIR
-    # With the shared IVF (search.ann), readers index rows appended after its build themselves, so only the row
-    # files change here; the legacy single-file .ivf is maintained only when that index does not exist.
-    legacy = not os.path.exists(os.path.join(IVF_DIR, "meta.json"))
+    from .ann import built_sources
+    # With the shared IVF (search.ann) built over Wikipedia, readers index rows appended after its build themselves,
+    # so only the row files change here; the legacy single-file .ivf is maintained only without it.
+    legacy = "wiki" not in built_sources()
     lock = index_lock(prefix)
     try:
         s = _load_state(prefix)
@@ -292,7 +292,7 @@ def commit(prefix: str, parts: str, p: dict, vecs: np.ndarray) -> int:
         sync_pageids(prefix, parts, s)
         n0 = s["n"]
         index = None
-        if legacy:
+        if legacy and os.path.exists(prefix + ".ivf"):  # (a missing one is built by `search.wiki index`)
             import faiss
             index = faiss.read_index(prefix + ".ivf")
             legacy_ivf_sync(index, prefix, n0)

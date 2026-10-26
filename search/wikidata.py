@@ -23,12 +23,14 @@ import re
 import sqlite3
 import subprocess
 import sys
-import threading
 import time
+from contextlib import contextmanager
 
 import numpy as np
 import orjson
 import xxhash
+
+from .query import in_sorted
 
 RAW = "data/wiki/raw"
 NT = RAW + "/wikidata-truthy.nt.bz2"
@@ -307,32 +309,33 @@ def build_card_rows(titles_path: str = "data/wiki/index/wiki.titles.txt", out: s
     print(f"card rows: {len(off) - 1:,} title rows, {off[-1] / 1e9:.2f} GB in {time.time() - t0:.0f}s", flush=True)
 
 
-def _card_rows_key(titles_path: str, size: int) -> dict:
+def _card_rows_key(titles_path: str, size: int, db: str = DB) -> dict:
     """What a card-row store was built from: the Wikidata DB, and the titles file's first `size` bytes (rows only ever
     get appended, so a rebuilt or reordered index shows up as a different hash of that prefix)."""
     with open(titles_path, "rb") as f:
         head = f.read(min(size, 1 << 20))
         f.seek(max(0, size - (1 << 20))); tail = f.read(min(size, 1 << 20))
-    return {"db_mtime": os.path.getmtime(DB), "titles_bytes": size,
+    return {"db_mtime": os.path.getmtime(db), "titles_bytes": size,
             "titles_hash": xxhash.xxh3_64_hexdigest(head + tail)}
 
 
 class Cards:
     """Read side used by the chat server: card for a Wikipedia title, and exact-name entity lookup on the query."""
 
-    def __init__(self, path: str = DB):
+    def __init__(self, path: str = DB, titles: str = "data/wiki/index/wiki.titles.txt"):
         self.ok, self.path = os.path.exists(path), path
-        self._local = threading.local()
-        if self.ok:
-            self.names_h = self.name_hashes(path)
+        self._free: list[sqlite3.Connection] = []  # idle read-only connections (see _db)
         self.rows_off = None
-        titles = "data/wiki/index/wiki.titles.txt"
-        if os.path.exists(CARD_ROWS + ".json") and os.path.exists(titles):
-            key = json.load(open(CARD_ROWS + ".json"))
-            if os.path.getsize(titles) >= key["titles_bytes"] and _card_rows_key(titles, key["titles_bytes"]) == key:
+        if not self.ok:
+            return
+        self.names_h = self.name_hashes(path)
+        rows = path + ".rows"
+        if os.path.exists(rows + ".json") and os.path.exists(titles):
+            key = json.load(open(rows + ".json"))
+            if os.path.getsize(titles) >= key["titles_bytes"] and _card_rows_key(titles, key["titles_bytes"], path) == key:
                 from .ann import Blob
-                self.rows_off = np.load(CARD_ROWS + ".off.npy")
-                self.rows_blob = Blob(CARD_ROWS + ".bin")
+                self.rows_off = np.load(rows + ".off.npy")
+                self.rows_blob = Blob(rows + ".bin")
             else:  # built for another index or DB: SQLite lookups until `search.wikidata card-rows` is rerun
                 print("[wikidata] card-row store is stale, using SQLite", flush=True)
 
@@ -343,9 +346,7 @@ class Cards:
         if off is None:
             return [self.card(t) for t in titles]
         inside = [d is not None and 0 <= d < len(off) - 1 for d in rows]
-        for d, ok in zip(rows, inside):
-            if ok:
-                self.rows_blob.prefetch(int(off[d]), int(off[d + 1] - off[d]))
+        self.rows_blob.prefetch((int(off[d]), int(off[d + 1] - off[d])) for d, ok in zip(rows, inside) if ok)
         out = []
         for d, t, ok in zip(rows, titles, inside):
             if ok:
@@ -355,13 +356,19 @@ class Cards:
                 out.append(self.card(t))
         return out
 
-    @property
-    def db(self) -> sqlite3.Connection:
-        """One read-only connection per thread: a shared connection serializes every lookup on its mutex."""
-        c = getattr(self._local, "db", None)
-        if c is None:
-            c = self._local.db = sqlite3.connect(f"file:{self.path}?mode=ro", uri=True, check_same_thread=False)
-        return c
+    @contextmanager
+    def _db(self):
+        """A read-only connection to itself for the duration: a shared one serializes every lookup on its mutex, and
+        one per thread is opened cold on every request (the HTTP server runs each request on a new thread). Idle
+        connections are kept, so their page caches stay warm."""
+        try:
+            c = self._free.pop()
+        except IndexError:
+            c = sqlite3.connect(f"file:{self.path}?mode=ro", uri=True, check_same_thread=False)
+        try:
+            yield c
+        finally:
+            self._free.append(c)
 
     @staticmethod
     def name_hashes(path: str = DB) -> np.ndarray:
@@ -378,12 +385,14 @@ class Cards:
     def get(self, title: str) -> tuple[int, str] | None:
         if not self.ok:
             return None
-        return self.db.execute("SELECT qid, card FROM cards WHERE title=?", (title,)).fetchone()
+        with self._db() as db:
+            return db.execute("SELECT qid, card FROM cards WHERE title=?", (title,)).fetchone()
 
     def card(self, title: str) -> str | None:
         if not self.ok:
             return None
-        r = self.db.execute("SELECT card FROM cards WHERE title=?", (title,)).fetchone()
+        with self._db() as db:
+            r = db.execute("SELECT card FROM cards WHERE title=?", (title,)).fetchone()
         return r[0] if r else None
 
     def link(self, query: str, max_n: int = 6, k: int = 2) -> list[str]:
@@ -403,16 +412,16 @@ class Cards:
                 cand.append((i, n, gram))
         if not cand:
             return []
-        hs = np.fromiter((xxhash.xxh3_64_intdigest(g.encode()) for _, _, g in cand), np.uint64, len(cand))
-        pos = np.minimum(np.searchsorted(self.names_h, hs), len(self.names_h) - 1)
-        is_name = self.names_h[pos] == hs
+        is_name = in_sorted(self.names_h, np.fromiter((xxhash.xxh3_64_intdigest(g.encode()) for _, _, g in cand),
+                                                      np.uint64, len(cand)))
         found, covered = [], set()
-        for (i, n, gram), hit in zip(cand, is_name):
-            if not hit or any(j in covered for j in range(i, i + n)):
-                continue
-            r = self.db.execute("SELECT title FROM names WHERE name=? ORDER BY bytes DESC LIMIT 1", (gram,)).fetchone()
-            if r and r[0] not in found:
-                found.append(r[0]); covered.update(range(i, i + n))
+        with self._db() as db:
+            for (i, n, gram), hit in zip(cand, is_name):
+                if not hit or any(j in covered for j in range(i, i + n)):
+                    continue
+                r = db.execute("SELECT title FROM names WHERE name=? ORDER BY bytes DESC LIMIT 1", (gram,)).fetchone()
+                if r and r[0] not in found:
+                    found.append(r[0]); covered.update(range(i, i + n))
         return found[:k]
 
 

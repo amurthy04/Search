@@ -17,13 +17,14 @@ by the share of the index scanned (~1.5% for 95% of the true top 10) more than b
 (192 sub-vectors of 2 dimensions, 4 bits each: 96 B/vector) keeps the true top 10 inside the best ~100 candidates,
 where PQ96x4 (48 B) does not.
 
-Rows appended after a build (the hourly Wikipedia updates) are encoded into an in-memory delta shard when the
-reader loads or reloads, so writers never touch the index files. Rebuild once the delta grows large.
+Rows appended after a build (the hourly Wikipedia updates) are encoded into delta segments when the reader loads
+or reloads, so writers never touch the index files. Rebuild once the delta grows large.
 """
 from __future__ import annotations
 
 import argparse
 import json
+import math
 import mmap
 import os
 import threading
@@ -37,6 +38,33 @@ DIM = 384
 WIKI_F16 = "data/wiki/index/wiki.f16"
 WIKI_STATE = "data/wiki/index/wiki.state.json"
 WEB_EMB = "data/index/emb_all.npy"
+
+
+def built_sources(d: str = IVF_DIR) -> set[str]:
+    """Sources the index in `d` was built over (empty if there is none)."""
+    mp = os.path.join(d, "meta.json")
+    return set(json.load(open(mp))["sources"]) if os.path.exists(mp) else set()
+
+
+def will_need(mm, ranges):
+    """Request the pages of every (offset, length) range at once (MADV_WILLNEED), so random reads that follow are
+    served together instead of one SSD trip after another. Ranges past the end of the mapping are clipped."""
+    pg, size = mmap.PAGESIZE, len(mm)
+    for off, length in ranges:
+        end = min(off + length, size)
+        if off < end:
+            b = off - off % pg
+            mm.madvise(mmap.MADV_WILLNEED, b, end - b)
+
+
+def tail_merge(segs: list[tuple[int, int]], unit: int, fan_in: int = 4) -> int:
+    """Size-tiered merging (like an LSM tree): the newest `fan_in` segments become one while they are on the same
+    size level (level = log_fan_in(rows / unit)), so each row is re-encoded O(log n) times. Returns how many of the
+    newest segments to merge now (0 or fan_in)."""
+    if len(segs) < fan_in:
+        return 0
+    lv = {int(math.log(max(1.0, (b - a) / unit), fan_in)) for a, b in segs[-fan_in:]}
+    return fan_in if len(lv) == 1 else 0
 
 
 class Rows:
@@ -59,11 +87,7 @@ class Rows:
         self.a = np.frombuffer(self.mm, dtype=np.float16, count=self.n * DIM, offset=off).reshape(self.n, DIM)
 
     def prefetch(self, ids: np.ndarray):
-        pg = mmap.PAGESIZE
-        for i in ids:
-            o = self.off + int(i) * DIM * 2
-            b = o - o % pg
-            self.mm.madvise(mmap.MADV_WILLNEED, b, o + DIM * 2 - b)
+        will_need(self.mm, ((self.off + int(i) * DIM * 2, DIM * 2) for i in ids))
 
     def get(self, ids: np.ndarray) -> np.ndarray:
         return self.a[ids].astype(np.float32)
@@ -81,10 +105,10 @@ class Blob:
             finally:
                 os.close(fd)
 
-    def prefetch(self, off: int, length: int):
-        if length > 0 and off + length <= len(self.mm):
-            b = off - off % mmap.PAGESIZE
-            self.mm.madvise(mmap.MADV_WILLNEED, b, off + length - b)
+    def prefetch(self, ranges):
+        """ranges: (offset, length) pairs about to be read."""
+        if self.mm:
+            will_need(self.mm, ranges)
 
     def read(self, off: int, length: int) -> bytes:
         return self.mm[off:off + length]
@@ -136,10 +160,6 @@ class IVF:
         for shards in list(self.shards.values()):
             for idx in shards:
                 idx.nprobe = v
-
-    @property
-    def delta_n(self) -> dict[str, int]:
-        return {src: sum(hi - lo for lo, hi, _ in segs) for src, segs in self.delta.items()}
 
     def coarse(self, q: np.ndarray):
         npb = self._nprobe
@@ -209,28 +229,25 @@ class IVF:
             ib = ids[a:a + 65536].copy()  # kept alive: add_preassigned holds only a raw pointer
             add_preassigned(pq, xb, asg, ids=ib)
         fs = faiss.IndexIVFPQFastScan(pq)  # copies the codes; does not own its quantizer
+        fs.referenced_objects = []         # faiss's wrapper keeps `pq` alive with it: a second copy of every code
         fs.quantizer = self._placeholder   # searched preassigned, so the centroids are not needed here
         fs.nprobe = self._nprobe
         return fs
 
     def extend(self, src: str, rows: Rows, n: int) -> int:
         """Make rows [covered, n) of `src` searchable (Wikipedia rows appended by the hourly updates). Rows new since
-        the last call become one more delta segment; past 4 segments they are re-encoded as one, which is saved so
-        the next start loads it. Returns the number of rows added."""
+        the last call become one more delta segment, merged size-tiered (see tail_merge), and every segment is saved
+        so the next start loads them instead of encoding again. Returns the number of rows added."""
         with self._xlock:
-            segs = list(self.delta[src])
-            if not segs:
-                segs = self._load_delta(src, n)
+            segs = list(self.delta[src]) or self._load_delta(src, n)
             hi = segs[-1][1] if segs else self.covered[src]
             added = max(0, n - hi)
             if added:
                 segs.append((hi, n, self.encode(rows.a[hi:n], np.arange(hi, n))))
-            if len(segs) > 4:  # one segment per list scan is cheaper than five
-                lo = self.covered[src]
-                segs = [(lo, n, self.encode(rows.a[lo:n], np.arange(lo, n)))]
-                self._save_delta(src, *segs[0])
-            elif len(segs) == 1 and added and n - segs[0][0] >= 50_000:  # worth keeping across restarts
-                self._save_delta(src, *segs[0])
+                while m := tail_merge([(a, b) for a, b, _ in segs], 16384):
+                    a, b = segs[-m][0], segs[-1][1]
+                    segs[-m:] = [(a, b, self.encode(rows.a[a:b], np.arange(a, b)))]
+                self._save_delta(src, segs)
             if segs != self.delta[src]:
                 with self._dlock:
                     base = self.shards[src][:self.meta["sources"][src]["shards"]]
@@ -238,25 +255,40 @@ class IVF:
                     self.delta[src] = segs
             return added
 
-    def _delta_paths(self, src: str):
-        return os.path.join(self.d, f"{src}.delta.ivf"), os.path.join(self.d, f"{src}.delta.json")
+    def _delta_meta(self, src: str) -> str:
+        return os.path.join(self.d, f"{src}.delta.json")
 
     def _load_delta(self, src: str, n: int) -> list:
-        ip, mp = self._delta_paths(src)
-        if not (os.path.exists(ip) and os.path.exists(mp)):
+        mp = self._delta_meta(src)
+        if not os.path.exists(mp):
             return []
         m = json.load(open(mp))
-        if m.get("built") != self.meta.get("built") or m["lo"] != self.covered[src] or m["hi"] > n:
-            return []  # another build's codes, or rows that are no longer there
-        idx = self.faiss.read_index(ip); idx.nprobe = self._nprobe
-        return [(m["lo"], m["hi"], idx)]
+        if m.get("built") != self.meta.get("built"):
+            return []  # another build's codes
+        out, lo = [], self.covered[src]
+        for seg in m.get("segs", ()):
+            if seg["lo"] != lo or seg["hi"] > n or not os.path.exists(os.path.join(self.d, seg["file"])):
+                break  # keep the contiguous prefix that still matches the row file
+            idx = self.faiss.read_index(os.path.join(self.d, seg["file"])); idx.nprobe = self._nprobe
+            out.append((seg["lo"], seg["hi"], idx)); lo = seg["hi"]
+        return out
 
-    def _save_delta(self, src: str, lo: int, hi: int, idx):
-        ip, mp = self._delta_paths(src)
-        self.faiss.write_index(idx, ip + ".tmp"); os.replace(ip + ".tmp", ip)
-        with open(mp + ".tmp", "w") as f:
-            json.dump({"lo": lo, "hi": hi, "built": self.meta.get("built")}, f)
+    def _save_delta(self, src: str, segs: list):
+        meta = []
+        for lo, hi, idx in segs:
+            f = f"{src}.delta.{lo}-{hi}.ivf"
+            path = os.path.join(self.d, f)
+            if not os.path.exists(path):
+                self.faiss.write_index(idx, path + ".tmp"); os.replace(path + ".tmp", path)
+            meta.append({"lo": lo, "hi": hi, "file": f})
+        mp = self._delta_meta(src)
+        with open(mp + ".tmp", "w") as fh:
+            json.dump({"built": self.meta.get("built"), "segs": meta}, fh)
         os.replace(mp + ".tmp", mp)
+        keep = {m["file"] for m in meta}
+        for f in os.listdir(self.d):
+            if f.startswith(f"{src}.delta.") and f.endswith(".ivf") and f not in keep:
+                os.remove(os.path.join(self.d, f))
 
     def add_segment(self, src: str, x: np.ndarray, ids: np.ndarray, replace: int = 0):
         """Append a shard for vectors added at runtime (source `src` need not exist in the build); `replace` drops

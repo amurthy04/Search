@@ -2,7 +2,7 @@
 (greedy, no thinking) -> does the answer contain a gold answer (normalized)?
 
   uv run python bench/answer_eval.py --n 500 --modes ivf none          # new index, and the LLM without retrieval
-  uv run python bench/answer_eval.py --n 500 --modes legacy --ivf /nonexistent
+  uv run python bench/answer_eval.py --n 500 --modes legacy --ivf /nonexistent   # HNSW + legacy wiki .ivf path
 
 Writes bench/results/answers_<mode>.jsonl (question, gold, context sources, answer, hit).
 """
@@ -33,13 +33,17 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--qs", default="data/eval/nq_open_dev.jsonl")
     ap.add_argument("--n", type=int, default=500); ap.add_argument("--offset", type=int, default=0)
-    ap.add_argument("--modes", nargs="+", default=["ivf"], help="ivf | legacy | none (no retrieval) | nolink")
+    ap.add_argument("--modes", nargs="+", default=["ivf"],
+                    help="ivf | legacy (needs --ivf pointing at a missing dir) | none (no retrieval) | nolink")
     ap.add_argument("--ivf", default="data/ivf"); ap.add_argument("--max-tokens", type=int, default=64)
     ap.add_argument("--model", default=os.path.expanduser("~/models/Qwen3-0.6B-mlx-4bit"))
     ap.add_argument("--variants", default='[{}]', help='JSON list of {"urls", "k_ctx", "thr", "system"} overrides')
     a = ap.parse_args()
     rows = [json.loads(l) for l in open(a.qs)][a.offset:a.offset + a.n]
     live = chat.LiveIndex(ivf_dir=a.ivf)
+    for m in a.modes:  # the index is chosen by --ivf; the mode names only label the output
+        assert (m == "legacy") == (live.ivf is None) or m in ("none", "nolink"), \
+            f"--modes {m} with --ivf {a.ivf}: legacy needs a missing --ivf dir, ivf an existing one"
     while getattr(live.tiers, "busy", False) or getattr(live.tiers, "sealing", False):
         time.sleep(0.5)
     llm = chat.LLM(a.model, threading.Event())

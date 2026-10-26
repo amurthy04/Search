@@ -68,8 +68,8 @@ def main():
     else:
         index = faiss.read_index(a.index)
         print(f"{a.index}: {index.ntotal:,} vectors, nlist {index.nlist}, load {time.perf_counter() - t0:.1f}s", flush=True)
-    import mmap
-    fd = os.open(P + ".f16", os.O_RDONLY); mm = mmap.mmap(fd, 0, prot=mmap.PROT_READ); PG = mmap.PAGESIZE
+    from search.ann import Rows
+    rows = Rows(P + ".f16", n)
     if a.hnsw_quantizer and not a.shards:
         cent = index.quantizer.reconstruct_n(0, index.nlist)
         hq = faiss.IndexHNSWFlat(index.d, a.hnsw_quantizer, faiss.METRIC_INNER_PRODUCT)
@@ -93,9 +93,7 @@ def main():
                 ids = ids[dead[ids] == 0] if len(dead) else ids
                 ids.sort()
                 if a.madvise:
-                    for i in ids:
-                        off = int(i) * 768; b0 = off - off % PG
-                        mm.madvise(mmap.MADV_WILLNEED, b0, off + 768 - b0)
+                    rows.prefetch(ids)
                 sc = vecs[ids].astype(np.float32) @ q[j]
                 lat.append((time.perf_counter() - t) * 1e3)
                 top10 = ids[np.argsort(-sc)[:10]]

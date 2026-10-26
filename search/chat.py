@@ -352,7 +352,7 @@ def retrieve(live, fetcher, crawl, message, prev_query, events, k_ctx=4, thr=0.7
     sources, blocks = [], []
     carded = {p[2] for p in picked if p[4] == "wikidata"}
     # a Wikipedia hit carries its article's facts, unless the card itself is already in the context: look the
-    # cards up in parallel (each pool thread has its own SQLite connection)
+    # cards up together (card-row reads requested at once; SQLite only for articles newer than that store)
     row_of = {h["title"]: h.get("doc") for h in res.get("wiki", [])}
     want = []
     for _, _, title, _, kind in picked:

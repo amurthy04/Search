@@ -545,22 +545,29 @@ def _index(a):
     ready = sorted(p[:-4] for p in glob.glob(os.path.join(a.parts, "wiki.*.npy"))
                    if not p.endswith((".offsets.npy", ".tmp.npy")))
     new = [p for p in ready if os.path.basename(p) not in st["parts"]]
-    if not new:
+    from .ann import built_sources
+    # the shared IVF (search.ann) indexes appended rows at read time; without it, the legacy single-file .ivf
+    legacy = "wiki" not in built_sources()
+    if not new and not (legacy and st["n"] and not os.path.exists(WIKI + ".ivf")):
         print("index up to date:", st["n"], "passages"); return
     t0 = time.time()
-    from .ann import IVF_DIR
-    if os.path.exists(os.path.join(IVF_DIR, "meta.json")):
-        index = None  # the shared IVF indexes appended rows at read time (search.ann); only the row files grow
+    if not legacy:
+        index = None  # only the row files grow
     elif os.path.exists(WIKI + ".ivf"):
         index = faiss.read_index(WIKI + ".ivf")
         legacy_ivf_sync(index, WIKI, st["n"])
-    else:  # train the coarse clusters + PQ codebooks on the first parts
-        sample = np.concatenate([np.load(p + ".npy", mmap_mode="r")[::3] for p in new[:4]]).astype(np.float32)
-        sample = sample[np.random.default_rng(0).permutation(len(sample))[:a.nlist * 60]]
+    else:  # train the coarse clusters + PQ codebooks on the rows so far, or the first parts
+        if st["n"]:
+            rows = np.memmap(WIKI + ".f16", dtype=np.float16, mode="r", shape=(st["n"], 384))
+            sample = rows[np.sort(np.random.default_rng(0).choice(st["n"], min(st["n"], a.nlist * 60), replace=False))]
+        else:
+            sample = np.concatenate([np.load(p + ".npy", mmap_mode="r")[::3] for p in new[:4]])
+        sample = sample.astype(np.float32)[np.random.default_rng(0).permutation(len(sample))[:a.nlist * 60]]
         index = faiss.index_factory(384, f"IVF{a.nlist},PQ{a.m}x4fs", faiss.METRIC_INNER_PRODUCT)
         print(f"training IVF{a.nlist},PQ{a.m}x4fs on {len(sample):,} vectors", flush=True)
         index.train(sample)
         print(f"trained in {time.time()-t0:.0f}s", flush=True)
+        legacy_ivf_sync(index, WIKI, st["n"])  # rows written while the shared IVF covered them (ids 0..n-1)
     poffs = [np.load(WIKI + ".poff.npy") if os.path.exists(WIKI + ".poff.npy") else np.zeros(1, np.int64)]
     with open(WIKI + ".f16", "ab") as vf, open(WIKI + ".passages.bin", "ab") as pf, open(WIKI + ".doc.i32", "ab") as df, \
             open(WIKI + ".titles.txt", "ab") as tf, open(WIKI + ".pageid.i64", "ab") as gf:
@@ -591,37 +598,51 @@ def _index(a):
     print(f"index: {st['n']:,} passages, {st['pages']:,} articles ({time.time()-t0:.0f}s)", flush=True)
 
 
-class Titles:
-    """Title row -> title, from titles.txt read as one bytes object plus an index of its newlines (13M Python strings
-    would hold ~1 GB; this is its 290 MB). Built from `prev`, only lines after the first `committed` rows are scanned
-    again: rows past the state file can be cut and rewritten by repair() after a crashed writer."""
+class _Grow:
+    """An append-only array kept in RAM. Items are only ever added past the end, into spare room of the same buffer, so
+    the view of the first items an older snapshot holds never changes, and a reload copies only what is new."""
 
-    def __init__(self, path: str, prev: "Titles | None" = None, committed: int = 0):
-        self.mm = open(path, "rb").read()  # in RAM, not mmapped: cold mmap pages are SSD reads at query time
-        ends = prev.ends[:committed] if prev is not None else np.zeros(0, np.int64)
-        start = int(ends[-1]) + 1 if len(ends) else 0
-        new = np.flatnonzero(np.frombuffer(self.mm, np.uint8, offset=start) == 10) + start if len(self.mm) > start else []
-        self.ends = np.concatenate([ends, np.asarray(new, np.int64)])
+    def __init__(self, dtype):
+        self.buf, self.n = np.empty(0, dtype), 0
+
+    def extend(self, x) -> np.ndarray:
+        m = self.n + len(x)
+        if m > len(self.buf):
+            nb = np.empty(m + m // 16 + 4096, self.buf.dtype); nb[:self.n] = self.buf[:self.n]; self.buf = nb
+        self.buf[self.n:m] = x
+        self.n = m
+        return self.buf[:m]
+
+
+class Titles:
+    """Title row -> title: titles.txt as one byte buffer plus the offset of each row's newline (13M Python strings
+    would hold ~1 GB; this is its 290 MB)."""
+
+    def __init__(self, blob: np.ndarray, ends: np.ndarray):
+        self.blob, self.ends = blob, ends
 
     def __len__(self):
         return len(self.ends)
 
     def __getitem__(self, d: int) -> str:
         a = int(self.ends[d - 1]) + 1 if d else 0
-        return self.mm[a:int(self.ends[d])].decode("utf-8")
+        return self.blob[a:int(self.ends[d])].tobytes().decode("utf-8")
 
 
 class WikiIndex:
     """Read side. `reload()` picks up passages appended by `search.wiki index` / `search.wiki_update` (the state
-    file is written last); everything a search touches is swapped in as one tuple so a concurrent search never mixes
-    old and new.
+    file is written last); everything a search touches is swapped in as one tuple, `s`. A search takes it once and
+    passes it to each call (the `s` arguments), so a concurrent reload never mixes old and new.
 
-    With `ivf` (a search.ann.IVF), candidates come from the shared sharded index and rows appended since its build
-    are encoded into its delta shard on reload; without it, from the single legacy `.ivf` file."""
+    With `ivf` (a search.ann.IVF built over Wikipedia), candidates come from the shared sharded index and rows
+    appended since its build are encoded into its delta segments on reload; without it, from the single legacy
+    `.ivf` file."""
 
     def __init__(self, prefix: str = WIKI, nprobe: int = 64, refine: int = 100, ivf=None):
+        if ivf is not None and "wiki" not in ivf.covered:
+            ivf = None
         self.prefix, self.nprobe, self.refine, self.ivf = prefix, nprobe, refine, ivf
-        self.s = None; self.mtime = 0.0
+        self.s = None; self.mtime = 0.0; self._ram = None
         self.reload()
 
     @property
@@ -633,6 +654,35 @@ class WikiIndex:
         dp = self.prefix + ".dead.u8"
         return max(os.path.getmtime(self.prefix + ".state.json"), os.path.getmtime(dp) if os.path.exists(dp) else 0.0)
 
+    def _in_ram(self, n: int, pages: int):
+        """doc, poff, pageid and titles up to the state file, in RAM (~900 MB): every query reads a few dozen random
+        entries of each, and as mmaps under memory pressure each of those reads is a separate ~50-100 us trip to the
+        SSD. The files only grow, so a reload reads just the rows added since the last one."""
+        p = self.prefix
+        key = os.stat(p + ".doc.i32").st_ino  # a rebuilt index has new files
+        r = self._ram
+        if r is None or r["key"] != key or r["doc"].n > n or r["ends"].n > pages:
+            r = self._ram = {"key": key, "doc": _Grow(np.int32), "poff": _Grow(np.int64), "pageid": _Grow(np.int64),
+                             "blob": _Grow(np.uint8), "ends": _Grow(np.int64)}
+
+        def grow(g, path, count, npy=False):
+            if count > g.n:
+                src = np.load(path, mmap_mode="r") if npy else np.memmap(path, dtype=g.buf.dtype, mode="r")
+                g.extend(src[g.n:count])
+            return g.buf[:g.n]
+        doc = grow(r["doc"], p + ".doc.i32", n)
+        poff = grow(r["poff"], p + ".poff.npy", n + 1, npy=True)
+        pg = p + ".pageid.i64"  # title row -> page id; Wikidata card rows hold -qid (their hits link to Wikidata)
+        pageid = grow(r["pageid"], pg, min(pages, os.path.getsize(pg) // 8)) if os.path.exists(pg) else np.zeros(0, np.int64)
+        blob, ends = r["blob"], r["ends"]
+        if pages > ends.n:  # newlines of the rows added since, found in the bytes after the last known row
+            start = int(ends.buf[ends.n - 1]) + 1 if ends.n else 0
+            tail = np.memmap(p + ".titles.txt", dtype=np.uint8, mode="r")[start:]
+            nl = np.flatnonzero(tail == 10)[:pages - ends.n]
+            ends.extend(nl + start)
+            blob.extend(tail[:int(nl[-1]) + 1] if len(nl) else tail[:0])
+        return doc, poff, pageid, Titles(blob.buf[:blob.n], ends.buf[:ends.n])
+
     def reload(self) -> bool:
         from .ann import Blob, Rows
         sp = self.prefix + ".state.json"
@@ -642,56 +692,55 @@ class WikiIndex:
         st = orjson.loads(open(sp, "rb").read())
         n = st["n"]
         rows = Rows(self.prefix + ".f16", n)
+        index = None
         if self.ivf is not None:
-            if "wiki" in self.ivf.covered:
-                self.ivf.extend("wiki", rows, n)
-            index = None
-        else:
+            self.ivf.extend("wiki", rows, n)
+        elif os.path.exists(self.prefix + ".ivf"):
             import faiss
             index = faiss.read_index(self.prefix + ".ivf")
             index.nprobe = self.nprobe
-        # Small per-row arrays live in RAM (620 MB): every query reads a few dozen random entries of each, and as
-        # mmaps under memory pressure each of those reads is a separate ~50-100 us trip to the SSD.
-        doc = np.fromfile(self.prefix + ".doc.i32", dtype=np.int32, count=n)
-        poff = np.load(self.prefix + ".poff.npy")
+        elif not self.s:
+            print("[wiki] no index over the Wikipedia rows: run `search.ann build` or `search.wiki index`", flush=True)
+        doc, poff, pageid, titles = self._in_ram(n, st["pages"])
         pas = Blob(self.prefix + ".passages.bin")
-        prev = self.s[6] if self.s else None
-        titles = Titles(self.prefix + ".titles.txt", prev, min(st["pages"], self.s_pages if prev is not None else 0))
-        # title row -> page id; Wikidata card rows hold -qid, so their hits link to Wikidata, not to the article
-        pageid = np.fromfile(self.prefix + ".pageid.i64", dtype=np.int64)
         dp = self.prefix + ".dead.u8"  # 1 = passage replaced or removed by search.wiki_update
         dead = np.fromfile(dp, np.uint8) if os.path.exists(dp) else np.zeros(0, np.uint8)
         self.s = (n, index, rows, doc, poff, pas, titles, dead, pageid)
-        self.s_pages = st["pages"]  # title rows the state file covered when `titles` was built
         self.mtime = mtime
         return True
 
-    def candidates(self, qv: np.ndarray) -> np.ndarray:
+    def candidates(self, qv: np.ndarray, s=None) -> np.ndarray:
         """Row ids of the best `refine` passages by compressed-code score."""
-        if not self.s:
-            return np.zeros(0, np.int64)
+        s = s or self.s
         if self.ivf is not None:
             return self.ivf.search(qv, {"wiki": self.refine})[0]["wiki"][0]
-        _, ids = self.s[1].search(qv.reshape(1, -1).astype(np.float32), self.refine)
+        if not s or s[1] is None:
+            return np.zeros(0, np.int64)
+        _, ids = s[1].search(qv.reshape(1, -1).astype(np.float32), self.refine)
         return ids[0]
 
-    def live_ids(self, ids: np.ndarray) -> np.ndarray:
+    def live_ids(self, ids: np.ndarray, s=None) -> np.ndarray:
         """Drop ids past the state file (an index can be one writer run ahead of it) and tombstoned rows."""
-        n, dead = self.s[0], self.s[7]
+        s = s or self.s
+        if not s:
+            return np.zeros(0, np.int64)
+        n, dead = s[0], s[7]
         ids = ids[(ids >= 0) & (ids < n)]
         if len(dead):
             ids = ids[(ids >= len(dead)) | (dead[np.minimum(ids, len(dead) - 1)] == 0)]
         return np.sort(ids)
 
-    def prefetch(self, ids: np.ndarray):
-        if self.s:
-            self.s[2].prefetch(ids)
+    def prefetch(self, ids: np.ndarray, s=None):
+        s = s or self.s
+        if s:
+            s[2].prefetch(ids)
 
-    def hits(self, qv: np.ndarray, ids: np.ndarray, k: int = 8, prefetched: bool = False) -> list[dict]:
+    def hits(self, qv: np.ndarray, ids: np.ndarray, k: int = 8, prefetched: bool = False, s=None) -> list[dict]:
         """Exact re-score of candidate rows on their fp16 vectors, best passage per article."""
-        if not self.s or not len(ids):
+        s = s or self.s
+        if not s or not len(ids):
             return []
-        _, _, rows, doc, _, _, titles, _, pageid = self.s
+        _, _, rows, doc, _, _, titles, _, pageid = s
         if not prefetched:
             rows.prefetch(ids)
         sc = rows.get(ids) @ qv.astype(np.float32)
@@ -709,18 +758,17 @@ class WikiIndex:
                 break
         return out
 
-    def search(self, qv: np.ndarray, k: int = 8) -> list[dict]:
+    def search(self, qv: np.ndarray, k: int = 8, s=None) -> list[dict]:
         """Approximate top-`refine` from the compressed codes, exact re-score on fp16, one passage per article."""
-        if not self.s:
+        s = s or self.s
+        if not s:
             return []
-        return self.hits(qv, self.live_ids(self.candidates(qv)), k)
+        return self.hits(qv, self.live_ids(self.candidates(qv, s), s), k, s=s)
 
     def prefetch_passages(self, pids):
-        if not self.s:
-            return
-        poff, pas = self.s[4], self.s[5]
-        for pid in pids:
-            a = int(poff[pid]); pas.prefetch(a, int(poff[pid + 1]) - a)
+        if self.s:
+            poff, pas = self.s[4], self.s[5]
+            pas.prefetch((int(poff[p]), int(poff[p + 1] - poff[p])) for p in pids)
 
     def passage(self, pid: int, max_chars: int = 700) -> str:
         poff, pas = self.s[4], self.s[5]

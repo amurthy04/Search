@@ -11,7 +11,7 @@ grows with log(live passages) rather than linearly. Segments are cached by conte
 Where vectors come from:
   - live crawl: crawler -> embed_watch (separate processes) -> parts in data/index/parts_live/, tailed here
   - URLs pasted in chat: fetched and embedded in-process on the GPU (latency path, the LLM is idle at that point)
-Runtime additions persist (parts files, data/index/live/delta.*) and are reloaded on start.
+Runtime additions persist (parts files, data/index/live/delta.*) and are reloaded on start, in arrival order.
 
 Placement on Apple silicon: query embeddings on the ANE (32-token graph, 0.7 ms), HNSW + flat search on the CPU,
 passage embeddings on the GPU when the LLM is idle (1,145 passages/s at 256 tokens) or the ANE (258/s) when not.
@@ -22,7 +22,6 @@ import asyncio
 import glob
 import io
 import json
-import math
 import os
 import subprocess
 import sys
@@ -35,6 +34,7 @@ import zstandard as zstd
 
 from .corpus import chunk_text
 from .crawler import USER_AGENT, extract, normalize_url
+from .ann import tail_merge
 from .query import Engine
 
 MODEL = "BAAI/bge-small-en-v1.5"
@@ -176,9 +176,9 @@ class LiveTier:
     Vectors stay in RAM as fp16. The newest rows (fewer than `fresh_max`) are scored exactly, from an fp32 copy kept
     for just those rows; older ones are encoded into IVF segments of the shared index under source "live", searched
     in the same parallel pass as the web and Wikipedia shards and re-scored exactly from this buffer. Segments merge
-    size-tiered (4 on the same size level become one), so encoding work stays O(n log n). Readers take one snapshot
+    size-tiered (search.ann.tail_merge), so encoding work stays O(n log n). Readers take one snapshot
     tuple and never wait on a writer. Segments are saved under `save_dir` and reloaded on restart when the rows, the
-    IVF build and the base row count all still match."""
+    IVF build and the base row count all still match (LiveIndex replays additions in arrival order for that)."""
 
     def __init__(self, ivf, base_n: int, save_dir: str, dim: int = 384, fresh_max: int = 8192, fan_in: int = 4):
         self.ivf, self.start, self.dim, self.fresh_max, self.fan_in = ivf, base_n, dim, fresh_max, fan_in
@@ -284,10 +284,14 @@ class LiveTier:
             self.busy = True
             threading.Thread(target=self._encode, daemon=True, name="live-encode").start()
 
+    def _retry(self):
+        with self.wlock:
+            self._kick()
+
     def _encode(self):
         try:
             while True:
-                buf, n = self.snap[0], self.snap[1]
+                buf, n, *_ = self.snap  # one read: an append can swap in a bigger buffer between two
                 lo = self.encoded
                 if n - lo < self.fresh_max:
                     break
@@ -295,22 +299,19 @@ class LiveTier:
                 with self.wlock:
                     self.segs.append((lo, n)); self.encoded = n
                     self._trim(n)
-                # size-tiered merge: the newest fan_in segments become one while they are on the same size level
-                while len(self.segs) >= self.fan_in and len({self._level(r) for r in self.segs[-self.fan_in:]}) == 1:
-                    a, b = self.segs[-self.fan_in][0], self.segs[-1][1]
-                    self.ivf.add_segment("live", buf[a:b], np.arange(a, b) + self.start, replace=self.fan_in)
-                    self.segs[-self.fan_in:] = [(a, b)]
+                while m := tail_merge(self.segs, self.fresh_max, self.fan_in):
+                    a, b = self.segs[-m][0], self.segs[-1][1]
+                    self.ivf.add_segment("live", buf[a:b], np.arange(a, b) + self.start, replace=m)
+                    self.segs[-m:] = [(a, b)]
                 self._save()
         except Exception as e:  # keep serving from the fresh tier; retry later instead of in a tight loop
             self.failed = time.time()
+            threading.Timer(61, self._retry).start()  # nothing else may append (and kick) for a long time
             print(f"[live] encoding failed, retrying in 60 s: {e!r}", flush=True)
         finally:
             with self.wlock:
                 self.busy = False
                 self._kick()  # rows that arrived while this thread was finishing
-
-    def _level(self, r: tuple[int, int]) -> int:
-        return int(math.log(max(1.0, (r[1] - r[0]) / self.fresh_max), self.fan_in))
 
     def fresh(self, q: np.ndarray, k: int):
         """Exact top-k over rows not in a segment yet."""
@@ -320,8 +321,8 @@ class LiveTier:
             return np.zeros(0, np.float32), np.zeros(0, np.int64)
         if lo >= flo:
             s = f32[lo - flo:n - flo] @ q
-        else:  # (only while a bulk load is still being encoded)
-            s = buf[lo:n].astype(np.float32) @ q
+        else:  # (only while a bulk load is still being encoded) from the fp16 rows, a block at a time
+            s = np.concatenate([buf[a:min(n, a + 65536)].astype(np.float32) @ q for a in range(lo, n, 65536)])
         kk = min(k, len(s))
         top = np.argpartition(-s, kk - 1)[:kk]
         return s[top], (top + lo + self.start).astype(np.int64)
@@ -357,12 +358,13 @@ class LiveIndex:
         else:
             assert self.eng.searcher.idx.ntotal == self.base_n, "index and metadata disagree"
             base = self.eng.searcher
-        # Wikipedia tier (grows while `search.wiki index` / `search.wiki_update` run; reloaded by wiki_reload)
-        self.wiki = WikiIndex(ivf=self.ivf)
+        # Wikipedia tier (grows while `search.wiki index` / `search.wiki_update` run; reloaded by wiki_reload). An IVF
+        # built before Wikipedia was indexed leaves it on the legacy single-file index.
+        self.wiki = WikiIndex(ivf=self.ivf if self.ivf is not None and "wiki" in self.ivf.covered else None)
         # candidates re-scored exactly per query. On 1,000 NQ questions, 64 Wikipedia + 24 web candidates put the answer
         # in the context as often as 100 + 48 (63.9%) and save ~0.6 ms of random reads (bench/retrieval.py --sweep)
         self.web_refine = 24
-        self.wiki.refine = 64 if self.ivf is not None else self.wiki.refine
+        self.wiki.refine = 64 if self.wiki.ivf is not None else self.wiki.refine
         self.cards = Cards()     # Wikidata fact cards + exact-name entity lookup
         if self.ivf is not None:
             self.tiers = LiveTier(self.ivf, self.base_n, os.path.join(live_dir, "ivf"))
@@ -378,7 +380,10 @@ class LiveIndex:
 
         self.ane_free = threading.Event(); self.ane_free.set()
         self.last_query = time.time()
-        for q in ("warm up the neural engine", "a second warmup query", "and a third one"):
+        # (the last is over 32 tokens: it compiles the 64-token graph now instead of on a user's first long question)
+        for q in ("warm up the neural engine", "a second warmup query", "and a third one",
+                  "a longer warmup question that runs past thirty-two tokens, so the second query graph, built for "
+                  "questions of up to sixty-four tokens, gets its first predict before any user asks one"):
             self.eng.emb.encode([q], is_query=True)
         for emb in (self.ingest_gpu, self.ingest_ane):  # first predict on each graph compiles it (~150 ms)
             emb.encode(["warm up passage encoder"] * ingest_batch)
@@ -392,8 +397,7 @@ class LiveIndex:
         self.stats = {"live_passages": 0, "live_pages": 0, "ingest_pps": 0.0, "last_ingest": None, "ingest_unit": None}
         if isinstance(self.tiers, LiveTier):
             self.tiers.hold = True
-        self._load_delta()
-        self.load_parts()
+        self._replay()
         if isinstance(self.tiers, LiveTier):
             self.tiers.release()
         self.t_load = time.perf_counter() - t0
@@ -409,24 +413,31 @@ class LiveIndex:
         finally:
             self.last_query = time.time()
             self.ane_free.set()
+        ws = self.wiki.s  # one Wikipedia snapshot for the whole search: a reload may swap in another meanwhile
         if self.ivf is None:
             res = self.eng.search(query, k, qv=qv, snippets=snippets)
             t2 = time.perf_counter()
-            res["wiki"] = self.wiki.search(qv, k)
+            res["wiki"] = self.wiki.search(qv, k, ws)
         else:
             # one coarse pass, then the web and Wikipedia shards and the live tier all scan in parallel
             kw = k * overfetch
-            cand, (fresh,) = self.ivf.search(qv, {"wiki": self.wiki.refine, "web": self.web_refine, "live": self.web_refine},
-                                             extra=[lambda: self.tiers.fresh(qv, kw)])
-            wiki_ids = self.wiki.live_ids(cand["wiki"][0]) if self.wiki.s else np.zeros(0, np.int64)
+            web_k = max(self.web_refine, kw)
+            want = {"web": web_k, "live": web_k}
+            extra = [lambda: self.tiers.fresh(qv, kw)]
+            if self.wiki.ivf is not None:
+                want["wiki"] = self.wiki.refine
+            else:
+                extra.append(lambda: self.wiki.candidates(qv, ws))
+            cand, (fresh, *wc) = self.ivf.search(qv, want, extra=extra)
+            wiki_ids = self.wiki.live_ids(wc[0] if wc else cand["wiki"][0], ws)
             web_ids, live_ids = np.sort(cand["web"][0]), cand["live"][0]
-            self.wiki.prefetch(wiki_ids); self.web_rows.prefetch(web_ids)  # both sources' reads in flight together
+            self.wiki.prefetch(wiki_ids, ws); self.web_rows.prefetch(web_ids)  # both sources' reads in flight together
             D = np.concatenate([self.web_rows.get(web_ids) @ qv, self.tiers.rows(live_ids) @ qv, fresh[0]])
             I = np.concatenate([web_ids, live_ids, fresh[1]])
             o = np.argsort(-D)[:kw]
             res = self.eng.collect(query, D[o], I[o], k, snippets)
             t2 = time.perf_counter()
-            res["wiki"] = self.wiki.hits(qv, wiki_ids, k, prefetched=True)
+            res["wiki"] = self.wiki.hits(qv, wiki_ids, k, prefetched=True, s=ws)
         t3 = time.perf_counter()
         res["t_ms"] = {**res["t_ms"], "embed": (t1 - t0) * 1e3, "search": (t2 - t1) * 1e3, "wiki": (t3 - t2) * 1e3,
                        "total": (t3 - t0) * 1e3}
@@ -537,15 +548,49 @@ class LiveIndex:
                 out.append({"url": url, "title": title, "texts": ts, "vecs": v, "new": new})
             if add_v:
                 self._append(np.concatenate(add_v), add_m, add_t, persist_src=src)
+                self._log(f"d {len(add_t)}")
         self.stats["ingest_pps"] = round(len(texts) / (time.perf_counter() - t0), 1)
         self.stats["live_pages"] += sum(o["new"] for o in out)
         self.stats["last_ingest"] = time.time()
         return out
 
-    def _load_delta(self):
+    # ------------------------------------------------------------------ restart: additions in arrival order
+    # Pasted pages (delta.*) and crawl parts arrive interleaved. order.log records that order ("d <rows>" for rows of
+    # delta.f16, "p <part>" for a part), and a restart replays it, so every passage gets back its row position and
+    # the saved live segments (LiveTier) still match their rows.
+
+    def _log(self, line: str):  # caller holds self.wlock, so lines are in append order
+        with open(os.path.join(self.live_dir, "order.log"), "a") as f:
+            f.write(line + "\n")
+
+    def _read_log(self) -> list[tuple[str, str]]:
+        lp = os.path.join(self.live_dir, "order.log")
+        if not os.path.exists(lp):
+            return []
+        b = open(lp, "rb").read()
+        if b and not b.endswith(b"\n"):  # a torn last line: cut it, or the next line would be glued to it
+            b = b[:b.rindex(b"\n") + 1] if b"\n" in b else b""
+            os.truncate(lp, len(b))
+        return [tuple(l.split(" ", 1)) for l in b.decode().splitlines() if " " in l]
+
+    def _replay(self):
+        rows, vecs = self._read_delta()
+        used = 0
+        for kind, arg in self._read_log():
+            if kind == "d":
+                c = min(int(arg), len(rows) - used)
+                if c > 0:
+                    self._add_delta(rows[used:used + c], vecs[used:used + c]); used += c
+            elif kind == "p" and arg not in self.parts_loaded and self._part_ready(arg):
+                self._load_part(arg, log=False)
+        if used < len(rows):  # rows from before order.log existed (or a crash before their line): appended, logged
+            self._add_delta(rows[used:], vecs[used:], log=True)
+        self.load_parts()
+
+    def _read_delta(self):
         vp, mp = os.path.join(self.live_dir, "delta.f16"), os.path.join(self.live_dir, "delta.jsonl")
         if not (os.path.exists(vp) and os.path.exists(mp)):
-            return
+            return [], np.zeros((0, self.tiers.dim), np.float16)
         rows, ends = [], []  # ends[i]: byte offset just past row i's line
         with open(mp, "rb") as f:
             for line in f:
@@ -560,51 +605,60 @@ class LiveIndex:
             os.truncate(vp, n * dim * 2)
         if os.path.getsize(mp) != (ends[n - 1] if n else 0):
             os.truncate(mp, ends[n - 1] if n else 0)
-        if not n:
-            return
-        rows = rows[:n]
+        return rows[:n], vecs[:n * dim].reshape(n, dim)
+
+    def _add_delta(self, rows: list[dict], vecs: np.ndarray, log: bool = False):
         with self.wlock:
-            self._append(vecs[:n * dim].reshape(n, dim), [(r["u"], r["t"], r["d"]) for r in rows], [r["x"] for r in rows])
+            self._append(vecs, [(r["u"], r["t"], r["d"]) for r in rows], [r["x"] for r in rows])
+            if log:
+                self._log(f"d {len(rows)}")
             self.seen.update(r["u"] for r in rows)
             self.next_doc = max(self.next_doc, max(r["d"] for r in rows) + 1)
-        self.stats["live_pages"] = len({r["u"] for r in rows})
+        self.stats["live_pages"] += len({r["u"] for r in rows})
 
     # ------------------------------------------------------------------ live crawl parts (from embed_watch)
+    @staticmethod
+    def _part_ready(prefix: str) -> bool:
+        """embed_watch writes a part's offsets file last, then drops its .claim."""
+        return os.path.exists(prefix + ".offsets.npy") and not os.path.exists(prefix + ".claim")
+
     def load_parts(self, parts_dir: str = PARTS_LIVE) -> int:
-        """Append every finished embed_watch part not loaded yet. A part is finished once its offsets file exists
-        and its .claim is gone (embed_watch writes the offsets last, then drops the claim)."""
+        """Append every finished embed_watch part not loaded yet."""
         added = 0
         for off_path in sorted(glob.glob(os.path.join(parts_dir, "*.offsets.npy"))):
             prefix = off_path[:-len(".offsets.npy")]
-            if prefix in self.parts_loaded or os.path.exists(prefix + ".claim"):
-                continue
-            t0 = time.perf_counter()
-            vecs = np.load(prefix + ".npy")
-            with open(prefix + ".meta.jsonl.zst", "rb") as fh, zstd.ZstdDecompressor().stream_reader(fh) as r:
-                meta = [orjson.loads(l) for l in io.TextIOWrapper(r, encoding="utf-8") if l.strip()]
-            off = np.load(off_path)
-            raw = open(prefix + ".passages.bin", "rb").read()
-            keep, metas, texts, doc_of = [], [], [], {}
-            with self.wlock:
-                for j, m in enumerate(meta):
-                    u = m["u"]
-                    if u not in doc_of:  # first chunk of this page in the part: is the page new?
-                        if u in self.seen:
-                            doc_of[u] = None
-                        else:
-                            self.seen.add(u); doc_of[u] = self.next_doc; self.next_doc += 1
-                    if doc_of[u] is None:
-                        continue
-                    keep.append(j); metas.append((u, m["t"], doc_of[u]))
-                    texts.append(raw[off[j]:off[j + 1]].decode("utf-8", "ignore"))
-                if keep:
-                    self._append(vecs[keep], metas, texts)
-            self.parts_loaded.add(prefix)
-            self.stats["live_pages"] += sum(1 for v in doc_of.values() if v is not None)
-            if keep:
-                self.stats["last_ingest"] = time.time(); self.stats["ingest_unit"] = "embed_watch"
-            added += len(keep)
+            if prefix not in self.parts_loaded and self._part_ready(prefix):
+                added += self._load_part(prefix)
         return added
+
+    def _load_part(self, prefix: str, log: bool = True) -> int:
+        vecs = np.load(prefix + ".npy")
+        with open(prefix + ".meta.jsonl.zst", "rb") as fh, zstd.ZstdDecompressor().stream_reader(fh) as r:
+            meta = [orjson.loads(l) for l in io.TextIOWrapper(r, encoding="utf-8") if l.strip()]
+        off = np.load(prefix + ".offsets.npy")
+        raw = open(prefix + ".passages.bin", "rb").read()
+        keep, metas, texts, doc_of = [], [], [], {}
+        with self.wlock:
+            for j, m in enumerate(meta):
+                u = m["u"]
+                if u not in doc_of:  # first chunk of this page in the part: is the page new?
+                    if u in self.seen:
+                        doc_of[u] = None
+                    else:
+                        self.seen.add(u); doc_of[u] = self.next_doc; self.next_doc += 1
+                if doc_of[u] is None:
+                    continue
+                keep.append(j); metas.append((u, m["t"], doc_of[u]))
+                texts.append(raw[off[j]:off[j + 1]].decode("utf-8", "ignore"))
+            if keep:
+                self._append(vecs[keep], metas, texts)
+            if log:  # (logged even when every page was already known: the replay makes the same decision)
+                self._log(f"p {prefix}")
+            self.parts_loaded.add(prefix)
+        self.stats["live_pages"] += sum(1 for v in doc_of.values() if v is not None)
+        if keep:
+            self.stats["last_ingest"] = time.time(); self.stats["ingest_unit"] = "embed_watch"
+        return len(keep)
 
     def tail_parts(self, interval: float = 1.0):
         last_t, last_n = time.time(), self.stats["live_passages"]

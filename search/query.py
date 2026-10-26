@@ -84,6 +84,13 @@ def load_meta(prefix: str):
     return StrTable(cache + ".urls"), StrTable(cache + ".titles"), np.load(cache + ".docs.npy")
 
 
+def in_sorted(base: np.ndarray, h: np.ndarray) -> np.ndarray:
+    """Which of the hashes h are in the sorted hash array base."""
+    if not len(base):
+        return np.zeros(len(h), bool)
+    return base[np.minimum(np.searchsorted(base, h), len(base) - 1)] == h
+
+
 class UrlSet:
     """Membership of URLs: the base set as sorted 64-bit hashes (a numpy array, 8 bytes per URL), additions in a
     Python set. Replaces set(urls) over millions of base URLs (~300 MB, seconds to build)."""
@@ -100,13 +107,7 @@ class UrlSet:
         self.extra: set[str] = set()
 
     def __contains__(self, u: str) -> bool:
-        if u in self.extra:
-            return True
-        if not len(self.base):
-            return False
-        h = np.uint64(self._h(u.encode()))
-        i = int(np.searchsorted(self.base, h))
-        return i < len(self.base) and self.base[i] == h
+        return u in self.extra or bool(in_sorted(self.base, np.array([self._h(u.encode())], np.uint64))[0])
 
     def add(self, u: str):
         self.extra.add(u)
@@ -121,22 +122,23 @@ class Passages:
     def __init__(self, prefix: str):
         self.ok = os.path.exists(prefix + ".passages.bin")
         if self.ok:
+            from .ann import Blob
             self.off = np.load(prefix + ".offsets.npy")
-            self.mm = np.memmap(prefix + ".passages.bin", dtype=np.uint8, mode="r")
+            self.blob = Blob(prefix + ".passages.bin")
+
+    def _range(self, i: int, max_chars: int) -> tuple[int, int]:
+        a = int(self.off[i])
+        return a, min(int(self.off[i + 1]), a + max_chars * 4) - a
 
     def prefetch(self, ids, max_chars: int = 700):
         """Ask for these passages' pages all at once (random reads issued together, not one after another)."""
         if self.ok:
-            import mmap
-            for i in ids:
-                a = int(self.off[i]); b0 = a - a % mmap.PAGESIZE
-                self.mm._mmap.madvise(mmap.MADV_WILLNEED, b0, min(int(self.off[i + 1]), a + max_chars * 4) - b0)
+            self.blob.prefetch(self._range(i, max_chars) for i in ids)
 
     def get(self, i: int, max_chars: int = 300) -> str:
         if not self.ok:
             return ""
-        a, b = int(self.off[i]), int(self.off[i + 1])
-        return self.mm[a:min(b, a + max_chars * 4)].tobytes().decode("utf-8", "ignore")[:max_chars]
+        return self.blob.read(*self._range(i, max_chars)).decode("utf-8", "ignore")[:max_chars]
 
 
 class Engine:

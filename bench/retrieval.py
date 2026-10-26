@@ -67,7 +67,8 @@ def main():
     if a.web_refine:
         live.web_refine = a.web_refine
 
-    # time the parts retrieve() doesn't report itself
+    # time the parts retrieve() doesn't report itself. link_ms is time on a pool thread, overlapping the search (it
+    # is not on the latency path unless it outlasts it); card_ms covers the card-row store and its SQLite fallback.
     acc = {"link_ms": 0.0, "passage_ms": 0.0, "card_ms": 0.0}
 
     def timed(fn, key):
@@ -79,7 +80,7 @@ def main():
                 acc[key] += (time.perf_counter() - t) * 1e3
         return w
     live.cards.link = timed(live.cards.link, "link_ms")
-    live.cards.card = timed(live.cards.card, "card_ms")
+    live.cards.cards_for = timed(live.cards.cards_for, "card_ms")
     live.cards.get = timed(live.cards.get, "card_ms")
     live.passage = timed(live.passage, "passage_ms")
     live.wiki.passage = timed(live.wiki.passage, "passage_ms")
